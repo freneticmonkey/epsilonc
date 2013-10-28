@@ -1,0 +1,9 @@
+*.pdb
+*.ilk
+*.sdf
+*.suo
+*.tlog
+*.idb
+
+build/int/*
+project/Debug/*.obj

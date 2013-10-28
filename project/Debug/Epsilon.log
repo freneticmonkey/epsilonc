@@ -1,0 +1,34 @@
+﻿Build started 10/11/2013 9:06:09 PM.
+     1>Project "C:\Dev\Projects\C++\Epsilon\project\Epsilon.vcxproj" on node 2 (LibLinkOnly target(s)).
+     1>Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Dev\Projects\C++\Epsilon\project\\..\build\Debug\Epsilon.exe" /INCREMENTAL /NOLOGO "sfml-main-d.lib" "sfml-graphics-d.lib" "sfml-system-d.lib" "sfml-window-d.lib" "sfgui-d.lib" glew32.lib opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Dev\Projects\C++\Epsilon\project\\..\build\Debug\Epsilon.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Dev\Projects\C++\Epsilon\project\\..\build\Debug\Epsilon.lib" /MACHINE:X86 Debug\EpsilonManager.obj
+         Debug\Event.obj
+         Debug\EventManager.obj
+         Debug\Logging.obj
+         Debug\main.obj
+         Debug\Matrix.obj
+         Debug\Quaternion.obj
+         Debug\Vector.obj
+         Debug\Camera.obj
+         Debug\Mesh.obj
+         Debug\MeshFactory.obj
+         Debug\Renderer.obj
+         Debug\RenderManager.obj
+         Debug\Shader.obj
+         Debug\VertexBuffer.obj
+         Debug\Node.obj
+         Debug\NodeComponent.obj
+         Debug\Scene.obj
+         Debug\SceneManager.obj
+         Debug\Transform.obj
+         Debug\pointerTests.obj
+         Debug\ConsoleWindow.obj
+         Debug\DebugWindow.obj
+         Debug\UIManager.obj
+         LINK : program database C:\Dev\Projects\C++\Epsilon\build\Debug\Epsilon.pdb missing; performing full link
+         Epsilon.vcxproj -> C:\Dev\Projects\C++\Epsilon\project\\..\build\Debug\Epsilon.exe
+     1>Done Building Project "C:\Dev\Projects\C++\Epsilon\project\Epsilon.vcxproj" (LibLinkOnly target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.62
