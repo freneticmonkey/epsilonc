@@ -3,8 +3,6 @@
 #include <iostream>
 #include "utilities/Utilities.h"
 
-#include "glm/gtc/matrix_transform.hpp"
-
 namespace epsilon
 {
 	Shader::Ptr Shader::Create()

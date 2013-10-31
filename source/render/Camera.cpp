@@ -2,8 +2,6 @@
 #include "math/Defines.h"
 #include "math/Matrix.h"
 
-#include "glm/glm.hpp"
-
 namespace epsilon
 {
 	Camera::Ptr Camera::Create()
