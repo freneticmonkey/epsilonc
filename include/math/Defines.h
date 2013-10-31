@@ -12,5 +12,17 @@
 #define PI 3.14159265359f
 #define TWOPI 6.28318530718f
 
+namespace epsilon
+{
+	class Math
+	{
+	public:
+		inline static float DegreesToRadians(float degree)
+		{
+			return degree / 57.2957795f;
+		}
+	};
+}
+
 
 #endif
