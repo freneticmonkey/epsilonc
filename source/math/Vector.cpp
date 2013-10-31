@@ -5,10 +5,10 @@
 
 // VECTOR 2
 
-Vector2::Vector2()
+Vector2::Vector2(float v)
 {
-    x = 0;
-    y = 0;
+    x = v;
+    y = v;
 }
 
 Vector2::Vector2(const Vector2& vec)
@@ -253,11 +253,11 @@ const Vector3 Vector3::UNIT_X(1.f, 0.f, 0.f);
 const Vector3 Vector3::UNIT_Y(0.f, 1.f, 0.f);
 const Vector3 Vector3::UNIT_Z(0.f, 0.f, 1.f);
 
-Vector3::Vector3()
+Vector3::Vector3(float v)
 {
-    x = 0;
-    y = 0;
-    z = 0;
+    x = v;
+    y = v;
+    z = v;
 }
 
 Vector3::Vector3(const Vector3& vec)
@@ -585,6 +585,15 @@ Vector4::Vector4(float ix, float iy, float iz, float iw)
 	y = iy;
 	z = iz;
     w = iw;
+}
+
+Vector4& Vector4::operator=(const Vector4& vec)
+{
+	x = vec.x;
+	y = vec.y;
+	z = vec.z;
+	w = vec.w;
+	return *this;
 }
 
 float &Vector4::operator[](int i)

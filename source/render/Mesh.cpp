@@ -9,26 +9,28 @@ namespace epsilon
 
 	Mesh::Mesh(const private_struct &)
 	{
-		vb = VertexBuffer::Create();
+		vd = VertexData::Create();
 	}
 
 	Mesh::~Mesh(void)
 	{
 	}
 
+	/*
 	void Mesh::SetMeshData(VectorList vertices, VectorList normals, TexCoordList texCoords, IndicesList indices)
 	{
-		vb->SetData(vertices, normals, indices, texCoords);
+		vd->SetData(vertices, normals, indices, texCoords);
 	}
 
 	void Mesh::SetMeshData(VectorList vertices, VectorList normals, ColourList colours, TexCoordList texCoords, IndicesList indices)
 	{
-		vb->SetData(vertices, normals, colours, indices, texCoords);
+		vd->SetData(vertices, normals, colours, indices, texCoords);
 	}
+	*/
 
 	void Mesh::Draw()
 	{
-		vb->Draw();
+		vd->Draw();
 	}
 
 }

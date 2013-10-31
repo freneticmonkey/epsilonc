@@ -7,7 +7,7 @@ public:
 	float y;
 
 	// Constructors
-	Vector2();
+	Vector2(float v = 0.0f);
 	Vector2(const Vector2& vec);
 	Vector2(float ix, float iy);
 
@@ -68,7 +68,7 @@ public:
 	float z;
 	
 	// Constructors
-	Vector3();
+	Vector3(float v = 0.0f);
 	Vector3(const Vector3& vec);
 	Vector3(float ix, float iy, float iz);
 
@@ -133,24 +133,24 @@ public:
                          z * op1.z );
     }
     
-    inline Vector3 friend operator* (Vector3 vec, Vector3 const &op1)
-    {
-        return Vector3( op1.x * vec.x, op1.y * vec.y, op1.z * vec.z);
-    }
-    
-    inline Vector3 operator* (const float scalar)//, const Vector3& op1)
+    inline Vector3 operator* (const float scalar)
     {
         return Vector3 ( x * scalar,
                          y * scalar,
                          z * scalar);
+    }
+
+	inline Vector3 friend operator* (Vector3 vec, Vector3 const &op1)
+    {
+        return Vector3( op1.x * vec.x, op1.y * vec.y, op1.z * vec.z);
     }
     
     inline Vector3 friend operator* (float scalar, Vector3 const &op1)
     {
         return Vector3( op1.x * scalar, op1.y * scalar, op1.z * scalar);
     }
-    
-    inline Vector3 operator/ (const float scalar) const
+
+	inline Vector3 operator/ (const float scalar) const
     {
         return Vector3( x / scalar , 
                         y / scalar ,

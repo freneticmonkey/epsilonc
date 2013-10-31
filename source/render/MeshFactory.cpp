@@ -5,12 +5,27 @@
 
 namespace epsilon
 {
+	ParametricData Parametric::Sphere(int slices, int stacks)
+	{
+		ParametricData data;
+		return data;
+	}
+
 	MeshFactory::MeshFactory(void)
 	{
 	}
 
 	MeshFactory::~MeshFactory(void)
 	{
+	}
+	Mesh::Ptr MeshFactory::GenerateGrid(int spacers)
+	{
+		Mesh::Ptr newGrid = Mesh::Create();
+
+		VectorList verts;
+		IndicesList indicies;
+
+		return newGrid;
 	}
 
 	Mesh::Ptr MeshFactory::GenerateCube()
@@ -114,7 +129,13 @@ namespace epsilon
 
 		norms = MeshFactory::GenerateNormals(raverts, faces);
 
-		newSphere->SetMeshData(verts, norms, texCoords, faces);
+		//newSphere->SetMeshData(verts, norms, texCoords, faces);
+		newSphere->VertexData()
+				 ->SetVertices(verts)
+				 .SetNormals(norms)
+				 .SetTexCoords(texCoords)
+				 .SetIndices(faces)
+				 .BuildBuffers();
 
 		return newSphere;
 	}
@@ -139,12 +160,13 @@ namespace epsilon
 		float widthInc = width/widthSegments;
 		float heightInc = height/heightSegments;
 		float normalDir = 1.0f;
-
+		
 		for (float x = -halfWidth; x < halfWidth; x+=widthInc)
 		{
+			float x2 = x + widthInc;
+
 			for (float y = -halfHeight; y < halfHeight; y+=heightInc)
-			{
-				float x2 = x + widthInc;
+			{	
 				float y2 = y + heightInc;
 
 				// TL Triangle
@@ -156,7 +178,7 @@ namespace epsilon
 				verts.push_back(Vector3(x,y,0));
 				verts.push_back(Vector3(x2,y2,0));
 				verts.push_back(Vector3(x2,y,0));
-
+				
 				norms.push_back(Vector3(0,0,normalDir));
 				norms.push_back(Vector3(0,0,normalDir));
 				norms.push_back(Vector3(0,0,normalDir));
@@ -164,10 +186,11 @@ namespace epsilon
 				norms.push_back(Vector3(0,0,normalDir));
 				norms.push_back(Vector3(0,0,normalDir));
 				norms.push_back(Vector3(0,0,normalDir));
-
+				
 				colours.push_back(Vector4(1,0,0,1));
 				colours.push_back(Vector4(0,1,0,1));
 				colours.push_back(Vector4(0,0,1,1));
+				
 				colours.push_back(Vector4(1,0,0,1));
 				colours.push_back(Vector4(0,1,0,1));
 				colours.push_back(Vector4(0,0,1,1));
@@ -183,13 +206,20 @@ namespace epsilon
 				inds.push_back(inds.size());
 				inds.push_back(inds.size());
 				inds.push_back(inds.size());
+				
 				inds.push_back(inds.size());
 				inds.push_back(inds.size());
 				inds.push_back(inds.size());
 			}
 		}
 
-		newPlane->SetMeshData(verts, norms, colours, tc, inds);
+		//newPlane->SetMeshData(verts, norms, colours, tc, inds);
+		newPlane->VertexData()
+				 ->SetVertices(verts)
+				 .SetNormals(norms)
+				 .SetTexCoords(tc)
+				 .SetIndices(inds)
+				 .BuildBuffers();
 
 		return newPlane;
 	}
@@ -225,7 +255,13 @@ namespace epsilon
 		inds.push_back(1);
 		inds.push_back(2);
 
-		newTriangle->SetMeshData(verts, norms, colours, tc, inds);
+		//newTriangle->SetMeshData(verts, norms, colours, tc, inds);
+		newTriangle->VertexData()
+				   ->SetVertices(verts)
+				   .SetNormals(norms)
+				   .SetTexCoords(tc)
+				   .SetIndices(inds)
+				 .BuildBuffers();
 
 		return newTriangle;
 	}

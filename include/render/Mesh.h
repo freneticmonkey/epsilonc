@@ -2,7 +2,7 @@
 
 #include "EpsilonCore.h"
 
-#include "render/VertexBuffer.h"
+#include "render/VertexData.h"
 
 namespace epsilon
 {
@@ -16,8 +16,12 @@ namespace epsilon
 
 		static Mesh::Ptr Create();
 		
-		void SetMeshData(VectorList vertices, VectorList normals, TexCoordList texCoords, IndicesList indices);
+		VertexData::Ptr VertexData() { return vd; }
+
+		/*
+		void SetMeshData(VectorData::List vertices, VectorList normals, TexCoordList texCoords, IndicesList indices);
 		void SetMeshData(VectorList vertices, VectorList normals, ColourList colours, TexCoordList texCoords, IndicesList indices);
+		*/
 
 		void Draw();
 
@@ -25,7 +29,7 @@ namespace epsilon
 		~Mesh(void);
 
 	private:
-		VertexBuffer::Ptr vb;
+		VertexData::Ptr vd;
 	};
 
 }
