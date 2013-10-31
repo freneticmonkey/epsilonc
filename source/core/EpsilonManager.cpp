@@ -7,6 +7,7 @@
 #include <SFML/System/Clock.hpp>
 
 #include "render/MeshFactory.h"
+#include "math/Defines.h"
 
 namespace epsilon
 {
@@ -55,61 +56,39 @@ namespace epsilon
 
 	void EpsilonManager::MeshTest(void)
 	{
-		//sceneManager->CurrentScene()->Root()->Renderer()->GetMesh()->SetMeshData(verts, norms, tc, inds);
-		//sceneManager->CurrentScene()->Root()->Renderer()->GetMesh()->SetMeshData(verts, norms, colours, tc, inds);
-		
-		//sceneManager->CurrentScene()->Root()->Renderer()->SetMesh(MeshFactory::GenerateSphere(8,8));
-		//sceneManager->CurrentScene()->Root()->Transform()->setPosition(0.f, 10.f, -10.f);
-		
-		/*
-		Node::Ptr triangle = sceneManager->CurrentScene()->Root()->CreateChildNode();
-		triangle->Renderer()->SetMesh(MeshFactory::GenerateTriangle());
-		triangle->Transform()->setPosition(0.f, 0.f, 0.f);
-		*/
-		
-		Node::Ptr triangle2 = sceneManager->CurrentScene()->Root()->CreateChildNode();
-		triangle2->SetName("triangle");
-		triangle2->AddComponent(Renderer::Create());
-		triangle2->GetComponent<Renderer>()
-				 ->SetMesh(MeshFactory::GenerateTriangle());
-				 //->SetMesh(MeshFactory::GenerateSphere());
-		triangleTrans = triangle2->GetComponent<Transform>();
-		triangleTrans->SetPosition(0.f, 0.f, 0.f);
-			//.Rotate(Vector3::UNIT_Y, 45.0f);
-		
-		// Add a sub child
-		Node::Ptr tChild = triangle2->CreateChildNode();
-		tChild->AddComponent(Renderer::Create());
-		tChild->GetComponent<Renderer>()
-			  ->SetMesh(MeshFactory::GenerateSphere());
-		tChild->GetComponent<Transform>()
-			  ->SetPosition(1.0f, 0.0f, 0.0f);
-		
+		//Node::Ptr triangle2 = sceneManager->CurrentScene()->Root()->CreateChildNode();
+		//triangle2->SetName("triangle");
+		//triangle2->AddComponent(Renderer::Create());
+		//triangle2->GetComponent<Renderer>()
+		//		 ->SetMesh(MeshFactory::GenerateTriangle());
+		//triangleTrans = triangle2->GetComponent<Transform>();
+		//triangleTrans->SetPosition(0.f, 0.f, 0.f);
+		//
+		//// Add a sub child
+		//Node::Ptr tChild = triangle2->CreateChildNode();
+		//tChild->AddComponent(Renderer::Create());
+		//tChild->GetComponent<Renderer>()
+		//	  ->SetMesh(MeshFactory::GenerateSphere());
+		//tChild->GetComponent<Transform>()
+		//	  ->SetPosition(1.0f, 0.0f, 0.0f);
+		//
 		Node::Ptr plane = sceneManager->CurrentScene()->Root()->CreateChildNode();
 		plane->SetName("plane");
 
 		plane->AddComponent(Renderer::Create());
 		plane->GetComponent<Renderer>()
-			  ->SetMesh(MeshFactory::GeneratePlane());
-		plane->GetComponent<Transform>()
-			  ->SetPosition(0.0f, -2.0f, 0.0f);
+			  ->SetMesh(MeshFactory::GeneratePlane(2, 2));
 
-		/*
-		Node::Ptr sphere = sceneManager->CurrentScene()->Root()->CreateChildNode();
-		sphere->Renderer()->SetMesh(MeshFactory::GenerateSphere(8,8));
-		sphere->Transform()->setPosition(0.f, 0.f, 10.f);
-		*/
-		
+		float angle = Math::DegreesToRadians(1.0f);
+		plane->GetComponent<Transform>()
+			  //->SetPosition(0.0f, -0.0f, 0.0f)
+			  //.Yaw(angle)
+			  ->SetScale(Vector3(2.0f));
 	}
 
 	//void EpsilonManager::OnUpdate(sf::Time el)
 	void EpsilonManager::OnUpdate(float el)
 	{
-		// Create a cyclical value that cycles 100 times/second
-		float value = cycle.GetValue(el);
-		//triangleTrans->SetPosition(0.f, 0.0f, value);
-		//triangleTrans->Rotate(Vector3::UP, 1.0f * (value/100.0));
-
 		uiManager->OnUpdate(el);
 		sceneManager->Cull();
 		renderManager->Draw(el);
@@ -185,7 +164,7 @@ namespace epsilon
 			}
 			//OnUpdate(clock.getElapsedTime());
 			clock_t currTime = clock();
-			el = diffclock(currTime, lastTime) / 1000.0f;
+			el = (float)diffclock(currTime, lastTime) / 1000.0f;
 			OnUpdate(el);
 			lastTime = currTime;
 		}
