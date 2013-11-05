@@ -1,0 +1,386 @@
+#include "script/python/Math.h"
+#include "math/Vector.h"
+#include "math/Matrix.h"
+#include "math/Quaternion.h"
+#include "math/Rotation.h"
+
+
+// Vector2 Python Helper Functions
+void vector2_setitem(Vector2& v, int index, float value)
+{
+	int MAX = 2;
+	if ( index < 0 ) 
+		index += MAX;
+    if (index >= 0 && index < MAX) {
+        v[index] = value;
+    }
+    else {
+        PyErr_SetString(PyExc_IndexError, "index out of range");
+        throw_error_already_set();
+    }
+}
+
+float vector2_getitem(Vector2&v, int index)
+{
+	int MAX = 2;
+	if ( index < 0 ) 
+		index += MAX;
+    if (index >= 0 && index < MAX) {
+        return v[index];
+    }
+    else {
+        PyErr_SetString(PyExc_IndexError, "index out of range");
+        throw_error_already_set();
+    }
+}
+
+// Vector3 Python Helper Functions
+void vector3_setitem(Vector3& v, int index, float value)
+{
+	int MAX = 3;
+	if ( index < 0 ) 
+		index += MAX;
+    if (index >= 0 && index < MAX) {
+        v[index] = value;
+    }
+    else {
+        PyErr_SetString(PyExc_IndexError, "index out of range");
+        throw_error_already_set();
+    }
+}
+
+float vector3_getitem(Vector3&v, int index)
+{
+	int MAX = 3;
+	if ( index < 0 ) 
+		index += MAX;
+    if (index >= 0 && index < MAX) {
+        return v[index];
+    }
+    else {
+        PyErr_SetString(PyExc_IndexError, "index out of range");
+        throw_error_already_set();
+    }
+}
+
+// Vector4 Python Helper Functions
+void vector4_setitem(Vector4& v, int index, float value)
+{
+	int MAX = 4;
+	if ( index < 0 ) 
+		index += MAX;
+    if (index >= 0 && index < MAX) {
+        v[index] = value;
+    }
+    else {
+        PyErr_SetString(PyExc_IndexError, "index out of range");
+        throw_error_already_set();
+    }
+}
+
+float vector4_getitem(Vector4&v, int index)
+{
+	int MAX = 4;
+	if ( index < 0 ) 
+		index += MAX;
+    if (index >= 0 && index < MAX) {
+        return v[index];
+    }
+    else {
+        PyErr_SetString(PyExc_IndexError, "index out of range");
+        throw_error_already_set();
+    }
+}
+
+// Matrix3 Python Helper Functions
+void matrix3_setitem(Matrix3& v, int index, float value)
+{
+	int MAX = 9;
+	if ( index < 0 ) 
+		index += MAX;
+    if (index >= 0 && index < MAX) {
+        v[index] = value;
+    }
+    else {
+        PyErr_SetString(PyExc_IndexError, "index out of range");
+        throw_error_already_set();
+    }
+}
+
+float matrix3_getitem(Matrix3&v, int index)
+{
+	int MAX = 9;
+	if ( index < 0 ) 
+		index += MAX;
+    if (index >= 0 && index < MAX) {
+        return v[index];
+    }
+    else {
+        PyErr_SetString(PyExc_IndexError, "index out of range");
+        throw_error_already_set();
+    }
+}
+
+// Matrix4 Python Helper Functions
+void matrix4_setitem(Matrix4& v, int index, float value)
+{
+	int MAX = 16;
+	if ( index < 0 ) 
+		index += MAX;
+    if (index >= 0 && index < MAX) {
+        v[index] = value;
+    }
+    else {
+        PyErr_SetString(PyExc_IndexError, "index out of range");
+        throw_error_already_set();
+    }
+}
+
+float matrix4_getitem(Matrix4&v, int index)
+{
+	int MAX = 16;
+	if ( index < 0 ) 
+		index += MAX;
+    if (index >= 0 && index < MAX) {
+        return v[index];
+    }
+    else {
+        PyErr_SetString(PyExc_IndexError, "index out of range");
+        throw_error_already_set();
+    }
+}
+
+
+// Expose Math Classes to Python
+void initMath()
+{
+	// make math package
+	object mathModule( handle<>( borrowed( PyImport_AddModule("epsilon.math") ) ) );
+	scope().attr("math") = mathModule;
+
+	scope mathScope = mathModule;
+
+	class_<Vector2>("Vector2", init< optional<float> >())
+			.def(init<Vector2>())
+			.def(init<float,float>())
+	
+		.def_readwrite("x", &Vector2::x)
+		.def_readwrite("y", &Vector2::y)
+
+		.def("__str__", &Vector2::ToString)
+		
+		.def("__getitem__", &vector2_getitem)
+		.def("__setitem__", &vector2_setitem)
+		
+		.def(self == self)
+		.def(self != self)
+
+		.def(self + self)
+		.def(self - self)
+		
+		.def(self * self)
+
+		.def(self * float())
+		.def(float() * self)
+		.def(self / float())
+
+		.def(self += self)
+		.def(self -= self)
+		.def(self /= float())
+		
+		.def("length",&Vector2::Length)
+		.def("length_squared", &Vector2::LengthSquared)
+		.def("dot", &Vector2::Dot)
+		.def("normalise", &Vector2::Normalise)
+		.def("normalised", &Vector2::Normalised)
+
+		.def("cross", &Vector2::Cross)
+		.def("reflect", &Vector2::Reflect)
+		.def("angle", &Vector2::Angle)
+		.def("project", &Vector2::Project)
+
+		.def("compute_extremes", &Vector2::ComputeExtremes, return_value_policy<manage_new_object>())
+		;
+
+	class_<Vector3>("Vector3", init< optional<float> >())
+			.def(init<Vector3>())
+			.def(init<float,float,float>())
+	
+		.def_readwrite("x", &Vector3::x)
+		.def_readwrite("y", &Vector3::y)
+		.def_readwrite("z", &Vector3::z)
+
+		.def("__str__", &Vector3::ToString)
+		
+		.def("__getitem__", &vector3_getitem)
+		.def("__setitem__", &vector3_setitem)
+		
+		.def(self == self)
+		.def(self != self)
+
+		.def(self + self)
+		.def(self - self)
+		
+		.def(self * self)
+
+		.def(self * float())
+		.def(float() * self)
+		.def(self / float())
+
+		.def(self += self)
+		.def(self -= self)
+		.def(self /= float())
+		
+		.def("length",&Vector3::Length)
+		.def("length_squared", &Vector3::LengthSquared)
+		.def("dot", &Vector3::Dot)
+		.def("normalise", &Vector3::Normalise)
+		.def("normalised", &Vector3::Normalised)
+
+		.def("cross", &Vector3::Cross)
+		.def("unit_cross", &Vector3::UnitCross)
+		.def("reflect", &Vector3::Reflect)
+		.def("rotate_around", &Vector3::RotateAround)
+		.def("distance", &Vector3::Distance)
+		.def("angle", &Vector3::Angle)
+		.def("project", &Vector3::Project)
+
+		.def("compute_extremes", &Vector3::ComputeExtremes, return_value_policy<manage_new_object>())
+
+		.def_readonly("up", Vector3::UP)
+		.def_readonly("right", &Vector3::RIGHT)
+		.def_readonly("forward", &Vector3::FORWARD)
+		.def_readonly("down", &Vector3::DOWN)
+
+		.def_readonly("left", &Vector3::LEFT)
+		.def_readonly("backward", &Vector3::BACKWARD)
+		.def_readonly("zero", &Vector3::ZERO)
+		.def_readonly("one", &Vector3::ONE)
+		.def_readonly("identity", &Vector3::IDENTITY)
+
+		.def_readonly("unit_x", &Vector3::UNIT_X)
+		.def_readonly("unit_y", &Vector3::UNIT_Y)
+		.def_readonly("unit_z", &Vector3::UNIT_Z)
+		;
+
+	class_<Vector4>("Vector4", init< optional<float> >())
+			.def(init<Vector4>())
+			.def(init<float,float,float,float>())
+	
+		.def_readwrite("x", &Vector4::x)
+		.def_readwrite("y", &Vector4::y)
+		.def_readwrite("z", &Vector4::z)
+		.def_readwrite("w", &Vector4::w)
+
+		.def("__str__", &Vector4::ToString)
+		
+		.def("__getitem__", &vector4_getitem)
+		.def("__setitem__", &vector4_setitem)
+		
+		.def(self == self)
+		.def(self != self)
+
+		.def(self + self)
+		.def(self - self)
+		
+		.def(self * self)
+
+		.def(self * float())
+		.def(float() * self)
+		.def(self / float())
+
+		.def(self += self)
+		.def(self -= self)
+		.def(self /= float())
+		
+		.def("length",&Vector4::Length)
+		.def("length_squared", &Vector4::LengthSquared)
+		.def("dot", &Vector4::Dot)
+		.def("normalise", &Vector4::Normalise)
+		.def("normalised", &Vector4::Normalised)
+
+		.def("compute_extremes", &Vector4::ComputeExtremes, return_value_policy<manage_new_object>())
+		;
+
+	class_<Matrix3>("Matrix3")
+		.def(init<Matrix3>())
+		.def(init<float, float, float, float, float, float, float, float, float>())
+
+		.def("__str__", &Matrix3::ToString)
+		
+		.def("__getitem__", &matrix3_getitem)
+		.def("__setitem__", &matrix3_setitem)
+
+		.def(self == self)
+		.def(self != self)
+
+		.def(self *= self)
+
+		.def(self * self)
+		.def(self * Vector3())
+		
+		.def("scale", &Matrix3::Scale)
+		.def("translate", &Matrix3::Translate)
+		.def("rotate", &Matrix3::Rotate)
+		
+		.def("create_scale", &Matrix3::CreateScale)
+		.def("create_translation", &Matrix3::CreateTranslation)
+		.def("create_rotation", &Matrix3::CreateRotation)
+
+		.def("determinant", &Matrix3::Determinant)
+		.def("inverse", &Matrix3::Inverse)
+	;
+
+	class_<Matrix4>("Matrix4")
+		.def(init<Matrix4>())
+
+		.def("__str__", &Matrix4::ToString)
+		
+		.def("__getitem__", &matrix4_getitem)
+		.def("__setitem__", &matrix4_setitem)
+
+		.def(self == self)
+		.def(self != self)
+
+		.def(self *= self)
+
+		.def(self * self)
+		.def(self * Vector3())
+		
+		.def("transform", &Matrix4::Transform)
+		.def("scale", &Matrix4::Scale)
+		.def("translate", &Matrix4::Translate)
+
+		.def("rotate_x", &Matrix4::RotateX)
+		.def("rotate_y", &Matrix4::RotateY)
+		.def("rotate_z", &Matrix4::RotateZ)
+
+		.def("rotate_axis", &Matrix4::RotateAxis)
+		.def("rotate_euler", &Matrix4::RotateEuler)
+		.def("rotate_triple_axis", &Matrix4::RotateTripleAxis)
+
+		.def("transpose", &Matrix4::Transpose)
+		.def("transposed", &Matrix4::Transposed)
+
+		.def("create_scale", &Matrix4::CreateScale)
+		.def("create_translation", &Matrix4::CreateTranslation)
+		.def("create_rotate_x", &Matrix4::CreateRotateX)
+		.def("create_rotate_y", &Matrix4::CreateRotateY)
+		.def("create_rotate_z", &Matrix4::CreateRotateZ)
+		.def("create_rotate_axis", &Matrix4::CreateRotateAxis)
+		.def("create_rotate_euler", &Matrix4::CreateRotateEuler)
+		.def("create_rotate_triple_axis", &Matrix4::CreateRotateTripleAxis)
+		.def("create_rotate_quaternion", &Matrix4::CreateRotateQuaternion)
+		.def("create_lookat", &Matrix4::CreateLookAt)
+		.def("create_perspective", &Matrix4::CreatePerspective)
+
+		.def("determinant", &Matrix4::Determinant)
+		.def("inverse", &Matrix4::Inverse)
+		.def("get_translation", &Matrix4::GetTranslation)
+		.def("get_scale", &Matrix4::GetScale)
+		.def("get_rotation", &Matrix4::GetRotation)
+	;
+
+
+		
+}

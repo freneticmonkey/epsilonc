@@ -110,25 +110,11 @@ namespace epsilon
 			// Calculate the model view matrix
 			Matrix4 modelMatrix = transform->_getFullTransform();
 			Matrix4 modelViewMatrix = viewMatrix * modelMatrix;
-
-			/*
-			Vector3 p = viewMatrix.GetTranslation();
-			if ( p.z == 0.f )
-				p.z = -5.f;
-			
-			glm::mat4x4 proj = glm::perspectiveFov(45.0f, 800.0f, 600.0f, 0.1f, 100.0f);
-			glm::mat4x4 view = glm::lookAt(glm::vec3(p.x,p.y,p.z), glm::vec3(0,0,0), glm::vec3(0,1,0));
-			glm::mat4x4 model = glm::mat4(1.0f);
-
-			glm::mat4 modelView = view * model;
-			*/
-			//glUniformMatrix4fv(viewMatUnf, 1, GL_FALSE, &modelView[0][0]);
-
 			modelViewMatrix.Transpose();
+
+			// Send it to the shader
 			glUniformMatrix4fv(viewMatUnf, 1, GL_FALSE, &modelViewMatrix[0]);
 			glUniformMatrix4fv(projMatUnf, 1, GL_FALSE, &projMatrix[0]);
-			
-			//glUniform4f(positionUnf, p.x, p.y, p.z, 0.f);
 		}
 	}
 

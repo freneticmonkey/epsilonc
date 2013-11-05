@@ -27,7 +27,7 @@ namespace epsilon
 		string logName;
 	};
 
-	typedef list<LogListener::Ptr> LogListenerList;
+	typedef std::list<LogListener::Ptr> LogListenerList;
 	typedef LogListenerList::iterator LogListenerIterator;
 
 	class LogStream

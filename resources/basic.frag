@@ -1,11 +1,10 @@
 #version 330
 
-varying  vec4 ex_Color;
-out vec4 out_Color;
+varying vec4 ex_Colour;
 
-uniform float time;
-void main(void)
+out vec4 gl_FragColor;
+
+void main()
 {
-	out_Color = vec4(1.0f, time, 0.0f, 1.0f);//ex_Color;
-	//out_Color = ex_Color;
+	gl_FragColor = ex_Colour;
 }

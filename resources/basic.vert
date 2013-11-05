@@ -1,20 +1,19 @@
 #version 330
 
-layout(location=0) in vec4 position;
+layout(location=0) in vec3 position;
 layout(location=1) in vec3 normal;
 layout(location=2) in vec4 colour;
+layout(location=3) in vec2 texCoord;
 
 uniform mat4 modelViewMatrix;
 uniform mat4 projMatrix;
 
 varying vec4 ex_Colour;
 
-void main(void)
+void main()
 {
-	//vec4 pos = in_Position + vec4(0, 0, -1, 0);//object_Position;
-	vec4 pos = modelViewMatrix * position;// + object_Position;
-	//pos = projMat * viewMat * pos;
-	gl_Position = projMatrix * pos;
+	// Set the normals as the default colour
+	ex_Colour = colour;//vec4(normal.z, 0.0f, 0.0f, 1.0f);
+	gl_Position = projMatrix * modelViewMatrix * vec4(position,1.0);
 	
-	ex_Colour = colour;//Vec4(0.0, 0.0, 0.0, 1.0);
 }

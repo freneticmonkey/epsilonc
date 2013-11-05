@@ -15,17 +15,20 @@ namespace epsilon
 	{
 	}
 
-
 	EpsilonManager::~EpsilonManager(void)
 	{
 		if ( sceneManager ) { delete sceneManager; }
 		if ( uiManager ) { delete uiManager; }
 		if ( renderManager ) { delete renderManager; }
+		if ( scriptManager ) { delete scriptManager; }
 	}
 
 	void EpsilonManager::Setup(void)
 	{
 		Log("Initialising Epsilon Manager");
+
+		scriptManager = new ScriptManager();
+		scriptManager->Setup();
 
 		renderManager = new RenderManager();
 		renderManager->Setup();
@@ -50,7 +53,7 @@ namespace epsilon
 		cycle.SetFrequency(100);
 
 		camera = sceneManager->CurrentScene()->GetActiveCamera();
-		camera->GetComponent<Transform>()->SetPosition(0.0f, 0.0f, -5.f);
+		camera->GetComponent<Transform>()->SetPosition(0.0f, 1.0f, -8.f);
 		camera->LookAt(Vector3());
 	}
 
@@ -65,30 +68,44 @@ namespace epsilon
 		//triangleTrans->SetPosition(0.f, 0.f, 0.f);
 		//
 		//// Add a sub child
-		//Node::Ptr tChild = triangle2->CreateChildNode();
-		//tChild->AddComponent(Renderer::Create());
-		//tChild->GetComponent<Renderer>()
-		//	  ->SetMesh(MeshFactory::GenerateSphere());
-		//tChild->GetComponent<Transform>()
-		//	  ->SetPosition(1.0f, 0.0f, 0.0f);
+		Node::Ptr tChild = sceneManager->CurrentScene()->Root()->CreateChildNode();
+		tChild->AddComponent(Renderer::Create());
+		tChild->GetComponent<Renderer>()
+			  ->SetMesh(MeshFactory::GenerateSphere());
+		tChild->GetComponent<Transform>()
+			  ->SetPosition(1.0f, 1.0f, 0.0f);
 		//
 		Node::Ptr plane = sceneManager->CurrentScene()->Root()->CreateChildNode();
 		plane->SetName("plane");
 
 		plane->AddComponent(Renderer::Create());
 		plane->GetComponent<Renderer>()
-			  ->SetMesh(MeshFactory::GeneratePlane(2, 2));
+			  ->SetMesh(MeshFactory::GeneratePlane(4, 4));
 
 		float angle = Math::DegreesToRadians(1.0f);
 		plane->GetComponent<Transform>()
 			  //->SetPosition(0.0f, -0.0f, 0.0f)
 			  //.Yaw(angle)
 			  ->SetScale(Vector3(2.0f));
+
+		plane->AddComponent(scriptManager->CreateBehaviour("MyBehaviour.py"));
+
+		// Create a Grid
+		if ( true )
+		{
+			Node::Ptr grid = sceneManager->CurrentScene()->Root()->CreateChildNode();
+			grid->SetName("grid");
+
+			grid->AddComponent(Renderer::Create());
+			grid->GetComponent<Renderer>()
+				->SetMesh(MeshFactory::GenerateGrid(10, 1));
+		}
 	}
 
 	//void EpsilonManager::OnUpdate(sf::Time el)
 	void EpsilonManager::OnUpdate(float el)
 	{
+		scriptManager->Update(el);
 		uiManager->OnUpdate(el);
 		sceneManager->Cull();
 		renderManager->Draw(el);

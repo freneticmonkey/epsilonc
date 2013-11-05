@@ -15,19 +15,7 @@ namespace epsilon
 	Mesh::~Mesh(void)
 	{
 	}
-
-	/*
-	void Mesh::SetMeshData(VectorList vertices, VectorList normals, TexCoordList texCoords, IndicesList indices)
-	{
-		vd->SetData(vertices, normals, indices, texCoords);
-	}
-
-	void Mesh::SetMeshData(VectorList vertices, VectorList normals, ColourList colours, TexCoordList texCoords, IndicesList indices)
-	{
-		vd->SetData(vertices, normals, colours, indices, texCoords);
-	}
-	*/
-
+	
 	void Mesh::Draw()
 	{
 		vd->Draw();

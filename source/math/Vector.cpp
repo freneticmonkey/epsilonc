@@ -1,7 +1,6 @@
 #include "math/Vector.h"
 #include <iostream>
 //#include <math.h>
-#include <cmath>
 
 // VECTOR 2
 
@@ -45,137 +44,6 @@ float &Vector2::operator[](int i)
         std::cout << "Vector2: Boundry error\n";
         exit(1);
     }
-}
-
-inline bool Vector2::operator== (const Vector2& other) const
-{
-	return x == other.x && y == other.y;
-}
-
-inline bool Vector2::operator!= (const Vector2& other) const
-{
-	return x != other.x  || y != other.y;
-}
-
-inline Vector2 Vector2::operator+ (const Vector2& other) const
-{
-	return Vector2( x + other.x , 
-					y + other.y );
-}
-
-inline Vector2 Vector2::operator- (const Vector2& other) const
-{
-	return Vector2( x - other.x , 
-					y - other.y );
-}
-
-// Implemented operator* functions as friends so that operators can appear
-// in either order vec2 * float , float * vec2
-inline Vector2 operator* (const Vector2& op1, const float scalar)
-{
-	return Vector2( op1.x * scalar , 
-					op1.y * scalar );
-}
-
-inline Vector2 operator* (const float scalar, const Vector2& op1)
-{
-	return Vector2( op1.x * scalar , 
-					op1.y * scalar );
-}
-
-inline Vector2 Vector2::operator/ (const float scalar) const
-{
-	return Vector2( x / scalar , 
-					y / scalar );
-}
-inline Vector2 Vector2::operator- () const
-{
-	return Vector2( -x, 
-					-y );
-}
-
-inline Vector2& Vector2::operator+= (const Vector2& other)
-{
-	x += other.x;
-	y += other.y;
-	return *this;
-}
-
-inline Vector2& Vector2::operator-= (const Vector2& other)
-{
-	x -= other.x;
-	y -= other.y;
-	return *this;
-}
-
-inline Vector2& Vector2::operator*= (float scalar)
-{
-	x *= scalar;
-	y *= scalar;
-	return *this;
-}
-
-inline Vector2& Vector2::operator/= (float scalar)
-{
-	x /= scalar;
-	y /= scalar;
-	return *this;
-}
-
-inline float Vector2::Length() const
-{
-	return std::sqrtf( x * x + y * y );
-}
-
-inline float Vector2::LengthSquared() const
-{
-	return x * x + y * y;
-}
-
-inline float Vector2::Dot(const Vector2& other ) const
-{
-	return x * other.x + y * other.y;
-}
-
-inline float Vector2::Normalise()
-{
-	float length = Length();
-
-	if ( length > 0 )
-	{
-		float invLength = 1 / length;
-		x *= invLength;
-		y *= invLength;
-	}
-	else
-	{
-		length = 0.f;
-		x = 0.f;
-		y = 0.f;
-	}
-	return length;
-}
-
-inline Vector2 Vector2::Normalised() const
-{
-	float length = Length();
-
-	float nx = x;
-	float ny = y;
-
-	if ( length > 0 )
-	{
-		float invLength = 1 / length;
-		nx *= invLength;
-		ny *= invLength;
-	}
-	else
-	{
-		length = 0.f;
-		nx = 0.f;
-		ny = 0.f;
-	}
-	return Vector2(nx, ny);
 }
 
 float Vector2::Cross( const Vector2& other ) const
@@ -306,154 +174,6 @@ float &Vector3::operator[](int i)
 	return x;// Should never be hit.
 }
 
-/*
-inline bool Vector3::operator== (const Vector3& other) const
-{
-	return x == other.x && y == other.y && z == other.z;
-}
-
-inline bool Vector3::operator!= (const Vector3& other) const
-{
-	return x != other.x  || y != other.y || z != other.z;
-}
-
-inline Vector3 Vector3::operator+ (const Vector3& other) const
-{
-	return Vector3( x + other.x , 
-					y + other.y , 
-					z + other.z);
-}
-
-inline Vector3 Vector3::operator- (const Vector3& other) const
-{
-	return Vector3( x - other.x , 
-					y - other.y ,
-					z - other.z );
-}
-
-// Implemented operator* functions as friends so that operators can appear
-// in either order vec3 * float , float * vec3
-inline Vector3 operator* (const Vector3& op1, const float scalar)
-{
-	return Vector3( op1.x * scalar , 
-					op1.y * scalar , 
-					op1.z * scalar );
-}
-
-inline Vector3 operator* (const float scalar, const Vector3& op1)
-{
-	return Vector3( op1.x * scalar , 
-					op1.y * scalar ,
-					op1.z * scalar  );
-}
-
-inline Vector3 Vector3::operator/ (const float scalar) const
-{
-	return Vector3( x / scalar , 
-					y / scalar ,
-					z / scalar );
-}
-inline Vector3 Vector3::operator- () const
-{
-	return Vector3( -x, 
-					-y,
-					-z );
-}
-
-inline Vector3& Vector3::operator+= (const Vector3& other)
-{
-	x += other.x;
-	y += other.y;
-	z += other.z;
-	return *this;
-}
-
-inline Vector3& Vector3::operator-= (const Vector3& other)
-{
-	x -= other.x;
-	y -= other.y;
-	z -= other.z;
-	return *this;
-}
-
-inline Vector3& Vector3::operator*= (float scalar)
-{
-	x *= scalar;
-	y *= scalar;
-	z *= scalar;
-	return *this;
-}
-
-inline Vector3& Vector3::operator/= (float scalar)
-{
-	x /= scalar;
-	y /= scalar;
-	z /= scalar;
-	return *this;
-}
-*/
-
-inline float Vector3::Length() const
-{
-	return std::sqrtf( x * x + y * y + z * z);
-}
-
-inline float Vector3::LengthSquared() const
-{
-	return x * x + y * y + z * z;
-}
-
-inline float Vector3::Dot(const Vector3& other ) const
-{
-	return x * other.x + y * other.y + z * other.z;
-}
-
-inline float Vector3::Normalise()
-{
-	float length = Length();
-
-	if ( length > 0 )
-	{
-		float invLength = 1 / length;
-		x *= invLength;
-		y *= invLength;
-		z *= invLength;
-	}
-	else
-	{
-		length = 0.f;
-		x = 0.f;
-		y = 0.f;
-		z = 0.f;
-	}
-	return length;
-}
-
-inline Vector3 Vector3::Normalised() const
-{
-	float length = Length();
-
-	float nx = x;
-	float ny = y;
-	float nz = z;
-
-	if ( length > 0 )
-	{
-		float invLength = 1 / length;
-		nx *= invLength;
-		ny *= invLength;
-		nz *= invLength;
-	}
-	else
-	{
-		length = 0.f;
-		nx = 0.f;
-		ny = 0.f;
-		nz = 0.f;
-	}
-	return Vector3(nx, ny, nz);
-}
-
 Vector3 Vector3::Cross( const Vector3& other ) const
 {
 	return Vector3( y * other.z - z * other.y,
@@ -500,16 +220,6 @@ Vector3 Vector3::RotateAround(const Vector3& axis, float theta)
                     (w * dt + z * ct + (-v * x + u * y) * st));
 }
 
-inline float Vector3::Distance(const Vector3& other) const
-{
-	return (other - *this).Length();
-}
-
-inline float Vector3::Angle(const Vector3& other) const
-{
-	return acosf( Dot(other) / Length() * other.Length() );
-}
-
 Vector3 Vector3::Project(const Vector3& other) const
 {
 	Vector3 onorm = other.Normalised();
@@ -517,58 +227,60 @@ Vector3 Vector3::Project(const Vector3& other) const
 	return Dot(onorm) * onorm;
 }
 
-void Vector3::ComputeExtremes( int numVectors, const Vector3* vectors,
+void Vector3::ComputeExtremes( const Vector3::List vectors,
 									  Vector3& vmin, Vector3& vmax)
 {
-	if ( numVectors > 0 )
+	if ( vectors.size() > 0 )
 	{
-		vmin.x = vectors[0].x;
-		vmin.y = vectors[0].y;
-		vmin.z = vectors[0].z;
+		const Vector3 vector = (*vectors.begin());
+		vmin.x = vector.x;
+		vmin.y = vector.y;
+		vmin.z = vector.z;
 
-		vmax.x = vectors[0].x;
-		vmax.y = vectors[0].y;
-		vmax.z = vectors[0].z;
+		vmax.x = vector.x;
+		vmax.y = vector.y;
+		vmax.z = vector.z;
 
-		for ( int i = 0; i < numVectors; i++ )
+		//for ( int i = 0; i < numVectors; i++ )
+		for (Vector3::List::const_iterator vector = vectors.begin(); vector != vectors.end(); vector++)
 		{
-			if ( vectors[i].x < vmin.x )
+			const Vector3 v = (*vector);
+			if ( v.x < vmin.x )
 			{
-				vmin.x = vectors[i].x;
+				vmin.x = v.x;
 			}
-			if ( vectors[i].y < vmin.y )
+			if ( v.y < vmin.y )
 			{
-				vmin.y = vectors[i].y;
+				vmin.y = v.y;
 			}
-			if ( vectors[i].z < vmin.z )
+			if ( v.z < vmin.z )
 			{
-				vmin.z = vectors[i].z;
+				vmin.z = v.z;
 			}
 
-			if ( vectors[i].x > vmax.x )
+			if ( v.x > vmax.x )
 			{
-				vmax.x = vectors[i].x;
+				vmax.x = v.x;
 			}
-			if ( vectors[i].y > vmax.y )
+			if ( v.y > vmax.y )
 			{
-				vmax.y = vectors[i].y;
+				vmax.y = v.y;
 			}
-			if ( vectors[i].z > vmax.z )
+			if ( v.z > vmax.z )
 			{
-				vmax.z = vectors[i].z;
+				vmax.z = v.z;
 			}
 		}
 	}
 }
 
 /// VECTOR 4
-
-Vector4::Vector4()
+Vector4::Vector4(float v)
 {
-    x = 0;
-    y = 0;
-    z = 0;
-    w = 0;
+    x = v;
+    y = v;
+    z = v;
+    w = v;
 }
 
 Vector4::Vector4(const Vector4& vec)
@@ -610,172 +322,15 @@ float &Vector4::operator[](int i)
 	{
 		return z;
 	}
+	else if ( i == 3 )
+	{
+		return w;
+	}
     else
     {
         std::cout << "Vector4: Boundry error\n";
 		exit(1);
     }
-}
-
-inline bool Vector4::operator== (const Vector4& other) const
-{
-	return x == other.x && y == other.y && z == other.z && w == other.w;
-}
-
-inline bool Vector4::operator!= (const Vector4& other) const
-{
-	return x != other.x  || y != other.y || z != other.z || w != other.w;
-}
-
-inline Vector4 Vector4::operator+ (const Vector4& other) const
-{
-	return Vector4(x + other.x ,
-                   y + other.y ,
-                   z + other.z ,
-                   w + other.w);
-}
-
-inline Vector4 Vector4::operator- (const Vector4& other) const
-{
-	return Vector4(x - other.x ,
-                   y - other.y ,
-                   z - other.z ,
-                   w - other.w );
-}
-
-// Implemented operator* functions as friends so that operators can appear
-// in either order vec4 * float , float * vec4
-inline Vector4 operator* (const Vector4& op1, const float scalar)
-{
-	return Vector4(op1.x * scalar ,
-                   op1.y * scalar ,
-                   op1.z * scalar ,
-                   op1.w * scalar );
-}
-
-inline Vector4 operator* (const float scalar, const Vector4& op1)
-{
-	return Vector4(op1.x * scalar ,
-                   op1.y * scalar ,
-                   op1.z * scalar ,
-                   op1.w * scalar);
-}
-
-inline Vector4 Vector4::operator/ (const float scalar) const
-{
-	return Vector4(x / scalar ,
-                   y / scalar ,
-                   z / scalar ,
-                   w / scalar);
-}
-inline Vector4 Vector4::operator- () const
-{
-	return Vector4(-x,
-                   -y,
-                   -z,
-                   -w);
-}
-
-inline Vector4& Vector4::operator+= (const Vector4& other)
-{
-	x += other.x;
-	y += other.y;
-	z += other.z;
-    w += other.w;
-	return *this;
-}
-
-inline Vector4& Vector4::operator-= (const Vector4& other)
-{
-	x -= other.x;
-	y -= other.y;
-	z -= other.z;
-    w -= other.w;
-	return *this;
-}
-
-inline Vector4& Vector4::operator*= (float scalar)
-{
-	x *= scalar;
-	y *= scalar;
-	z *= scalar;
-    w *= scalar;
-	return *this;
-}
-
-inline Vector4& Vector4::operator/= (float scalar)
-{
-	x /= scalar;
-	y /= scalar;
-	z /= scalar;
-    w /= scalar;
-	return *this;
-}
-
-inline float Vector4::Length() const
-{
-	return std::sqrtf( x * x + y * y + z * z + w * w);
-}
-
-inline float Vector4::LengthSquared() const
-{
-	return x * x + y * y + z * z + w * w;
-}
-
-inline float Vector4::Dot(const Vector4& other ) const
-{
-	return x * other.x + y * other.y + z * other.z + w * other.w;
-}
-
-inline float Vector4::Normalise()
-{
-	float length = Length();
-    
-	if ( length > 0 )
-	{
-		float invLength = 1 / length;
-		x *= invLength;
-		y *= invLength;
-		z *= invLength;
-        w *= invLength;
-	}
-	else
-	{
-		length = 0.f;
-		x = 0.f;
-		y = 0.f;
-		z = 0.f;
-        w = 0.f;
-	}
-	return length;
-}
-
-inline Vector4 Vector4::Normalised() const
-{
-	float length = Length();
-    
-	float nx = x;
-	float ny = y;
-	float nz = z;
-    float nw = w;
-    
-	if ( length > 0 )
-	{
-		float invLength = 1 / length;
-		nx *= invLength;
-		ny *= invLength;
-		nz *= invLength;
-        nw *= invLength;
-	}
-	else
-	{
-		length = 0.f;
-		nx = 0.f;
-		ny = 0.f;
-		nz = 0.f;
-        nw = 0.f;
-	}
-	return Vector4(nx, ny, nz, nw);
 }
 
 void Vector4::ComputeExtremes( int numVectors, const Vector4* vectors,

@@ -37,6 +37,12 @@
     <ClInclude Include="..\include\scene\Scene.h" />
     <ClInclude Include="..\include\scene\SceneManager.h" />
     <ClInclude Include="..\include\scene\Transform.h" />
+    <ClInclude Include="..\include\script\python\Math.h" />
+    <ClInclude Include="..\include\script\python\Module.h" />
+    <ClInclude Include="..\include\script\Script.h" />
+    <ClInclude Include="..\include\script\ScriptBehaviour.h" />
+    <ClInclude Include="..\include\script\ScriptCommon.h" />
+    <ClInclude Include="..\include\script\ScriptManager.h" />
     <ClInclude Include="..\include\ui\ConsoleWindow.h" />
     <ClInclude Include="..\include\ui\DebugWindow.h" />
     <ClInclude Include="..\include\ui\UIManager.h" />
@@ -63,6 +69,11 @@
     <ClCompile Include="..\source\scene\Scene.cpp" />
     <ClCompile Include="..\source\scene\SceneManager.cpp" />
     <ClCompile Include="..\source\scene\Transform.cpp" />
+    <ClCompile Include="..\source\script\python\Math.cpp" />
+    <ClCompile Include="..\source\script\python\Module.cpp" />
+    <ClCompile Include="..\source\script\Script.cpp" />
+    <ClCompile Include="..\source\script\ScriptBehaviour.cpp" />
+    <ClCompile Include="..\source\script\ScriptManager.cpp" />
     <ClCompile Include="..\source\tests\pointerTests.cpp" />
     <ClCompile Include="..\source\ui\ConsoleWindow.cpp" />
     <ClCompile Include="..\source\ui\DebugWindow.cpp" />
@@ -99,8 +110,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Dev\Resources\C++\SFGUI\include\;C:\Dev\Resources\C++\SFML-2.0-rc-src\include\;C:\Dev\Resources\C++\glew-1.9.0\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Dev\Resources\C++\SFGUI\build\lib\$(Configuration)\;C:\Dev\Resources\C++\SFML-2.0-rc-src\build\lib\$(Configuration)\;C:\Dev\Resources\C++\glew-1.9.0\lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Dev\Resources\C++\SFGUI\include\;C:\Dev\Resources\C++\SFML-2.0-rc-src\include\;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_54_0;C:\Python27\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Dev\Resources\C++\SFGUI\build\lib\$(Configuration)\;C:\Dev\Resources\C++\SFML-2.0-rc-src\build\lib\$(Configuration)\;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_54_0\stage\lib;C:\Python27\libs;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\build\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\int\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -122,7 +133,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-main-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfgui-d.lib;glew32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfgui-d.lib;glew32.lib;opengl32.lib;glu32.lib;boost_python-vc110-mt-gd-1_54.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

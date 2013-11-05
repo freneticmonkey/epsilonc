@@ -10,7 +10,7 @@
 namespace epsilon
 {
 	// TODO: Not sure if this should be an inline, but for now...
-	inline std::string string_format(const std::string fmt, ...) {
+	inline std::string Format(const std::string fmt, ...) {
 		int size=100;
 		std::string str;
 		va_list ap;
@@ -18,7 +18,7 @@ namespace epsilon
 			str.resize(size);
 			va_start(ap, fmt);
 			//int n = vsnprintf((char *)str.c_str(), size, fmt.c_str(), ap);
-			int n = _vscprintf(fmt.c_str(), ap) + 1;
+			int n = _vsnprintf_s((char *)str.c_str(), size, size, fmt.c_str(), ap);
 			va_end(ap);
 			if (n > -1 && n < size) {
 				str.resize(n);

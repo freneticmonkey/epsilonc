@@ -22,6 +22,7 @@ namespace epsilon
 		static Renderer::Ptr Create(Mesh::Ptr newMesh);
 		
 		explicit Renderer(const private_struct &);
+		explicit Renderer(const private_struct &, Mesh::Ptr newMesh);
 		~Renderer(void);
 
 		void Draw(Matrix4 viewMatrix, Matrix4 projMatrix);

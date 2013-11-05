@@ -5,6 +5,7 @@
 #include "logging/Logging.h"
 #include "render/RenderManager.h"
 #include "scene/SceneManager.h"
+#include "script/ScriptManager.h"
 #include "ui/UIManager.h"
 #include "ui/ConsoleWindow.h"
 
@@ -26,6 +27,7 @@ namespace epsilon
 		void MeshTest(void);
 
 	private:
+		ScriptManager * scriptManager;
 		RenderManager * renderManager;
 		UIManager * uiManager;
 		SceneManager * sceneManager;

@@ -39,7 +39,7 @@ namespace epsilon
 		VertexAttrib(List vData, VertexAttribType type)
 		{
 			data = vData;
-			attribudeStride = -1;
+			attributeStride = -1;
 			attributeIndex = -1;
 			bufferStride = -1;
 
@@ -47,19 +47,21 @@ namespace epsilon
 			unitType = GL_FLOAT;
 			switch(type)
 			{
+				case COLOUR:
+					unitNum = 4;
+					break;
 				case TEXCOORD:
 					unitNum = 2;
-					//unitType = GL_FLOAT;
 					break;
 			}
 		}
 
 		~VertexAttrib() {}
 
-		size_t GetStride() { return attribudeStride; }
+		size_t GetStride() { return attributeStride; }
 		size_t UpdateStride(size_t currentStride)
 		{
-			attribudeStride = currentStride;
+			attributeStride = currentStride;
 			return currentStride + (sizeof(GLfloat) * unitNum);
 		}
 
@@ -80,16 +82,16 @@ namespace epsilon
 
 		void Enable()
 		{
-			if ( attribudeStride != -1 )
+			if ( attributeStride != -1 )
 			{
-				glVertexAttribPointer(attributeIndex, unitNum, unitType, GL_FALSE, bufferStride, (GLvoid*)attribudeStride);
+				glVertexAttribPointer(attributeIndex, unitNum, unitType, GL_FALSE, bufferStride, (GLvoid*)attributeStride);
 				glEnableVertexAttribArray(attributeIndex);
 			}
 		}
 
 		void Disable()
 		{
-			if ( attribudeStride != -1 )
+			if ( attributeStride != -1 )
 			{
 				glDisableVertexAttribArray(attributeIndex);
 			}
@@ -98,7 +100,7 @@ namespace epsilon
 	private:
 		int unitNum;
 		int unitType;
-		size_t attribudeStride;
+		size_t attributeStride;
 		GLuint attributeIndex;
 		size_t bufferStride;
 		

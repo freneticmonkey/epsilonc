@@ -22,9 +22,9 @@ namespace epsilon
 	class VertexBuffer : public VertexBufferBase
 	{
 	public:
-		typedef std::vector<Type> BufferList;
+		typedef std::vector<Type> List;
 
-		VertexBuffer(BufferList data, VertexBufferType type = ELEMENT)
+		VertexBuffer(List data, VertexBufferType type = ELEMENT)
 		{
 			bufferId = -1;
 			bufferSize = -1;
@@ -50,7 +50,7 @@ namespace epsilon
 		{
 			if ( bufferId != -1 )
 			{
-				glDeleteBuffers(1, bufferId);
+				glDeleteBuffers(1, &bufferId);
 			}
 		}
 
@@ -96,6 +96,6 @@ namespace epsilon
 		GLsizei bufferSize;
 		GLsizei bufferStride;
 
-		BufferList bufferData;
+		List bufferData;
 	};
 }

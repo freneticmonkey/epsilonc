@@ -12,7 +12,7 @@ namespace epsilon
 {
 	using namespace sfg;
 
-	typedef list<Label::Ptr> ConsoleLines;
+	typedef std::list<Label::Ptr> ConsoleLines;
 
 	class ConsoleWindow :
 		public UIWindow, 

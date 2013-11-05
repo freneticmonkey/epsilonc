@@ -11,26 +11,22 @@
 namespace epsilon
 {
 	
-	typedef std::vector<Vector3> VectorList;
-	typedef std::vector<Vector4> ColourList;
-	typedef std::vector<GLshort> IndicesList;
-	typedef std::vector<Vector2> TexCoordList;
 	
-	typedef std::vector<VertexBufferBase *> VertexBufferList;
-
 	typedef VertexBuffer<GLfloat> VertexDataBuffer;
-	typedef VertexBuffer<GLshort> VertexIndicesBuffer;
+	typedef VertexBuffer<GLushort> VertexIndicesBuffer;
 
-	typedef std::vector<VertexAttribBase *> VertexAttribList;
+	typedef VertexAttrib<Vector3> VerticesAttrib;
+	typedef VertexAttrib<Vector3> NormalAttrib;
+	typedef VertexAttrib<Vector4> ColourAttrib;
+	typedef VertexAttrib<Vector2> TexCoordAttrib;
 
-	typedef VertexAttrib<Vector3> VerticesData;
-	typedef VertexAttrib<Vector3> NormalData;
-	typedef VertexAttrib<Vector4> ColourData;
-	typedef VertexAttrib<Vector2> TexCoordData;
-
-	class VertexData
+	class VertexData :
+		public enable_shared_from_this<VertexData>
 	{
 	private:
+		typedef std::vector<VertexBufferBase *> VertexBufferList;
+		typedef std::vector<VertexAttribBase *> VertexAttribList;
+
 		struct private_struct {} ;
 	public:
 		typedef std::shared_ptr<VertexData> Ptr;
@@ -40,11 +36,11 @@ namespace epsilon
 		explicit VertexData(const private_struct &);
 		~VertexData();
 		
-		VertexData& SetVertices(VerticesData::List vertexData);
-		VertexData& SetNormals(NormalData::List normalData);
-		VertexData& SetColours(ColourData::List colourData);
-		VertexData& SetTexCoords(TexCoordData::List texCoordData);
-		VertexData& SetIndices(VertexIndicesBuffer::BufferList indicesData);
+		VertexData::Ptr SetVertices(VerticesAttrib::List vertexData);
+		VertexData::Ptr SetNormals(NormalAttrib::List normalData);
+		VertexData::Ptr SetColours(ColourAttrib::List colourData);
+		VertexData::Ptr SetTexCoords(TexCoordAttrib::List texCoordData);
+		VertexData::Ptr SetIndices(VertexIndicesBuffer::List indicesData);
 
 		void BuildBuffers();
 
@@ -58,13 +54,18 @@ namespace epsilon
 		void Disable();
 
 	private:
+		VertexData::Ptr ThisPtr() { return shared_from_this(); }
+
 		VertexBufferList buffers;
 		VertexAttribList attributes;
 		int numVertices;
+		int numIndices;
 		int vertexIndex;
 		int normalIndex;
 		int colourIndex;
 		int texCoordIndex;
+
+		bool hasIndices;
 
 	};
 

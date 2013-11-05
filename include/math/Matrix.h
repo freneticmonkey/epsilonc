@@ -1,6 +1,5 @@
 #pragma once
 
-#include <valarray>
 #include <array>
 
 #include "math/Vector.h"
@@ -8,8 +7,6 @@
 #include "math/Quaternion.h"
 
 class Quaternion;
-
-typedef std::valarray<float> MatrixData;
 
 class Matrix3
 {
@@ -23,10 +20,43 @@ public:
     Matrix3( float a, float b, float c,
              float e, float f, float g,
              float i, float j, float k );
+
+	// To String
+	inline std::string ToString() 
+	{
+		return Format("[ %5.5f, %5.5f, %5.5f ]\n \
+					   [ %5.5f, %5.5f, %5.5f ]\n \
+					   [ %5.5f, %5.5f, %5.5f ]\n", 
+					   data[0], data[1], data[2], 
+					   data[3], data[4], data[5], 
+					   data[6], data[7], data[8] );
+	}
     
     // Comparison
-    inline bool operator==(const Matrix3& other) const;
-    inline bool operator!=(const Matrix3& other) const;
+    inline bool operator==(const Matrix3& other) const
+	{
+		for ( int i = 0; i < 9; i++)
+		{
+			if ( data[i] != other.data[i] )
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	inline bool operator!=(const Matrix3& other) const
+	{
+		int matches = 0;
+		for ( int i = 0; i < 9; i++)
+		{
+			if ( data[i] != other.data[i] )
+			{
+				matches++;
+			}
+		}
+		return ( matches < 9 );
+	}
     
     // Array Access
 	float &operator[](int i);
@@ -36,7 +66,35 @@ public:
     
     Vector3 operator* (const Vector3& vec) const;
     
-    inline Matrix3& operator*=( const Matrix3& other );
+    inline Matrix3& operator*=( const Matrix3& other )
+	{
+		float mydata[9];// = data;
+	
+		for (int i = 0; i < 9; i++)
+		{
+			mydata[i] = data[i];
+		}
+    
+		mydata[0] = data[0] * other.data[0] + data[1] * other.data[3] + data[2] * other.data[6];
+		mydata[1] = data[0] * other.data[0] + data[1] * other.data[4] + data[2] * other.data[7];
+		mydata[2] = data[0] * other.data[0] + data[1] * other.data[5] + data[2] * other.data[8];
+    
+		mydata[3] = data[3] * other.data[0] + data[4] * other.data[3] + data[5] * other.data[6];
+		mydata[4] = data[3] * other.data[1] + data[4] * other.data[4] + data[5] * other.data[7];
+		mydata[5] = data[3] * other.data[2] + data[4] * other.data[5] + data[5] * other.data[8];
+    
+		mydata[6] = data[6] * other.data[0] + data[7] * other.data[3] + data[8] * other.data[6];
+		mydata[7] = data[6] * other.data[1] + data[7] * other.data[4] + data[8] * other.data[7];
+		mydata[8] = data[6] * other.data[2] + data[7] * other.data[5] + data[8] * other.data[8];
+    
+		//data = mydata;
+		for (int i = 0; i < 9; i++)
+		{
+			data[i] = mydata[i];
+		}
+    
+		return *this;
+	}
 	
     Matrix3 Scale(float x, float y);
     Matrix3 Translate(float x, float y);
@@ -61,9 +119,44 @@ public:
     Matrix4();
     Matrix4( const Matrix4& mat );
     
+	// To String
+	inline std::string ToString() 
+	{
+		return Format("[ %5.5f, %5.5f, %5.5f, %5.5f ]\n \
+					   [ %5.5f, %5.5f, %5.5f, %5.5f ]\n \
+					   [ %5.5f, %5.5f, %5.5f, %5.5f ]\n \
+					   [ %5.5f, %5.5f, %5.5f, %5.5f ]\n", 
+					   data[0], data[1], data[2], data[3], 
+					   data[4], data[5], data[6], data[7], 
+					   data[8], data[9], data[10], data[11], 
+					   data[12], data[13], data[14], data[15] );
+	}
+
     // Comparison
-    inline bool operator==(const Matrix4& other) const;
-    inline bool operator!=(const Matrix4& other) const;
+	inline bool operator==(const Matrix4& other) const
+	{
+		for ( int i = 0; i < 16; i++)
+		{
+			if ( data[i] != other.data[i] )
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	inline bool operator!=(const Matrix4& other) const
+	{
+		int matches = 0;
+		for ( int i = 0; i < 16; i++)
+		{
+			if ( data[i] != other.data[i] )
+			{
+				matches++;
+			}
+		}
+		return ( matches < 16 );
+	}
 
 	// Conversion to float
 	operator float()
@@ -79,7 +172,42 @@ public:
     
     Vector3 operator* (const Vector3 vec) const;
     
-    inline Matrix4& operator*=( const Matrix4& other );
+    inline Matrix4& operator*=( const Matrix4& other )
+	{
+		float mydata[16];// = data;
+		for (int i = 0; i < 16; i++)
+		{
+			mydata[i] = data[i];
+		}
+    
+		mydata[0] = data[0] * other.data[0] + data[1] * other.data[4] + data[2] * other.data[8]  + data[3] * other.data[12];
+		mydata[1] = data[0] * other.data[1] + data[1] * other.data[5] + data[2] * other.data[9]  + data[3] * other.data[13];
+		mydata[2] = data[0] * other.data[2] + data[1] * other.data[6] + data[2] * other.data[10] + data[3] * other.data[14];
+		mydata[3] = data[0] * other.data[3] + data[1] * other.data[7] + data[2] * other.data[11] + data[3] * other.data[15];
+    
+		mydata[4] = data[4] * other.data[1] + data[5] * other.data[4] + data[6] * other.data[8]  + data[7] * other.data[12];
+		mydata[5] = data[4] * other.data[2] + data[5] * other.data[5] + data[6] * other.data[9]  + data[7] * other.data[13];
+		mydata[6] = data[4] * other.data[3] + data[5] * other.data[6] + data[6] * other.data[10] + data[7] * other.data[14];
+		mydata[7] = data[4] * other.data[4] + data[5] * other.data[7] + data[6] * other.data[11] + data[7] * other.data[15];
+    
+		mydata[8]  = data[8] * other.data[1] + data[9] * other.data[4] + data[10] * other.data[8]  + data[11] * other.data[12];
+		mydata[9]  = data[8] * other.data[2] + data[9] * other.data[5] + data[10] * other.data[9]  + data[11] * other.data[13];
+		mydata[10] = data[8] * other.data[3] + data[9] * other.data[6] + data[10] * other.data[10] + data[11] * other.data[14];
+		mydata[11] = data[8] * other.data[4] + data[9] * other.data[7] + data[10] * other.data[11] + data[11] * other.data[15];
+    
+		mydata[12] = data[12] * other.data[1] + data[13] * other.data[4] + data[14] * other.data[8]  + data[15] * other.data[12];
+		mydata[13] = data[12] * other.data[2] + data[13] * other.data[5] + data[14] * other.data[9]  + data[15] * other.data[13];
+		mydata[14] = data[12] * other.data[3] + data[13] * other.data[6] + data[14] * other.data[10] + data[15] * other.data[14];
+		mydata[15] = data[12] * other.data[4] + data[13] * other.data[7] + data[14] * other.data[11] + data[15] * other.data[15];
+    
+		//data = mydata;
+		for (int i = 0; i < 16; i++)
+		{
+			data[i] = mydata[i];
+		}
+    
+		return *this;
+	}
     
     Vector3 Transform(const Vector3& other);
     

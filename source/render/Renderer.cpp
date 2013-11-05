@@ -7,9 +7,21 @@ namespace epsilon
 		return make_shared<Renderer>(private_struct());
 	}
 
+	Renderer::Ptr Renderer::Create(Mesh::Ptr newMesh)
+	{
+		return make_shared<Renderer>(private_struct(), newMesh);
+	}
+
 	Renderer::Renderer(const private_struct &) : NodeComponent("Renderer")
 	{
 		mesh = Mesh::Create();
+		shader = Shader::Create();
+		shader->Setup();
+	}
+
+	Renderer::Renderer(const private_struct &, Mesh::Ptr newMesh) : NodeComponent("Renderer")
+	{
+		mesh = newMesh;
 		shader = Shader::Create();
 		shader->Setup();
 	}

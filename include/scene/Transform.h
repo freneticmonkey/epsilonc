@@ -14,7 +14,7 @@ namespace epsilon
 	 */
 	class Transform;
 
-	typedef list< shared_ptr<Transform>> TransformList;
+	typedef std::list< shared_ptr<Transform>> TransformList;
 	typedef shared_ptr<TransformList> TransformListPtr;
 
 	class Transform : 
@@ -36,12 +36,12 @@ namespace epsilon
 		void Destroy();
 		
 		// Children
-		Transform& SetParentTransform(Transform::Ptr newParent);
+		Transform::Ptr SetParentTransform(Transform::Ptr newParent);
 		Transform::Ptr GetParentTransform();
 		TransformListPtr GetChildren();
-		Transform& AddChild(Transform::Ptr childNode);
-		Transform& RemoveChild(Transform::Ptr childNode);
-		Transform& RemoveAllChildren();
+		Transform::Ptr AddChild(Transform::Ptr childNode);
+		Transform::Ptr RemoveChild(Transform::Ptr childNode);
+		Transform::Ptr RemoveAllChildren();
 		bool HasChildren() { return !children->empty(); }
 
 		Transform::Ptr FindChildWithName(string name);
@@ -68,39 +68,39 @@ namespace epsilon
 		// orientations doesn't necessarily inherit from parents.
 		// determined by the value of inheritOrientation
 		const Quaternion & GetOrientation() const;
-		Transform& SetOrientation( const Quaternion& q);
-		Transform& SetOrientation( float w, float x, float y, float z);
-		Transform& ResetOrientation();
-		Transform& SetInheritOrientation(bool inherit);
+		Transform::Ptr SetOrientation( const Quaternion& q);
+		Transform::Ptr SetOrientation( float w, float x, float y, float z);
+		Transform::Ptr ResetOrientation();
+		Transform::Ptr SetInheritOrientation(bool inherit);
 		bool GetInheritOrientation(void) const;
 
 		// relative to parent
 		const Vector3 & GetPosition() const;
-		Transform& SetPosition( const Vector3& pos);
-		Transform& SetPosition( float x, float y, float z);
+		Transform::Ptr SetPosition( const Vector3& pos);
+		Transform::Ptr SetPosition( float x, float y, float z);
 
 		// scale also doesn't necessarily inherit from parents
 		// determined by the value of inheritScale
 		const Vector3 & GetScale(void) const;
-		Transform& SetScale( const Vector3& sscale);
-		Transform& SetScale( float x, float y, float z);
-		Transform& SetInheritScale(bool inherit);
+		Transform::Ptr SetScale( const Vector3& sscale);
+		Transform::Ptr SetScale( float x, float y, float z);
+		Transform::Ptr SetInheritScale(bool inherit);
 		bool GetInheritScale(void) const;
 
-		Transform& Scaled( const Vector3& scale);
-		Transform& Scaled( float x, float y, float z);
+		Transform::Ptr Scaled( const Vector3& scale);
+		Transform::Ptr Scaled( float x, float y, float z);
 
-		Transform& Translate( const Vector3& d, TransformSpace relativeTo = TS_PARENT);
-		Transform& Translate( float x, float y, float z, TransformSpace relativeTo = TS_PARENT);
-		Transform& Translate( const Matrix3& axes, const Vector3& move, TransformSpace relativeTo = TS_PARENT);
-		Transform& Translate( const Matrix3& axes, float x, float y, float z, TransformSpace relativeTo = TS_PARENT);
+		Transform::Ptr Translate( const Vector3& d, TransformSpace relativeTo = TS_PARENT);
+		Transform::Ptr Translate( float x, float y, float z, TransformSpace relativeTo = TS_PARENT);
+		Transform::Ptr Translate( const Matrix3& axes, const Vector3& move, TransformSpace relativeTo = TS_PARENT);
+		Transform::Ptr Translate( const Matrix3& axes, float x, float y, float z, TransformSpace relativeTo = TS_PARENT);
 
-		Transform& Roll( const float& angle, TransformSpace relativeTo = TS_PARENT);
-		Transform& Pitch( const float& angle, TransformSpace relativeTo = TS_PARENT);
-		Transform& Yaw( const float& angle, TransformSpace relativeTo = TS_PARENT);
+		Transform::Ptr Roll( const float& angle, TransformSpace relativeTo = TS_PARENT);
+		Transform::Ptr Pitch( const float& angle, TransformSpace relativeTo = TS_PARENT);
+		Transform::Ptr Yaw( const float& angle, TransformSpace relativeTo = TS_PARENT);
 
-		Transform& Rotate(const Vector3& axis, const float& angle, TransformSpace relativeTo = TS_LOCAL);
-		Transform& Rotate(const Quaternion& q, TransformSpace relativeTo = TS_LOCAL);
+		Transform::Ptr Rotate(const Vector3& axis, const float& angle, TransformSpace relativeTo = TS_LOCAL);
+		Transform::Ptr Rotate(const Quaternion& q, TransformSpace relativeTo = TS_LOCAL);
 
 		Matrix3 GetLocalAxes(void) const;
 

@@ -7,16 +7,27 @@ namespace epsilon
 {
 	typedef std::vector<Vector3> VecVec;
 
+	enum ParametericType
+	{
+		SPHERE = 0,
+		PLANE,
+		CUBE,
+	};
+
 	struct ParametricData
 	{
-		VectorList vertices;
-		IndicesList indices;
+		VerticesAttrib::List vertices;
+		NormalAttrib::List normals;
+		ColourAttrib::List colours;
+		VertexIndicesBuffer::List indices;
+		TexCoordAttrib::List texCoords;
 	};
 
 	class Parametric
 	{
 	public:
 		static ParametricData Sphere(int slices = 8, int stacks = 8);
+		static ParametricData Plane(int rows = 8, int columns = 8);
 	};
 
 	class MeshFactory
@@ -25,7 +36,7 @@ namespace epsilon
 		MeshFactory(void);
 		~MeshFactory(void);
 
-		static Mesh::Ptr GenerateGrid(int spacers);
+		static Mesh::Ptr GenerateGrid(int size, int resolution);
 		static Mesh::Ptr GenerateCube();
 		static Mesh::Ptr GenerateSphere(int slices = 8, int stacks = 8);
 		static Mesh::Ptr GeneratePlane(int widthSegments = 1, int heightSegments = 1);
@@ -33,7 +44,8 @@ namespace epsilon
 		static Mesh::Ptr GenerateIcoHedron();
 		static Mesh::Ptr GenerateOctohedron();
 
-		static VectorList GenerateNormals(VecVec verts, IndicesList indices);
+		static NormalAttrib::List GenerateNormals(VerticesAttrib::List verts, 
+												  VertexIndicesBuffer::List indices);
 		
 	};
 

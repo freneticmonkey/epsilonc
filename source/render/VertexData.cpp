@@ -15,20 +15,7 @@ namespace epsilon
 		colourIndex = -1;
 		texCoordIndex = -1;
 
-		/*
-		count = 0;
-		// Initialise everything to -1
-		vertexAttribIndex = -1;
-		vertexStride = -1;
-		normalAttribIndex = -1;
-		normalStride = -1;
-		colourAttribIndex = -1;
-		colourStride = -1;
-		texCoordAttribIndex = -1;
-		texCoordStride = -1;
-
-		hasBuffers = false;
-		*/
+		hasIndices = false;
 	}
 
 	VertexData::~VertexData()
@@ -46,54 +33,56 @@ namespace epsilon
 		}
 	}
 
-	VertexData& VertexData::SetVertices(VerticesData::List vertexData)
+	VertexData::Ptr VertexData::SetVertices(VerticesAttrib::List vertexData)
 	{
-		VerticesData * vertices = new VerticesData(vertexData, VertexAttribType::VERTEX);
+		VerticesAttrib * vertices = new VerticesAttrib(vertexData, VertexAttribType::VERTEX);
 		vertexIndex = attributes.size();
 		vertices->SetAttribIndex(vertexIndex);
 		numVertices = vertices->DataLength();
 		attributes.push_back( vertices );
-		return *this;
+		return ThisPtr();
 	}
 
-	VertexData& VertexData::SetNormals(NormalData::List normalData)
+	VertexData::Ptr VertexData::SetNormals(NormalAttrib::List normalData)
 	{
-		NormalData * normals = new NormalData(normalData, VertexAttribType::NORMAL);
+		NormalAttrib * normals = new NormalAttrib(normalData, VertexAttribType::NORMAL);
 		normalIndex = attributes.size() + 1;
 		normals->SetAttribIndex(normalIndex);
 		attributes.push_back( normals );
-		return *this;
+		return ThisPtr();
 	}
 
-	VertexData& VertexData::SetColours(ColourData::List colourData)
+	VertexData::Ptr VertexData::SetColours(ColourAttrib::List colourData)
 	{
-		ColourData * colours = new ColourData(colourData, VertexAttribType::COLOUR);
+		ColourAttrib * colours = new ColourAttrib(colourData, VertexAttribType::COLOUR);
 		colourIndex = attributes.size();
 		colours->SetAttribIndex(colourIndex);
 		attributes.push_back( colours );
-		return *this;
+		return ThisPtr();
 	}
 
-	VertexData& VertexData::SetTexCoords(TexCoordData::List texCoordData)
+	VertexData::Ptr VertexData::SetTexCoords(TexCoordAttrib::List texCoordData)
 	{
-		TexCoordData * texCoords = new TexCoordData(texCoordData, VertexAttribType::TEXCOORD);
+		TexCoordAttrib * texCoords = new TexCoordAttrib(texCoordData, VertexAttribType::TEXCOORD);
 		texCoordIndex = attributes.size();
 		texCoords->SetAttribIndex(texCoordIndex);
 		attributes.push_back( texCoords );
-		return *this;
+		return ThisPtr();
 	}
 
-	VertexData& VertexData::SetIndices(VertexIndicesBuffer::BufferList indicesData)
+	VertexData::Ptr VertexData::SetIndices(VertexIndicesBuffer::List indicesData)
 	{
 		buffers.push_back(new VertexIndicesBuffer(indicesData, VertexBufferType::INDICES) );
-		return *this;
+		numIndices = indicesData.size();
+		hasIndices = true;
+		return ThisPtr();
 	}
 
 	void VertexData::BuildBuffers()
 	{
 		// Build the vertex buffer data
 		size_t stride = 0;
-		VertexDataBuffer::BufferList vertexData;
+		VertexDataBuffer::List vertexData;
 
 		int attribLength = attributes[0]->DataLength();
 		int numUnits = -1;
@@ -172,11 +161,18 @@ namespace epsilon
 
 		Enable();
 
-		//glDrawElements(GL_TRIANGLES, count, GL_UNSIGNED_SHORT, 0);
-
-		//Wireframe
-		glDrawElements(GL_LINE_LOOP, numVertices, GL_UNSIGNED_SHORT, 0);
-			
+		// If drawing surfaces
+		if ( hasIndices )
+		{
+			glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_SHORT, 0);
+			//glDrawElements(GL_POINTS, numIndices, GL_UNSIGNED_SHORT, 0);
+		}
+		else
+		{
+			// Drawing Lines - this is a temporary hack for grids until Materials or some such are implemented.
+			glDrawArrays(GL_LINES, 0, numVertices);
+		}
+	
 		Disable();
 
 		ErrorCheckValue = glGetError();

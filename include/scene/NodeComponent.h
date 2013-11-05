@@ -7,11 +7,10 @@
 
 namespace epsilon
 {
-	using namespace std;
 	class NodeComponent;
 	
-	typedef list< shared_ptr<NodeComponent> > NodeComponentList;
-	typedef shared_ptr<NodeComponentList> NodeComponentListPtr;
+	typedef std::list< shared_ptr<NodeComponent> > NodeComponentList;
+	typedef std::shared_ptr<NodeComponentList> NodeComponentListPtr;
 
 	class NodeComponent : public Object
 	{

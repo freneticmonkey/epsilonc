@@ -61,6 +61,18 @@
     <Filter Include="Source Files\tests">
       <UniqueIdentifier>{1672800d-7a8f-43af-93d4-1068c4cd42c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\script">
+      <UniqueIdentifier>{c8570b76-3939-426b-ae4a-e4b4b9fca734}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\script">
+      <UniqueIdentifier>{41896f6e-d07f-4d63-bb89-4d7a357f6028}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\script\python">
+      <UniqueIdentifier>{1782f872-4618-4b71-97c8-c3e79af0dd2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\script\python">
+      <UniqueIdentifier>{6f8eebe5-f1d7-4da9-bb52-90e93aea8768}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\EpsilonCore.h">
@@ -156,6 +168,24 @@
     <ClInclude Include="..\include\render\VertexData.h">
       <Filter>Header Files\render</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\script\ScriptManager.h">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\Script.h">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\python\Math.h">
+      <Filter>Header Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\python\Module.h">
+      <Filter>Header Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\ScriptCommon.h">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\ScriptBehaviour.h">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp">
@@ -226,6 +256,21 @@
     </ClCompile>
     <ClCompile Include="..\source\render\VertexData.cpp">
       <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\ScriptManager.cpp">
+      <Filter>Source Files\script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\Script.cpp">
+      <Filter>Source Files\script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\Math.cpp">
+      <Filter>Source Files\script\python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\Module.cpp">
+      <Filter>Source Files\script\python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\ScriptBehaviour.cpp">
+      <Filter>Source Files\script</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

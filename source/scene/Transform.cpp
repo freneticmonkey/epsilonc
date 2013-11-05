@@ -45,11 +45,11 @@ namespace epsilon
 		parent = nullptr;
 	}
 
-	Transform& Transform::SetParentTransform(Transform::Ptr newParent)
+	Transform::Ptr Transform::SetParentTransform(Transform::Ptr newParent)
 	{
 		parent = newParent;
 		needUpdate();
-		return *this;
+		return ThisPtr();
 	}
 
 	Transform::Ptr Transform::GetParentTransform() 
@@ -62,7 +62,7 @@ namespace epsilon
 		return children; 
 	}
 	
-	Transform& Transform::AddChild(Transform::Ptr childNode)
+	Transform::Ptr Transform::AddChild(Transform::Ptr childNode)
 	{
 		// Check if the node is already a child
 		TransformList::iterator foundChild = find(children->begin(), children->end(), childNode);
@@ -81,10 +81,10 @@ namespace epsilon
 			childNode->SetParentTransform(ThisPtr());
 			children->push_back(childNode);
 		}
-		return *this;
+		return ThisPtr();
 	}
 
-	Transform& Transform::RemoveChild(Transform::Ptr childNode)
+	Transform::Ptr Transform::RemoveChild(Transform::Ptr childNode)
 	{
 		// Check if the node is already a child
 		TransformList::iterator foundChild = find(children->begin(), children->end(), childNode);
@@ -95,10 +95,10 @@ namespace epsilon
 			children->remove(childNode);
 			childNode->parent = nullptr;
 		}
-		return *this;
+		return ThisPtr();
 	}
 
-	Transform& Transform::RemoveAllChildren()
+	Transform::Ptr Transform::RemoveAllChildren()
 	{
 		// Remove all children setting their parent pointers to null
 		for ( TransformList::iterator childNode = children->begin(); childNode != children->end(); childNode++)
@@ -106,7 +106,7 @@ namespace epsilon
 			(*childNode)->parent = nullptr;
 		}
 		children->clear();
-		return *this;
+		return ThisPtr();
 	}
 
 	Transform::Ptr Transform::FindChildWithName(string name)
@@ -347,46 +347,46 @@ namespace epsilon
     }
 
     //-----------------------------------------------------------------------
-    Transform& Transform::SetOrientation( const Quaternion & q )
+    Transform::Ptr Transform::SetOrientation( const Quaternion & q )
     {
         orientation = q;
 		orientation.Normalise();
         needUpdate();
-		return *this;
+		return ThisPtr();
     }
     //-----------------------------------------------------------------------
-    Transform& Transform::SetOrientation( float w, float x, float y, float z)
+    Transform::Ptr Transform::SetOrientation( float w, float x, float y, float z)
     {
         orientation.w = w;
         orientation.x = x;
         orientation.y = y;
         orientation.z = z;
         needUpdate();
-		return *this;
+		return ThisPtr();
     }
     //-----------------------------------------------------------------------
-    Transform& Transform::ResetOrientation(void)
+    Transform::Ptr Transform::ResetOrientation(void)
     {
         orientation = Quaternion::IDENTITY;
         needUpdate();
-		return *this;
+		return ThisPtr();
     }
 
     //-----------------------------------------------------------------------
-    Transform& Transform::SetPosition(const Vector3& pos)
+    Transform::Ptr Transform::SetPosition(const Vector3& pos)
     {
         position = pos;
         needUpdate();
-		return *this;
+		return ThisPtr();
     }
 
 
     //-----------------------------------------------------------------------
-    Transform& Transform::SetPosition(float x, float y, float z)
+    Transform::Ptr Transform::SetPosition(float x, float y, float z)
     {
         Vector3 v(x,y,z);
         SetPosition(v);
-		return *this;
+		return ThisPtr();
     }
 
     //-----------------------------------------------------------------------
@@ -394,20 +394,20 @@ namespace epsilon
     {
         return position;
     }//-----------------------------------------------------------------------
-    Transform& Transform::SetScale(const Vector3& newScale)
+    Transform::Ptr Transform::SetScale(const Vector3& newScale)
     {
         scale = newScale;
         needUpdate();
-		return *this;
+		return ThisPtr();
     }
     //-----------------------------------------------------------------------
-    Transform& Transform::SetScale(float x, float y, float z)
+    Transform::Ptr Transform::SetScale(float x, float y, float z)
     {
         scale.x = x;
         scale.y = y;
         scale.z = z;
         needUpdate();
-		return *this;
+		return ThisPtr();
     }
     //-----------------------------------------------------------------------
     const Vector3 & Transform::GetScale(void) const
@@ -415,11 +415,11 @@ namespace epsilon
         return scale;
     }
     //-----------------------------------------------------------------------
-    Transform& Transform::SetInheritOrientation(bool inherit)
+    Transform::Ptr Transform::SetInheritOrientation(bool inherit)
     {
         inheritOrientation = inherit;
         needUpdate();
-		return *this;
+		return ThisPtr();
     }
     //-----------------------------------------------------------------------
     bool Transform::GetInheritOrientation(void) const
@@ -427,11 +427,11 @@ namespace epsilon
         return inheritOrientation;
     }
     //-----------------------------------------------------------------------
-    Transform& Transform::SetInheritScale(bool inherit)
+    Transform::Ptr Transform::SetInheritScale(bool inherit)
     {
         inheritScale = inherit;
         needUpdate();
-		return *this;
+		return ThisPtr();
     }
     //-----------------------------------------------------------------------
     bool Transform::GetInheritScale(void) const
@@ -439,22 +439,22 @@ namespace epsilon
         return inheritScale;
     }
     //-----------------------------------------------------------------------
-    Transform& Transform::Scaled(const Vector3& multScale)
+    Transform::Ptr Transform::Scaled(const Vector3& multScale)
     {
         scale[0] *= multScale.x;
         scale[1] *= multScale.y;
         scale[0] *= multScale.z;
 		needUpdate();
-		return *this;
+		return ThisPtr();
     }
     //-----------------------------------------------------------------------
-    Transform& Transform::Scaled(float x, float y, float z)
+    Transform::Ptr Transform::Scaled(float x, float y, float z)
     {
         scale[0] *= x;
         scale[1] *= y;
         scale[0] *= z;
         needUpdate();
-		return *this;
+		return ThisPtr();
     }
     //-----------------------------------------------------------------------
     Matrix3 Transform::GetLocalAxes(void) const
@@ -473,7 +473,7 @@ namespace epsilon
     }
 
 	//-----------------------------------------------------------------------
-    Transform& Transform::Translate(const Vector3& d, TransformSpace relativeTo)
+    Transform::Ptr Transform::Translate(const Vector3& d, TransformSpace relativeTo)
     {
         switch(relativeTo)
         {
@@ -499,59 +499,59 @@ namespace epsilon
             break;
         }
         needUpdate();
-		return *this;
+		return ThisPtr();
 
     }
     //-----------------------------------------------------------------------
-    Transform& Transform::Translate(float x, float y, float z, TransformSpace relativeTo)
+    Transform::Ptr Transform::Translate(float x, float y, float z, TransformSpace relativeTo)
     {
         Vector3 v(x,y,z);
         Translate(v, relativeTo);
-		return *this;
+		return ThisPtr();
     }
     //-----------------------------------------------------------------------
-    Transform& Transform::Translate(const Matrix3& axes, const Vector3& move, TransformSpace relativeTo)
+    Transform::Ptr Transform::Translate(const Matrix3& axes, const Vector3& move, TransformSpace relativeTo)
     {
         Vector3 derived = axes * move;
         Translate(derived, relativeTo);
-		return *this;
+		return ThisPtr();
     }
     //-----------------------------------------------------------------------
-    Transform& Transform::Translate(const Matrix3& axes, float x, float y, float z, TransformSpace relativeTo)
+    Transform::Ptr Transform::Translate(const Matrix3& axes, float x, float y, float z, TransformSpace relativeTo)
     {
         Vector3 d(x,y,z);
         Translate(axes,d,relativeTo);
-		return *this;
+		return ThisPtr();
     }
     //-----------------------------------------------------------------------
-    Transform& Transform::Roll(const float& angle, TransformSpace relativeTo)
+    Transform::Ptr Transform::Roll(const float& angle, TransformSpace relativeTo)
     {
         Rotate(Vector3::UNIT_Z, angle, relativeTo);
-		return *this;
+		return ThisPtr();
     }
     //-----------------------------------------------------------------------
-    Transform& Transform::Pitch(const float& angle, TransformSpace relativeTo)
+    Transform::Ptr Transform::Pitch(const float& angle, TransformSpace relativeTo)
     {
         Rotate(Vector3::UNIT_X, angle, relativeTo);
-		return *this;
+		return ThisPtr();
     }
     //-----------------------------------------------------------------------
-    Transform& Transform::Yaw(const float& angle, TransformSpace relativeTo)
+    Transform::Ptr Transform::Yaw(const float& angle, TransformSpace relativeTo)
     {
         Rotate(Vector3::UNIT_Y, angle, relativeTo);
-		return *this;
+		return ThisPtr();
 
     }
     //-----------------------------------------------------------------------
-    Transform& Transform::Rotate(const Vector3& axis, const float& angle, TransformSpace relativeTo)
+    Transform::Ptr Transform::Rotate(const Vector3& axis, const float& angle, TransformSpace relativeTo)
     {
         Quaternion q(axis, angle);
         Rotate(q, relativeTo);
-		return *this;
+		return ThisPtr();
     }
 
     //-----------------------------------------------------------------------
-    Transform& Transform::Rotate(const Quaternion& q, TransformSpace relativeTo)
+    Transform::Ptr Transform::Rotate(const Quaternion& q, TransformSpace relativeTo)
     {
 		// Normalise quaternion to avoid drift
 		Quaternion qnorm = q;
@@ -574,7 +574,7 @@ namespace epsilon
             break;
         }
         needUpdate();
-		return *this;
+		return ThisPtr();
     }
     //-----------------------------------------------------------------------
     const Quaternion & Transform::_getDerivedOrientation(void)
