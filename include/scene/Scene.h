@@ -7,7 +7,8 @@ namespace epsilon
 {
 	using namespace std;
 
-	class Scene
+	class Scene :
+		public enable_shared_from_this<Scene>
 	{
 	private:
 		struct private_struct {};
@@ -15,9 +16,10 @@ namespace epsilon
 	public:
 		typedef shared_ptr<Scene> Ptr;
 
+		static Scene::Ptr Create();
+
 		explicit Scene(const private_struct &);
 		~Scene(void);
-		static Ptr Create();
 	
 		string GetName() { return name; }
 

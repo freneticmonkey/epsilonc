@@ -14,7 +14,7 @@ namespace epsilon
 	using namespace std;
 	class Node;
 
-	typedef list< shared_ptr<Node> > NodeList;
+	typedef std::list< shared_ptr<Node> > NodeList;
 	typedef shared_ptr<NodeList> NodeListPtr;
 	
 	class Node : 
@@ -38,8 +38,8 @@ namespace epsilon
 		~Node(void);
 
 		// Components
-		Node& AddComponent(NodeComponent::Ptr newComponent);
-		Node& RemoveComponent(NodeComponent::Ptr rmComponent);
+		Node::Ptr AddComponent(NodeComponent::Ptr newComponent);
+		Node::Ptr RemoveComponent(NodeComponent::Ptr rmComponent);
 
 		// Operators
 		bool operator==(Node::Ptr other);
@@ -48,7 +48,7 @@ namespace epsilon
 
 		// CreateChildNode
 		Node::Ptr CreateChildNode();
-		Node& AddChild(Node::Ptr newChild);
+		Node::Ptr AddChild(Node::Ptr newChild);
 
 		// Node Getters
 		//Transform::Ptr Transform() { return transform; }

@@ -16,8 +16,8 @@ namespace epsilon
 		//typedef std::shared_ptr<Object> Ptr;
 
 		long GetId() { return id; }
-		string GetName() { return objectName; }
-		string GetClass() { return className; }
+		const std::string GetName() { return objectName; }
+		std::string GetClass() { return className; }
 
 		Object()
 		{
@@ -46,10 +46,9 @@ namespace epsilon
 			objectName = name;
 		}
 
-		Object& SetName(string name)
+		void SetName(string name)
 		{
 			objectName = name;
-			return *this;
 		}
 
 		//Object::Ptr GetObjectPtr() { return ThisPtr(); }
