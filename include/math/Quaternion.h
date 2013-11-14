@@ -31,8 +31,15 @@ public:
     Quaternion(Matrix4 rotation);
 
     // Comparison
-    inline bool operator==(const Quaternion& other) const;
-    inline bool operator!=(const Quaternion& other) const;
+    inline bool operator==(const Quaternion& other) const
+	{
+		return x == other.x && y == other.y && z == other.z && w == other.w;
+	}
+
+    inline bool operator!=(const Quaternion& other) const
+	{
+		return x != other.x && y != other.y && z != other.z && w != other.w;
+	}
 
     // Arithmetic operations
     /*
@@ -104,13 +111,78 @@ public:
         return *this;
     }
     
-    inline float Length();
-    inline float LengthSquared();
-    float Normalise();
-    inline Quaternion Normalised();
+    inline float Length()
+	{
+		return std::sqrtf( x * x + y * y + z * z + w * w);
+	}
 
-    inline void Conjugate();
-    inline Quaternion Conjugated();
+	inline float LengthSquared()
+	{
+		return x * x + y * y + z * z + w * w;
+	}
+
+	inline float Normalise()
+	{
+		float length = Length();
+    
+		if ( length > 0 )
+		{
+			float invLength = 1 / length;
+			x *= invLength;
+			y *= invLength;
+			z *= invLength;
+			w *= invLength;
+		}
+		else
+		{
+			length = 0.f;
+			x = 0.f;
+			y = 0.f;
+			z = 0.f;
+			w = 0.f;
+		}
+		return length;
+	}
+
+	inline Quaternion Normalised()
+	{
+		float length = Length();
+    
+		float nx = x;
+		float ny = y;
+		float nz = z;
+		float nw = w;
+    
+		if ( length > 0 )
+		{
+			float invLength = 1 / length;
+			nx *= invLength;
+			ny *= invLength;
+			nz *= invLength;
+			nw *= invLength;
+		}
+		else
+		{
+			length = 0.f;
+			nx = 0.f;
+			ny = 0.f;
+			nz = 0.f;
+			nw = 0.f;
+		}
+		return Quaternion(nx, ny, nz, nw);
+	}
+
+	inline void Conjugate()
+	{
+		x = -x;
+		y = -y;
+		z = -z;
+	}
+
+	inline Quaternion Conjugated()
+	{
+		return Quaternion(-x, -y, -z, w);
+	}
     
     Quaternion Inverse() const;
 
