@@ -11,7 +11,7 @@ namespace epsilon
 
 	class EventListener;
 
-	typedef list<EventType::Ptr> EventTypes;
+	typedef std::list<EventType::Ptr> EventTypes;
 
 	class EventListener
 	{
@@ -33,12 +33,12 @@ namespace epsilon
 		EventTypes types;
 	};
 
-	typedef list<EventListener::Ptr> EventListenerList;
+	typedef std::list<EventListener::Ptr> EventListenerList;
 	
 	typedef map<size_t, EventListenerList> EventListenerMap;
 	typedef EventListenerMap::iterator EventListenerIterator;
 
-	typedef list<Event::Ptr> EventList;
+	typedef std::list<Event::Ptr> EventList;
 
 	class EventManager
 	{
