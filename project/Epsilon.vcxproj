@@ -37,8 +37,11 @@
     <ClInclude Include="..\include\scene\Scene.h" />
     <ClInclude Include="..\include\scene\SceneManager.h" />
     <ClInclude Include="..\include\scene\Transform.h" />
-    <ClInclude Include="..\include\script\python\Math.h" />
-    <ClInclude Include="..\include\script\python\Module.h" />
+    <ClInclude Include="..\include\script\python\ManagerModule.h" />
+    <ClInclude Include="..\include\script\python\MathModule.h" />
+    <ClInclude Include="..\include\script\python\MainModule.h" />
+    <ClInclude Include="..\include\script\python\RenderModule.h" />
+    <ClInclude Include="..\include\script\python\SceneModule.h" />
     <ClInclude Include="..\include\script\Script.h" />
     <ClInclude Include="..\include\script\ScriptBehaviour.h" />
     <ClInclude Include="..\include\script\ScriptCommon.h" />
@@ -69,8 +72,11 @@
     <ClCompile Include="..\source\scene\Scene.cpp" />
     <ClCompile Include="..\source\scene\SceneManager.cpp" />
     <ClCompile Include="..\source\scene\Transform.cpp" />
-    <ClCompile Include="..\source\script\python\Math.cpp" />
-    <ClCompile Include="..\source\script\python\Module.cpp" />
+    <ClCompile Include="..\source\script\python\ManagerModule.cpp" />
+    <ClCompile Include="..\source\script\python\MathModule.cpp" />
+    <ClCompile Include="..\source\script\python\MainModule.cpp" />
+    <ClCompile Include="..\source\script\python\RenderModule.cpp" />
+    <ClCompile Include="..\source\script\python\SceneModule.cpp" />
     <ClCompile Include="..\source\script\Script.cpp" />
     <ClCompile Include="..\source\script\ScriptBehaviour.cpp" />
     <ClCompile Include="..\source\script\ScriptManager.cpp" />

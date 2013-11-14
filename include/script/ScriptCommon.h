@@ -1,6 +1,21 @@
 #pragma once
 #include "EpsilonCore.h"
 
+// Exposing std::shared_ptr to boost
+
+namespace boost 
+{
+	template<class T> const T* get_pointer(const std::shared_ptr<T>& p)
+	{
+		return p.get();
+	}
+
+	template<class T> T* get_pointer(std::shared_ptr<T>& p)
+	{
+		return p.get();
+	}
+} // namespace boost
+
 #include <boost/python.hpp>
 using namespace boost::python;
 

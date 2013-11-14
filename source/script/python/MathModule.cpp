@@ -1,4 +1,4 @@
-#include "script/python/Math.h"
+#include "script/python/MathModule.h"
 #include "math/Vector.h"
 #include "math/Matrix.h"
 #include "math/Quaternion.h"
@@ -150,6 +150,12 @@ float matrix4_getitem(Matrix4&v, int index)
     }
 }
 
+// Quaternion function wrappers
+
+Quaternion (Quaternion::*RotateAxisVF)(Vector3,float) = &Quaternion::RotateAxis;
+Quaternion (Quaternion::*RotateAxisAA)(AxisAngle) = &Quaternion::RotateAxis;
+Quaternion (Quaternion::*RotateEulerFFF)(float,float,float) = &Quaternion::RotateEuler;
+Quaternion (Quaternion::*RotateEulerE)(Euler) = &Quaternion::RotateEuler;
 
 // Expose Math Classes to Python
 void initMath()
@@ -247,20 +253,20 @@ void initMath()
 
 		.def("compute_extremes", &Vector3::ComputeExtremes, return_value_policy<manage_new_object>())
 
-		.def_readonly("up", Vector3::UP)
-		.def_readonly("right", &Vector3::RIGHT)
-		.def_readonly("forward", &Vector3::FORWARD)
-		.def_readonly("down", &Vector3::DOWN)
+		.def_readonly("UP", Vector3::UP)
+		.def_readonly("RIGHT", &Vector3::RIGHT)
+		.def_readonly("FORWARD", &Vector3::FORWARD)
+		.def_readonly("DOWN", &Vector3::DOWN)
+		.def_readonly("LEFT", &Vector3::LEFT)
+		.def_readonly("BACKWARD", &Vector3::BACKWARD)
 
-		.def_readonly("left", &Vector3::LEFT)
-		.def_readonly("backward", &Vector3::BACKWARD)
-		.def_readonly("zero", &Vector3::ZERO)
-		.def_readonly("one", &Vector3::ONE)
-		.def_readonly("identity", &Vector3::IDENTITY)
+		.def_readonly("ZERO", &Vector3::ZERO)
+		.def_readonly("ONE", &Vector3::ONE)
+		.def_readonly("IDENTITY", &Vector3::IDENTITY)
 
-		.def_readonly("unit_x", &Vector3::UNIT_X)
-		.def_readonly("unit_y", &Vector3::UNIT_Y)
-		.def_readonly("unit_z", &Vector3::UNIT_Z)
+		.def_readonly("UNIT_Z", &Vector3::UNIT_Z)
+		.def_readonly("UNIT_Y", &Vector3::UNIT_Y)
+		.def_readonly("UNIT_X", &Vector3::UNIT_X)
 		;
 
 	class_<Vector4>("Vector4", init< optional<float> >())
@@ -301,6 +307,10 @@ void initMath()
 
 		.def("compute_extremes", &Vector4::ComputeExtremes, return_value_policy<manage_new_object>())
 		;
+	
+	class_<AxisAngle>("AxisAngle", init<Vector3, float>());
+
+	class_<Euler>("Euler", init<float, float, float>());
 
 	class_<Matrix3>("Matrix3")
 		.def(init<Matrix3>())
@@ -381,6 +391,43 @@ void initMath()
 		.def("get_rotation", &Matrix4::GetRotation)
 	;
 
+	class_<Quaternion>("Quaternion")
+		.def(init<Quaternion>())
+		.def(init<float, float, float, float>())
+		.def(init<Vector3, float>())
+		.def(init<float, float, float>())
+		.def(init<Matrix4>())
 
-		
+		.def(self == self)
+		.def(self != self)
+
+		.def(self * self)
+		.def(self * Vector3())
+		.def(self *= self)
+
+		.def("length", &Quaternion::Length)
+		.def("length_squared", &Quaternion::LengthSquared)
+		.def("normalise", &Quaternion::Normalise)
+		.def("normalised", &Quaternion::Normalised)
+		.def("conjugate", &Quaternion::Conjugate)
+		.def("conjugated", &Quaternion::Conjugated)
+		.def("inverse", &Quaternion::Inverse)
+
+		// Using Custom Overload handlers
+		.def("rotate_axis", RotateAxisVF)
+		.def("rotate_axis", RotateAxisAA)
+		.def("rotate_euler", RotateEulerFFF)
+		.def("rotate_euler", RotateEulerE)
+
+		.def("rotate_matrix", &Quaternion::RotateMatrix)
+
+		.def("rotate", &Quaternion::Rotate)
+		.def("get_angle_axis", &Quaternion::GetAngleAxis)
+		.def("get_euler", &Quaternion::GetEuler)
+		.def("get_matrix", &Quaternion::GetMatrix)
+		.def("interpolate", &Quaternion::Interpolate)
+
+		.def_readonly("IDENTITY", &Quaternion::IDENTITY)
+		.def_readonly("ZERO", &Quaternion::ZERO)
+	;
 }

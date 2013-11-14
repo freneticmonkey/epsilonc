@@ -6,7 +6,7 @@
 #include "script/ScriptBehaviour.h"
 #include "script/ScriptCommon.h"
 
-#include "script/python/Module.h"
+#include "script/python/MainModule.h"
 
 using namespace boost::python;
 
@@ -31,8 +31,12 @@ namespace epsilon
 		void ReloadScript(Script::Ptr script);
 
 	private:
+		void StartBehaviours();
+
 		ScriptList scriptList;
 		BehaviourList behaviourList;
+
+		BehaviourList startingBehaviours;
 
 		object pythonGlobalModule;
 		dict pythonGlobalNamespace;

@@ -174,17 +174,26 @@
     <ClInclude Include="..\include\script\Script.h">
       <Filter>Header Files\script</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\script\python\Math.h">
-      <Filter>Header Files\script\python</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\python\Module.h">
-      <Filter>Header Files\script\python</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\script\ScriptCommon.h">
       <Filter>Header Files\script</Filter>
     </ClInclude>
     <ClInclude Include="..\include\script\ScriptBehaviour.h">
       <Filter>Header Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\python\SceneModule.h">
+      <Filter>Header Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\python\MathModule.h">
+      <Filter>Header Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\python\MainModule.h">
+      <Filter>Header Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\python\RenderModule.h">
+      <Filter>Header Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\python\ManagerModule.h">
+      <Filter>Header Files\script\python</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -263,14 +272,23 @@
     <ClCompile Include="..\source\script\Script.cpp">
       <Filter>Source Files\script</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\script\python\Math.cpp">
-      <Filter>Source Files\script\python</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\script\python\Module.cpp">
-      <Filter>Source Files\script\python</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\script\ScriptBehaviour.cpp">
       <Filter>Source Files\script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\MathModule.cpp">
+      <Filter>Source Files\script\python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\MainModule.cpp">
+      <Filter>Source Files\script\python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\SceneModule.cpp">
+      <Filter>Source Files\script\python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\RenderModule.cpp">
+      <Filter>Source Files\script\python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\ManagerModule.cpp">
+      <Filter>Source Files\script\python</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

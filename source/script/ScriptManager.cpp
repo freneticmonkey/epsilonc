@@ -41,6 +41,7 @@ namespace epsilon
 		ScriptBehaviour::Ptr newBehaviour = ScriptBehaviour::Create(filename, ScriptSource::FILE);
 		newBehaviour->InitScript(pythonGlobalNamespace);
 		behaviourList.push_back(newBehaviour);
+		startingBehaviours.push_back(newBehaviour);
 		return newBehaviour;
 	}
 
@@ -65,24 +66,53 @@ namespace epsilon
 	{
 		script->InitScript(pythonGlobalNamespace);
 	}
+
+	void ScriptManager::StartBehaviours()
+	{
+		// Run start for each behaviour
+		if ( startingBehaviours.size() > 0 )
+		{
+			for ( BehaviourList::iterator behaviour = startingBehaviours.begin(); behaviour != startingBehaviours.end(); behaviour++)
+			{
+				try
+				{
+					(*behaviour)->OnStart();
+				}
+				catch (error_already_set& e)
+				{
+					if (PyErr_Occurred()) 
+					{
+						PrintPythonError();
+					}
+				}
+			}
+		}
+		
+		// Empty the list so that start is not run again
+		startingBehaviours.clear();
+	}
 	
 	void ScriptManager::Update(float dt)
 	{
-		try
+		// TODO: Move to an OnFrameStart or equivalent function
+		// so that scripts can receive the start and update events
+		// in the same frame.
+		StartBehaviours();
+
+		for ( BehaviourList::iterator behaviour = behaviourList.begin(); behaviour != behaviourList.end(); behaviour++)
 		{
-			for ( BehaviourList::iterator behaviour = behaviourList.begin(); behaviour != behaviourList.end(); behaviour++)
+			try
 			{
 				(*behaviour)->Update(dt);
 			}
-		}
-		catch (error_already_set& e)
-		{
-			if (PyErr_Occurred()) 
+			catch (error_already_set& e)
 			{
-				PrintPythonError();
+				if (PyErr_Occurred()) 
+				{
+					PrintPythonError();
+				}
 			}
 		}
-
 	}
 
 }
