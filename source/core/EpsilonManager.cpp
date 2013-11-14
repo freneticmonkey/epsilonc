@@ -17,7 +17,7 @@ namespace epsilon
 
 	EpsilonManager::~EpsilonManager(void)
 	{
-		if ( sceneManager ) { delete sceneManager; }
+		//if ( sceneManager ) { delete sceneManager; }
 		if ( uiManager ) { delete uiManager; }
 		if ( renderManager ) { delete renderManager; }
 		if ( scriptManager ) { delete scriptManager; }
@@ -40,7 +40,8 @@ namespace epsilon
 		consoleWindow->Setup();
 		uiManager->AddUIWindow(consoleWindow);
 
-		sceneManager = new SceneManager();
+		//sceneManager = new SceneManager();
+		sceneManager = &SceneManager::GetInstance();
 		sceneManager->Setup();
 
 		renderManager->SetSceneManager(sceneManager);
@@ -69,6 +70,7 @@ namespace epsilon
 		//
 		//// Add a sub child
 		Node::Ptr tChild = sceneManager->CurrentScene()->Root()->CreateChildNode();
+		tChild->SetName("sphere");
 		tChild->AddComponent(Renderer::Create());
 		tChild->GetComponent<Renderer>()
 			  ->SetMesh(MeshFactory::GenerateSphere());

@@ -9,13 +9,24 @@ namespace epsilon
 {
 	using namespace std;
 
-	typedef list<Scene::Ptr> SceneList;
-	typedef list<Renderer::Ptr> RenderList;
+	typedef std::list<Scene::Ptr> SceneList;
+	typedef std::list<Renderer::Ptr> RenderList;
 
+	// Making this a Singleton
 	class SceneManager
 	{
-	public:
+	private:
 		SceneManager(void);
+		SceneManager(SceneManager const&);
+		void operator=(SceneManager const&);
+
+	public:
+		static SceneManager & GetInstance()
+		{
+			static SceneManager instance;
+			return instance;
+		};
+
 		~SceneManager(void);
 
 		Scene::Ptr CurrentScene() { return currentScene; }
