@@ -59,7 +59,7 @@ namespace epsilon
 		//AddComponent(renderer);
 	}
 
-	Node& Node::AddComponent(NodeComponent::Ptr newComponent)
+	Node::Ptr Node::AddComponent(NodeComponent::Ptr newComponent)
 	{
 		NodeComponentList::iterator foundComponent;
 
@@ -89,14 +89,14 @@ namespace epsilon
 			components->push_back(newComponent);
 
 		}
-		return *this;
+		return ThisPtr();
 	}
 
-	Node& Node::RemoveComponent(NodeComponent::Ptr removeComponent)
+	Node::Ptr Node::RemoveComponent(NodeComponent::Ptr removeComponent)
 	{
 		removeComponent->SetParent(nullptr);
 		components->remove(removeComponent);
-		return *this;
+		return ThisPtr();
 	}
 
 	/*
@@ -154,9 +154,9 @@ namespace epsilon
 		return newChild;
 	}
 
-	Node& Node::AddChild(Node::Ptr newChild)
+	Node::Ptr Node::AddChild(Node::Ptr newChild)
 	{
 		GetComponent<Transform>()->AddChild( newChild->GetComponent<Transform>() );
-		return *this;
+		return ThisPtr();
 	}
 }
