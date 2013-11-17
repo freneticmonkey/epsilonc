@@ -253,7 +253,7 @@ void initMath()
 
 		.def("compute_extremes", &Vector3::ComputeExtremes, return_value_policy<manage_new_object>())
 
-		.def_readonly("UP", Vector3::UP)
+		.def_readonly("UP", &Vector3::UP)
 		.def_readonly("RIGHT", &Vector3::RIGHT)
 		.def_readonly("FORWARD", &Vector3::FORWARD)
 		.def_readonly("DOWN", &Vector3::DOWN)
