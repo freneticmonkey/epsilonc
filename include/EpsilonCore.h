@@ -33,6 +33,8 @@
 //#include "math/Vector.h"
 //#include "math/Quaternion.h"
 
+#include "logging/Logging.h"
+
 namespace epsilon
 {
     /*
