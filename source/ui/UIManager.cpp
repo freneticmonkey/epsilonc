@@ -18,8 +18,8 @@ namespace epsilon
 	{
 		Log("Initialising UIManager");
 
-		sfgui = new SFGUI();
-		desktop = new Desktop();
+		sfgui = new sfg::SFGUI();
+		desktop = new sfg::Desktop();
 
 	}
 
