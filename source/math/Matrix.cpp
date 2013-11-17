@@ -9,6 +9,7 @@
 #include <stdio.h>
 
 #include "math/Matrix.h"
+#include "error/Exception.h"
 
 // Constructors
 Matrix3::Matrix3()
@@ -47,7 +48,12 @@ Matrix3::Matrix3( float a, float b, float c,
 // Array Access
 float &Matrix3::operator[](int i)
 {
-    return data[i];
+	if ( i < 0 || i > 9 )
+	{
+		throw BoundaryException("Matrix3", i, 9);
+	}
+	
+	return data[i];
 }
 
 //inline Matrix3 operator* (const Matrix3& op1, const Matrix3 other)
@@ -213,7 +219,12 @@ Matrix4::Matrix4( const Matrix4& mat)
 // Array Access
 float &Matrix4::operator[](int i)
 {
-    return data[i];
+    if ( i < 0 || i > 16 )
+	{
+		throw BoundaryException("Matrix4", i, 16);
+	}
+	
+	return data[i];
 }
 
 Matrix4 Matrix4::operator* (const Matrix4 &other) const

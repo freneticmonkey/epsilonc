@@ -1,6 +1,7 @@
 #include "math/Vector.h"
 #include <iostream>
 //#include <math.h>
+#include "error/Exception.h"
 
 // VECTOR 2
 
@@ -41,8 +42,7 @@ float &Vector2::operator[](int i)
 	}
     else
     {
-        std::cout << "Vector2: Boundry error\n";
-        exit(1);
+		throw BoundaryException("Vector2", i, 2);
     }
 }
 
@@ -156,8 +156,7 @@ float &Vector3::operator[](int i)
 {
 	if ( i < 0 || i > 2 )
 	{
-		std::cout << "Vector3: Boundry error\n";
-		exit(1);
+		throw BoundaryException("Vector3", i, 3);
 	}
 	else if ( i == 0 )
 	{
@@ -328,8 +327,7 @@ float &Vector4::operator[](int i)
 	}
     else
     {
-        std::cout << "Vector4: Boundry error\n";
-		exit(1);
+		throw BoundaryException("Vector4", i, 4);
     }
 }
 
