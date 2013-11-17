@@ -11,7 +11,7 @@ namespace epsilon
 {
 	// TODO: Not sure if this should be an inline, but for now...
 	inline std::string Format(const std::string fmt, ...) {
-		int size=100;
+		int size=1024;
 		std::string str;
 		va_list ap;
 		while (1) {
