@@ -30,8 +30,9 @@ namespace epsilon
 		void OnDrawGizmos();
 
 	protected:
-		void RegisterScriptFunctions(dict pythonNamespace);
+		void RegisterScriptFunctions();
 	private:
+
 		object startFunction;
 		object updateFunction;
 		object destroyFunction;

@@ -1,23 +1,21 @@
 #include "script/ScriptManager.h"
 
-
-
 namespace epsilon
 {
-	ScriptManager::ScriptManager()
+	ScriptManager::ScriptManager() : scriptsFolderPath("resources/scripts/"),
+									 stdErrListener("error"), 
+									 stdOutListener("")
 	{
-		scriptsFolderPath = std::string("resources/scripts/");
 	}
 
 	ScriptManager::~ScriptManager()
 	{
-
 	}
 
 	Script::Ptr ScriptManager::CreateScript()
 	{
 		Script::Ptr newScript = Script::Create();
-		newScript->InitScript(pythonGlobalNamespace);
+		newScript->InitScript();
 		scriptList.push_back(newScript);
 		return newScript;
 	}
@@ -28,7 +26,7 @@ namespace epsilon
 		filename = scriptsFolderPath + filename;
 
 		Script::Ptr newScript = Script::Create(filename);
-		newScript->InitScript(pythonGlobalNamespace);
+		newScript->InitScript();
 		scriptList.push_back(newScript);
 		return newScript;
 	}
@@ -39,7 +37,7 @@ namespace epsilon
 		filename = scriptsFolderPath + filename;
 
 		ScriptBehaviour::Ptr newBehaviour = ScriptBehaviour::Create(filename, ScriptSource::FILE);
-		newBehaviour->InitScript(pythonGlobalNamespace);
+		newBehaviour->InitScript();
 		behaviourList.push_back(newBehaviour);
 		startingBehaviours.push_back(newBehaviour);
 		return newBehaviour;
@@ -47,24 +45,45 @@ namespace epsilon
 
 	void ScriptManager::Setup()
 	{
-		// Add Epsilon Module to the Python initalisation startup
-		PyImport_AppendInittab( "epsilon", &initepsilon);
+		try
+		{
+			// Add Epsilon Module to the Python initalisation startup
+			PyImport_AppendInittab( "epsilon", &initepsilon);
+		
+			// Set the Program Name to be epsilon
+			Py_SetProgramName("epsilon");
 
-		// Start Python
-		Py_Initialize();
+			// Start Python
+			Py_Initialize();
 
-		// Get Module Global namespace
-		pythonGlobalModule = import("__main__");
-		pythonGlobalNamespace = extract<dict>(pythonGlobalModule.attr("__dict__"));
+			// Insert the scripts path into the Python sys.path
+			import("sys").attr("path").attr("insert")(0, str(scriptsFolderPath.c_str()));
 
-		// Import and insert the Epsilon Module into the Global namespace
-		epsilonModule = import("epsilon");
-		pythonGlobalNamespace["epsilon"] = epsilonModule;
+			// Get Module Global namespace
+			pythonGlobalModule = import("__main__");
+			pythonGlobalNamespace = extract<dict>(pythonGlobalModule.attr("__dict__"));
+
+			// Import and insert the Epsilon Module into the Global namespace
+			epsilonModule = import("epsilon");
+			pythonGlobalNamespace["epsilon"] = epsilonModule;
+
+			// Immediately override std err & out to Log
+			import("sys").attr("stderr") = stdErrListener;
+			import("sys").attr("stdout") = stdOutListener;
+
+		}
+		catch (const error_already_set&)
+		{
+			if (PyErr_Occurred()) 
+			{
+				PrintPythonError();
+			}
+		}
 	}
 
 	void ScriptManager::ReloadScript(Script::Ptr script)
 	{
-		script->InitScript(pythonGlobalNamespace);
+		script->InitScript();
 	}
 
 	void ScriptManager::StartBehaviours()
@@ -72,13 +91,40 @@ namespace epsilon
 		// Run start for each behaviour
 		if ( startingBehaviours.size() > 0 )
 		{
+			BehaviourList::iterator behaviour = startingBehaviours.begin();
+
+			while ( behaviour != startingBehaviours.end() )
+			{
+				try
+				{
+					(*behaviour)->OnStart();
+				}
+				catch (const error_already_set&)
+				{
+					if (PyErr_Occurred()) 
+					{
+						PrintPythonError();
+					}
+				}
+				// Remove this behaviour from the starting behaviours list
+				behaviour = startingBehaviours.erase(behaviour);
+
+				if ( behaviour == startingBehaviours.end() || startingBehaviours.size() == 0 )
+				{
+					break;
+				}
+
+				//++behaviour;
+			}
+
+			/*
 			for ( BehaviourList::iterator behaviour = startingBehaviours.begin(); behaviour != startingBehaviours.end(); behaviour++)
 			{
 				try
 				{
 					(*behaviour)->OnStart();
 				}
-				catch (error_already_set& e)
+				catch (const error_already_set&)
 				{
 					if (PyErr_Occurred()) 
 					{
@@ -86,6 +132,7 @@ namespace epsilon
 					}
 				}
 			}
+			*/
 		}
 		
 		// Empty the list so that start is not run again
@@ -105,7 +152,7 @@ namespace epsilon
 			{
 				(*behaviour)->Update(dt);
 			}
-			catch (error_already_set& e)
+			catch (const error_already_set&)
 			{
 				if (PyErr_Occurred()) 
 				{

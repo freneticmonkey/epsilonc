@@ -26,7 +26,7 @@ namespace epsilon
 	{
 	protected:
 		struct private_struct {};
-
+		
 	public:
 		typedef shared_ptr<Script> Ptr;
 
@@ -39,8 +39,15 @@ namespace epsilon
 
 		Script::Ptr ThisPtr() { return shared_from_this(); }
 
-		void InitScript(dict pythonGlobalNamespace);
+		// Listen to the on set parent event and inject the parent (Node)
+		// into the scripts namespace for access by the script
+		void OnSetParent();
 
+		void InitScript();
+
+		// These functions might be the wrong way of going about things
+		// Maybe scripts should only be created. If the source
+		// changes, then create a new script? - Think about script names...
 		Script::Ptr SetScriptFile(std::string scriptFilename);
 		Script::Ptr SetScriptText(std::string scriptText);
 
@@ -59,34 +66,28 @@ namespace epsilon
 		bool Call(std::string funcName);
 		bool Call(std::string funcName, FuncParams params);
 		*/
-
-		// Script Functions
-		// These should be moved to a derived class.. but for now
-
-		//void OnStart();
-		//void Update(float dt);
-		//void OnDestroy();
-		//void OnDrawGizmos();
-
 	protected:
 		// Find a function in the Python Namespace parameter
-		object FindPythonFunction(std::string funcName, dict pythonNamespace);
+		object FindPythonFunction(std::string funcName);
 		
 		// Override in derived classes in order to expose python functions
-		virtual void RegisterScriptFunctions(dict pythonNamespace);
-
+		virtual void RegisterScriptFunctions() {}
 	private:	
-		bool initialised;
+		void RegisterPythonClass();
 
-		//object startFunction;
-		//object updateFunction;
-		//object destroyFunction;
-		//object drawGizmosFunction;
+		bool initialised;
+		dict scriptLocalNamespace;
+
+		object behaviourClass;
 		
 		ScriptSource scriptSource;
 
 		std::string filename;
 		std::string text;
+
+		// The name which any class instances must be called in Python
+		// must be called to be recognised as the modules 'class'
+		static const std::string INSTANCE_VAR_NAME;
 	};
 
 }

@@ -1,4 +1,5 @@
 #include "script/ScriptBehaviour.h"
+#include "script/ScriptCommon.h"
 
 namespace epsilon
 {
@@ -25,12 +26,12 @@ namespace epsilon
 	{
 	}
 
-	void ScriptBehaviour::RegisterScriptFunctions(dict pythonNamespace)
+	void ScriptBehaviour::RegisterScriptFunctions()
 	{
-		startFunction = FindPythonFunction("start", pythonNamespace);
-		updateFunction = FindPythonFunction("update", pythonNamespace);
-		destroyFunction = FindPythonFunction("destroy", pythonNamespace);
-		drawGizmosFunction = FindPythonFunction("draw_gizmos", pythonNamespace);
+		startFunction = FindPythonFunction("on_start");
+		updateFunction = FindPythonFunction("on_update");
+		//destroyFunction = FindPythonFunction("on_destroy");
+		//drawGizmosFunction = FindPythonFunction("on_draw_gizmos");
 	}
 
 	void ScriptBehaviour::OnStart()
@@ -38,7 +39,17 @@ namespace epsilon
 		object result;
 		if ( !startFunction.is_none() )
 		{
-			result = startFunction();
+			try
+			{
+				result = startFunction();
+			}
+			catch (const error_already_set&)
+			{
+				if (PyErr_Occurred()) 
+				{
+					PrintPythonError();
+				}
+			}
 		}
 	}
 
@@ -47,7 +58,17 @@ namespace epsilon
 		object result;
 		if ( !updateFunction.is_none() )
 		{
-			result = updateFunction(dt);
+			try
+			{
+				result = updateFunction(dt);
+			}
+			catch (const error_already_set&)
+			{
+				if (PyErr_Occurred()) 
+				{
+					PrintPythonError();
+				}
+			}
 		}
 	}
 
@@ -56,7 +77,17 @@ namespace epsilon
 		object result;
 		if ( !destroyFunction.is_none() )
 		{
-			result = destroyFunction();
+			try
+			{
+				result = destroyFunction();
+			}
+			catch (const error_already_set&)
+			{
+				if (PyErr_Occurred()) 
+				{
+					PrintPythonError();
+				}
+			}
 		}
 	}
 
@@ -65,7 +96,17 @@ namespace epsilon
 		object result;
 		if ( !drawGizmosFunction.is_none() )
 		{
-			result = drawGizmosFunction();
+			try
+			{
+				result = drawGizmosFunction();
+			}
+			catch (const error_already_set&)
+			{
+				if (PyErr_Occurred()) 
+				{
+					PrintPythonError();
+				}
+			}
 		}
 	}
 }

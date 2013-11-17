@@ -5,6 +5,7 @@
 #include "script/Script.h"
 #include "script/ScriptBehaviour.h"
 #include "script/ScriptCommon.h"
+#include "script/PythonLogListener.h"
 
 #include "script/python/MainModule.h"
 
@@ -16,8 +17,15 @@ namespace epsilon
 	{
 		typedef std::vector<Script::Ptr> ScriptList;
 		typedef std::vector<ScriptBehaviour::Ptr> BehaviourList;
-	public:
+
 		ScriptManager(void);
+	public:
+		static ScriptManager & GetInstance()
+		{
+			static ScriptManager instance;
+			return instance;
+		};
+
 		~ScriptManager(void);
 
 		Script::Ptr CreateScript();
@@ -44,6 +52,9 @@ namespace epsilon
 		object epsilonModule;
 
 		std::string scriptsFolderPath;
+
+		PythonLogListener stdErrListener;
+		PythonLogListener stdOutListener;
 	};
 }
 
