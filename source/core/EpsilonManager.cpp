@@ -17,20 +17,18 @@ namespace epsilon
 
 	EpsilonManager::~EpsilonManager(void)
 	{
-		//if ( sceneManager ) { delete sceneManager; }
 		if ( uiManager ) { delete uiManager; }
-		if ( renderManager ) { delete renderManager; }
-		if ( scriptManager ) { delete scriptManager; }
+		//if ( renderManager ) { delete renderManager; }
 	}
 
 	void EpsilonManager::Setup(void)
 	{
 		Log("Initialising Epsilon Manager");
 
-		scriptManager = new ScriptManager();
+		scriptManager = &ScriptManager::GetInstance();
 		scriptManager->Setup();
 
-		renderManager = new RenderManager();
+		renderManager = &RenderManager::GetInstance();
 		renderManager->Setup();
 
 		uiManager = new UIManager();
@@ -40,7 +38,6 @@ namespace epsilon
 		consoleWindow->Setup();
 		uiManager->AddUIWindow(consoleWindow);
 
-		//sceneManager = new SceneManager();
 		sceneManager = &SceneManager::GetInstance();
 		sceneManager->Setup();
 
@@ -76,6 +73,7 @@ namespace epsilon
 			  ->SetMesh(MeshFactory::GenerateSphere());
 		tChild->GetComponent<Transform>()
 			  ->SetPosition(1.0f, 1.0f, 0.0f);
+		tChild->AddComponent(scriptManager->CreateBehaviour("MyBehaviourClass.py"));
 		//
 		Node::Ptr plane = sceneManager->CurrentScene()->Root()->CreateChildNode();
 		plane->SetName("plane");
@@ -83,14 +81,12 @@ namespace epsilon
 		plane->AddComponent(Renderer::Create());
 		plane->GetComponent<Renderer>()
 			  ->SetMesh(MeshFactory::GeneratePlane(4, 4));
+		
+		Node::Ptr scriptsRoot = sceneManager->CurrentScene()->Root()->CreateChildNode();
+		scriptsRoot->SetName("scriptRoot");
 
-		float angle = Math::DegreesToRadians(1.0f);
-		plane->GetComponent<Transform>()
-			  //->SetPosition(0.0f, -0.0f, 0.0f)
-			  //.Yaw(angle)
-			  ->SetScale(Vector3(2.0f));
-
-		plane->AddComponent(scriptManager->CreateBehaviour("MyBehaviour.py"));
+		Node::Ptr script2 = scriptsRoot->CreateChildNode();
+		script2->AddComponent(scriptManager->CreateBehaviour("TestingFeatures.py"));
 
 		// Create a Grid
 		if ( true )
@@ -119,15 +115,10 @@ namespace epsilon
 
 		// Handle events here until event manager is implemented.
 		sf::Event event;
-		//sf::Clock clock;
-		clock_t lastTime = clock();
-		float el = 0.0f;
+		sf::Clock clock;
 
 		while ( renderManager->WindowOpen() )
 		{
-			//clock.restart();
-			//sleep(Time(milliseconds(1)));
-
 			while ( renderManager->PollEvent( event ) )
 			{
 				uiManager->ProcessEvent(event);
@@ -174,18 +165,19 @@ namespace epsilon
 						break;
 					}
 					camTrans->Translate(trans);
-					//triangleTrans->Translate(trans);
-					//aLog(std::to_string(triangleTrans->GetPosition().z));
 					Vector3 la = camTrans->GetPosition() + (Vector3(0, 0, 5.0f));
 					camera->LookAt(Vector3());
 				}
 
 			}
-			//OnUpdate(clock.getElapsedTime());
-			clock_t currTime = clock();
-			el = (float)diffclock(currTime, lastTime) / 1000.0f;
+			float el = clock.getElapsedTime().asMicroseconds() / 1000000.0f;
+			// Restart timing for next sequence
+			clock.restart();
+
 			OnUpdate(el);
-			lastTime = currTime;
+			
+
+			
 		}
 	}
 }
