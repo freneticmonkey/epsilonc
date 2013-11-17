@@ -1,7 +1,7 @@
-import math as pymath
 from epsilon import *
 
 from epsilon.math import Vector3
+from CycleValue import CycleValue
 
 print "epsilon"
 print dir(epsilon)
@@ -12,30 +12,36 @@ print dir(math)
 print "scene"
 print dir(scene)
 
+# Example class-less script
 spheretrans = None
 pos = Vector3.ZERO
 
-def start():
-	print "Starting Script"
+cycle = CycleValue()
 
-	sm = SceneManager.get_instance()
+def on_start():
+	sm = epsilon.SceneManager.get_instance()
 	scene = sm.current_scene()
 	root = scene.root()
 
-	print "Root name: " + root.name
-
+	global spheretrans
 	spheretrans = root.transform.find_child_with_name("sphere")
 
-def update(dt):
+def on_update(dt):
+	global spheretrans
+	global cycle
+	
+	pos.x = cycle.get_value(dt)
+
 	# Move sphere on X-axis
 	spheretrans.set_position(pos)
 
-	#pos.x += dt
 	#angle = dt * 10 * (pymath.pi / 180.0 )
 	#spheretrans.rotate(Vector3.UP, angle)
 
-def destroy():
+def on_destroy():
 	pass
 
-def draw_gizmos():
+def on_draw_gizmos():
 	pass
+
+
