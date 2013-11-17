@@ -7,10 +7,7 @@
 
 namespace epsilon
 {
-	using namespace sfg;
-	using namespace std;
-
-	typedef list<UIWindow::Ptr> WindowList;
+	typedef std::list<UIWindow::Ptr> WindowList;
 	typedef WindowList::iterator WindowListIterator;
 
 	class UIManager
@@ -29,8 +26,8 @@ namespace epsilon
 		void ProcessEvent(sf::Event &event);
 
 	private:
-		SFGUI * sfgui;
-		Desktop * desktop;
+		sfg::SFGUI * sfgui;
+		sfg::Desktop * desktop;
 		WindowList windowList;
 	};
 }
