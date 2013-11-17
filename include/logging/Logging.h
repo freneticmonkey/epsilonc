@@ -57,6 +57,7 @@ namespace epsilon
 
 	typedef map<string, LogStream::Ptr> LogStreamMap;
 	typedef LogStreamMap::iterator LogMapIterator;
+	typedef std::list<std::string> LogList;
 
 	class Logger
 	{
@@ -66,6 +67,9 @@ namespace epsilon
 		
 		static void addListener(LogListener::Ptr newListener);
 		static void removeListener(LogListener::Ptr rmListener);
+
+		// Used by the UI to ensure in-engine console is accurate
+		static LogList FlushInitLog();
 
 	private:
 		Logger();
@@ -86,6 +90,8 @@ namespace epsilon
 		LogStreamMap logs;
 		LogListenerList * listeners;
 
+		LogList initLog;
+		bool logInit;
 	};
 
 	// Declaring log function for epsilon classes

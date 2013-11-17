@@ -40,6 +40,7 @@ namespace epsilon
 		ScrolledWindow::Ptr scrolledwindow;
 		Box::Ptr scrolledWindowBox;
 		Box::Ptr viewportBox;
+		Alignment::Ptr scrolledWindowAlignment;
 	};
 
 }

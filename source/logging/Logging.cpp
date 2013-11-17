@@ -46,7 +46,7 @@ namespace epsilon
 		listeners.remove(rmListener);
 	}
 
-	Logger::Logger()
+	Logger::Logger() : logInit(true)
 	{
 		logs[string("default")] = LogStream::Create("default");
 		listeners = new LogListenerList;
@@ -66,6 +66,11 @@ namespace epsilon
 	{
 		LogListener::Ptr listener;
 		Logger::GetLog(logName)->Log(content);
+
+		if ( Logger::getInstance().logInit )
+		{
+			Logger::getInstance().initLog.push_back(logName + ": " + content);
+		}
 
 		LogListenerList * listeners = Logger::getInstance().listeners;
 		if ( !listeners->empty() )
@@ -135,6 +140,14 @@ namespace epsilon
 				log->RemoveListener(rmListener);
 			}
 		}
+	}
+
+	LogList Logger::FlushInitLog()
+	{
+		// Disable further logging of the init
+		Logger::getInstance().logInit = false;
+		// Return the init log to the caller
+		return Logger::getInstance().initLog;
 	}
 
 	// Namespace functions
