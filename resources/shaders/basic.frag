@@ -1,5 +1,3 @@
-#version 330
-
 varying vec4 ex_Colour;
 
 out vec4 gl_FragColor;
