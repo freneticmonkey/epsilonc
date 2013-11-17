@@ -79,6 +79,7 @@ void initScene()
 		.def("destroy", &Node::Destroy)
 		.def("add_component", &Node::AddComponent)
 		.def("remove_component", &Node::RemoveComponent)
+		.def("get_component", &Node::GetComponent)
 
 		// Hardcoded Component Accessors
 		.add_property("transform", &Node::GetComponent<Transform>)
@@ -109,6 +110,15 @@ void initScene()
 	class_<Transform, bases<NodeComponent>, Transform::Ptr, boost::noncopyable>("Transform", no_init)
 		.def("create",&Transform::Create)
 		.staticmethod("create")
+
+		.add_property("position",  make_function(&Transform::GetPosition, return_value_policy<reference_existing_object>()),
+								  ( Transform::Ptr (Transform::*)( const Vector3&) ) &Transform::SetPosition )
+
+		.add_property("orientation", make_function(&Transform::GetOrientation, return_value_policy<reference_existing_object>()),
+								  (Transform::Ptr (Transform::*)( const Quaternion&) )&Transform::SetOrientation )
+
+		.add_property("scale", make_function(&Transform::GetScale, return_value_policy<reference_existing_object>()),
+							   ( Transform::Ptr (Transform::*)( const Vector3&) ) &Transform::SetScale )
 
 		.def("destroy", &Node::Destroy)
 	
@@ -166,6 +176,7 @@ void initScene()
 		.def("rotate", ( Transform::Ptr (Transform::*)(const Vector3&, const float&, Transform::TransformSpace)  ) &Transform::Rotate, RotateAxis() )
 		.def("rotate", ( Transform::Ptr (Transform::*)(const Quaternion&, Transform::TransformSpace)  ) &Transform::Rotate, RotateQuat() )
 	;
+	implicitly_convertible<Transform::Ptr, NodeComponent::Ptr>();
 
 	//register_ptr_to_python<Scene::Ptr>();
 

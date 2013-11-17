@@ -24,8 +24,15 @@ namespace epsilon
 		NodeComponent(string name, string newClassName ) : Object(name, newClassName) {};
 		virtual ~NodeComponent(void) {};
 
-		void SetParent(NodeComponent::Ptr parent) { this->componentParent = parent; }
+		void SetParent(NodeComponent::Ptr parent) 
+		{ 
+			this->componentParent = parent; 
+			OnSetParent();
+		}
 		NodeComponent::Ptr GetParent() { return this->componentParent; }
+
+		// List to parent set Event
+		virtual void OnSetParent() {}
 
 		template<class C>
 		shared_ptr<C> GetComponent()
@@ -38,6 +45,22 @@ namespace epsilon
 				foundComponent = dynamic_pointer_cast<C>( *component );
 				if ( foundComponent != nullptr )
 				{
+					break;
+				}
+			}
+			return foundComponent;
+		}
+
+		NodeComponent::Ptr GetComponent(std::string name)
+		{
+			NodeComponent::Ptr foundComponent;
+					
+			// Assign the new transform to the Node's NodeComponents		
+			for ( NodeComponentList::iterator component = components->begin(); component != components->end(); component++ )
+			{
+				if ( ( (*component)->GetName() == name ) || ( (*component)->GetClass() == name ) )
+				{
+					foundComponent = (*component);
 					break;
 				}
 			}
