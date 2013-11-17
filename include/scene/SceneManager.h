@@ -4,10 +4,11 @@
 #include "scene/Scene.h"
 #include "scene/Node.h"
 #include "scene/Transform.h"
+#include "render/RenderState.h"
 
 namespace epsilon
 {
-	using namespace std;
+	class Renderer;
 
 	typedef std::list<Scene::Ptr> SceneList;
 	typedef std::list<Renderer::Ptr> RenderList;
@@ -37,7 +38,10 @@ namespace epsilon
 
 		void Update(float el);
 		void Cull(void);
-		void Draw(void);
+		void Draw(RenderStateStack::Ptr stateStack);
+
+		Matrix4 GetCurrentViewMatrix();
+		Matrix4 GetCurrentProjMatrix();
 
 	private:
 
@@ -46,6 +50,9 @@ namespace epsilon
 		SceneList scenes;
 		Scene::Ptr currentScene;
 		RenderList renderList;
+
+		Matrix4 viewMatrix;
+		Matrix4 projMatrix;
 	};
 
 }

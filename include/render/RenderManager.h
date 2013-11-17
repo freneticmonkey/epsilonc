@@ -3,15 +3,20 @@
 #include "EpsilonCore.h"
 
 #include "ui/UIManager.h"
-#include "scene/Scenemanager.h"
+#include "scene/SceneManager.h"
+#include "render/RenderState.h"
 
 namespace epsilon
 {
 	class RenderManager
 	{
-
-	public:
 		RenderManager(void);
+	public:
+		static RenderManager & GetInstance()
+		{
+			static RenderManager instance;
+			return instance;
+		}
 		~RenderManager(void);
 
 		void Setup(void);
@@ -29,13 +34,23 @@ namespace epsilon
 		// UI
 		void SetUIManager(UIManager *uim);
 
+		// Utility
+		float GetFPS(float el);
+
 	private:
 		sf::RenderWindow * window;
 		sf::Text * fpsText;
 		sf::Font * font;
+
+		RenderStateStack::Ptr stateStack;
+
 		float fps;
 		SceneManager * sceneManager;
 		UIManager * uiManager;
+
+		static const int NUM_FPS_SAMPLES = 64;
+		float fpsSamples[NUM_FPS_SAMPLES];
+		int currFPSSample;
 	};
 }
 

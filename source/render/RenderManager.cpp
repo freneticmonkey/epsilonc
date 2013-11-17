@@ -2,10 +2,16 @@
 
 namespace epsilon
 {
-	RenderManager::RenderManager(void)
+	RenderManager::RenderManager(void) : currFPSSample(0)
 	{
-	}
+		for ( int i = 0; i < NUM_FPS_SAMPLES; i++)
+		{
+			fpsSamples[i] = 0.0f;
+		}
 
+		// Create the Render State Stack
+		stateStack = RenderStateStack::Create();
+	}
 
 	RenderManager::~RenderManager(void)
 	{
@@ -31,9 +37,11 @@ namespace epsilon
 		}
 		else
 		{
+			// TODO: This needs to be moved into a UI Window with other debug info.
 			fpsText = new Text("FPS: 0.0", *font);
-			fpsText->setColor(Color(255,0,0,170));
-			fpsText->setPosition(250.f, 450.f);
+			fpsText->setColor(Color(255,255,255,170));
+			fpsText->setPosition(700.f, 0.f);
+			fpsText->setCharacterSize(16);
 		}
 
 		//window->setVerticalSyncEnabled(true);
@@ -58,7 +66,6 @@ namespace epsilon
 		glClearDepth(1.f);
 
 		fps = 0.0f;
-
 	}
 
 	//void RenderManager::Draw(sf::Time el)
@@ -71,6 +78,9 @@ namespace epsilon
 		// Clear the window
 		window->clear(sf::Color(50,50,50,255));
 
+		// Reset any render states
+		stateStack->Reset();
+
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -79,23 +89,15 @@ namespace epsilon
 		// Do OpenGL drawing here.
 		if (sceneManager)
 		{
-			sceneManager->Draw();
+			sceneManager->Draw(stateStack);
 		}
 		window->pushGLStates();
 		window->resetGLStates();
 
 		if ( fpsText )
 		{
-			// Calculate raw FPS
-			//sf::Int64 fps = 1000000 / el.asMicroseconds();
-			fps = (fps * 0.1f) + ((1.0f / el) * 0.9f);
-			// If obviously broken FPS reset
-			if (fps > 100000.0f )
-			{
-				fps = (1.0f / el);
-			}
 			std::ostringstream sstr;
-			sstr << fps;
+			sstr << GetFPS(el);
 			std::string output("FPS: ");
 			output += std::string(sstr.str());
 
@@ -111,7 +113,6 @@ namespace epsilon
 		{
 			uiManager->Draw(window);
 		}
-		
 
 		// Display the frame
 		window->display();
@@ -119,14 +120,7 @@ namespace epsilon
 
 	bool RenderManager::WindowOpen(void)
 	{
-		if (window)
-		{
-			return window->isOpen();
-		}
-		else
-		{
-			return false;
-		}
+		return ( window ) ? window->isOpen() : false;
 	}
 
 	void RenderManager::CloseWindow(void)
@@ -153,5 +147,20 @@ namespace epsilon
 		{
 			uiManager = uim;
 		}
+	}
+
+	float RenderManager::GetFPS(float el)
+	{
+		fpsSamples[currFPSSample % NUM_FPS_SAMPLES] = 1.0f / el;
+		currFPSSample++;
+
+		float fps = 0.0f;
+
+		for ( int i = 0; i < NUM_FPS_SAMPLES; i++ )
+		{
+			fps += fpsSamples[i];
+		}
+		fps /= NUM_FPS_SAMPLES;
+		return fps;
 	}
 }

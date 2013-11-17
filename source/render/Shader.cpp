@@ -10,9 +10,11 @@ namespace epsilon
 		return std::make_shared<Shader>(private_struct());
 	}
 
-	Shader::Shader(const private_struct &)
+	Shader::Shader(const private_struct &) : shaderCompiled(false), 
+											 shaderActive(false),
+											 sourceVersion("#version 330")
+
 	{
-		shaderCompiled = false;
 	}
 
 
@@ -25,12 +27,22 @@ namespace epsilon
 		shaderCompiled = CompileShader();
 	}
 
+	void Shader::SetMaterialDef(std::string materialDef)
+	{
+		materialStruct = materialDef;
+	}
+
 	bool Shader::CompileShader()
 	{
 		bool success = true;
 
-		vertexSource = readfile("resources/basic.vert");
-		fragSource = readfile("resources/basic.frag");
+		// Insert the version and material definition at the beginning of the source file
+		vertexSource = Format("%s\n\n%s\n\n", sourceVersion.c_str(), materialStruct.c_str() );
+		vertexSource += readfile("resources/shaders/basic.vert");
+		
+		// Add version def
+		fragSource = Format("%s\n\n", sourceVersion.c_str() );
+		fragSource += readfile("resources/shaders/basic.frag");
 
 		GLenum ErrorCheckValue = glGetError();
 		const char * vSource = vertexSource.c_str();
@@ -85,7 +97,6 @@ namespace epsilon
 			ErrorCheckValue = glGetError();
 			Log((const char *)gluErrorString(ErrorCheckValue));
 		}
-		timeUnf = glGetUniformLocation(programId, "time");
 
 		viewMatUnf = glGetUniformLocation(programId, "modelViewMatrix");
 		projMatUnf = glGetUniformLocation(programId, "projMatrix");
@@ -93,29 +104,81 @@ namespace epsilon
 		return success;
 	}
 
-	void Shader::UseShader()
+	GLuint Shader::GetUniformId(std::string uniformName)
 	{
 		if ( shaderCompiled )
 		{
-			glUseProgram(programId);
+			return glGetUniformLocation(programId, uniformName.c_str());
+		}
+		else
+		{
+			return -1;
 		}
 	}
 
-	void Shader::UseShader(Transform::Ptr transform, Matrix4 viewMatrix, Matrix4 projMatrix)
+	bool Shader::SetColourUniform(GLuint uId, const Colour &colour)
+	{
+		bool success = false;
+		if ( shaderCompiled && shaderActive )
+		{
+			glUniform4f(uId, colour.r, colour.g, colour.b, colour.a);
+			success = true;
+		}
+		return success;
+	}
+
+	bool Shader::SetFloatUniform(GLuint uId, const float &value)
+	{
+		bool success = false;
+		if ( shaderCompiled && shaderActive )
+		{
+			glUniform1f(uId, value);
+			success = true;
+		}
+		return success;
+	}
+
+	bool Shader::UseShader()
 	{
 		if ( shaderCompiled )
 		{
 			glUseProgram(programId);
 
+			shaderActive = true;
+		}
+		return shaderActive;
+	}
+
+	bool Shader::UseShader(RenderStateStack::Ptr stateStack)
+	{
+		RenderState::Ptr state = stateStack->State();
+
+		if ( shaderCompiled )
+		{
+			glUseProgram(programId);
+
+			shaderActive = true;
+
 			// Calculate the model view matrix
-			Matrix4 modelMatrix = transform->_getFullTransform();
-			Matrix4 modelViewMatrix = viewMatrix * modelMatrix;
+			Matrix4 modelViewMatrix = state->view * state->model;
 			modelViewMatrix.Transpose();
 
 			// Send it to the shader
 			glUniformMatrix4fv(viewMatUnf, 1, GL_FALSE, &modelViewMatrix[0]);
-			glUniformMatrix4fv(projMatUnf, 1, GL_FALSE, &projMatrix[0]);
+			glUniformMatrix4fv(projMatUnf, 1, GL_FALSE, &state->projection[0]);
 		}
+		return shaderActive;
+	}
+
+	bool Shader::DisableShader()
+	{
+		if (shaderActive)
+		{
+			// Disable this shader as the active program
+			glUseProgram(0);
+			shaderActive = false;
+		}
+		return shaderActive;
 	}
 
 }

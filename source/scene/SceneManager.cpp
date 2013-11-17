@@ -102,7 +102,7 @@ namespace epsilon
 
 	}
 
-	void SceneManager::Draw(void)
+	void SceneManager::Draw(RenderStateStack::Ptr stateStack)
 	{
 		Vector3 p;
 		Quaternion o;
@@ -110,28 +110,20 @@ namespace epsilon
 		//float angle;
 		Vector3 s;
 
-		Matrix4 viewMatrix = currentScene->GetActiveCamera()->GetViewMatrix();
-		Matrix4 projMatrix = currentScene->GetActiveCamera()->GetProjectionMatrix();
+		// Push a new render state
+		stateStack->Push();
+		
+		// Update the matrices
+		stateStack->State()->view = currentScene->GetActiveCamera()->GetViewMatrix();
+		stateStack->State()->projection = currentScene->GetActiveCamera()->GetProjectionMatrix();
 		
 		for ( RenderList::iterator renderer = renderList.begin(); renderer != renderList.end(); renderer++)
 		{
-			/*
-			// Configure the transform
-			p = (*renderNode)->Transform()->getPosition();
-			o = (*renderNode)->Transform()->getOrientation();
-			s = (*renderNode)->Transform()->getScale();
-
-			o.ToAxisAngle(axis, angle);
-
-			glTranslatef(p.X(), p.Y(), p.Z());
-			glRotatef(angle, axis.X(), axis.Y(), axis.Z());
-			glScalef(s.X(), s.Y(), s.Z());
-			*/
-
 			// Render
-			//(*renderNode)->Renderer()->Draw((*renderNode)->Transform());
-			(*renderer)->Draw(viewMatrix, projMatrix);
+			(*renderer)->Draw(stateStack);//viewMatrix, projMatrix);
 		}
+
+		stateStack->Pop();
 	}
 
 }

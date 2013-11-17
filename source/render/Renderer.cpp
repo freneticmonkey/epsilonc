@@ -12,43 +12,59 @@ namespace epsilon
 		return make_shared<Renderer>(private_struct(), newMesh);
 	}
 
+	Renderer::Ptr Renderer::Create(Mesh::Ptr newMesh, Material::Ptr newMaterial)
+	{
+		return make_shared<Renderer>(private_struct(), newMesh, newMaterial);
+	}
+
 	Renderer::Renderer(const private_struct &) : NodeComponent("Renderer")
 	{
 		mesh = Mesh::Create();
-		shader = Shader::Create();
-		shader->Setup();
+		material = Material::Create();
 	}
 
 	Renderer::Renderer(const private_struct &, Mesh::Ptr newMesh) : NodeComponent("Renderer")
 	{
 		mesh = newMesh;
-		shader = Shader::Create();
-		shader->Setup();
+		material = Material::Create();
+	}
+
+	Renderer::Renderer(const private_struct &, Mesh::Ptr newMesh, Material::Ptr newMaterial) : NodeComponent("Renderer")
+	{
+		mesh = newMesh;
+		material = newMaterial;
 	}
 
 	Renderer::~Renderer(void)
 	{
 	}
 
-	void Renderer::Draw(Matrix4 viewMatrix, Matrix4 projMatrix)
+	void Renderer::Draw(RenderStateStack::Ptr stateStack)//Matrix4 viewMatrix, Matrix4 projMatrix)
 	{
-		if ( shader )
+		if ( material )
 		{
-			// This needs to be finished after node component refactoring is complete.
-			Transform::Ptr transform = GetParent()->GetComponent<Transform>();
-			if ( transform )
-			{
-				shader->UseShader(transform, viewMatrix, projMatrix);
-			}
-			else
-			{
-				shader->UseShader();
-			}
+			// Set the transform here as this is a NodeComponent, whereas a single material
+			// maybe attached to multiple objects.  This concept will allow for multiple objects
+			// to share a material and therefore shader instance.
+
+			// This paves the way for a Material Manager in which the renderer requests a material
+			// rather than creating it directly itself.
+
+			// Make this only update if the transform has changed
+			stateStack->State()->model = GetParent()->GetComponent<Transform>()->_getFullTransform();
+
+			// Send the state to the applied material
+			material->Enable(stateStack);
 		}
 
 		if ( mesh )
 		{
 			mesh->Draw();
+		}
+
+		if ( material )
+		{
+			material->Disable();
 		}
 	}
 
@@ -62,14 +78,13 @@ namespace epsilon
 		return mesh;
 	}
 
-	void Renderer::SetShader(Shader::Ptr newShader)
+	void Renderer::SetMaterial(Material::Ptr newMaterial)
 	{
-		shader = newShader;
+		material = newMaterial;
 	}
 
-	Shader::Ptr Renderer::GetShader()
+	Material::Ptr Renderer::GetMaterial()
 	{
-		return shader;
+		return material;
 	}
-	
 }

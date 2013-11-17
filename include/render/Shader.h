@@ -4,6 +4,8 @@
 
 #include "logging/Logging.h"
 #include "scene/Transform.h"
+#include "render/RenderState.h"
+#include "render/Colour.h"
 
 namespace epsilon
 {
@@ -22,13 +24,25 @@ namespace epsilon
 
 		void Setup();
 
-		void UseShader();
-		void UseShader(Transform::Ptr transform, Matrix4 viewMatrix, Matrix4 projMatrix);
+		void SetMaterialDef(std::string materialDef);
+
+		GLuint GetUniformId(std::string uniformName);
+
+		bool SetColourUniform(GLuint uId, const Colour &colour);
+		bool SetFloatUniform(GLuint uId, const float &value);
+
+		bool UseShader();
+		bool UseShader(RenderStateStack::Ptr stateStack);
+		bool DisableShader();
+
+		bool Active() { return shaderActive; }
 
 	private:
 		bool CompileShader();
 
 		bool shaderCompiled;
+		bool shaderActive;
+
 		GLuint vertexShaderId;
 		GLuint fragShaderId;
 		GLuint programId;
@@ -39,12 +53,12 @@ namespace epsilon
 		GLuint viewMatUnf;
 		GLuint projMatUnf;
 
-		GLuint timeUnf;
-
 		std::string vertexSource;
 		std::string fragSource;
 
 		// Hard code this in for now
+		std::string materialStruct;
+		std::string sourceVersion;
 	};
 
 }
