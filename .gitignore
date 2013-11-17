@@ -4,6 +4,7 @@
 *.suo
 *.tlog
 *.idb
+*.pyc
 
 build/int/*
 project/Debug/*.obj
