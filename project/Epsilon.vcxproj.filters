@@ -73,6 +73,9 @@
     <Filter Include="Source Files\script\python">
       <UniqueIdentifier>{6f8eebe5-f1d7-4da9-bb52-90e93aea8768}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\error">
+      <UniqueIdentifier>{74e34bff-1b3e-4134-a1ad-357814904c78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\EpsilonCore.h">
@@ -195,6 +198,27 @@
     <ClInclude Include="..\include\script\python\ManagerModule.h">
       <Filter>Header Files\script\python</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\script\python\ScriptModule.h">
+      <Filter>Header Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\render\Colour.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\error\Exception.h">
+      <Filter>Header Files\error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\render\Material.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\render\RenderState.h">
+      <Filter>Header Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\python\UtilitiesModule.h">
+      <Filter>Header Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\PythonLogListener.h">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp">
@@ -288,6 +312,21 @@
       <Filter>Source Files\script\python</Filter>
     </ClCompile>
     <ClCompile Include="..\source\script\python\ManagerModule.cpp">
+      <Filter>Source Files\script\python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\ScriptModule.cpp">
+      <Filter>Source Files\script\python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\Colour.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\Material.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\RenderState.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\UtilitiesModule.cpp">
       <Filter>Source Files\script\python</Filter>
     </ClCompile>
   </ItemGroup>
