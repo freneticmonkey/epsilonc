@@ -2,42 +2,6 @@
 
 namespace epsilon
 {
-	EventListener::Ptr EventListener::Create(EventTypes listenTypes)
-	{
-		return EventListener::Ptr(new EventListener(listenTypes));
-	}
-
-	EventListener::EventListener(EventTypes listenTypes)
-	{
-		types = listenTypes;
-	}
-
-	EventTypes EventListener::GetTypes()
-	{
-		return types;
-	}
-
-	bool EventListener::ListeningToType(EventType::Ptr type)
-	{
-		EventType::Ptr listenType;
-
-		for (EventTypes::iterator et = types.begin(); et != types.end(); et++ )
-		{
-			listenType = (*et);
-			if ( (*listenType) == type )
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	void EventListener::Notify(Event::Ptr event)
-	{
-		// DEBUG INFO:
-		//printf("Received Event: %s\n", event->getName());
-	}
-	
 	EventManager::EventManager(void)
 	{
 		Log("EventManager initialised");
@@ -49,12 +13,12 @@ namespace epsilon
 
 	void EventManager::AddListener(EventListener::Ptr newListener)
 	{
-		EventManager::getInstance().AttachListener(newListener);
+		EventManager::GetInstance().AttachListener(newListener);
 	}
 
 	void EventManager::RemoveListener(EventListener::Ptr rmListener)
 	{
-		EventManager::getInstance().DetachListener(rmListener);
+		EventManager::GetInstance().DetachListener(rmListener);
 	}
 
 	void EventManager::AttachListener(EventListener::Ptr newListener)
@@ -78,12 +42,12 @@ namespace epsilon
 
 	void EventManager::FireEvent(Event::Ptr event)
 	{
-		EventManager::getInstance().QueueEvent(event);
+		EventManager::GetInstance().QueueEvent(event);
 	}
 
 	void EventManager::ProcessEvents(float maxTime)
 	{
-		EventManager::getInstance().DispatchEvents(maxTime);
+		EventManager::GetInstance().DispatchEvents(maxTime);
 	}
 	
 	void EventManager::QueueEvent(Event::Ptr event)

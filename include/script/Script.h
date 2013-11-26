@@ -17,7 +17,6 @@ namespace epsilon
 		NONE = 1,
 		FILE,
 		TEXT,
-
 	};
 
 	class Script :

@@ -53,9 +53,9 @@ namespace epsilon
 		//printf("Created Event: %s\n", eventName.c_str());
 	}
 
-	const char * Event::GetName()
+	string Event::GetName()
 	{
-		return eventName.c_str();
+		return eventName;
 	}
 
 	EventType::Ptr Event::GetType()

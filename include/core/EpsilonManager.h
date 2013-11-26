@@ -3,6 +3,7 @@
 #include "EpsilonCore.h"
 
 #include "logging/Logging.h"
+#include "events/EventManager.h"
 #include "render/RenderManager.h"
 #include "scene/SceneManager.h"
 #include "script/ScriptManager.h"
@@ -27,6 +28,7 @@ namespace epsilon
 		void MeshTest(void);
 
 	private:
+		EventManager * eventManager;
 		ScriptManager * scriptManager;
 		RenderManager * renderManager;
 		UIManager * uiManager;

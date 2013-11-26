@@ -4,10 +4,9 @@
 
 namespace epsilon
 {
-	using namespace std;
 	class EventType;
-
-	typedef hash<string> hash_func;
+	
+	typedef std::hash<string> hash_func;
 	class EventType
 	{
 	private:
@@ -34,7 +33,8 @@ namespace epsilon
 		hash_func toHash;
 	};
 
-	class Event
+	class Event :
+		public enable_shared_from_this<Event>
 	{
 	private:
 		struct private_struct {};
@@ -44,15 +44,17 @@ namespace epsilon
 
 		static Ptr Create(string name);
 
-		const char * GetName();
+		string GetName();
 		EventType::Ptr GetType();
 
 		bool IsHandled() { return handled; }
 		void SetHandled() { handled = true; }
 
+		//void Send() { EventManager::FireEvent(ThisPtr()); }
+
 		Event(const private_struct &, string name);
 	private:
-
+		Event::Ptr ThisPtr() { return shared_from_this(); }
 		bool handled;
 		string eventName;
 		EventType::Ptr type;

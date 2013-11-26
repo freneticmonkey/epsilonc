@@ -9,12 +9,12 @@ namespace epsilon
 	class PythonLogListener
 	{
 	public:
-		PythonLogListener() : prefix("python:") {}
-		PythonLogListener(std::string type) : prefix("python:")
+		PythonLogListener() : prefix("python") {}
+		PythonLogListener(std::string type) : prefix("python")
 		{
 			if (type.size() > 0 )
 			{
-				prefix = std::string("python:") + type + ": ";
+				prefix = std::string("python:") + type;
 			}
 		}
 		~PythonLogListener() {}

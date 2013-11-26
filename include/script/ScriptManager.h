@@ -4,6 +4,7 @@
 
 #include "script/Script.h"
 #include "script/ScriptBehaviour.h"
+#include "script/ScriptEngineCore.h"
 #include "script/ScriptCommon.h"
 #include "script/PythonLogListener.h"
 
@@ -33,6 +34,8 @@ namespace epsilon
 
 		ScriptBehaviour::Ptr CreateBehaviour(std::string filename);
 
+		void StartEngineCore();
+
 		void Setup(void);
 		void Update(float el);
 		
@@ -48,6 +51,8 @@ namespace epsilon
 
 		object pythonGlobalModule;
 		dict pythonGlobalNamespace;
+
+		ScriptEngineCore::Ptr engineCoreScript;
 
 		object epsilonModule;
 

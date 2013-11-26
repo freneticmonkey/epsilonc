@@ -1,4 +1,5 @@
 from epsilon import *
+import random
 
 from epsilon.render import Colour
 from epsilon.math import Vector3
@@ -24,7 +25,14 @@ class MyBehaviour(object):
 		colour = self.node.renderer.material.diffuse
 		print colour
 		if colour != Colour.YELLOW:
-			self.node.renderer.material.diffuse = Colour.RED
+			random.seed(self.node.id)
+			self.node.renderer.material.diffuse = Colour(random.random(), 
+														 random.random(), 
+														 random.random(), 1.0)
+
+		# Randomly set the cycle direction
+		if random.random() < 0.5:
+			self._cycle.set_dir(False)
 
 		print self._init_pos
 

@@ -186,9 +186,9 @@ void initScene()
 
 		.def("destroy", &Node::Destroy)
 	
-		.def("get_name", &Scene::GetName)
-		.def("root", &Scene::Root)
-		.def("get_active_camera", &Scene::GetActiveCamera)
+		.def_readonly("name", &Scene::GetName)
+		.def_readonly("root", &Scene::Root)
+		.def_readonly("active_camera", &Scene::GetActiveCamera)
 
 		.def(self == other<Scene::Ptr>())
 		.def(self == string())

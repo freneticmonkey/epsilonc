@@ -4,7 +4,8 @@ namespace epsilon
 {
 	ScriptManager::ScriptManager() : scriptsFolderPath("resources/scripts/"),
 									 stdErrListener("error"), 
-									 stdOutListener("")
+									 stdOutListener(""),
+									 engineCoreScript(ScriptEngineCore::Create())
 	{
 	}
 
@@ -70,7 +71,6 @@ namespace epsilon
 			// Immediately override std err & out to Log
 			import("sys").attr("stderr") = stdErrListener;
 			import("sys").attr("stdout") = stdOutListener;
-
 		}
 		catch (const error_already_set&)
 		{
@@ -79,6 +79,15 @@ namespace epsilon
 				PrintPythonError();
 			}
 		}
+	}
+
+	void ScriptManager::StartEngineCore()
+	{
+		// Init the Python Script Engine Core
+		engineCoreScript->InitScript();
+
+		// Start it immediately
+		engineCoreScript->OnStart();
 	}
 
 	void ScriptManager::ReloadScript(Script::Ptr script)
@@ -141,6 +150,9 @@ namespace epsilon
 	
 	void ScriptManager::Update(float dt)
 	{
+		// Process the Python Engine
+		engineCoreScript->Update(dt);
+
 		// TODO: Move to an OnFrameStart or equivalent function
 		// so that scripts can receive the start and update events
 		// in the same frame.

@@ -13,9 +13,9 @@ class TestingMeshGeneration(object):
 		pass
 
 	def on_start(self):
-		sm = SceneManager.get_instance()
-		scene = sm.current_scene()
-		root = scene.root()
+		#sm = SceneManager.get_instance()
+		scene = SceneManager.current_scene
+		root = scene.root
 
 		# Create a new node and add it to the scene
 		new_node = root.create_child_node()
@@ -28,8 +28,8 @@ class TestingMeshGeneration(object):
 		second_node.transform.position = Vector3(0,2,-1)
 		second_node.add_component(Renderer.create(MeshFactory.generate_sphere(4,4)))
 
-		scriptManager = ScriptManager.get_instance()
-		behav = scriptManager.create_behaviour("MyBehaviourClass.py")
+		#scriptManager = ScriptManager.get_instance()
+		behav = ScriptManager.create_behaviour("MyBehaviourClass.py")
 		second_node.add_component(behav)
 
 		second_node.renderer.material.diffuse = Colour.YELLOW

@@ -18,15 +18,16 @@ namespace epsilon
 	EpsilonManager::~EpsilonManager(void)
 	{
 		if ( uiManager ) { delete uiManager; }
-		//if ( renderManager ) { delete renderManager; }
 	}
 
 	void EpsilonManager::Setup(void)
 	{
 		Log("Initialising Epsilon Manager");
+		eventManager = &EventManager::GetInstance();
 
 		scriptManager = &ScriptManager::GetInstance();
 		scriptManager->Setup();
+		scriptManager->StartEngineCore();
 
 		renderManager = &RenderManager::GetInstance();
 		renderManager->Setup();
@@ -103,6 +104,7 @@ namespace epsilon
 	//void EpsilonManager::OnUpdate(sf::Time el)
 	void EpsilonManager::OnUpdate(float el)
 	{
+		EventManager::ProcessEvents(0.f);
 		scriptManager->Update(el);
 		uiManager->OnUpdate(el);
 		sceneManager->Cull();

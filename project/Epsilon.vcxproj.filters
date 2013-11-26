@@ -219,6 +219,18 @@
     <ClInclude Include="..\include\script\PythonLogListener.h">
       <Filter>Header Files\script</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\events\EventListener.h">
+      <Filter>Header Files\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\python\EventsModule.h">
+      <Filter>Header Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\ScriptEngineCore.h">
+      <Filter>Header Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\script\python\LoggingModule.h">
+      <Filter>Header Files\script\python</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp">
@@ -327,6 +339,18 @@
       <Filter>Source Files\render</Filter>
     </ClCompile>
     <ClCompile Include="..\source\script\python\UtilitiesModule.cpp">
+      <Filter>Source Files\script\python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\events\EventListener.cpp">
+      <Filter>Source Files\events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\EventsModule.cpp">
+      <Filter>Source Files\script\python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\ScriptEngineCore.cpp">
+      <Filter>Source Files\script</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\LoggingModule.cpp">
       <Filter>Source Files\script\python</Filter>
     </ClCompile>
   </ItemGroup>

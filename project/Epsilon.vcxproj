@@ -15,6 +15,7 @@
     <ClInclude Include="..\include\EpsilonCore.h" />
     <ClInclude Include="..\include\error\Exception.h" />
     <ClInclude Include="..\include\events\Event.h" />
+    <ClInclude Include="..\include\events\EventListener.h" />
     <ClInclude Include="..\include\events\EventManager.h" />
     <ClInclude Include="..\include\logging\Logging.h" />
     <ClInclude Include="..\include\math\Defines.h" />
@@ -41,6 +42,8 @@
     <ClInclude Include="..\include\scene\Scene.h" />
     <ClInclude Include="..\include\scene\SceneManager.h" />
     <ClInclude Include="..\include\scene\Transform.h" />
+    <ClInclude Include="..\include\script\python\EventsModule.h" />
+    <ClInclude Include="..\include\script\python\LoggingModule.h" />
     <ClInclude Include="..\include\script\python\ManagerModule.h" />
     <ClInclude Include="..\include\script\python\MathModule.h" />
     <ClInclude Include="..\include\script\python\MainModule.h" />
@@ -51,6 +54,7 @@
     <ClInclude Include="..\include\script\Script.h" />
     <ClInclude Include="..\include\script\ScriptBehaviour.h" />
     <ClInclude Include="..\include\script\ScriptCommon.h" />
+    <ClInclude Include="..\include\script\ScriptEngineCore.h" />
     <ClInclude Include="..\include\script\ScriptManager.h" />
     <ClInclude Include="..\include\script\PythonLogListener.h" />
     <ClInclude Include="..\include\ui\ConsoleWindow.h" />
@@ -62,6 +66,7 @@
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp" />
     <ClCompile Include="..\source\events\Event.cpp" />
+    <ClCompile Include="..\source\events\EventListener.cpp" />
     <ClCompile Include="..\source\events\EventManager.cpp" />
     <ClCompile Include="..\source\logging\Logging.cpp" />
     <ClCompile Include="..\source\main.cpp" />
@@ -82,6 +87,8 @@
     <ClCompile Include="..\source\scene\Scene.cpp" />
     <ClCompile Include="..\source\scene\SceneManager.cpp" />
     <ClCompile Include="..\source\scene\Transform.cpp" />
+    <ClCompile Include="..\source\script\python\EventsModule.cpp" />
+    <ClCompile Include="..\source\script\python\LoggingModule.cpp" />
     <ClCompile Include="..\source\script\python\ManagerModule.cpp" />
     <ClCompile Include="..\source\script\python\MathModule.cpp" />
     <ClCompile Include="..\source\script\python\MainModule.cpp" />
@@ -91,6 +98,7 @@
     <ClCompile Include="..\source\script\python\UtilitiesModule.cpp" />
     <ClCompile Include="..\source\script\Script.cpp" />
     <ClCompile Include="..\source\script\ScriptBehaviour.cpp" />
+    <ClCompile Include="..\source\script\ScriptEngineCore.cpp" />
     <ClCompile Include="..\source\script\ScriptManager.cpp" />
     <ClCompile Include="..\source\tests\pointerTests.cpp" />
     <ClCompile Include="..\source\ui\ConsoleWindow.cpp" />
@@ -130,15 +138,15 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Dev\Resources\C++\SFGUI\include\;C:\Dev\Resources\C++\SFML-2.0-rc-src\include\;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_54_0;C:\Python27\include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Dev\Resources\C++\SFGUI\build\lib\$(Configuration)\;C:\Dev\Resources\C++\SFML-2.0-rc-src\build\lib\$(Configuration)\;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_54_0\stage\lib;C:\Python27\libs;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)..\build\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\build\int\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\build\Win\int\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>C:\Dev\Resources\C++\SFGUI\include\;C:\Dev\Resources\C++\SFML-2.0-rc-src\include\;C:\Dev\Resources\C++\glew-1.9.0\include\;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Dev\Resources\C++\SFGUI\build\lib\$(Configuration)\;C:\Dev\Resources\C++\SFML-2.0-rc-src\build\lib\$(Configuration)\;C:\Dev\Resources\C++\glew-1.9.0\lib\;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)..\build\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\build\int\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\build\Win\int\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
