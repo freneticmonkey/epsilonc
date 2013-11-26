@@ -6,5 +6,6 @@
 *.idb
 *.pyc
 
+build/Win/int/*
 build/int/*
 project/Debug/*.obj
