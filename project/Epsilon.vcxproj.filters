@@ -5,37 +5,9 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\core">
-      <UniqueIdentifier>{d6f23c25-cc18-4bee-a421-4c704d718b02}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\events">
-      <UniqueIdentifier>{279cd380-6165-408f-97c4-26c9d4fbb27f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\logging">
-      <UniqueIdentifier>{636ea281-a901-431f-acc0-205df074c7a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\math">
-      <UniqueIdentifier>{ca60a078-b679-4457-b4e3-a47f022d2fe7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\render">
-      <UniqueIdentifier>{872bc03c-0287-4f94-83a9-89e7b795f988}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\scene">
-      <UniqueIdentifier>{bd8af276-7605-489a-bb8f-7ee34c8d873a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\ui">
-      <UniqueIdentifier>{950e991e-f0a5-44ac-86c9-5f72e23ddebd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\utilities">
-      <UniqueIdentifier>{a7ed04cb-46a0-4000-a8ec-83e2f3cae9a3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\core">
       <UniqueIdentifier>{ba454330-7013-42ef-839a-a4dbaee635ce}</UniqueIdentifier>
@@ -61,176 +33,12 @@
     <Filter Include="Source Files\tests">
       <UniqueIdentifier>{1672800d-7a8f-43af-93d4-1068c4cd42c4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\script">
-      <UniqueIdentifier>{c8570b76-3939-426b-ae4a-e4b4b9fca734}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\script">
       <UniqueIdentifier>{41896f6e-d07f-4d63-bb89-4d7a357f6028}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\script\python">
-      <UniqueIdentifier>{1782f872-4618-4b71-97c8-c3e79af0dd2e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\script\python">
       <UniqueIdentifier>{6f8eebe5-f1d7-4da9-bb52-90e93aea8768}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\error">
-      <UniqueIdentifier>{74e34bff-1b3e-4134-a1ad-357814904c78}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\include\EpsilonCore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\ResourcePath.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\core\EpsilonManager.h">
-      <Filter>Header Files\core</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\events\Event.h">
-      <Filter>Header Files\events</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\events\EventManager.h">
-      <Filter>Header Files\events</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\logging\Logging.h">
-      <Filter>Header Files\logging</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\Defines.h">
-      <Filter>Header Files\math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\Matrix.h">
-      <Filter>Header Files\math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\Quaternion.h">
-      <Filter>Header Files\math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\Rotation.h">
-      <Filter>Header Files\math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\math\Vector.h">
-      <Filter>Header Files\math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\render\Camera.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\render\Mesh.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\render\MeshFactory.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\render\Renderer.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\render\RenderManager.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\render\Shader.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\render\VertexBuffer.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\scene\Node.h">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\scene\NodeComponent.h">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\scene\Object.h">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\scene\Scene.h">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\scene\SceneManager.h">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\scene\Transform.h">
-      <Filter>Header Files\scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\ui\ConsoleWindow.h">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\ui\DebugWindow.h">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\ui\UIManager.h">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\ui\UIWindow.h">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\utilities\Utilities.h">
-      <Filter>Header Files\utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\render\VertexAttrib.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\render\VertexData.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\ScriptManager.h">
-      <Filter>Header Files\script</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\Script.h">
-      <Filter>Header Files\script</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\ScriptCommon.h">
-      <Filter>Header Files\script</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\ScriptBehaviour.h">
-      <Filter>Header Files\script</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\python\SceneModule.h">
-      <Filter>Header Files\script\python</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\python\MathModule.h">
-      <Filter>Header Files\script\python</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\python\MainModule.h">
-      <Filter>Header Files\script\python</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\python\RenderModule.h">
-      <Filter>Header Files\script\python</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\python\ManagerModule.h">
-      <Filter>Header Files\script\python</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\python\ScriptModule.h">
-      <Filter>Header Files\script\python</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\render\Colour.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\error\Exception.h">
-      <Filter>Header Files\error</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\render\Material.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\render\RenderState.h">
-      <Filter>Header Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\python\UtilitiesModule.h">
-      <Filter>Header Files\script\python</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\PythonLogListener.h">
-      <Filter>Header Files\script</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\events\EventListener.h">
-      <Filter>Header Files\events</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\python\EventsModule.h">
-      <Filter>Header Files\script\python</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\ScriptEngineCore.h">
-      <Filter>Header Files\script</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\script\python\LoggingModule.h">
-      <Filter>Header Files\script\python</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp">
@@ -353,5 +161,157 @@
     <ClCompile Include="..\source\script\python\LoggingModule.cpp">
       <Filter>Source Files\script\python</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\EpsilonCore.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\ResourcePath.hpp">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\core\EpsilonManager.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\events\Event.h">
+      <Filter>Source Files\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\events\EventData.h">
+      <Filter>Source Files\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\events\EventListener.h">
+      <Filter>Source Files\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\events\EventManager.h">
+      <Filter>Source Files\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\logging\Logging.h">
+      <Filter>Source Files\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\math\Defines.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\math\Matrix.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\math\Quaternion.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\math\Rotation.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\math\Vector.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\Camera.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\Colour.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\Material.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\Mesh.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\MeshFactory.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\Renderer.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\RenderManager.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\RenderState.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\Shader.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\VertexAttrib.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\VertexBuffer.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\VertexData.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\scene\Node.h">
+      <Filter>Source Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\scene\NodeComponent.h">
+      <Filter>Source Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\scene\Object.h">
+      <Filter>Source Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\scene\Scene.h">
+      <Filter>Source Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\scene\SceneManager.h">
+      <Filter>Source Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\scene\Transform.h">
+      <Filter>Source Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\PythonLogListener.h">
+      <Filter>Source Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\Script.h">
+      <Filter>Source Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\ScriptBehaviour.h">
+      <Filter>Source Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\ScriptCommon.h">
+      <Filter>Source Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\ScriptEngineCore.h">
+      <Filter>Source Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\ScriptManager.h">
+      <Filter>Source Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\python\EventsModule.h">
+      <Filter>Source Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\python\LoggingModule.h">
+      <Filter>Source Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\python\MainModule.h">
+      <Filter>Source Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\python\ManagerModule.h">
+      <Filter>Source Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\python\MathModule.h">
+      <Filter>Source Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\python\RenderModule.h">
+      <Filter>Source Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\python\SceneModule.h">
+      <Filter>Source Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\python\ScriptModule.h">
+      <Filter>Source Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\python\UtilitiesModule.h">
+      <Filter>Source Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\ui\ConsoleWindow.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\ui\DebugWindow.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\ui\UIManager.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\ui\UIWindow.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

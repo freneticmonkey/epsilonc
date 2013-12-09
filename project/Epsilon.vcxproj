@@ -11,59 +11,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\core\EpsilonManager.h" />
-    <ClInclude Include="..\include\EpsilonCore.h" />
-    <ClInclude Include="..\include\error\Exception.h" />
-    <ClInclude Include="..\include\events\Event.h" />
-    <ClInclude Include="..\include\events\EventListener.h" />
-    <ClInclude Include="..\include\events\EventManager.h" />
-    <ClInclude Include="..\include\logging\Logging.h" />
-    <ClInclude Include="..\include\math\Defines.h" />
-    <ClInclude Include="..\include\math\Matrix.h" />
-    <ClInclude Include="..\include\math\Quaternion.h" />
-    <ClInclude Include="..\include\math\Rotation.h" />
-    <ClInclude Include="..\include\math\Vector.h" />
-    <ClInclude Include="..\include\render\Camera.h" />
-    <ClInclude Include="..\include\render\Colour.h" />
-    <ClInclude Include="..\include\render\Material.h" />
-    <ClInclude Include="..\include\render\Mesh.h" />
-    <ClInclude Include="..\include\render\MeshFactory.h" />
-    <ClInclude Include="..\include\render\Renderer.h" />
-    <ClInclude Include="..\include\render\RenderManager.h" />
-    <ClInclude Include="..\include\render\RenderState.h" />
-    <ClInclude Include="..\include\render\Shader.h" />
-    <ClInclude Include="..\include\render\VertexBuffer.h" />
-    <ClInclude Include="..\include\render\VertexAttrib.h" />
-    <ClInclude Include="..\include\render\VertexData.h" />
-    <ClInclude Include="..\include\ResourcePath.hpp" />
-    <ClInclude Include="..\include\scene\Node.h" />
-    <ClInclude Include="..\include\scene\NodeComponent.h" />
-    <ClInclude Include="..\include\scene\Object.h" />
-    <ClInclude Include="..\include\scene\Scene.h" />
-    <ClInclude Include="..\include\scene\SceneManager.h" />
-    <ClInclude Include="..\include\scene\Transform.h" />
-    <ClInclude Include="..\include\script\python\EventsModule.h" />
-    <ClInclude Include="..\include\script\python\LoggingModule.h" />
-    <ClInclude Include="..\include\script\python\ManagerModule.h" />
-    <ClInclude Include="..\include\script\python\MathModule.h" />
-    <ClInclude Include="..\include\script\python\MainModule.h" />
-    <ClInclude Include="..\include\script\python\RenderModule.h" />
-    <ClInclude Include="..\include\script\python\SceneModule.h" />
-    <ClInclude Include="..\include\script\python\ScriptModule.h" />
-    <ClInclude Include="..\include\script\python\UtilitiesModule.h" />
-    <ClInclude Include="..\include\script\Script.h" />
-    <ClInclude Include="..\include\script\ScriptBehaviour.h" />
-    <ClInclude Include="..\include\script\ScriptCommon.h" />
-    <ClInclude Include="..\include\script\ScriptEngineCore.h" />
-    <ClInclude Include="..\include\script\ScriptManager.h" />
-    <ClInclude Include="..\include\script\PythonLogListener.h" />
-    <ClInclude Include="..\include\ui\ConsoleWindow.h" />
-    <ClInclude Include="..\include\ui\DebugWindow.h" />
-    <ClInclude Include="..\include\ui\UIManager.h" />
-    <ClInclude Include="..\include\ui\UIWindow.h" />
-    <ClInclude Include="..\include\utilities\Utilities.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp" />
     <ClCompile Include="..\source\events\Event.cpp" />
     <ClCompile Include="..\source\events\EventListener.cpp" />
@@ -105,6 +52,58 @@
     <ClCompile Include="..\source\ui\DebugWindow.cpp" />
     <ClCompile Include="..\source\ui\UIManager.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\core\EpsilonManager.h" />
+    <ClInclude Include="..\source\EpsilonCore.h" />
+    <ClInclude Include="..\source\events\Event.h" />
+    <ClInclude Include="..\source\events\EventData.h" />
+    <ClInclude Include="..\source\events\EventListener.h" />
+    <ClInclude Include="..\source\events\EventManager.h" />
+    <ClInclude Include="..\source\logging\Logging.h" />
+    <ClInclude Include="..\source\math\Defines.h" />
+    <ClInclude Include="..\source\math\Matrix.h" />
+    <ClInclude Include="..\source\math\Quaternion.h" />
+    <ClInclude Include="..\source\math\Rotation.h" />
+    <ClInclude Include="..\source\math\Vector.h" />
+    <ClInclude Include="..\source\render\Camera.h" />
+    <ClInclude Include="..\source\render\Colour.h" />
+    <ClInclude Include="..\source\render\Material.h" />
+    <ClInclude Include="..\source\render\Mesh.h" />
+    <ClInclude Include="..\source\render\MeshFactory.h" />
+    <ClInclude Include="..\source\render\Renderer.h" />
+    <ClInclude Include="..\source\render\RenderManager.h" />
+    <ClInclude Include="..\source\render\RenderState.h" />
+    <ClInclude Include="..\source\render\Shader.h" />
+    <ClInclude Include="..\source\render\VertexAttrib.h" />
+    <ClInclude Include="..\source\render\VertexBuffer.h" />
+    <ClInclude Include="..\source\render\VertexData.h" />
+    <ClInclude Include="..\source\ResourcePath.hpp" />
+    <ClInclude Include="..\source\scene\Node.h" />
+    <ClInclude Include="..\source\scene\NodeComponent.h" />
+    <ClInclude Include="..\source\scene\Object.h" />
+    <ClInclude Include="..\source\scene\Scene.h" />
+    <ClInclude Include="..\source\scene\SceneManager.h" />
+    <ClInclude Include="..\source\scene\Transform.h" />
+    <ClInclude Include="..\source\script\PythonLogListener.h" />
+    <ClInclude Include="..\source\script\python\EventsModule.h" />
+    <ClInclude Include="..\source\script\python\LoggingModule.h" />
+    <ClInclude Include="..\source\script\python\MainModule.h" />
+    <ClInclude Include="..\source\script\python\ManagerModule.h" />
+    <ClInclude Include="..\source\script\python\MathModule.h" />
+    <ClInclude Include="..\source\script\python\RenderModule.h" />
+    <ClInclude Include="..\source\script\python\SceneModule.h" />
+    <ClInclude Include="..\source\script\python\ScriptModule.h" />
+    <ClInclude Include="..\source\script\python\UtilitiesModule.h" />
+    <ClInclude Include="..\source\script\Script.h" />
+    <ClInclude Include="..\source\script\ScriptBehaviour.h" />
+    <ClInclude Include="..\source\script\ScriptCommon.h" />
+    <ClInclude Include="..\source\script\ScriptEngineCore.h" />
+    <ClInclude Include="..\source\script\ScriptManager.h" />
+    <ClInclude Include="..\source\ui\ConsoleWindow.h" />
+    <ClInclude Include="..\source\ui\DebugWindow.h" />
+    <ClInclude Include="..\source\ui\UIManager.h" />
+    <ClInclude Include="..\source\ui\UIWindow.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{27C0A693-29DF-4DC5-B88C-AED5C45126D0}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -136,15 +135,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Dev\Resources\C++\SFGUI\include\;C:\Dev\Resources\C++\SFML-2.0-rc-src\include\;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_54_0;C:\Python27\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Dev\Resources\C++\SFGUI\build\lib\$(Configuration)\;C:\Dev\Resources\C++\SFML-2.0-rc-src\build\lib\$(Configuration)\;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_54_0\stage\lib;C:\Python27\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Dev\Resources\C++\SFGUI\include\;C:\Dev\Resources\C++\SFML-2.0-rc-src\include\;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_54_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Dev\Resources\C++\SFGUI\build\lib\$(Configuration)\;C:\Dev\Resources\C++\SFML-2.0-rc-src\build\lib\$(Configuration)\;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_54_0\stage\lib;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Dev\Resources\C++\SFGUI\include\;C:\Dev\Resources\C++\SFML-2.0-rc-src\include\;C:\Dev\Resources\C++\glew-1.9.0\include\;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Dev\Resources\C++\SFGUI\build\lib\$(Configuration)\;C:\Dev\Resources\C++\SFML-2.0-rc-src\build\lib\$(Configuration)\;C:\Dev\Resources\C++\glew-1.9.0\lib\;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Dev\Resources\C++\SFGUI\include\;C:\Dev\Resources\C++\SFML-2.0-rc-src\include\;C:\Dev\Resources\C++\glew-1.9.0\include\;$(IncludePath);C:\Dev\Resources\C++\boost_1_54_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include</IncludePath>
+    <LibraryPath>C:\Dev\Resources\C++\SFGUI\build\lib\$(Configuration)\;C:\Dev\Resources\C++\SFML-2.0-rc-src\build\lib\$(Configuration)\;C:\Dev\Resources\C++\glew-1.9.0\lib\;$(LibraryPath)C:\Dev\Resources\C++\boost_1_54_0\stage\lib;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -154,12 +153,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-main-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfgui-d.lib;glew32.lib;opengl32.lib;glu32.lib;boost_python-vc110-mt-gd-1_54.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfgui-d.lib;glew32.lib;opengl32.lib;glu32.lib;boost_python-vc110-mt-gd-1_54.lib;tbb_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -171,14 +170,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\source;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-main.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfgui.lib;glew32.lib;opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfgui.lib;glew32.lib;opengl32.lib;glu32.lib,;tbb.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
