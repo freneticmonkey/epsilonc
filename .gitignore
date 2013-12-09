@@ -5,6 +5,8 @@
 *.tlog
 *.idb
 *.pyc
+*.lib
+*.exp
 
 build/Win/int/*
 build/int/*
