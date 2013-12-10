@@ -1,10 +1,13 @@
 
 #include <time.h>
 
-#include "core/EpsilonManager.h"
-
 #include <SFML/Window/Event.hpp>
 #include <SFML/System/Clock.hpp>
+
+#include <tbb/tbb.h>
+
+#include "core/EpsilonManager.h"
+
 
 #include "render/MeshFactory.h"
 #include "math/Defines.h"
@@ -104,10 +107,15 @@ namespace epsilon
 	//void EpsilonManager::OnUpdate(sf::Time el)
 	void EpsilonManager::OnUpdate(float el)
 	{
-		EventManager::ProcessEvents(0.f);
-		scriptManager->Update(el);
-		uiManager->OnUpdate(el);
-		sceneManager->Cull();
+		tbb::task_group taskGroup;
+
+		taskGroup.run( [&]() { EventManager::ProcessEvents(0.f); } );
+		taskGroup.run( [&]() { scriptManager->Update(el); } );
+		taskGroup.run( [&]() { uiManager->OnUpdate(el); } );
+		taskGroup.run( [&]() { sceneManager->Cull(); } );
+
+		taskGroup.wait();
+
 		renderManager->Draw(el);
 	}
 

@@ -1,4 +1,5 @@
 #include "script/ScriptManager.h"
+#include "script/ScopedGILRelease.h"
 
 namespace epsilon
 {
@@ -16,7 +17,7 @@ namespace epsilon
 	Script::Ptr ScriptManager::CreateScript()
 	{
 		Script::Ptr newScript = Script::Create();
-		newScript->InitScript();
+		ReloadScript(newScript);
 		scriptList.push_back(newScript);
 		return newScript;
 	}
@@ -27,7 +28,7 @@ namespace epsilon
 		filename = scriptsFolderPath + filename;
 
 		Script::Ptr newScript = Script::Create(filename);
-		newScript->InitScript();
+		ReloadScript(newScript);
 		scriptList.push_back(newScript);
 		return newScript;
 	}
@@ -38,7 +39,7 @@ namespace epsilon
 		filename = scriptsFolderPath + filename;
 
 		ScriptBehaviour::Ptr newBehaviour = ScriptBehaviour::Create(filename, ScriptSource::FILE);
-		newBehaviour->InitScript();
+		ReloadScript(newBehaviour);
 		behaviourList.push_back(newBehaviour);
 		startingBehaviours.push_back(newBehaviour);
 		return newBehaviour;
@@ -56,6 +57,7 @@ namespace epsilon
 
 			// Start Python
 			Py_Initialize();
+			PyEval_InitThreads();
 
 			// Insert the scripts path into the Python sys.path
 			import("sys").attr("path").attr("insert")(0, str(scriptsFolderPath.c_str()));
@@ -71,6 +73,9 @@ namespace epsilon
 			// Immediately override std err & out to Log
 			import("sys").attr("stderr") = stdErrListener;
 			import("sys").attr("stdout") = stdOutListener;
+
+			// Release the GIL and allow threads to do their thing
+			ReleaseGIL();
 		}
 		catch (const error_already_set&)
 		{
@@ -83,16 +88,20 @@ namespace epsilon
 
 	void ScriptManager::StartEngineCore()
 	{
+		LockGIL();
 		// Init the Python Script Engine Core
 		engineCoreScript->InitScript();
 
 		// Start it immediately
 		engineCoreScript->OnStart();
+		ReleaseGIL();
 	}
 
 	void ScriptManager::ReloadScript(Script::Ptr script)
 	{
+		LockGIL();
 		script->InitScript();
+		ReleaseGIL();
 	}
 
 	void ScriptManager::StartBehaviours()
@@ -150,6 +159,8 @@ namespace epsilon
 	
 	void ScriptManager::Update(float dt)
 	{
+		LockGIL();
+
 		// Process the Python Engine
 		engineCoreScript->Update(dt);
 
@@ -172,6 +183,8 @@ namespace epsilon
 				}
 			}
 		}
+
+		ReleaseGIL();
 	}
 
 }

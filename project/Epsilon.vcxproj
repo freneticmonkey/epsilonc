@@ -94,6 +94,7 @@
     <ClInclude Include="..\source\script\python\SceneModule.h" />
     <ClInclude Include="..\source\script\python\ScriptModule.h" />
     <ClInclude Include="..\source\script\python\UtilitiesModule.h" />
+    <ClInclude Include="..\source\script\ScopedGILRelease.h" />
     <ClInclude Include="..\source\script\Script.h" />
     <ClInclude Include="..\source\script\ScriptBehaviour.h" />
     <ClInclude Include="..\source\script\ScriptCommon.h" />
@@ -143,7 +144,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>C:\Dev\Resources\C++\SFGUI\include\;C:\Dev\Resources\C++\SFML-2.0-rc-src\include\;C:\Dev\Resources\C++\glew-1.9.0\include\;$(IncludePath);C:\Dev\Resources\C++\boost_1_54_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include</IncludePath>
-    <LibraryPath>C:\Dev\Resources\C++\SFGUI\build\lib\$(Configuration)\;C:\Dev\Resources\C++\SFML-2.0-rc-src\build\lib\$(Configuration)\;C:\Dev\Resources\C++\glew-1.9.0\lib\;$(LibraryPath)C:\Dev\Resources\C++\boost_1_54_0\stage\lib;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11</LibraryPath>
+    <LibraryPath>C:\Dev\Resources\C++\SFGUI\build\lib\$(Configuration)\;C:\Dev\Resources\C++\SFML-2.0-rc-src\build\lib\$(Configuration)\;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_54_0\stage\lib;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -177,7 +178,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-main.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfgui.lib;glew32.lib;opengl32.lib;glu32.lib,;tbb.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfgui.lib;glew32.lib;opengl32.lib;glu32.lib;tbb.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

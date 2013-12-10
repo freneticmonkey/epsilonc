@@ -10,6 +10,8 @@
 
 #include "script/python/MainModule.h"
 
+#include <Python.h>
+
 using namespace boost::python;
 
 namespace epsilon
@@ -44,6 +46,11 @@ namespace epsilon
 	private:
 		void StartBehaviours();
 
+		// Multi-threading
+		void LockGIL() { PyEval_RestoreThread(threadState); }
+		void ReleaseGIL() { threadState = PyEval_SaveThread(); }
+		PyThreadState * threadState;
+
 		ScriptList scriptList;
 		BehaviourList behaviourList;
 
@@ -60,6 +67,10 @@ namespace epsilon
 
 		PythonLogListener stdErrListener;
 		PythonLogListener stdOutListener;
+
+		
+
+
 	};
 }
 

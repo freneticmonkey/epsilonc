@@ -13,6 +13,7 @@ class TestingMeshGeneration(object):
 		pass
 
 	def on_start(self):
+		return
 		#sm = SceneManager.get_instance()
 		scene = SceneManager.current_scene
 		root = scene.root

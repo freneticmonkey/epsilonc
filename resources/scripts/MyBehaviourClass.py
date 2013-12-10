@@ -14,6 +14,7 @@ class MyBehaviour(object):
 		self._init_pos = 0
 
 	def on_start(self):
+		return
 		# sm = SceneManager.get_instance()
 		# scene = sm.current_scene()
 		# root = scene.root()
