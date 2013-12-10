@@ -1,5 +1,4 @@
 #include "script/ScriptManager.h"
-#include "script/ScopedGILRelease.h"
 
 namespace epsilon
 {

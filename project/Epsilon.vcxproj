@@ -94,7 +94,6 @@
     <ClInclude Include="..\source\script\python\SceneModule.h" />
     <ClInclude Include="..\source\script\python\ScriptModule.h" />
     <ClInclude Include="..\source\script\python\UtilitiesModule.h" />
-    <ClInclude Include="..\source\script\ScopedGILRelease.h" />
     <ClInclude Include="..\source\script\Script.h" />
     <ClInclude Include="..\source\script\ScriptBehaviour.h" />
     <ClInclude Include="..\source\script\ScriptCommon.h" />
