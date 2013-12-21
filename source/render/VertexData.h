@@ -43,6 +43,7 @@ namespace epsilon
 		VertexData::Ptr SetIndices(VertexIndicesBuffer::List indicesData);
 
 		void BuildBuffers();
+		bool HasBuiltBuffers() { return buffersBuilt; }
 
 		int GetVertexIndex() { return vertexIndex; }
 		int GetNormalIndex() { return normalIndex; }
@@ -66,6 +67,10 @@ namespace epsilon
 		int texCoordIndex;
 
 		bool hasIndices;
+
+		bool buffersBuilt;
+
+
 
 	};
 

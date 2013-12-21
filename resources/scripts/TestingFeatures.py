@@ -21,13 +21,13 @@ class TestingMeshGeneration(object):
 		# Create a new node and add it to the scene
 		new_node = root.create_child_node()
 
-		#new_renderer = Renderer.create(MeshFactory.generate_sphere(16,16))
-		#new_node.add_component(new_renderer)
+		new_renderer = Renderer.create(MeshFactory.generate_sphere(16,16))
+		new_node.add_component(new_renderer)
 		new_node.transform.position = Vector3(-2,1,0)
 
 		second_node = new_node.create_child_node()
 		second_node.transform.position = Vector3(0,2,-1)
-		#second_node.add_component(Renderer.create(MeshFactory.generate_sphere(4,4)))
+		second_node.add_component(Renderer.create(MeshFactory.generate_sphere(4,4)))
 
 		#scriptManager = ScriptManager.get_instance()
 		behav = ScriptManager.create_behaviour("MyBehaviourClass.py")
@@ -43,9 +43,10 @@ class TestingMeshGeneration(object):
 
 		print "Testing out from python"
 
-
-
 		#self._sphere_trans = root.transform.find_child_with_name("sphere")
+
+	def on_update(self, dt):
+		pass
 
 # It is necessary to instantiate the class as "_instance"
 # in Python so that epsilon can hook into it.

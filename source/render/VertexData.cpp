@@ -16,6 +16,7 @@ namespace epsilon
 		texCoordIndex = -1;
 
 		hasIndices = false;
+		buffersBuilt = false;
 	}
 
 	VertexData::~VertexData()
@@ -84,45 +85,51 @@ namespace epsilon
 		size_t stride = 0;
 		VertexDataBuffer::List vertexData;
 
-		int attribLength = attributes[0]->DataLength();
-		int numUnits = -1;
-
-		// For each vertex
-		int attribSize = attributes.size();
-		
-		for ( int i = 0; i < attribLength; i++ )
+		// If the data exists from which to create attributes
+		if ( attributes.size() > 0 )
 		{
-			// Cycle through each attribute
-			for ( int a = 0; a < attribSize; a++ )
+			int attribLength = attributes[0]->DataLength();
+			int numUnits = -1;
+
+			// For each vertex
+			int attribSize = attributes.size();
+		
+			for ( int i = 0; i < attribLength; i++ )
 			{
-				// Write each value of the attribute into the Vertex Buffer
-				for (int u = 0; u < attributes[a]->GetUnitNum(); u++ )
+				// Cycle through each attribute
+				for ( int a = 0; a < attribSize; a++ )
 				{
-					vertexData.push_back( attributes[a]->GetUnitValue(i,u) );
+					// Write each value of the attribute into the Vertex Buffer
+					for (int u = 0; u < attributes[a]->GetUnitNum(); u++ )
+					{
+						vertexData.push_back( attributes[a]->GetUnitValue(i,u) );
+					}
 				}
+			}
+
+			// Create a Vertex Buffer and add it to the buffers list
+			buffers.push_back(new VertexDataBuffer(vertexData, VertexBufferType::ELEMENT));
+
+			// Calculate the vertex buffer attribute stride values
+			for ( VertexAttribList::iterator attrib = attributes.begin(); attrib != attributes.end(); attrib++ )
+			{
+				stride = (*attrib)->UpdateStride(stride);
+			}
+
+			// Update the attributes with the total vertex buffer stride
+			for ( VertexAttribList::iterator attrib = attributes.begin(); attrib != attributes.end(); attrib++ )
+			{
+				(*attrib)->SetBufferStride(stride);
+			}
+
+			// Now Send the Buffers to OpenGL
+			for ( VertexBufferList::iterator buffer = buffers.begin(); buffer != buffers.end(); buffer++ )
+			{
+				(*buffer)->BuildBuffer();
 			}
 		}
 
-		// Create a Vertex Buffer and add it to the buffers list
-		buffers.push_back(new VertexDataBuffer(vertexData, VertexBufferType::ELEMENT));
-
-		// Calculate the vertex buffer attribute stride values
-		for ( VertexAttribList::iterator attrib = attributes.begin(); attrib != attributes.end(); attrib++ )
-		{
-			stride = (*attrib)->UpdateStride(stride);
-		}
-
-		// Update the attributes with the total vertex buffer stride
-		for ( VertexAttribList::iterator attrib = attributes.begin(); attrib != attributes.end(); attrib++ )
-		{
-			(*attrib)->SetBufferStride(stride);
-		}
-
-		// Now Send the Buffers to OpenGL
-		for ( VertexBufferList::iterator buffer = buffers.begin(); buffer != buffers.end(); buffer++ )
-		{
-			(*buffer)->BuildBuffer();
-		}
+		buffersBuilt = true;
 	}
 
 	void VertexData::Enable()

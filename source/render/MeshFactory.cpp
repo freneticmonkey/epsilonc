@@ -172,8 +172,8 @@ namespace epsilon
 		}
 
 		newGrid->VertexData()
-			   ->SetVertices(verts)
-			   ->BuildBuffers();
+			   ->SetVertices(verts);
+			   //->BuildBuffers();
 
 		return newGrid;
 	}
@@ -288,8 +288,8 @@ namespace epsilon
 				 ->SetNormals(norms)
 				 ->SetColours(colours)
 				 ->SetTexCoords(texCoords)
-				 ->SetIndices(faces)
-				 ->BuildBuffers();
+				 ->SetIndices(faces);
+				 //->BuildBuffers();
 
 		return newSphere;
 	}
@@ -305,8 +305,8 @@ namespace epsilon
 				->SetNormals(planeData.normals)
 				->SetColours(planeData.colours)
 				->SetTexCoords(planeData.texCoords)
-				->SetIndices(planeData.indices)
-				->BuildBuffers();
+				->SetIndices(planeData.indices);
+				//->BuildBuffers();
 
 		return newPlane;
 
@@ -426,8 +426,8 @@ namespace epsilon
 				   ->SetVertices(verts)
 				   ->SetNormals(norms)
 				   ->SetTexCoords(tc)
-				   ->SetIndices(inds)
-				   ->BuildBuffers();
+				   ->SetIndices(inds);
+				   //->BuildBuffers();
 
 		return newTriangle;
 	}

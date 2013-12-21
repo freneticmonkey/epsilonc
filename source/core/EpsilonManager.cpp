@@ -111,11 +111,12 @@ namespace epsilon
 
 		taskGroup.run( [&]() { EventManager::ProcessEvents(0.f); } );
 		taskGroup.run( [&]() { scriptManager->Update(el); } );
-		taskGroup.run( [&]() { uiManager->OnUpdate(el); } );
+		//taskGroup.run( [&]() { uiManager->OnUpdate(el); } );
 		taskGroup.run( [&]() { sceneManager->Cull(); } );
 
 		taskGroup.wait();
-
+		// UI cannot be updated in parallel due to SFGUI not being threadsafe, gfx access etc
+		uiManager->OnUpdate(el);
 		renderManager->Draw(el);
 	}
 

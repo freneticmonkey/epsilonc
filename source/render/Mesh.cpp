@@ -18,6 +18,10 @@ namespace epsilon
 	
 	void Mesh::Draw()
 	{
+		if ( !vd->HasBuiltBuffers() )
+		{
+			vd->BuildBuffers();
+		}
 		vd->Draw();
 	}
 
