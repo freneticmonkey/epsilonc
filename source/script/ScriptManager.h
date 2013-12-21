@@ -46,9 +46,34 @@ namespace epsilon
 	private:
 		void StartBehaviours();
 
-		// Multi-threading
-		void LockGIL() { PyEval_RestoreThread(threadState); }
-		void ReleaseGIL() { threadState = PyEval_SaveThread(); }
+		// Multi-threading Python GIL Handling
+		// Using a count rather than a boolean to prevent
+		// multiple mutex locks means that many functions 
+		// within the class can call lock/release, and call each other
+		// without stalling on a second lock.
+		void LockGIL() 
+		{ 
+			// Use a GIL Lock Count to track calls to the gil lock
+			// to ensure that the GIL is only locked once
+			if ( gilLockCount == 0 )
+			{
+				PyEval_RestoreThread(threadState); 
+			}
+			gilLockCount++;
+		}
+		void ReleaseGIL() 
+		{ 
+			// If the GIL Lock is the final release, actually release
+			// the GIL Lock.
+			if ( gilLockCount == 1 )
+			{
+				threadState = PyEval_SaveThread();
+			}
+
+			// Decrement the GIL Lock
+			gilLockCount--;
+		}
+		int gilLockCount;
 		PyThreadState * threadState;
 
 		ScriptList scriptList;

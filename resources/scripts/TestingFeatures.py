@@ -13,7 +13,7 @@ class TestingMeshGeneration(object):
 		pass
 
 	def on_start(self):
-		return
+		#return
 		#sm = SceneManager.get_instance()
 		scene = SceneManager.current_scene
 		root = scene.root
@@ -21,19 +21,19 @@ class TestingMeshGeneration(object):
 		# Create a new node and add it to the scene
 		new_node = root.create_child_node()
 
-		new_renderer = Renderer.create(MeshFactory.generate_sphere(16,16))
-		new_node.add_component(new_renderer)
+		#new_renderer = Renderer.create(MeshFactory.generate_sphere(16,16))
+		#new_node.add_component(new_renderer)
 		new_node.transform.position = Vector3(-2,1,0)
 
 		second_node = new_node.create_child_node()
 		second_node.transform.position = Vector3(0,2,-1)
-		second_node.add_component(Renderer.create(MeshFactory.generate_sphere(4,4)))
+		#second_node.add_component(Renderer.create(MeshFactory.generate_sphere(4,4)))
 
 		#scriptManager = ScriptManager.get_instance()
 		behav = ScriptManager.create_behaviour("MyBehaviourClass.py")
 		second_node.add_component(behav)
 
-		second_node.renderer.material.diffuse = Colour.YELLOW
+		#second_node.renderer.material.diffuse = Colour.YELLOW
 
 		# self._stderr = epsilon.util.PythonLogListener("error")
 		# self._stdout = epsilon.util.PythonLogListener()

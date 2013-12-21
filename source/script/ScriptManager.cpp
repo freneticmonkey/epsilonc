@@ -5,7 +5,8 @@ namespace epsilon
 	ScriptManager::ScriptManager() : scriptsFolderPath("resources/scripts/"),
 									 stdErrListener("error"), 
 									 stdOutListener(""),
-									 engineCoreScript(ScriptEngineCore::Create())
+									 engineCoreScript(ScriptEngineCore::Create()),
+									 gilLockCount(0)
 	{
 	}
 
@@ -56,7 +57,10 @@ namespace epsilon
 
 			// Start Python
 			Py_Initialize();
+
+			// Init GIL/Thread handling
 			PyEval_InitThreads();
+			gilLockCount = 1;
 
 			// Insert the scripts path into the Python sys.path
 			import("sys").attr("path").attr("insert")(0, str(scriptsFolderPath.c_str()));
@@ -130,26 +134,7 @@ namespace epsilon
 				{
 					break;
 				}
-
-				//++behaviour;
 			}
-
-			/*
-			for ( BehaviourList::iterator behaviour = startingBehaviours.begin(); behaviour != startingBehaviours.end(); behaviour++)
-			{
-				try
-				{
-					(*behaviour)->OnStart();
-				}
-				catch (const error_already_set&)
-				{
-					if (PyErr_Occurred()) 
-					{
-						PrintPythonError();
-					}
-				}
-			}
-			*/
 		}
 		
 		// Empty the list so that start is not run again
