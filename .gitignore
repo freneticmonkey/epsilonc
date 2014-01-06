@@ -9,5 +9,7 @@
 *.exp
 
 build/Win/int/*
+build/OSX/Debug/Epsilon.build/*
+build/OSX/Release/Epsilon.build/*
 build/int/*
 project/Debug/*.obj

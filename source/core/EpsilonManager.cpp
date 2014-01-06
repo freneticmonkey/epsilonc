@@ -70,14 +70,16 @@ namespace epsilon
 		//triangleTrans->SetPosition(0.f, 0.f, 0.f);
 		//
 		//// Add a sub child
-		Node::Ptr tChild = sceneManager->CurrentScene()->Root()->CreateChildNode();
+        
+        Node::Ptr tChild = sceneManager->CurrentScene()->Root()->CreateChildNode();
 		tChild->SetName("sphere");
 		tChild->AddComponent(Renderer::Create());
 		tChild->GetComponent<Renderer>()
 			  ->SetMesh(MeshFactory::GenerateSphere());
 		tChild->GetComponent<Transform>()
 			  ->SetPosition(1.0f, 1.0f, 0.0f);
-		tChild->AddComponent(scriptManager->CreateBehaviour("MyBehaviourClass.py"));
+		/*
+        tChild->AddComponent(scriptManager->CreateBehaviour("MyBehaviourClass.py"));
 		//
 		Node::Ptr plane = sceneManager->CurrentScene()->Root()->CreateChildNode();
 		plane->SetName("plane");
@@ -91,9 +93,10 @@ namespace epsilon
 
 		Node::Ptr script2 = scriptsRoot->CreateChildNode();
 		script2->AddComponent(scriptManager->CreateBehaviour("TestingFeatures.py"));
-
+         */
+        
 		// Create a Grid
-		if ( true )
+		if ( false )
 		{
 			Node::Ptr grid = sceneManager->CurrentScene()->Root()->CreateChildNode();
 			grid->SetName("grid");
@@ -107,14 +110,19 @@ namespace epsilon
 	//void EpsilonManager::OnUpdate(sf::Time el)
 	void EpsilonManager::OnUpdate(float el)
 	{
-		tbb::task_group taskGroup;
-
+		//tbb::task_group taskGroup;
+/*
 		taskGroup.run( [&]() { EventManager::ProcessEvents(0.f); } );
 		taskGroup.run( [&]() { scriptManager->Update(el); } );
 		//taskGroup.run( [&]() { uiManager->OnUpdate(el); } );
 		taskGroup.run( [&]() { sceneManager->Cull(); } );
 
 		taskGroup.wait();
+*/
+        EventManager::ProcessEvents(0.f);
+        scriptManager->Update(el);
+        sceneManager->Cull();
+        
 		// UI cannot be updated in parallel due to SFGUI not being threadsafe, gfx access etc
 		uiManager->OnUpdate(el);
 		renderManager->Draw(el);

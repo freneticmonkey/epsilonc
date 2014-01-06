@@ -3,6 +3,7 @@
 
 // Exposing std::shared_ptr to boost
 
+/*
 namespace boost 
 {
 	template<class T> const T* get_pointer(const std::shared_ptr<T>& p)
@@ -15,23 +16,25 @@ namespace boost
 		return p.get();
 	}
 } // namespace boost
-
+*/
 #include <boost/python.hpp>
 
 # include <boost/python/handle.hpp>
 # include <boost/python/converter/shared_ptr_deleter.hpp>
-//# include <boost/python/converter/from_python.hpp>
 # include <boost/python/converter/rvalue_from_python_data.hpp>
 # include <boost/python/converter/registered.hpp>
-using namespace boost::python;
 
+//# include <boost/python/converter/from_python.hpp>
+
+using namespace boost::python; 
+ 
 // Testing std::shared_ptr <-> type conversion handlers
 template<typename T>
 struct std_shared_ptr_from_python_converter
 {
 	std_shared_ptr_from_python_converter()
 	{
-		converter::registry::push_back(&convertible, &construct, type_id<std::shared_ptr<T>>() );
+		converter::registry::push_back(&convertible, &construct, type_id<std::shared_ptr<T> >() );
 	}
 
 	static void * convertible(PyObject *obj)

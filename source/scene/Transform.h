@@ -14,7 +14,7 @@ namespace epsilon
 	 */
 	class Transform;
 
-	typedef std::list< shared_ptr<Transform>> TransformList;
+	typedef std::list< shared_ptr<Transform> > TransformList;
 	typedef shared_ptr<TransformList> TransformListPtr;
 
 	class Transform : 

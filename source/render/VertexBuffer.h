@@ -70,13 +70,22 @@ namespace epsilon
 			{
 				Log("ERROR: Creating Buffer Object.");
 			}
+            Disable();
 		}
 
 		void Enable()
 		{
 			if ( bufferId != -1 )
 			{
-				glBindBuffer(bufferTypeGL, bufferId);
+                glBindBuffer(bufferTypeGL, bufferId);
+                
+                GLenum ErrorCheckValue = glGetError();
+                if (ErrorCheckValue != GL_NO_ERROR)
+                {
+                    Log("Error binding buffer: " + to_string(ErrorCheckValue));
+                    Log((const char *)gluErrorString(ErrorCheckValue));
+                    //Log((const char *)glGetString(ErrorCheckValue));
+                }
 			}
 		}
 

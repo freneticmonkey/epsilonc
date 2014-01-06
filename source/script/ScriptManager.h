@@ -10,7 +10,7 @@
 
 #include "script/python/MainModule.h"
 
-#include <Python.h>
+//#include <Python.h>
 
 using namespace boost::python;
 

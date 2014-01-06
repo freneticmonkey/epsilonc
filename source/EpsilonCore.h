@@ -9,6 +9,12 @@
 // OpenGL / GLEW
 #include <GL/glew.h>
 
+#ifdef __APPLE__
+#include <OpenGL/gl3.h>
+#endif
+
+#include <cstdlib>
+
 // STL
 #include <algorithm>
 #include <functional>

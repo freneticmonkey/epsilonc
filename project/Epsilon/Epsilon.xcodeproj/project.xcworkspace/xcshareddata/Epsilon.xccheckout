@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>ABD10794-02DB-43A6-8EB7-2AF2059CC3AC</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Epsilon</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>982DF097-8023-47B9-BC58-4274730A4991</key>
+		<string>ssh://cable.dreamhost.com/~/epsilonc.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>project/Epsilon/Epsilon.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>982DF097-8023-47B9-BC58-4274730A4991</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://cable.dreamhost.com/~/epsilonc.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>982DF097-8023-47B9-BC58-4274730A4991</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>982DF097-8023-47B9-BC58-4274730A4991</string>
+			<key>IDESourceControlWCCName</key>
+			<string>epsilonc</string>
+		</dict>
+	</array>
+</dict>
+</plist>

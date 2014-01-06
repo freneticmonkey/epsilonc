@@ -25,13 +25,19 @@ namespace epsilon
 		using namespace sf;
 
 		Log("Initialising RenderManager");
-
+        
+        ContextSettings openglSettings;
+        openglSettings.depthBits = 32;
+        openglSettings.stencilBits = 8;
+        openglSettings.antialiasingLevel = 0;
+        openglSettings.majorVersion = 2;
+        openglSettings.minorVersion = 1;
 		window = new RenderWindow( VideoMode(800, 600),
 								   "Epsilon Engine",
 								   Style::Default,
-								   ContextSettings(32));
+								   openglSettings);
 		font = new Font();
-		if (!font->loadFromFile("resources/sansation.ttf"))
+		if (!font->loadFromFile("/Users/scottporter/Development/Projects/C++/epsilonc/resources/sansation.ttf"))
 		{
 			Log("Unable to find font: sansation.ttf");
 		}
@@ -48,8 +54,8 @@ namespace epsilon
 
 		// Initialising OpenGL
 		GLenum GlewInitResult;
-
-		GlewInitResult = glewInit();
+        
+        GlewInitResult = glewInit();
 
 		if (GLEW_OK != GlewInitResult) 
 		{
@@ -59,8 +65,8 @@ namespace epsilon
 	
 		Log("INFO: OpenGL Version: ");
 		Log((const char *)glGetString(GL_VERSION));
-
-		// Enable Z-buffer read and write
+        
+        // Enable Z-buffer read and write
 		glEnable(GL_DEPTH_TEST);
 		glDepthMask(GL_TRUE);
 		glClearDepth(1.f);
@@ -80,9 +86,12 @@ namespace epsilon
 
 		// Reset any render states
 		stateStack->Reset();
+        
+        window->resetGLStates();
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+        
+        GLuint clearError = glGetError();
 		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
 		//

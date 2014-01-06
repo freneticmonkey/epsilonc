@@ -79,7 +79,7 @@ void initScene()
 		.def("destroy", &Node::Destroy)
 		.def("add_component", &Node::AddComponent)
 		.def("remove_component", &Node::RemoveComponent)
-		.def("get_component", &Node::GetComponent)
+		//.def("get_component", &Node::GetComponent)
 
 		// Hardcoded Component Accessors
 		.add_property("transform", &Node::GetComponent<Transform>)

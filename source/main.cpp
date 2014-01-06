@@ -6,6 +6,8 @@
 
 using namespace epsilon;
 
+//#ifdef _WIN32
+
 int main() 
 {
 	EpsilonManager em;
@@ -14,3 +16,8 @@ int main()
 
 	return 0;
 }
+/*
+#endif
+#ifdef TARGET_OS_X
+#endif
+*/

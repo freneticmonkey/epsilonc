@@ -6,19 +6,28 @@
 #include <stdarg.h>
 #include <time.h>
 #include <fstream>
+#include <errno.h>
+#include <stdarg.h>
 
 namespace epsilon
 {
 	// TODO: Not sure if this should be an inline, but for now...
 	inline std::string Format(const std::string fmt, ...) {
+
 		int size=1024;
 		std::string str;
+
 		va_list ap;
+        
+
 		while (1) {
 			str.resize(size);
 			va_start(ap, fmt);
 			//int n = vsnprintf((char *)str.c_str(), size, fmt.c_str(), ap);
+            int n = 0;
+#ifndef __APPLE__
 			int n = _vsnprintf_s((char *)str.c_str(), size, size, fmt.c_str(), ap);
+#endif
 			va_end(ap);
 			if (n > -1 && n < size) {
 				str.resize(n);

@@ -15,8 +15,10 @@ namespace epsilon
 		{
 			msg = Format("%s: Boundary error. Max: %d Accessed: %d", className.c_str(), max, access);
 		}
+        
+        virtual ~BoundaryException() throw() {}
 
-		virtual const char* what() const throw()
+		const char* what() const throw()
 		{
 			return msg.c_str();
 		}

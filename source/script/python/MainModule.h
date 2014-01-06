@@ -1,6 +1,5 @@
 #pragma once
 
-#include <boost/python.hpp>
-using namespace boost::python;
+#include "script/ScriptCommon.h"
 
 extern "C" __declspec(dllexport) void initepsilon();

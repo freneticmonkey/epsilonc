@@ -1,8 +1,7 @@
 #pragma once
 #include "EpsilonCore.h"
 
-#include <boost/python.hpp>
-using namespace boost::python;
+#include "script/ScriptCommon.h"
 
 #include "scene/NodeComponent.h"
 #include "scene/Transform.h"

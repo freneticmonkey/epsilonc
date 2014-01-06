@@ -187,6 +187,7 @@ namespace epsilon
 		if (ErrorCheckValue != GL_NO_ERROR)
 		{
 			Log("Wahhhh woooowwwwww. OpenGL error");
+            Log((const char *)gluErrorString(ErrorCheckValue));
 		}
 	}
 }
