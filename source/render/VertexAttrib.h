@@ -2,6 +2,7 @@
 
 #include "EpsilonCore.h"
 #include "math/Vector.h"
+#include "render/RenderUtilities.h"
 
 namespace epsilon
 {
@@ -85,22 +86,10 @@ namespace epsilon
 			if ( attributeStride != -1 )
 			{
                 glVertexAttribPointer(attributeIndex, unitNum, unitType, GL_FALSE, bufferStride, (GLvoid*)attributeStride);
-                GLenum ErrorCheckValue = glGetError();
-                
-                if (ErrorCheckValue != GL_NO_ERROR)
-                {
-                    Log("Error enabling vertex attrib: " + to_string(ErrorCheckValue));
-                    Log((const char *)gluErrorString(ErrorCheckValue));
-                }
+                CheckOpenGLError("Setting Vertex Attrib Pointer");
                 
                 glEnableVertexAttribArray(attributeIndex);
-				ErrorCheckValue = glGetError();
-                
-                if (ErrorCheckValue != GL_NO_ERROR)
-                {
-                    Log("Error enabling vertex attrib array: " + to_string(ErrorCheckValue));
-                    Log((const char *)gluErrorString(ErrorCheckValue));
-                }
+				CheckOpenGLError("Enabling Vertex Attrib");
 			}
 		}
 

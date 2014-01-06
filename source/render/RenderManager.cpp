@@ -37,7 +37,8 @@ namespace epsilon
 								   Style::Default,
 								   openglSettings);
 		font = new Font();
-		if (!font->loadFromFile("/Users/scottporter/Development/Projects/C++/epsilonc/resources/sansation.ttf"))
+		//if (!font->loadFromFile("/Users/scottporter/Development/Projects/C++/epsilonc/resources/sansation.ttf"))
+		if (!font->loadFromFile("resources/sansation.ttf"))
 		{
 			Log("Unable to find font: sansation.ttf");
 		}
@@ -86,15 +87,11 @@ namespace epsilon
 
 		// Reset any render states
 		stateStack->Reset();
-        
-        window->resetGLStates();
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        GLuint clearError = glGetError();
-		//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        CheckOpenGLError("Clear Error Before Draw");
 
-		//
 		// Do OpenGL drawing here.
 		if (sceneManager)
 		{

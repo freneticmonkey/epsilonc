@@ -21,7 +21,6 @@ namespace epsilon
 		~EpsilonManager(void);
 
 		void Setup(void);
-		//void OnUpdate(sf::Time el);
 		void OnUpdate(float el);
 		void Run(void);
 

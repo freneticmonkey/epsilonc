@@ -74,6 +74,7 @@
     <ClInclude Include="..\source\render\RenderManager.h" />
     <ClInclude Include="..\source\render\RenderState.h" />
     <ClInclude Include="..\source\render\Shader.h" />
+    <ClInclude Include="..\source\render\RenderUtilities.h" />
     <ClInclude Include="..\source\render\VertexAttrib.h" />
     <ClInclude Include="..\source\render\VertexBuffer.h" />
     <ClInclude Include="..\source\render\VertexData.h" />

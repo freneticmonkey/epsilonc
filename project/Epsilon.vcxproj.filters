@@ -313,5 +313,8 @@
     <ClInclude Include="..\source\ui\UIWindow.h">
       <Filter>Source Files\ui</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\render\RenderUtilities.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

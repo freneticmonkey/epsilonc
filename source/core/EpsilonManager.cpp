@@ -96,7 +96,7 @@ namespace epsilon
          */
         
 		// Create a Grid
-		if ( false )
+		if ( true )
 		{
 			Node::Ptr grid = sceneManager->CurrentScene()->Root()->CreateChildNode();
 			grid->SetName("grid");
@@ -107,21 +107,23 @@ namespace epsilon
 		}
 	}
 
-	//void EpsilonManager::OnUpdate(sf::Time el)
 	void EpsilonManager::OnUpdate(float el)
 	{
-		//tbb::task_group taskGroup;
-/*
+#ifdef __APPLE__
+		EventManager::ProcessEvents(0.f);
+        scriptManager->Update(el);
+        sceneManager->Cull();
+#else
+		tbb::task_group taskGroup;
+
 		taskGroup.run( [&]() { EventManager::ProcessEvents(0.f); } );
 		taskGroup.run( [&]() { scriptManager->Update(el); } );
 		//taskGroup.run( [&]() { uiManager->OnUpdate(el); } );
 		taskGroup.run( [&]() { sceneManager->Cull(); } );
 
 		taskGroup.wait();
-*/
-        EventManager::ProcessEvents(0.f);
-        scriptManager->Update(el);
-        sceneManager->Cull();
+#endif
+		
         
 		// UI cannot be updated in parallel due to SFGUI not being threadsafe, gfx access etc
 		uiManager->OnUpdate(el);

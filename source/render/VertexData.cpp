@@ -164,30 +164,20 @@ namespace epsilon
 
 	void VertexData::Draw()
 	{
-		GLenum ErrorCheckValue = glGetError();
-
 		Enable();
 
 		// If drawing surfaces
 		if ( hasIndices )
 		{
 			glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_SHORT, 0);
-			//glDrawElements(GL_POINTS, numIndices, GL_UNSIGNED_SHORT, 0);
+			CheckOpenGLError("DrawElements");
 		}
 		else
 		{
 			// Drawing Lines - this is a temporary hack for grids until Materials or some such are implemented.
 			glDrawArrays(GL_LINES, 0, numVertices);
+			CheckOpenGLError("DrawArrays");
 		}
-	
 		Disable();
-
-		ErrorCheckValue = glGetError();
-
-		if (ErrorCheckValue != GL_NO_ERROR)
-		{
-			Log("Wahhhh woooowwwwww. OpenGL error");
-            Log((const char *)gluErrorString(ErrorCheckValue));
-		}
 	}
 }

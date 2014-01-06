@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "utilities/Utilities.h"
+#include "render/RenderUtilities.h"
 
 namespace epsilon
 {
@@ -44,7 +45,6 @@ namespace epsilon
 		fragSource = Format("%s\n\n", sourceVersion.c_str() );
 		fragSource += readfile("resources/shaders/basic.frag");
 
-		GLenum ErrorCheckValue = glGetError();
 		const char * vSource = vertexSource.c_str();
 		const char * fSource = fragSource.c_str();
 		
@@ -53,27 +53,14 @@ namespace epsilon
 		glShaderSource(vertexShaderId, 1, &vSource, NULL);
 		glCompileShader(vertexShaderId);
  
-		ErrorCheckValue = glGetError();
-
-		if (ErrorCheckValue != GL_NO_ERROR)
-		{
-			Log("ERROR: Compiling Vertex Shader");
-			success = false;
-		}
+		success = CheckOpenGLError("Compiling Vertex Shader: <filename here>");
 
 		// Compile Fragment Shader
 		fragShaderId = glCreateShader(GL_FRAGMENT_SHADER);
 		glShaderSource(fragShaderId, 1, &fSource, NULL);
 		glCompileShader(fragShaderId);
 
-		ErrorCheckValue = glGetError();
-
-		if (ErrorCheckValue != GL_NO_ERROR)
-		{
-			Log("ERROR: Compiling Fragment Shader");
-			Log((const char *)gluErrorString(ErrorCheckValue));
-			success = false;
-		}
+		success = CheckOpenGLError("Compiling Fragment Shader: <filename here>");
 
 		// Compile/Link Shader Program
 		programId = glCreateProgram();
@@ -81,22 +68,7 @@ namespace epsilon
         glAttachShader(programId, fragShaderId);
 		glLinkProgram(programId);
 
-		ErrorCheckValue = glGetError();
-
-		if (ErrorCheckValue != GL_NO_ERROR)
-		{
-			Log("ERROR: Compiling Shader Program");
-			Log((const char *)gluErrorString(ErrorCheckValue));
-			success = false;
-		}
-
-		// Get the position uniform
-		positionUnf = glGetUniformLocation(programId, "object_Position");
-		if ( (int)positionUnf == -1 )
-		{
-			ErrorCheckValue = glGetError();
-			Log((const char *)gluErrorString(ErrorCheckValue));
-		}
+		success = CheckOpenGLError("Linking Shader");
 
 		viewMatUnf = glGetUniformLocation(programId, "modelViewMatrix");
 		projMatUnf = glGetUniformLocation(programId, "projMatrix");

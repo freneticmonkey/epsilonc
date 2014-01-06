@@ -7,6 +7,7 @@
 
 #include "render/VertexAttrib.h"
 #include "render/VertexBuffer.h"
+#include "render/RenderUtilities.h"
 
 namespace epsilon
 {

@@ -24,8 +24,10 @@ namespace epsilon
 			str.resize(size);
 			va_start(ap, fmt);
 			//int n = vsnprintf((char *)str.c_str(), size, fmt.c_str(), ap);
-            int n = 0;
-#ifndef __APPLE__
+            
+#ifdef __APPLE__
+			int n = 0;
+#else
 			int n = _vsnprintf_s((char *)str.c_str(), size, size, fmt.c_str(), ap);
 #endif
 			va_end(ap);
