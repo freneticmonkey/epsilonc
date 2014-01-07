@@ -16,8 +16,11 @@ namespace epsilon
 											 sourceVersion("#version 330")
 
 	{
+		// Set Default Shader
+		SetMaterialFile("resources/shaders/material.frag");
+		SetVertexFile("resources/shaders/basic.vert");
+		SetFragmentFile("resources/shaders/basic.frag");
 	}
-
 
 	Shader::~Shader(void)
 	{
@@ -28,52 +31,149 @@ namespace epsilon
 		shaderCompiled = CompileShader();
 	}
 
-	void Shader::SetMaterialDef(std::string materialDef)
+	void Shader::SetMaterialFile(std::string materialFile)
 	{
-		materialStruct = materialDef;
+		materialStruct = readfile(materialFile);
+	}
+
+	void Shader::SetVertexSource(std::string vertSource)
+	{
+		vertexSource = Format("%s\n\n%s\n\n", sourceVersion.c_str(), materialStruct.c_str() );
+		vertexSource += vertSource;	
+		vertexFile = "No File: Source code only";
+	}
+
+	void Shader::SetVertexFile(std::string vertFile)
+	{
+		vertexSource = Format("%s\n\n%s\n\n", sourceVersion.c_str(), materialStruct.c_str() );
+		vertexSource += readfile(vertFile);
+		vertexFile = vertFile;
+	}
+	
+	void Shader::SetGeometrySource(std::string geomSource)
+	{
+		geometrySource = Format("%s\n\n", sourceVersion.c_str() );
+		geometrySource += geomSource;
+		geometryFile = "No File: Source code only";
+	}
+
+	void Shader::SetGeometryFile(std::string geomFile)
+	{
+		// Add version def
+		geometrySource = Format("%s\n\n", sourceVersion.c_str() );
+		geometrySource += readfile(geomFile);
+		geometryFile = geomFile;
+	}
+
+	void Shader::SetFragmentSource(std::string fragSource)
+	{
+		fragmentSource = Format("%s\n\n", sourceVersion.c_str() );
+		fragmentSource += fragSource;
+		fragmentFile = "No File: Source code only";
+	}
+
+	void Shader::SetFragmentFile(std::string fragFile)
+	{
+		// Add version def
+		fragmentSource = Format("%s\n\n", sourceVersion.c_str() );
+		fragmentSource += readfile(fragFile);
+		fragmentFile = fragFile;
 	}
 
 	bool Shader::CompileShader()
 	{
 		bool success = true;
 
-		// Insert the version and material definition at the beginning of the source file
-		vertexSource = Format("%s\n\n%s\n\n", sourceVersion.c_str(), materialStruct.c_str() );
-		vertexSource += readfile("resources/shaders/basic.vert");
-		
-		// Add version def
-		fragSource = Format("%s\n\n", sourceVersion.c_str() );
-		fragSource += readfile("resources/shaders/basic.frag");
-
-		const char * vSource = vertexSource.c_str();
-		const char * fSource = fragSource.c_str();
-		
-		// Compile Vertex Shader
-		vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
-		glShaderSource(vertexShaderId, 1, &vSource, NULL);
-		glCompileShader(vertexShaderId);
+		if ( HasVertexShader() )
+		{
+			const char * vSource = vertexSource.c_str();
+			
+			// Compile Vertex Shader
+			vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
+			glShaderSource(vertexShaderId, 1, &vSource, NULL);
+			glCompileShader(vertexShaderId);
  
-		success = CheckOpenGLError("Compiling Vertex Shader: <filename here>");
+			success = CheckOpenGLError("Compiling Vertex Shader: " + vertexFile);
+			
+			DisplayCompileError(vertexShaderId);
+		}
 
-		// Compile Fragment Shader
-		fragShaderId = glCreateShader(GL_FRAGMENT_SHADER);
-		glShaderSource(fragShaderId, 1, &fSource, NULL);
-		glCompileShader(fragShaderId);
+		if ( HasGeometryShader() )
+		{
+			const char * gSource = geometrySource.c_str();
 
-		success = CheckOpenGLError("Compiling Fragment Shader: <filename here>");
+			// Compile Vertex Shader
+			vertexShaderId = glCreateShader(GL_GEOMETRY_SHADER);
+			glShaderSource(geomShaderId, 1, &gSource, NULL);
+			glCompileShader(geomShaderId);
+ 
+			success = CheckOpenGLError("Compiling Geometry Shader: " + geometryFile);
 
-		// Compile/Link Shader Program
-		programId = glCreateProgram();
-        glAttachShader(programId, vertexShaderId);
-        glAttachShader(programId, fragShaderId);
-		glLinkProgram(programId);
+			DisplayCompileError(geomShaderId);
+		}
 
-		success = CheckOpenGLError("Linking Shader");
+		if ( HasFragmentShader() )
+		{
+			const char * fSource = fragmentSource.c_str();
 
-		viewMatUnf = glGetUniformLocation(programId, "modelViewMatrix");
-		projMatUnf = glGetUniformLocation(programId, "projMatrix");
+			// Compile Fragment Shader
+			fragShaderId = glCreateShader(GL_FRAGMENT_SHADER);
+			glShaderSource(fragShaderId, 1, &fSource, NULL);
+			glCompileShader(fragShaderId);
+
+			success = CheckOpenGLError("Compiling Fragment Shader: " + fragmentFile);
+
+			DisplayCompileError(fragShaderId);
+		}
+
+		if ( success )
+		{
+			// Compile/Link Shader Program
+			programId = glCreateProgram();
+
+			if ( HasVertexShader() )
+			{
+				glAttachShader(programId, vertexShaderId);
+			}
+
+			if ( HasGeometryShader() )
+			{
+				glAttachShader(programId, geomShaderId);
+			}
+
+			if ( HasFragmentShader() )
+			{
+				glAttachShader(programId, fragShaderId);
+			}
+			glLinkProgram(programId);
+
+			success = CheckOpenGLError("Linking Shader");
+
+			viewMatUnf = glGetUniformLocation(programId, "modelViewMatrix");
+			projMatUnf = glGetUniformLocation(programId, "projMatrix");
+		}
 
 		return success;
+	}
+
+	void Shader::DisplayCompileError(GLuint shaderId)
+	{
+		GLint isCompiled = 0;
+		glGetShaderiv(shaderId, GL_COMPILE_STATUS, &isCompiled);
+		if(isCompiled == GL_FALSE)
+		{
+				GLint maxLength = 0;
+				glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &maxLength);
+ 
+				//The maxLength includes the NULL character
+				std::vector<char> errorLog(maxLength);
+				glGetShaderInfoLog(shaderId, maxLength, &maxLength, &errorLog[0]);
+				Log("Shader Compile Error: \n" + string(errorLog.begin(), errorLog.end()) );
+				//Provide the infolog in whatever manor you deem best.
+				//Exit with failure.
+				glDeleteShader(shaderId); //Don't leak the shader.
+				return;
+		}
 	}
 
 	GLuint Shader::GetUniformId(std::string uniformName)

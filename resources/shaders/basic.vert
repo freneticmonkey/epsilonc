@@ -6,7 +6,7 @@ layout(location=3) in vec2 texCoord;
 uniform mat4 modelViewMatrix;
 uniform mat4 projMatrix;
 
-varying vec4 ex_Colour;
+out vec4 ex_Colour;
 
 void main()
 {

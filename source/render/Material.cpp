@@ -22,7 +22,7 @@ namespace epsilon
 
 	void Material::SetupShader()
 	{
-		shader->SetMaterialDef(readfile("resources/shaders/material.frag"));
+		shader->SetMaterialFile("resources/shaders/material.frag");
 		shader->Setup();
 
 		// Get the Unform values for the material

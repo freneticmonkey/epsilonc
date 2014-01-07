@@ -24,7 +24,19 @@ namespace epsilon
 
 		void Setup();
 
-		void SetMaterialDef(std::string materialDef);
+		void SetMaterialFile(std::string materialFile);
+
+		void SetVertexSource(std::string vertSource);
+		void SetVertexFile(std::string vertFile);
+		bool HasVertexShader() { return vertexSource.size() > 0; }
+		
+		void SetGeometrySource(std::string geomSource);
+		void SetGeometryFile(std::string geomFile);
+		bool HasGeometryShader() { return geometrySource.size() > 0; }
+
+		void SetFragmentSource(std::string fragSource);
+		void SetFragmentFile(std::string fragFile);
+		bool HasFragmentShader() { return fragmentSource.size() > 0; }
 
 		GLuint GetUniformId(std::string uniformName);
 
@@ -40,10 +52,13 @@ namespace epsilon
 	private:
 		bool CompileShader();
 
+		void DisplayCompileError(GLuint shaderId);
+
 		bool shaderCompiled;
 		bool shaderActive;
 
 		GLuint vertexShaderId;
+		GLuint geomShaderId;
 		GLuint fragShaderId;
 		GLuint programId;
 
@@ -54,7 +69,11 @@ namespace epsilon
 		GLuint projMatUnf;
 
 		std::string vertexSource;
-		std::string fragSource;
+		std::string vertexFile;
+		std::string geometrySource;
+		std::string geometryFile;
+		std::string fragmentSource;
+		std::string fragmentFile;
 
 		// Hard code this in for now
 		std::string materialStruct;
