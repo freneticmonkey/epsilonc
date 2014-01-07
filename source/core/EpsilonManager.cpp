@@ -78,8 +78,7 @@ namespace epsilon
 			  ->SetMesh(MeshFactory::GenerateSphere());
 		tChild->GetComponent<Transform>()
 			  ->SetPosition(1.0f, 1.0f, 0.0f);
-		/*
-        tChild->AddComponent(scriptManager->CreateBehaviour("MyBehaviourClass.py"));
+		tChild->AddComponent(scriptManager->CreateBehaviour("MyBehaviourClass.py"));
 		//
 		Node::Ptr plane = sceneManager->CurrentScene()->Root()->CreateChildNode();
 		plane->SetName("plane");
@@ -93,7 +92,6 @@ namespace epsilon
 
 		Node::Ptr script2 = scriptsRoot->CreateChildNode();
 		script2->AddComponent(scriptManager->CreateBehaviour("TestingFeatures.py"));
-         */
         
 		// Create a Grid
 		if ( true )

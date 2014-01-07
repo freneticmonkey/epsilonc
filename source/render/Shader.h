@@ -48,6 +48,7 @@ namespace epsilon
 		bool DisableShader();
 
 		bool Active() { return shaderActive; }
+		bool Compiled() { return shaderCompiled; }
 
 	private:
 		bool CompileShader();

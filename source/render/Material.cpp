@@ -13,7 +13,6 @@ namespace epsilon
 												 reflectance(0.8f)
 	{
 		shader = Shader::Create();
-		SetupShader();
 	}
 
 	Material::~Material(void)
@@ -22,10 +21,13 @@ namespace epsilon
 
 	void Material::SetupShader()
 	{
+		// Set the GLSL definition of the material in the shader
 		shader->SetMaterialFile("resources/shaders/material.frag");
+
+		// Compile the shader
 		shader->Setup();
 
-		// Get the Unform values for the material
+		// Get the Shader's Unform values for the material
 		ambientId = shader->GetUniformId("material.ambient");
 		diffuseId = shader->GetUniformId("material.diffuse");
 		specId = shader->GetUniformId("material.specular");
@@ -35,7 +37,6 @@ namespace epsilon
 	void Material::SetShader(Shader::Ptr newShader)
 	{
 		shader = newShader;
-		SetupShader();
 	}
 
 	Shader::Ptr Material::GetShader()
@@ -45,6 +46,15 @@ namespace epsilon
 
 	void Material::Enable(RenderStateStack::Ptr stateStack)
 	{
+		// If the shader hasn't yet been setup
+		if ( !shader->Compiled() )
+		{
+			// Trigger the Shader setup here.  This needs to happen so that it only 
+			// occurs during render in the main thread. The constructor/SetShader
+			// functions are exposed to python, and therefore other threads
+			SetupShader();
+		}
+
 		// If the shader is ready to go
 		if ( shader->UseShader(stateStack) )
 		{
