@@ -2,12 +2,12 @@
 
 namespace epsilon
 {
-	EventType::Ptr EventType::Create(string name)
+	EventType::Ptr EventType::Create(std::string name)
 	{
-		return make_shared<EventType>(private_struct(), name);
+		return std::make_shared<EventType>(private_struct(), name);
 	}
 
-	EventType::EventType(const private_struct &, string name)
+	EventType::EventType(const private_struct &, std::string name)
 	{
 		eventName = name;
 		hash_type = toHash(name);
@@ -18,14 +18,14 @@ namespace epsilon
 		return hash_type == other->hash_type;
 	}
 
-	bool EventType::operator==(string name)
+	bool EventType::operator==(std::string name)
 	{
 		return hash_type == toHash(name);
 	}
 
 	bool EventType::operator==(const char * name)
 	{
-		return hash_type == toHash(string(name));
+		return hash_type == toHash(std::string(name));
 	}
 
 	bool EventType::operator==(size_t hash)
@@ -38,12 +38,12 @@ namespace epsilon
 		return hash_type;
 	}
 	
-	Event::Ptr Event::Create(string name)
+	Event::Ptr Event::Create(std::string name)
 	{
-		return make_shared<Event>(private_struct(), name);
+		return std::make_shared<Event>(private_struct(), name);
 	}
 
-	Event::Event(const private_struct &, string name)
+	Event::Event(const private_struct &, std::string name)
 	{
 		type = EventType::Create(name);
 		eventName = name;
@@ -53,7 +53,7 @@ namespace epsilon
 		//printf("Created Event: %s\n", eventName.c_str());
 	}
 
-	string Event::GetName()
+	std::string Event::GetName()
 	{
 		return eventName;
 	}

@@ -535,17 +535,17 @@ Matrix4 Matrix4::CreateLookAt(Vector3 eye, Vector3 at, Vector3 up)
     return newmat;
 }
 
-Matrix4 Matrix4::CreatePerspective(float fovY, float aspect, float near, float far)
+Matrix4 Matrix4::CreatePerspective(float fovY, float aspect, float nearDist, float farDist)
 {
     float f = 1.f / std::tan(fovY / 2.f );
     Matrix4 newmat;
     
-    if ( near != 0.f && far != 0.f )
+    if ( nearDist != 0.f && farDist != 0.f )
     {
         newmat.data[0] = f / aspect;
         newmat.data[5] = f;
-        newmat.data[10] = ( far + near ) / ( near - far );
-        newmat.data[11] = 2.f * far * near / ( near - far);
+        newmat.data[10] = ( farDist + nearDist ) / ( nearDist - farDist );
+        newmat.data[11] = 2.f * farDist * nearDist / ( nearDist - farDist);
         newmat.data[14] = -1.f;
         newmat.data[15] = 0.f;
     }

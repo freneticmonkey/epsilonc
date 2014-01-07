@@ -34,7 +34,7 @@ namespace epsilon
 
 		void Setup(void);
 		void SetScene(Scene::Ptr newScene);
-		void SetScene(string name);
+		void SetScene(std::string name);
 
 		void Update(float el);
 		void Cull(void);

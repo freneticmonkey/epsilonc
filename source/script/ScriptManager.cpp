@@ -1,4 +1,5 @@
 #include "script/ScriptManager.h"
+#include "utilities/Utilities.h"
 
 namespace epsilon
 {
@@ -63,7 +64,8 @@ namespace epsilon
 			gilLockCount = 1;
 
 			// Insert the scripts path into the Python sys.path
-			import("sys").attr("path").attr("insert")(0, str(scriptsFolderPath.c_str()));
+			object cwd = import("os").attr("getcwd");
+			import("sys").attr("path").attr("insert")(0, cwd() + "/" + str(scriptsFolderPath.c_str()));
 
 			// Get Module Global namespace
 			pythonGlobalModule = import("__main__");

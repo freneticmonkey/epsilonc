@@ -4,7 +4,7 @@ namespace epsilon
 {
 	ConsoleWindow::Ptr ConsoleWindow::Create()
 	{
-		Ptr newConsoleWindow = make_shared<ConsoleWindow>(private_struct());
+		Ptr newConsoleWindow = std::make_shared<ConsoleWindow>(private_struct());
 		Logger::addListener(newConsoleWindow);
 		return newConsoleWindow;
 	}
@@ -64,14 +64,14 @@ namespace epsilon
 		window->Update(seconds);
 	}
 
-	void ConsoleWindow::Log(string content)
+	void ConsoleWindow::Log(std::string content)
 	{
 		Label::Ptr newLog = Label::Create(content.c_str());
 		scrolledWindowBox->Pack( newLog );
 		newLog->SetAlignment( sf::Vector2f(0.0f, 0.0f) );
 	}
 
-	void ConsoleWindow::Log(string logName, string content)
+	void ConsoleWindow::Log(std::string logName, std::string content)
 	{
 		content = logName + ": " + content;
 		Log(content);

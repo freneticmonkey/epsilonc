@@ -4,17 +4,17 @@ namespace epsilon
 {
 	Renderer::Ptr Renderer::Create()
 	{
-		return make_shared<Renderer>(private_struct());
+		return std::make_shared<Renderer>(private_struct());
 	}
 
 	Renderer::Ptr Renderer::Create(Mesh::Ptr newMesh)
 	{
-		return make_shared<Renderer>(private_struct(), newMesh);
+		return std::make_shared<Renderer>(private_struct(), newMesh);
 	}
 
 	Renderer::Ptr Renderer::Create(Mesh::Ptr newMesh, Material::Ptr newMaterial)
 	{
-		return make_shared<Renderer>(private_struct(), newMesh, newMaterial);
+		return std::make_shared<Renderer>(private_struct(), newMesh, newMaterial);
 	}
 
 	Renderer::Renderer(const private_struct &) : NodeComponent("Renderer")

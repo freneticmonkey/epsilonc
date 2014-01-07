@@ -6,45 +6,45 @@ namespace epsilon
 {
 	class EventType;
 	
-	typedef std::hash<string> hash_func;
+	typedef std::hash<std::string> hash_func;
 	class EventType
 	{
 	private:
 		struct private_struct {};
 	public:
-		typedef shared_ptr<EventType> Ptr;
+		typedef std::shared_ptr<EventType> Ptr;
 		
-		static Ptr Create(string name);
+		static Ptr Create(std::string name);
 		
 		bool operator==(EventType::Ptr other);
-		bool operator==(string name);
+		bool operator==(std::string name);
 		bool operator==(const char * name);
 		bool operator==(size_t hash);
 
 		size_t hash();
 
-		string GetPlainName() { return eventName; }
+		std::string GetPlainName() { return eventName; }
 
-		EventType(const private_struct &, string name);
+		EventType(const private_struct &, std::string name);
 	private:
-		string eventName;
+		std::string eventName;
 
 		size_t hash_type;
 		hash_func toHash;
 	};
 
 	class Event :
-		public enable_shared_from_this<Event>
+		public std::enable_shared_from_this<Event>
 	{
 	private:
 		struct private_struct {};
 
 	public:
-		typedef shared_ptr<Event> Ptr;
+		typedef std::shared_ptr<Event> Ptr;
 
-		static Ptr Create(string name);
+		static Ptr Create(std::string name);
 
-		string GetName();
+		std::string GetName();
 		EventType::Ptr GetType();
 
 		bool IsHandled() { return handled; }
@@ -52,11 +52,11 @@ namespace epsilon
 
 		//void Send() { EventManager::FireEvent(ThisPtr()); }
 
-		Event(const private_struct &, string name);
+		Event(const private_struct &, std::string name);
 	private:
 		Event::Ptr ThisPtr() { return shared_from_this(); }
 		bool handled;
-		string eventName;
+		std::string eventName;
 		EventType::Ptr type;
 	};
 }

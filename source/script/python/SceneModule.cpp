@@ -53,7 +53,7 @@ void initScene()
 	scope sceneScope = sceneModule;
 
 	Node::Ptr (*NodeCreateStandard)() = &Node::Create;
-	Node::Ptr (*NodeCreateNamed)(string) = &Node::Create;
+	Node::Ptr (*NodeCreateNamed)(std::string) = &Node::Create;
 
 	//register_ptr_to_python<Node::Ptr>();
 
@@ -92,7 +92,7 @@ void initScene()
 
 		.def(self == other<Node::Ptr>())
 		.def(self == long())
-		.def(self == string())
+		.def(self == std::string())
 	;
 
 	enum_<Transform::TransformSpace>("TransformSpace")
@@ -191,7 +191,7 @@ void initScene()
 		.def_readonly("active_camera", &Scene::GetActiveCamera)
 
 		.def(self == other<Scene::Ptr>())
-		.def(self == string())
+		.def(self == std::string())
 	;
 
 

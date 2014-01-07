@@ -1,12 +1,15 @@
-
+from resource.resourcemanager import ResourceManager
+import sys
 
 # This is an awkward name and can change, when I'm rested enough to think of something better
-class ScriptEngine(object):
+class ScriptCore(object):
 	def __init__(self):
 		pass
 
 	def on_start(self):
 		print "Starting Main"
+		print "Python Paths: " + ",".join(sys.path)
+		rm = ResourceManager()
 
 	def on_update(self, dt):
 		pass
@@ -15,4 +18,4 @@ class ScriptEngine(object):
 		pass
 
 # For Epsilon Access
-_instance = ScriptEngine()
+_instance = ScriptCore()

@@ -39,6 +39,9 @@
     <Filter Include="Source Files\script\python">
       <UniqueIdentifier>{6f8eebe5-f1d7-4da9-bb52-90e93aea8768}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\utilities">
+      <UniqueIdentifier>{55ca7ebc-49c2-4226-8e30-1de39a501c77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp">
@@ -315,6 +318,9 @@
     </ClInclude>
     <ClInclude Include="..\source\render\RenderUtilities.h">
       <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\utilities\Utilities.h">
+      <Filter>Source Files\utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

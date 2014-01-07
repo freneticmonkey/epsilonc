@@ -104,6 +104,7 @@
     <ClInclude Include="..\source\ui\DebugWindow.h" />
     <ClInclude Include="..\source\ui\UIManager.h" />
     <ClInclude Include="..\source\ui\UIWindow.h" />
+    <ClInclude Include="..\source\utilities\Utilities.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{27C0A693-29DF-4DC5-B88C-AED5C45126D0}</ProjectGuid>

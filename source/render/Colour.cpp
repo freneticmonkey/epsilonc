@@ -164,7 +164,7 @@ Colour Colour::Tinted(const Colour &other, float prop)
 
 float Colour::NormaliseColourValue(float value)
 {
-	value = std::max( std::min(value, 255.0f), 0.0f );
+	value = max( min(value, 255.0f), 0.0f );
 
 	if ( value > 1.0f )
 	{

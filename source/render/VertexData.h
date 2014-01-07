@@ -22,7 +22,7 @@ namespace epsilon
 	typedef VertexAttrib<Vector2> TexCoordAttrib;
 
 	class VertexData :
-		public enable_shared_from_this<VertexData>
+		public std::enable_shared_from_this<VertexData>
 	{
 	private:
 		typedef std::vector<VertexBufferBase *> VertexBufferList;

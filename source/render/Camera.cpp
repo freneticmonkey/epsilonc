@@ -6,14 +6,14 @@ namespace epsilon
 {
 	Camera::Ptr Camera::Create()
 	{
-		Camera::Ptr newCamera = make_shared<Camera>(private_struct());
+		Camera::Ptr newCamera = std::make_shared<Camera>(private_struct());
 		newCamera->CreateComponents();
 		return newCamera;
 	}
 
-	Camera::Ptr Camera::Create(string name)
+	Camera::Ptr Camera::Create(std::string name)
 	{
-		Camera::Ptr newCamera = make_shared<Camera>(private_struct(), name);
+		Camera::Ptr newCamera = std::make_shared<Camera>(private_struct(), name);
 		newCamera->CreateComponents();
 		return newCamera;
 	}
@@ -23,7 +23,7 @@ namespace epsilon
 		Setup();
 	}
 
-	Camera::Camera(const private_struct &, string name) : Node(Node::private_struct(), name)
+	Camera::Camera(const private_struct &, std::string name) : Node(Node::private_struct(), name)
 	{
 		Setup();
 	}

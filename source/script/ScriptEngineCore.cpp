@@ -6,7 +6,7 @@ namespace epsilon
 
 	ScriptEngineCore::Ptr ScriptEngineCore::Create()
 	{
-		return make_shared<ScriptEngineCore>(private_struct());
+		return std::make_shared<ScriptEngineCore>(private_struct());
 	}
 
 	ScriptEngineCore::ScriptEngineCore(const private_struct &) : Script(Script::private_struct(), 

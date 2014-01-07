@@ -5,7 +5,6 @@
 
 namespace epsilon
 {
-	using namespace std;
 	using namespace sfg;
 
 	class DebugWindow :
@@ -15,10 +14,10 @@ namespace epsilon
 		struct private_struct {};
 
 	public:
-		typedef shared_ptr<DebugWindow> Ptr;
+		typedef std::shared_ptr<DebugWindow> Ptr;
 		
 		static Ptr Create();
-		static Ptr Create(string title);
+		static Ptr Create(std::string title);
 
 		void Setup(void);
 		void OnUpdate(float seconds);
@@ -26,11 +25,11 @@ namespace epsilon
 		void OnButtonClick();
 		
 		explicit DebugWindow(const private_struct &);
-		DebugWindow(const private_struct &, string title);
+		DebugWindow(const private_struct &, std::string title);
 
 	private:
 		Label::Ptr label;
-		string	   windowTitle;
+		std::string	   windowTitle;
 	};
 
 }

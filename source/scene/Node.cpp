@@ -4,26 +4,26 @@ namespace epsilon
 {
 	Node::Ptr Node::Create()
 	{
-		Node::Ptr newNode = make_shared<Node>(private_struct());
+		Node::Ptr newNode = std::make_shared<Node>(private_struct());
 		newNode->CreateComponents();
 		return newNode;
 	}
 
-	Node::Ptr Node::Create(string name)
+	Node::Ptr Node::Create(std::string name)
 	{
-		Node::Ptr newNode = make_shared<Node>(private_struct(), name);
+		Node::Ptr newNode = std::make_shared<Node>(private_struct(), name);
 		newNode->CreateComponents();
 		return newNode;
 	}
 
 	Node::Node(const private_struct &) : NodeComponent("Node")
 	{
-		components = make_shared<NodeComponentList>();
+		components = std::make_shared<NodeComponentList>();
 	}
 
-	Node::Node(const private_struct &, string name) : NodeComponent(name, "Node")
+	Node::Node(const private_struct &, std::string name) : NodeComponent(name, "Node")
 	{
-		components = make_shared<NodeComponentList>();
+		components = std::make_shared<NodeComponentList>();
 	}
 
 	Node::~Node(void)
@@ -140,7 +140,7 @@ namespace epsilon
 		return id == otherId;
 	}
 
-	bool Node::operator==(string name)
+	bool Node::operator==(std::string name)
 	{
 		return objectName == name;
 	}

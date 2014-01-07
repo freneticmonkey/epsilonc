@@ -11,13 +11,13 @@ namespace epsilon
 		struct private_struct {};
 
 	public:
-		typedef shared_ptr<Camera> Ptr;
+		typedef std::shared_ptr<Camera> Ptr;
 
 		static Camera::Ptr Create();
-		static Camera::Ptr Create(string name);
+		static Camera::Ptr Create(std::string name);
 
 		explicit Camera(const private_struct &);
-		Camera(const private_struct &, string name);
+		Camera(const private_struct &, std::string name);
 		~Camera(void) {}
 
 		void LookAt(Vector3 target);

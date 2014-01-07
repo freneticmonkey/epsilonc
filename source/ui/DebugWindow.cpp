@@ -4,20 +4,20 @@ namespace epsilon
 {
 	DebugWindow::Ptr DebugWindow::Create(void) 
 	{
-		return make_shared<DebugWindow>( private_struct() );
+		return std::make_shared<DebugWindow>( private_struct() );
 	}
 
-	DebugWindow::Ptr DebugWindow::Create(string title) 
+	DebugWindow::Ptr DebugWindow::Create(std::string title) 
 	{
-		return make_shared<DebugWindow>(private_struct(), title);
+		return std::make_shared<DebugWindow>(private_struct(), title);
 	}
 
 	DebugWindow::DebugWindow(const private_struct &) 
 	{
-		windowTitle = string("Debug Window");
+		windowTitle = std::string("Debug Window");
 	}
 	
-	DebugWindow::DebugWindow(const private_struct &, string title)
+	DebugWindow::DebugWindow(const private_struct &, std::string title)
 	{
 		windowTitle = title;
 	}

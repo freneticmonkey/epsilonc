@@ -170,7 +170,7 @@ namespace epsilon
 					//The maxLength includes the NULL character
 					std::vector<char> errorLog(maxLength);
 					glGetShaderInfoLog(shaderId, maxLength, &maxLength, &errorLog[0]);
-					Log("Shader Compile Error: \n" + string(errorLog.begin(), errorLog.end()) );					
+					Log("Shader Compile Error: \n" + std::string(errorLog.begin(), errorLog.end()) );					
 				}
 				//Exit with failure.
 				glDeleteShader(shaderId); //Don't leak the shader.

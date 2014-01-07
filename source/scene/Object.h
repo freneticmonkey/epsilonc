@@ -7,7 +7,6 @@
 
 namespace epsilon
 {
-	using namespace std;
 	class Object;
 
 	class Object //: public enable_shared_from_this<Object>
@@ -21,32 +20,32 @@ namespace epsilon
 
 		Object()
 		{
-			stringstream ss;
+			std::stringstream ss;
 
 			id = Object::GenId();
 			ss << id;
 			className = "Object";
-			objectName = className + string("_") + ss.str();
+			objectName = className + std::string("_") + ss.str();
 		}
 
-		Object( string newClassName )
+		Object( std::string newClassName )
 		{
-			stringstream ss;
+			std::stringstream ss;
 
 			id = Object::GenId();
 			ss << id;
 			className = newClassName;
-			objectName = className + string("_") + ss.str();
+			objectName = className + std::string("_") + ss.str();
 		}
 
-		Object(string name, string newClassName ) 
+		Object(std::string name, std::string newClassName ) 
 		{
 			id = Object::GenId();
 			className = newClassName;
 			objectName = name;
 		}
 
-		void SetName(string name)
+		void SetName(std::string name)
 		{
 			objectName = name;
 		}
@@ -55,8 +54,8 @@ namespace epsilon
 
 	protected:
 		long id;
-		string objectName;
-		string className;
+		std::string objectName;
+		std::string className;
 
 	private:
 		static long GenId() 

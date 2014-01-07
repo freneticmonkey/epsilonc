@@ -7,17 +7,17 @@ namespace epsilon
 		logName = "";
 	}
 
-	LogListener::LogListener(string name)
+	LogListener::LogListener(std::string name)
 	{
 		logName = name;
 	}
 
-	string LogListener::GetLogName()
+	std::string LogListener::GetLogName()
 	{
 		return logName;
 	}
 
-	void LogStream::Log(string content)
+	void LogStream::Log(std::string content)
 	{
 		content = this->name + ": " + content + "\n";
 		printf(content.c_str());
@@ -31,9 +31,9 @@ namespace epsilon
 		}
 	}
 
-	LogStream::Ptr LogStream::Create(string logName)
+	LogStream::Ptr LogStream::Create(std::string logName)
 	{
-		return make_shared<LogStream>(private_struct(), logName);
+		return std::make_shared<LogStream>(private_struct(), logName);
 	}
 
 	void LogStream::AddListener(LogListener::Ptr newListener)
@@ -48,7 +48,7 @@ namespace epsilon
 
 	Logger::Logger() : logInit(true)
 	{
-		logs[string("default")] = LogStream::Create("default");
+		logs[std::string("default")] = LogStream::Create("default");
 		listeners = new LogListenerList;
 	}
 
@@ -57,12 +57,12 @@ namespace epsilon
 		delete listeners;
 	}
 
-	void Logger::Log(string content)
+	void Logger::Log(std::string content)
 	{
-		Logger::Log(string("default"), content);
+		Logger::Log(std::string("default"), content);
 	}
 
-	void Logger::Log(string logName, string content)
+	void Logger::Log(std::string logName, std::string content)
 	{
 		LogListener::Ptr listener;
 		Logger::GetLog(logName)->Log(content);
@@ -83,7 +83,7 @@ namespace epsilon
 		}
 	}
 
-	LogStream::Ptr Logger::GetLog(string loggerName)
+	LogStream::Ptr Logger::GetLog(std::string loggerName)
 	{
 		LogStreamMap logs = Logger::getInstance().logs;
 		LogStream::Ptr theLog;
@@ -153,20 +153,20 @@ namespace epsilon
 	// Namespace functions
 	void Log(const char * content)
 	{ 
-		Logger::Log(string(content)); 
+		Logger::Log(std::string(content)); 
 	}
 
 	void Log(const char* logName, const char* content)
 	{ 
-		Logger::Log(string(logName), string(content)); 
+		Logger::Log(std::string(logName), std::string(content)); 
 	}
 
-	void Log(string content)
+	void Log(std::string content)
 	{
 		Logger::Log(content);
 	}
 
-	void Log(string logName, string content)
+	void Log(std::string logName, std::string content)
 	{
 		Logger::Log(logName, content);
 	}

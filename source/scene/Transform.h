@@ -14,18 +14,18 @@ namespace epsilon
 	 */
 	class Transform;
 
-	typedef std::list< shared_ptr<Transform> > TransformList;
-	typedef shared_ptr<TransformList> TransformListPtr;
+	typedef std::list< std::shared_ptr<Transform> > TransformList;
+	typedef std::shared_ptr<TransformList> TransformListPtr;
 
 	class Transform : 
-		public enable_shared_from_this<Transform>,
+		public std::enable_shared_from_this<Transform>,
 		public NodeComponent
 	{
 	private:
 		struct private_struct {};
 
 	public:
-		typedef shared_ptr<Transform> Ptr;
+		typedef std::shared_ptr<Transform> Ptr;
 
 		explicit Transform(const private_struct &);
 		~Transform(void);
@@ -44,8 +44,8 @@ namespace epsilon
 		Transform::Ptr RemoveAllChildren();
 		bool HasChildren() { return !children->empty(); }
 
-		Transform::Ptr FindChildWithName(string name);
-		Transform::Ptr FindChildWithNameRecursive(string name);
+		Transform::Ptr FindChildWithName(std::string name);
+		Transform::Ptr FindChildWithNameRecursive(std::string name);
 
 		Transform::Ptr FindChildWithId(long id);
 		Transform::Ptr FindChildWithIdRecursive(long id);

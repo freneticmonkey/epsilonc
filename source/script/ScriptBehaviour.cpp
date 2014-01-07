@@ -6,12 +6,12 @@ namespace epsilon
 
 	ScriptBehaviour::Ptr ScriptBehaviour::Create()
 	{
-		return make_shared<ScriptBehaviour>(private_struct());
+		return std::make_shared<ScriptBehaviour>(private_struct());
 	}
 
 	ScriptBehaviour::Ptr ScriptBehaviour::Create(std::string scriptString, ScriptSource source)
 	{
-		return make_shared<ScriptBehaviour>(private_struct(), scriptString, source);
+		return std::make_shared<ScriptBehaviour>(private_struct(), scriptString, source);
 	}
 
 	ScriptBehaviour::ScriptBehaviour(const private_struct &) : Script(Script::private_struct())

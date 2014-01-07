@@ -7,12 +7,12 @@ namespace epsilon
 
 	Script::Ptr Script::Create()
 	{
-		return make_shared<Script>(private_struct());
+		return std::make_shared<Script>(private_struct());
 	}
 
 	Script::Ptr Script::Create(std::string scriptString, ScriptSource source)
 	{
-		return make_shared<Script>(private_struct(), scriptString, source);
+		return std::make_shared<Script>(private_struct(), scriptString, source);
 	}
 
 	Script::Script(const private_struct &) : NodeComponent("Script"), 
@@ -51,9 +51,9 @@ namespace epsilon
 		{
 			// strip the path and just use the filename
 			unsigned spos = scriptString.rfind("/");
-			if ( spos != string::npos )
+			if ( spos != std::string::npos )
 			{
-				objectName = scriptString.substr(spos+1, string::npos);
+				objectName = scriptString.substr(spos+1, std::string::npos);
 			}
 			objectName = scriptString;
 		}

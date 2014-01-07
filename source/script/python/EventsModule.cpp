@@ -21,7 +21,7 @@ void initEvents()
 		.def_readonly("name", &EventType::GetPlainName)
 
 		.def(self == other<EventType::Ptr>())
-		.def(self == string())
+		.def(self == std::string())
 		.def(self == other<const char *>())
 		.def(self == size_t())
 	;

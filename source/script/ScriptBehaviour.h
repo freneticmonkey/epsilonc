@@ -13,7 +13,7 @@ namespace epsilon
 		struct private_struct {};
 
 	public:
-		typedef shared_ptr<ScriptBehaviour> Ptr;
+		typedef std::shared_ptr<ScriptBehaviour> Ptr;
 
 		static ScriptBehaviour::Ptr Create();
 		static ScriptBehaviour::Ptr Create(std::string scriptString, ScriptSource source = ScriptSource::TEXT);
@@ -22,7 +22,7 @@ namespace epsilon
 		explicit ScriptBehaviour(const private_struct &, std::string scriptString, ScriptSource scriptSource);
 		~ScriptBehaviour(void);
 
-		ScriptBehaviour::Ptr ThisPtr() { return static_pointer_cast<ScriptBehaviour,Script>(shared_from_this()); }
+		ScriptBehaviour::Ptr ThisPtr() { return std::static_pointer_cast<ScriptBehaviour,Script>(shared_from_this()); }
 
 		void OnStart();
 		void Update(float dt);

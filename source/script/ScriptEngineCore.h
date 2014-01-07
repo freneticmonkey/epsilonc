@@ -15,7 +15,7 @@ namespace epsilon
 		struct private_struct {};
 
 	public:
-		typedef shared_ptr<ScriptEngineCore> Ptr;
+		typedef std::shared_ptr<ScriptEngineCore> Ptr;
 
 		static ScriptEngineCore::Ptr Create();
 		
@@ -23,7 +23,7 @@ namespace epsilon
 		explicit ScriptEngineCore(const private_struct &, std::string scriptString, ScriptSource scriptSource);
 		~ScriptEngineCore(void);
 
-		ScriptEngineCore::Ptr ThisPtr() { return static_pointer_cast<ScriptEngineCore,Script>(shared_from_this()); }
+		ScriptEngineCore::Ptr ThisPtr() { return std::static_pointer_cast<ScriptEngineCore,Script>(shared_from_this()); }
 
 		void OnStart();
 		void Update(float dt);

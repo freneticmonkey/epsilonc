@@ -11,14 +11,13 @@
 
 namespace epsilon
 {
-	using namespace std;
 	class Node;
 
-	typedef std::list< shared_ptr<Node> > NodeList;
-	typedef shared_ptr<NodeList> NodeListPtr;
+	typedef std::list< std::shared_ptr<Node> > NodeList;
+	typedef std::shared_ptr<NodeList> NodeListPtr;
 	
 	class Node : 
-		public enable_shared_from_this<Node>,
+		public std::enable_shared_from_this<Node>,
 		public NodeComponent
 	{
 	protected:
@@ -26,15 +25,15 @@ namespace epsilon
 
 	public:
 		// Instantisation
-		typedef shared_ptr<Node> Ptr;
+		typedef std::shared_ptr<Node> Ptr;
 
 		static Node::Ptr Create();
-		static Node::Ptr Create(string name);
+		static Node::Ptr Create(std::string name);
 
 		void Destroy();
 
 		explicit Node(const private_struct &);
-		Node(const private_struct &, string name);
+		Node(const private_struct &, std::string name);
 		~Node(void);
 
 		// Components
@@ -44,7 +43,7 @@ namespace epsilon
 		// Operators
 		bool operator==(Node::Ptr other);
 		bool operator==(long otherId);
-		bool operator==(string name);
+		bool operator==(std::string name);
 
 		// CreateChildNode
 		Node::Ptr CreateChildNode();

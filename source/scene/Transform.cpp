@@ -4,7 +4,7 @@ namespace epsilon
 {
 	Transform::Ptr Transform::Create()
 	{
-		return make_shared<Transform>(private_struct());
+		return std::make_shared<Transform>(private_struct());
 	}
 
 	Transform::Transform(const private_struct &) :
@@ -23,8 +23,8 @@ namespace epsilon
 								NodeComponent("Transform")
 	{
 		cachedTransform = Matrix4();
-		children = make_shared<TransformList>();
-		childrenToUpdate = make_shared<TransformList>();
+		children = std::make_shared<TransformList>();
+		childrenToUpdate = std::make_shared<TransformList>();
 	}
 
 
@@ -109,7 +109,7 @@ namespace epsilon
 		return ThisPtr();
 	}
 
-	Transform::Ptr Transform::FindChildWithName(string name)
+	Transform::Ptr Transform::FindChildWithName(std::string name)
 	{
 		TransformList::iterator foundChildIt;
 		Transform::Ptr foundChild;
@@ -125,7 +125,7 @@ namespace epsilon
 		return foundChild;
 	}
 
-	Transform::Ptr Transform::FindChildWithNameRecursive(string name)
+	Transform::Ptr Transform::FindChildWithNameRecursive(std::string name)
 	{
 		Transform::Ptr foundChild;
 

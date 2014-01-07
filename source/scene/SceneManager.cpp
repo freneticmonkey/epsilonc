@@ -40,7 +40,7 @@ namespace epsilon
 		currentScene = newScene;
 	}
 
-	void SceneManager::SetScene(string name)
+	void SceneManager::SetScene(std::string name)
 	{
 		bool found = false;
 		for (SceneList::iterator s = scenes.begin(); s != scenes.end(); s++ )
@@ -53,7 +53,7 @@ namespace epsilon
 		}
 		if (!found)
 		{
-			string err("ERROR: SceneManager::setScene() invalid scene name: ");
+			std::string err("ERROR: SceneManager::setScene() invalid scene name: ");
 			err += name;
 			Log(err.c_str());
 		}
@@ -87,7 +87,7 @@ namespace epsilon
 			TransformListPtr children = nodeTrans->GetChildren();
 			for ( TransformList::iterator transform = children->begin(); transform != children->end(); transform++)
 			{
-				Node::Ptr childNode = dynamic_pointer_cast<epsilon::Node>( (*transform)->GetParent() );
+				Node::Ptr childNode = std::dynamic_pointer_cast<epsilon::Node>( (*transform)->GetParent() );
 				if ( childNode && childNode->GetComponent<Renderer>() )
 				{
 					renderList.push_back( childNode->GetComponent<Renderer>() );

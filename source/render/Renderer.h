@@ -16,7 +16,7 @@ namespace epsilon
 		struct private_struct {};
 
 	public:
-		typedef shared_ptr<Renderer> Ptr;
+		typedef std::shared_ptr<Renderer> Ptr;
 
 		static Renderer::Ptr Create();
 		static Renderer::Ptr Create(Mesh::Ptr newMesh);

@@ -22,7 +22,7 @@ namespace epsilon
 		struct private_struct {};
 
 	public:
-		typedef shared_ptr<ConsoleWindow> Ptr;
+		typedef std::shared_ptr<ConsoleWindow> Ptr;
 
 		static Ptr Create();
 
@@ -30,8 +30,8 @@ namespace epsilon
 		void OnUpdate(float seconds);
 
 		// Log Listener Functions
-		void Log(string content);
-		void Log(string logName, string content);
+		void Log(std::string content);
+		void Log(std::string logName, std::string content);
 
 		explicit ConsoleWindow(const private_struct &);
 	private:

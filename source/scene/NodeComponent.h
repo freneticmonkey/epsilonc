@@ -9,7 +9,7 @@ namespace epsilon
 {
 	class NodeComponent;
 	
-	typedef std::list< shared_ptr<NodeComponent> > NodeComponentList;
+	typedef std::list< std::shared_ptr<NodeComponent> > NodeComponentList;
 	typedef std::shared_ptr<NodeComponentList> NodeComponentListPtr;
 
 	class NodeComponent : public Object
@@ -18,10 +18,10 @@ namespace epsilon
 		struct private_struct {};
 
 	public:
-		typedef shared_ptr<NodeComponent> Ptr;
+		typedef std::shared_ptr<NodeComponent> Ptr;
 		
-		NodeComponent(string className) : Object(className) {};
-		NodeComponent(string name, string newClassName ) : Object(name, newClassName) {};
+		NodeComponent(std::string className) : Object(className) {};
+		NodeComponent(std::string name, std::string newClassName ) : Object(name, newClassName) {};
 		virtual ~NodeComponent(void) {};
 
 		void SetParent(NodeComponent::Ptr parent) 
@@ -35,14 +35,14 @@ namespace epsilon
 		virtual void OnSetParent() {}
 
 		template<class C>
-		shared_ptr<C> GetComponent()
+		std::shared_ptr<C> GetComponent()
 		{
-			shared_ptr<C> foundComponent;
+			std::shared_ptr<C> foundComponent;
 					
 			// Assign the new transform to the Node's NodeComponents		
 			for ( NodeComponentList::iterator component = components->begin(); component != components->end(); component++ )
 			{
-				foundComponent = dynamic_pointer_cast<C>( *component );
+				foundComponent = std::dynamic_pointer_cast<C>( *component );
 				if ( foundComponent != nullptr )
 				{
 					break;

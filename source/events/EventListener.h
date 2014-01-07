@@ -9,7 +9,7 @@ typedef std::list<EventType::Ptr> EventTypes;
 	class EventListener
 	{
 	public:
-		typedef shared_ptr<EventListener> Ptr;
+		typedef std::shared_ptr<EventListener> Ptr;
 			
 		static Ptr Create(EventTypes listenTypes);
 		

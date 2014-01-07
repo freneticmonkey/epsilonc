@@ -4,7 +4,7 @@ namespace epsilon
 {
 	Scene::Ptr Scene::Create()
 	{
-		return make_shared<Scene>(private_struct());
+		return std::make_shared<Scene>(private_struct());
 	}
 
 	Scene::Scene(const private_struct &)
@@ -28,7 +28,7 @@ namespace epsilon
 		return name == other->name;
 	}
 
-	bool Scene::operator==(string otherName)
+	bool Scene::operator==(std::string otherName)
 	{
 		return name == otherName;
 	}

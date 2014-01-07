@@ -4,27 +4,25 @@
 
 namespace epsilon
 {
-	using namespace std;
-
 	class LogListener
 	{
 	public:
-		typedef shared_ptr<LogListener> Ptr;
+		typedef std::shared_ptr<LogListener> Ptr;
 
 		// These will be implemented by derived classes
 		//static Ptr Create();
 		//static Ptr Create(string name);
 		
-		string GetLogName();
+		std::string GetLogName();
 
 		// Functions that must be overridden by derived classes
-		virtual void Log(string content) = 0 ;
-		virtual void Log(string logName, string content) = 0;
+		virtual void Log(std::string content) = 0 ;
+		virtual void Log(std::string logName, std::string content) = 0;
 	protected:
 		LogListener();
-		LogListener(string name);
+		LogListener(std::string name);
 	private:
-		string logName;
+		std::string logName;
 	};
 
 	typedef std::list<LogListener::Ptr> LogListenerList;
@@ -36,34 +34,34 @@ namespace epsilon
 		struct private_struct {};
 
 	public:
-		typedef shared_ptr<LogStream> Ptr;
+		typedef std::shared_ptr<LogStream> Ptr;
 
-		static Ptr Create(string logName);
+		static Ptr Create(std::string logName);
 
 		void AddListener(LogListener::Ptr newListener);
 		void RemoveListener(LogListener::Ptr rmListener);
 
-		void Log(string content);
+		void Log(std::string content);
 
-		LogStream(const private_struct &, string logName)
+		LogStream(const private_struct &, std::string logName)
 		{
 			name = logName;
 		}
 
 	private:		
-		string name;
+		std::string name;
 		LogListenerList listeners;
 	};
 
-	typedef map<string, LogStream::Ptr> LogStreamMap;
+	typedef std::map<std::string, LogStream::Ptr> LogStreamMap;
 	typedef LogStreamMap::iterator LogMapIterator;
 	typedef std::list<std::string> LogList;
 
 	class Logger
 	{
 	public:
-		static void Log(string content);
-		static void Log(string logName, string content);
+		static void Log(std::string content);
+		static void Log(std::string logName, std::string content);
 		
 		static void addListener(LogListener::Ptr newListener);
 		static void removeListener(LogListener::Ptr rmListener);
@@ -74,7 +72,7 @@ namespace epsilon
 	private:
 		Logger();
 		~Logger();
-		static LogStream::Ptr GetLog(string loggerName);
+		static LogStream::Ptr GetLog(std::string loggerName);
 
 		static Logger& getInstance(void)
 		{
@@ -98,6 +96,6 @@ namespace epsilon
 	void Log(const char* content);
 	void Log(const char* logName, const char* content);
 
-	void Log(string content);
-	void Log(string logName, string content);
+	void Log(std::string content);
+	void Log(std::string logName, std::string content);
 }

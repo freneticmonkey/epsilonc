@@ -19,14 +19,14 @@ namespace epsilon
 	};
 
 	class Script :
-		public enable_shared_from_this<Script>,
+		public std::enable_shared_from_this<Script>,
 		public NodeComponent
 	{
 	protected:
 		struct private_struct {};
 		
 	public:
-		typedef shared_ptr<Script> Ptr;
+		typedef std::shared_ptr<Script> Ptr;
 
 		static Script::Ptr Create();
 		static Script::Ptr Create(std::string scriptString, ScriptSource source = ScriptSource::TEXT);
