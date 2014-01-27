@@ -18,8 +18,8 @@ namespace epsilon
 	{
 		// Set Default Shader
 		SetMaterialFile("resources/shaders/material.frag");
-		SetVertexFile("resources/shaders/basic.vert");
-		SetFragmentFile("resources/shaders/basic.frag");
+		SetVertexFile("resources/shaders/basic/basic.vert");
+		SetFragmentFile("resources/shaders/basic/basic.frag");
 	}
 
 	Shader::~Shader(void)
