@@ -30,7 +30,6 @@ namespace epsilon
 
 		scriptManager = &ScriptManager::GetInstance();
 		scriptManager->Setup();
-		scriptManager->StartEngineCore();
 
 		renderManager = &RenderManager::GetInstance();
 		renderManager->Setup();
@@ -48,15 +47,11 @@ namespace epsilon
 		renderManager->SetSceneManager(sceneManager);
 		renderManager->SetUIManager(uiManager);
 
-		MeshTest();
+		// Initialise the Python Engine code after all of the c++ managers
+		// have initialised
+		scriptManager->StartEngineCore();
 
 		Log("Finished Setup");
-
-		cycle.SetFrequency(100);
-
-		camera = sceneManager->CurrentScene()->GetActiveCamera();
-		camera->GetComponent<Transform>()->SetPosition(0.0f, 1.0f, -8.f);
-		camera->LookAt(Vector3());
 	}
 
 	void EpsilonManager::MeshTest(void)
@@ -103,6 +98,10 @@ namespace epsilon
 			grid->GetComponent<Renderer>()
 				->SetMesh(MeshFactory::GenerateGrid(10, 1));
 		}
+
+		camera = sceneManager->CurrentScene()->GetActiveCamera();
+		camera->GetComponent<Transform>()->SetPosition(0.0f, 1.0f, -8.f);
+		camera->LookAt(Vector3());
 	}
 
 	void EpsilonManager::OnUpdate(float el)
@@ -194,9 +193,10 @@ namespace epsilon
 			clock.restart();
 
 			OnUpdate(el);
-			
-
-			
 		}
+
+		// Stop Scripts
+		scriptManager->Destroy();
+
 	}
 }
