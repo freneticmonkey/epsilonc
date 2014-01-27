@@ -20,7 +20,7 @@ namespace epsilon
 	void LogStream::Log(std::string content)
 	{
 		content = this->name + ": " + content + "\n";
-		printf(content.c_str());
+		printf("%s",content.c_str());
 
 		if ( !listeners.empty() )
 		{
