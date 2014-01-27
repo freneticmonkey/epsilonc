@@ -5,6 +5,7 @@
 #include "math/Vector.h"
 #include "scene/NodeComponent.h"
 
+#include "render/Camera.h"
 #include "render/Colour.h"
 #include "render/Renderer.h"
 #include "render/Material.h"
@@ -182,9 +183,30 @@ void initRender()
 
 		// Shader Access
 		.add_property("shader", &Material::GetShader, &Material::SetShader)
-
 	;
+	
+	// LookAt function pointers
+	void (Camera::*LookAtTarget)(Vector3) = &Camera::LookAt;
+	void (Camera::*LookAtFromTo)(Vector3, Vector3) = &Camera::LookAt;
+	void (Camera::*LookAtFromToComp)(float, float, float, float, float, float) = &Camera::LookAt;
 
+	Camera::Ptr (*CreateStandard)() = &Camera::Create;
+	Camera::Ptr (*CreateName)(std::string) = &Camera::Create;
+
+	class_<Camera, bases<Node>, Camera::Ptr, boost::noncopyable>("Camera", no_init)
+		.def("create", CreateStandard)
+		.def("create", CreateName)
+		.staticmethod("create")
+
+		// Look at
+		.def("lookat", LookAtTarget)
+		.def("lookat", LookAtFromTo)
+		.def("lookat", LookAtFromToComp)
+
+		.def("get_projection_matrix", &Camera::GetProjectionMatrix)
+		.def("get_view_matrix", &Camera::GetViewMatrix)
+	;
+	implicitly_convertible<Camera::Ptr, Node::Ptr>();
 
 
 
