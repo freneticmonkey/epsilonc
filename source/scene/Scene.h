@@ -13,16 +13,24 @@ namespace epsilon
 
 	public:
 		typedef std::shared_ptr<Scene> Ptr;
+		typedef std::list<Camera::Ptr> CameraList;
 
-		static Scene::Ptr Create();
+		static Scene::Ptr Create(std::string name);
 
-		explicit Scene(const private_struct &);
+		explicit Scene(const private_struct &, std::string sceneName);
 		~Scene(void);
 	
 		std::string GetName() { return name; }
 
 		Node::Ptr Root() { return rootNode; }
+		
+		// Camera Handling
 		Camera::Ptr GetActiveCamera() { return activeCamera; }
+		void SetActiveCamera(Camera::Ptr camera);
+		void SetActiveCamera(std::string name);
+
+		bool AddCamera(Camera::Ptr newCamera);
+		Camera::Ptr GetCamera(std::string name);
 
 		bool operator==(Scene::Ptr other);
 		bool operator==(std::string name);
@@ -31,6 +39,7 @@ namespace epsilon
 		std::string name;
 		Node::Ptr rootNode;
 		Camera::Ptr activeCamera;
+		CameraList sceneCameras;
 	};
 
 }

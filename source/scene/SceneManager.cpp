@@ -17,7 +17,7 @@ namespace epsilon
 		Log("Initialising Scene Manager");
 		
 		// Add a default scene
-		currentScene = Scene::Create();
+		currentScene = Scene::Create("default");
 		scenes.push_back(currentScene);
 	}
 

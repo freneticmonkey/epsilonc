@@ -180,6 +180,9 @@ void initScene()
 
 	//register_ptr_to_python<Scene::Ptr>();
 
+	void (Scene::*SetActiveCameraPtr)(Camera::Ptr) = &Scene::SetActiveCamera;
+	void (Scene::*SetActiveCameraName)(std::string) = &Scene::SetActiveCamera;
+
 	class_<Scene, Scene::Ptr, boost::noncopyable>("Scene", no_init)
 		.def("create", &Scene::Create)
 		.staticmethod("create")
@@ -188,7 +191,11 @@ void initScene()
 	
 		.def_readonly("name", &Scene::GetName)
 		.def_readonly("root", &Scene::Root)
-		.def_readonly("active_camera", &Scene::GetActiveCamera)
+		.add_property("active_camera", &Scene::GetActiveCamera, SetActiveCameraPtr)
+		.def("set_active_camera_name", SetActiveCameraName)
+
+		.def("add_camera", &Scene::AddCamera)
+		.def("get_camera", &Scene::GetCamera)
 
 		.def(self == other<Scene::Ptr>())
 		.def(self == std::string())
