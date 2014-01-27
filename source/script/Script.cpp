@@ -70,7 +70,7 @@ namespace epsilon
 	{
 	}
 
-	void Script::InitScript()
+	bool Script::InitScript()
 	{
 		try
 		{
@@ -101,6 +101,8 @@ namespace epsilon
 			
 			// Register any functions that need to be exposed by this script.
 			RegisterScriptFunctions();
+			
+			initialised = true;
 		}
 		catch (const error_already_set&)
 		{
@@ -109,7 +111,7 @@ namespace epsilon
 				PrintPythonError();
 			}	
 		}
-		initialised = true;
+		return initialised;
 	}
 
 	void Script::OnSetParent()

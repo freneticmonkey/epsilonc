@@ -41,7 +41,7 @@ namespace epsilon
 		// into the scripts namespace for access by the script
 		void OnSetParent();
 
-		void InitScript();
+		bool InitScript();
 
 		// These functions might be the wrong way of going about things
 		// Maybe scripts should only be created. If the source

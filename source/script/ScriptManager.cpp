@@ -91,22 +91,28 @@ namespace epsilon
 		}
 	}
 
-	void ScriptManager::StartEngineCore()
+	bool ScriptManager::StartEngineCore()
 	{
+		bool success = false;
 		LockGIL();
 		// Init the Python Script Engine Core
-		engineCoreScript->InitScript();
+		if ( engineCoreScript->InitScript() )
+		{
+			// Start it immediately
+			success = engineCoreScript->OnStart();
+		}
 
-		// Start it immediately
-		engineCoreScript->OnStart();
 		ReleaseGIL();
+		return success;
 	}
 
 	void ScriptManager::ReloadScript(Script::Ptr script)
 	{
+		bool success = false;
 		LockGIL();
-		script->InitScript();
+		success = script->InitScript();
 		ReleaseGIL();
+		// return success;
 	}
 
 	void ScriptManager::StartBehaviours()
@@ -169,6 +175,32 @@ namespace epsilon
 				}
 			}
 		}
+
+		ReleaseGIL();
+	}
+
+	void ScriptManager::Destroy()
+	{
+		LockGIL();
+
+		// Send Destroy events to all of the behaviours
+		for ( BehaviourList::iterator behaviour = behaviourList.begin(); behaviour != behaviourList.end(); behaviour++)
+		{
+			try
+			{
+				(*behaviour)->OnDestroy();
+			}
+			catch (const error_already_set&)
+			{
+				if (PyErr_Occurred()) 
+				{
+					PrintPythonError();
+				}
+			}
+		}
+
+		// Notify the Python Engine
+		engineCoreScript->OnDestroy();
 
 		ReleaseGIL();
 	}

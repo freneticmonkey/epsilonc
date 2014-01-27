@@ -25,9 +25,9 @@ namespace epsilon
 
 		ScriptEngineCore::Ptr ThisPtr() { return std::static_pointer_cast<ScriptEngineCore,Script>(shared_from_this()); }
 
-		void OnStart();
-		void Update(float dt);
-		void OnDestroy();
+		bool OnStart();
+		bool Update(float dt);
+		bool OnDestroy();
 
 	protected:
 		void RegisterScriptFunctions();

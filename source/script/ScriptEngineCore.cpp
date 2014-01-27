@@ -26,14 +26,16 @@ namespace epsilon
 		destroyFunction = FindPythonFunction("on_destroy");
 	}
 
-	void ScriptEngineCore::OnStart()
+	bool ScriptEngineCore::OnStart()
 	{
+		bool success = false;
 		object result;
 		if ( !startFunction.is_none() )
 		{
 			try
 			{
 				result = startFunction();
+				success = true;
 			}
 			catch (const error_already_set&)
 			{
@@ -43,16 +45,19 @@ namespace epsilon
 				}
 			}
 		}
+		return success;
 	}
 
-	void ScriptEngineCore::Update(float dt)
+	bool ScriptEngineCore::Update(float dt)
 	{
+		bool success = false;
 		object result;
 		if ( !updateFunction.is_none() )
 		{
 			try
 			{
 				result = updateFunction(dt);
+				success = true;
 			}
 			catch (const error_already_set&)
 			{
@@ -62,16 +67,19 @@ namespace epsilon
 				}
 			}
 		}
+		return success;
 	}
 
-	void ScriptEngineCore::OnDestroy()
+	bool ScriptEngineCore::OnDestroy()
 	{
+		bool success = false;
 		object result;
 		if ( !destroyFunction.is_none() )
 		{
 			try
 			{
 				result = destroyFunction();
+				success = true;
 			}
 			catch (const error_already_set&)
 			{
@@ -81,5 +89,6 @@ namespace epsilon
 				}
 			}
 		}
+		return success;
 	}
 }

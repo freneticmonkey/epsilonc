@@ -36,10 +36,11 @@ namespace epsilon
 
 		ScriptBehaviour::Ptr CreateBehaviour(std::string filename);
 
-		void StartEngineCore();
+		bool StartEngineCore();
 
 		void Setup(void);
 		void Update(float el);
+		void Destroy(void);
 		
 		void ReloadScript(Script::Ptr script);
 
