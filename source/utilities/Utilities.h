@@ -9,6 +9,8 @@
 #include <errno.h>
 #include <stdarg.h>
 
+#include <windows.h>
+
 namespace epsilon
 {
 	// TODO: Not sure if this should be an inline, but for now...
@@ -61,6 +63,11 @@ namespace epsilon
 			in.read(&contents[0], contents.size());
 			in.close();
 			return(contents);
+		}
+		else
+		{
+			printf("File not found: %s", filename.c_str());
+			return "";
 		}
 		throw(errno);
 	}
