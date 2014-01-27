@@ -1,4 +1,4 @@
-
+from epsilon import ScriptManager
 from epsilon.math import Vector2, Vector3, Quaternion
 
 from epsilon.scene import Transform
@@ -334,6 +334,19 @@ class SceneScripts(BaseXMLNode):
 		# If a scene node has been defined, or rather, the XML children tag is defined within a node tag
 		if scene_node is None:
 			self.raise_parse_issue("scripts without node parent.")
+
+class SceneScript(BaseXMLNode):
+	def process_node(self, parse_globals, scene_node, xml_tag):
+
+		if "name" in xml_tag.attrib:
+			self._log("Loading scripts by name currently unsupported. Name: %s" % xml_tag.attrib["name"])
+
+		if "filename" in xml_tag.attrib:
+			scene_node.add_component(ScriptManager.create_behaviour(xml_tag.attrib["filename"]))
+
+		# If a scene node has been defined
+		if scene_node is None:
+			self.raise_parse_issue("Error: Cannot attach a script without node parent.")
 
 # NYI in engine
 # 

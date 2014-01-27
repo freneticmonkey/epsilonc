@@ -4,7 +4,7 @@
 		<transform position="1 1 0"/><!-- rotation="0.707 0 1 0"/>-->
 		<mesh preset="SPHERE"/>
 		<scripts>
-			<script name="MyBehaviour"/>
+			<script filename="MyBehaviourClass.py"/>
 		</scripts>
 	</node>
 

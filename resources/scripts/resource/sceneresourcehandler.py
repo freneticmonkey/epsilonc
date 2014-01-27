@@ -50,6 +50,7 @@ class SceneResourceHandler(ResourceHandlerBase):
 					   SceneChildren,
 					   SceneShader,
 					   SceneScripts,
+					   SceneScript,
 					   SceneTexture]:
 			self._parsers[parser.node_type()] = parser(self._log)
 
