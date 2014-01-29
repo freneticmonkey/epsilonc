@@ -50,6 +50,21 @@ namespace epsilon
 		Transform::Ptr FindChildWithId(long id);
 		Transform::Ptr FindChildWithIdRecursive(long id);
 
+		// Transform to Vector Helpers
+		Vector3 Forward()
+		{
+			return _getDerivedOrientation() * Vector3::FORWARD;
+		};
+
+		Vector3 Up()
+		{
+			return _getDerivedOrientation() * Vector3::UP;
+		};
+
+		Vector3 Right()
+		{
+			return _getDerivedOrientation() * Vector3::RIGHT;
+		};
 
 		/** Enumeration denoting the spaces which a transform can be relative to.
         */

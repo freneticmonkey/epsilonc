@@ -120,6 +120,10 @@ void initScene()
 		.add_property("scale", make_function(&Transform::GetScale, return_value_policy<reference_existing_object>()),
 							   ( Transform::Ptr (Transform::*)( const Vector3&) ) &Transform::SetScale )
 
+		.add_property("forward", &Transform::Forward)
+		.add_property("up", &Transform::Up)
+		.add_property("right", &Transform::Right)
+
 		.def("destroy", &Node::Destroy)
 	
 		.add_property("parent_transform", &Transform::GetParentTransform, &Transform::SetParentTransform)
