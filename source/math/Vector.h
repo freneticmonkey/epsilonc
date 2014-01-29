@@ -41,16 +41,21 @@ public:
 	}
 	
 	// Arithmetic operations.
-	inline Vector2 operator+ (const Vector2& other) const
+	friend inline Vector2 operator+ (const Vector2& left, const Vector2& right)
 	{
-		return Vector2( x + other.x , 
-						y + other.y );
+		return Vector2( left.x + right.x , 
+						left.y + right.y );
 	}
 
-	inline Vector2 operator- (const Vector2& other) const
+	friend inline Vector2 operator- (const Vector2& left, const Vector2& right)
 	{
-		return Vector2( x - other.x , 
-						y - other.y );
+		return Vector2( left.x - right.x , 
+						left.y - right.y );
+	}
+
+	Vector2 operator-() const
+	{
+		return Vector2( -x, -y );
 	}
 
 	// Implemented operator* functions as friends so that operators can appear
@@ -77,11 +82,6 @@ public:
 	{
 		return Vector2( x / scalar , 
 						y / scalar );
-	}
-	inline Vector2 operator- () const
-	{
-		return Vector2( -x, 
-						-y );
 	}
 
 	// Arithmetic updates.
@@ -223,18 +223,23 @@ public:
         return x != other.x  || y != other.y || z != other.z;
     }
     
-    inline Vector3 operator+ (const Vector3& other) const
+    friend inline Vector3 operator+ (const Vector3& left, const Vector3& right)
     {
-        return Vector3( x + other.x ,
-                        y + other.y ,
-                        z + other.z);
+        return Vector3( left.x + right.x ,
+                        left.y + right.y ,
+                        left.z + right.z);
     }
     
-    inline Vector3 operator- (const Vector3& other) const
+    friend inline Vector3 operator- (const Vector3& left, const Vector3& right)
     {
-        return Vector3( x - other.x ,
-                        y - other.y ,
-                        z - other.z );
+        return Vector3( left.x - right.x ,
+                        left.y - right.y ,
+                        left.z - right.z);
+    }
+
+	Vector3 operator-(void) const
+    {
+        return Vector3( -x, -y, -z );
     }
     
     // Implemented operator* functions as friends so that operators can appear
@@ -268,12 +273,6 @@ public:
         return Vector3( x / scalar , 
                         y / scalar ,
                         z / scalar );
-    }
-    inline Vector3 operator- () const
-    {
-        return Vector3( -x, 
-                        -y,
-                        -z );
     }
     
 	// Arithmetic updates.
@@ -448,20 +447,20 @@ public:
 	}
 	
 	// Arithmetic operations.
-	inline Vector4 operator+ (const Vector4& other) const
+	friend inline Vector4 operator+ (const Vector4& left, const Vector4& right)
 	{
-		return Vector4(x + other.x ,
-					   y + other.y ,
-					   z + other.z ,
-					   w + other.w);
+		return Vector4(left.x + right.x ,
+					   left.y + right.y ,
+					   left.z + right.z ,
+					   left.w + right.w);
 	}
 
-	inline Vector4 operator- (const Vector4& other) const
+	friend inline Vector4 operator- (const Vector4& left, const Vector4& right)
 	{
-		return Vector4(x - other.x ,
-					   y - other.y ,
-					   z - other.z ,
-					   w - other.w );
+		return Vector4(left.x - right.x ,
+					   left.y - right.y ,
+					   left.z - right.z ,
+					   left.w - right.w);
 	}
     
 	// Implemented operator* functions as friends so that operators can appear
@@ -499,10 +498,7 @@ public:
 	}
 	inline Vector4 operator- () const
 	{
-		return Vector4(-x,
-					   -y,
-					   -z,
-					   -w);
+		return Vector4(-x, -y, -z, -w);
 	}
     
 	// Arithmetic updates.
