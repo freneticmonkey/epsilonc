@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\core\EpsilonManager.h" />
+    <ClInclude Include="..\source\core\InputManager.h" />
     <ClInclude Include="..\source\EpsilonCore.h" />
     <ClInclude Include="..\source\events\Event.h" />
     <ClInclude Include="..\source\events\EventData.h" />

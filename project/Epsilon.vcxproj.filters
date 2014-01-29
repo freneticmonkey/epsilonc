@@ -322,5 +322,8 @@
     <ClInclude Include="..\source\utilities\Utilities.h">
       <Filter>Source Files\utilities</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\core\InputManager.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
