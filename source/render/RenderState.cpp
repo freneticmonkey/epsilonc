@@ -32,7 +32,7 @@ void RenderStateStack::Pop()
 // Remove all states to a default
 void RenderStateStack::Reset()
 {
-	stack.empty();
+	stack.clear();
 	stack.push_back(RenderState::Create());
 }
 
