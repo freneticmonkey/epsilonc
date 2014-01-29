@@ -9,11 +9,15 @@
 	</node>
 
 	<node name="grid">
-		<transform position="0 1 0"/><!-- rotation="0.707 0 1 0"/>-->
+		<transform position="0 0 0"/><!-- rotation="0.707 0 1 0"/>-->
 		<mesh preset="GRID" size="10" resolution="1"/>
 	</node>
 
 
-	<camera name="scene_cam" from="0 1 -8" to="0 0 0" active="True"/>
+	<camera name="scene_cam" from="0 1 -8" to="0 0 0" active="True">
+		<scripts>
+			<script filename="CameraBehaviour.py"/>
+		</scripts>
+	</camera>
 
 </scene>

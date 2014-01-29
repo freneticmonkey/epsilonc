@@ -181,6 +181,7 @@ void initMath()
 		.def(self == self)
 		.def(self != self)
 
+		.def(-self)
 		.def(self + self)
 		.def(self - self)
 		
@@ -224,6 +225,7 @@ void initMath()
 		.def(self == self)
 		.def(self != self)
 
+		.def(-self)
 		.def(self + self)
 		.def(self - self)
 		
@@ -286,6 +288,7 @@ void initMath()
 		.def(self == self)
 		.def(self != self)
 
+		.def(-self)
 		.def(self + self)
 		.def(self - self)
 		
