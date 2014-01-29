@@ -1,5 +1,7 @@
 import sys, os
 
+from epsilon import RenderManager, Input
+
 from core.configurationmanager import ConfigurationManager
 
 # Resources
@@ -21,7 +23,10 @@ class ScriptCore(object):
 		self._init_resources()
 
 	def on_update(self, dt):
-		pass
+		
+		# If escape is pressed, close the window
+		if Input.key_down(Input.Key.Escape):
+			RenderManager.close_window()
 
 	def on_destroy(self):
 		self._cm.save_configuration()

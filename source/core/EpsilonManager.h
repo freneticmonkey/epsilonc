@@ -4,6 +4,7 @@
 
 #include "logging/Logging.h"
 #include "events/EventManager.h"
+#include "core/InputManager.h"
 #include "render/RenderManager.h"
 #include "scene/SceneManager.h"
 #include "script/ScriptManager.h"
@@ -28,6 +29,7 @@ namespace epsilon
 
 	private:
 		EventManager * eventManager;
+		InputManager * inputManager;
 		ScriptManager * scriptManager;
 		RenderManager * renderManager;
 		UIManager * uiManager;

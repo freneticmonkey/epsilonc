@@ -28,6 +28,8 @@ namespace epsilon
 		Log("Initialising Epsilon Manager");
 		eventManager = &EventManager::GetInstance();
 
+		inputManager = &InputManager::GetInstance();
+
 		scriptManager = &ScriptManager::GetInstance();
 		scriptManager->Setup();
 
@@ -137,15 +139,23 @@ namespace epsilon
 
 		while ( renderManager->WindowOpen() )
 		{
+			// Fire On Frame Start Events
+			inputManager->OnFrameStart();
+
 			while ( renderManager->PollEvent( event ) )
 			{
+				// Process the UI events
 				uiManager->ProcessEvent(event);
+
+				// Process the input events AFTER UI so that UI gets preference
+				inputManager->ProcessEvent(event);
 
 				if ( event.type == sf::Event::Closed )
 				{
 					renderManager->CloseWindow();
 				}
 
+				/*
 				if ( event.type == sf::Event::KeyPressed )
 				{
 
@@ -154,37 +164,41 @@ namespace epsilon
 						renderManager->CloseWindow();
 					}
 				}
+				*/
 
 				if ( event.type == sf::Event::KeyReleased )
 				{
-					Transform::Ptr camTrans = camera->GetComponent<Transform>();
-					float amount = 1.0f;// * el;
-					Vector3 trans;
-					switch ( event.key.code )
+					if (camera)
 					{
-					case sf::Keyboard::A:
-						trans.x = -amount;
-						break;
-					case sf::Keyboard::D:
-						trans.x = amount;
-						break;
-					case sf::Keyboard::W:
-						trans.z = amount;
-						break;
-					case sf::Keyboard::S:
-						trans.z = -amount;
-						break;
+						Transform::Ptr camTrans = camera->GetComponent<Transform>();
+						float amount = 1.0f;// * el;
+						Vector3 trans;
+						switch ( event.key.code )
+						{
+						case sf::Keyboard::A:
+							trans.x = -amount;
+							break;
+						case sf::Keyboard::D:
+							trans.x = amount;
+							break;
+						case sf::Keyboard::W:
+							trans.z = amount;
+							break;
+						case sf::Keyboard::S:
+							trans.z = -amount;
+							break;
 
-					case sf::Keyboard::R:
-						trans.y = amount;
-						break;
-					case sf::Keyboard::F:
-						trans.y = -amount;
-						break;
+						case sf::Keyboard::R:
+							trans.y = amount;
+							break;
+						case sf::Keyboard::F:
+							trans.y = -amount;
+							break;
+						}
+						camTrans->Translate(trans);
+						Vector3 la = camTrans->GetPosition() + (Vector3(0, 0, 5.0f));
+						camera->LookAt(Vector3());
 					}
-					camTrans->Translate(trans);
-					Vector3 la = camTrans->GetPosition() + (Vector3(0, 0, 5.0f));
-					camera->LookAt(Vector3());
 				}
 
 			}
