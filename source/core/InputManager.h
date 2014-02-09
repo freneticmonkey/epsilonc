@@ -7,6 +7,7 @@
 
 #include <vector>
 #include "math/Vector.h"
+#include "render/RenderManager.h"
 
 namespace epsilon
 {
@@ -20,6 +21,8 @@ namespace epsilon
 		{
 			sf::Vector2i mp = sf::Mouse::getPosition();
 			mousePosLast = Vector2(mp.x, mp.y);
+
+			rm = &RenderManager::GetInstance();
 		};
 		InputManager(InputManager const&);
 		void operator=(InputManager const&);
@@ -42,8 +45,8 @@ namespace epsilon
 			memset(buttonDown, false, sizeof(buttonDown));
 			memset(buttonUp, false, sizeof(buttonUp));
 
-			// calculate relative mouse position values
-			sf::Vector2i mp = sf::Mouse::getPosition();
+			// calculate window relative mouse position values
+			sf::Vector2i mp = sf::Mouse::getPosition(*rm->GetWindow());
 
 			mousePosRelative = Vector2(mp.x, mp.y) - mousePosLast;
 			mousePosLast = Vector2(mp.x, mp.y);
@@ -128,6 +131,7 @@ namespace epsilon
 		Vector2 mousePosLast;
 		Vector2 mousePosRelative;
 
+		RenderManager * rm;
 	};
 }
 
