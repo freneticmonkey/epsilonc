@@ -34,6 +34,8 @@ namespace epsilon
 
 		bool operator==(Scene::Ptr other);
 		bool operator==(std::string name);
+
+		void Update(float el);
 	private:
 		
 		std::string name;

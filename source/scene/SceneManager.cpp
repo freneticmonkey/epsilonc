@@ -61,7 +61,10 @@ namespace epsilon
 
 	void SceneManager::Update(float el)
 	{
-		
+		if (currentScene)
+		{
+			currentScene->Update(el);
+		}
 	}
 
 	void SceneManager::Cull(void)

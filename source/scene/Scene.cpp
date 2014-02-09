@@ -34,6 +34,11 @@ namespace epsilon
 		return name == otherName;
 	}
 
+	void Scene::Update(float el)
+	{
+		//rootNode->GetComponent<Transform>()._update(true, true);
+	}
+
 	void Scene::SetActiveCamera(Camera::Ptr camera)
 	{
 		// Add the camera
