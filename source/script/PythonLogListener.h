@@ -21,7 +21,11 @@ namespace epsilon
 
 		void OutputLog(const std::string &out)
 		{
-			Log(prefix, out);
+			// Ignore empty newlines
+			if (out != "\n")
+			{
+				Log(prefix, out);
+			}
 		}
 	private:
 		std::string prefix;
