@@ -6,6 +6,15 @@
 		<scripts>
 			<script filename="MyBehaviourClass.py"/>
 		</scripts>
+		<children>
+			<node name="child_node">
+				<transform position="0 2 0"/><!-- rotation="0.707 0 1 0"/>-->
+				<mesh preset="SPHERE"/>
+				<!-- <scripts>
+					<script filename="MyBehaviourClass.py"/>
+				</scripts> -->
+			</node>
+		</children>
 	</node>
 
 	<node name="grid">
@@ -14,10 +23,52 @@
 	</node>
 
 
-	<camera name="scene_cam" from="0 1 -8" to="0 0 0" active="True">
+	<camera name="scene_cam" from="0 1 -8" to="0 1 0" active="True">
 		<scripts>
 			<script filename="CameraBehaviour.py"/>
 		</scripts>
+		<children>
+
+		</children>
 	</camera>
+
+	<node name="markers">
+		<transform position="0 0 0" rotation="0 0 1 0"/>
+		<children>
+			<node name="marker_1">
+				<transform position="1 0 0" scale="0.1 0.1 0.1"/>
+				<mesh preset="SPHERE"/>
+				<material diffuse="1 0 0 1"/>
+				<scripts>
+					<script filename="TransformDebug.py"/>
+				</scripts>
+			</node>
+			<node name="marker_2">
+				<transform position="-1 0 0" scale="0.1 0.1 0.1"/>
+				<mesh preset="SPHERE"/>
+				<material diffuse="0 1 0 1"/>
+				<scripts>
+					<script filename="TransformDebug.py"/>
+				</scripts>
+			</node>
+			<node name="marker_3">
+				<transform position="0 0 1" scale="0.1 0.1 0.1"/>
+				<mesh preset="SPHERE"/>
+				<material diffuse="1 1 0 1"/>
+				<scripts>
+					<!-- <script filename="TransformDebug.py"/> -->
+				</scripts>
+			</node>
+			<node name="marker_4">
+				<transform position="0 0 -1" scale="0.1 0.1 0.1"/>
+				<mesh preset="SPHERE"/>
+				<material diffuse="1 1 0 1"/>
+				<scripts>
+					<!-- <script filename="TransformDebug.py"/> -->
+				</scripts>
+			</node>
+
+		</children>
+	</node>
 
 </scene>
