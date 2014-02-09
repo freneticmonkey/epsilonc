@@ -26,3 +26,6 @@
 #include <string>
 
 #include "logging/Logging.h"
+
+// For Visual Studio 2013 / Python issues
+#define HAVE_ROUND
