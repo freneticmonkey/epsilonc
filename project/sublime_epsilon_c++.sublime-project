@@ -1,0 +1,19 @@
+{
+	"folders":
+	[
+		{
+			"follow_symlinks": true,
+			"path": "C:\\Dev\\Projects\\C++\\Epsilon\\resources"
+		}
+	],
+	"build_systems":
+	[
+		{
+			"name" : "run",
+			"cmd": ["C:\\Dev\\Projects\\C++\\Epsilon\\build\\Win\\Debug\\Epsilon.exe"],
+			"working_dir" : "C:\\Dev\\Projects\\C++\\Epsilon\\",
+			"shell" : true
+		}
+	]
+
+}

@@ -1,0 +1,796 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Tra",
+				"TransformDebug"
+			],
+			[
+				"Camera",
+				"CameraBehaviour"
+			],
+			[
+				"_mouse",
+				"_mouse_speed_y"
+			],
+			[
+				"get",
+				"getcwd"
+			],
+			[
+				"rota",
+				"rotate_around"
+			],
+			[
+				"normal",
+				"normalised"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/core/main.py",
+			"settings":
+			{
+				"buffer_size": 1387,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/CameraBehaviour.py",
+			"settings":
+			{
+				"buffer_size": 2938,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/MyBehaviourClass.py",
+			"settings":
+			{
+				"buffer_size": 1614,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/MyBehaviourTemplate.py",
+			"settings":
+			{
+				"buffer_size": 283,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/nodetypes.py",
+			"settings":
+			{
+				"buffer_size": 11142,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/TestingFeatures.py",
+			"settings":
+			{
+				"buffer_size": 1455,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/sceneresourcehandler.py",
+			"settings":
+			{
+				"buffer_size": 3293,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "default: Initialising Epsilon Manager\ndefault: EventManager initialised\ndefault: Initialising RenderManager\ndefault: INFO: OpenGL Version: \ndefault: 3.3.0\ndefault: Initialising UIManager\ndefault: Initialising Scene Manager\npython: Starting Main. Initialising Python Managers\npython: Running Debug Build\nResourceManager: Ignoring file: walk_test.txt\nResourceManager: Loading Scene file: scene.xml\npython: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene.xml\nSceneResourceHandler: Loading scene: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene.xml\npython: Attached child: main_node\npython: Attached child: child_node\npython: Attached child: grid\npython: Made camera active: scene_cam\npython: Attached child: markers\npython: Attached child: marker_1\npython: Attached child: marker_2\npython: Attached child: marker_3\npython: Attached child: marker_4\nResourceManager: Added Resource: file: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene.xml loading: 1\npython: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene_complex.xml\nResourceManager: Added Resource: file: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene_complex.xml loading: 0\ndefault: Finished Setup\npython: r: 0.50 g: 0.50 b: 0.50 a: 1.0\npython: 1.0\npython: Camera Name: scene_cam\npython: marker_1: x: 1.00000 y: 0.00000 z: 0.00000\npython: marker_2: x: -1.00000 y: 0.00000 z: 0.00000\npython: Shutting down ConfigurationManager\n[Finished in 6.0s]",
+			"settings":
+			{
+				"buffer_size": 1375,
+				"line_ending": "Windows",
+				"name": "Build output"
+			}
+		}
+	],
+	"build_system": "run",
+	"command_palette":
+	{
+		"height": 360.0,
+		"selected_items":
+		[
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"bui",
+				"Build: Build"
+			],
+			[
+				"build",
+				"Build: Build"
+			],
+			[
+				"goto",
+				"Goto Documentation"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"upp",
+				"Convert Case: Upper Case"
+			],
+			[
+				"cam",
+				"Convert String: CamelCase to Python Style Func"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"camc",
+				"Convert String: CamelCase to Python Style Func"
+			],
+			[
+				"low",
+				"Convert Case: Lower Case"
+			],
+			[
+				"lower",
+				"Convert Case: Lower Case"
+			],
+			[
+				"ca",
+				"Convert String: CamelCase to Python Style Func"
+			],
+			[
+				"camel",
+				"Convert String: CamelCase to Python Style Func"
+			],
+			[
+				"",
+				"Convert String: CamelCase to Python Style Func"
+			],
+			[
+				"lo",
+				"Convert Case: Lower Case"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Disable Package"
+			],
+			[
+				"upper",
+				"Convert Case: Upper Case"
+			],
+			[
+				"lowr",
+				"Convert Case: Lower Case"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"git lo",
+				"Git: Log Current File"
+			],
+			[
+				"git",
+				"Git: Status"
+			],
+			[
+				"got",
+				"Goto Documentation"
+			],
+			[
+				"doc",
+				"DocBlockr: Reparse comment block"
+			]
+		],
+		"width": 514.0
+	},
+	"console":
+	{
+		"height": 308.0,
+		"history":
+		[
+			"view.run_command(\"cctp\")",
+			"view.run_command(\"camelcasetopython\")",
+			"view.run_command(\"example\")",
+			"dir(print)",
+			"print(\"hello world\")",
+			"print \"hello world\"",
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Dev/Projects/C++/Epsilon/resources/scripts/TransformDebug.py",
+		"/C/Users/Scott/Downloads/ogre/ogre_src_v1-8-1/OgreMain/include/OgreQuaternion.h",
+		"/C/Users/Scott/Downloads/ogre/ogre_src_v1-8-1/OgreMain/src/OgreQuaternion.cpp",
+		"/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/nodetypes.py",
+		"/C/Dev/Projects/C++/Epsilon/project/sublime_epsilon_c++.sublime-project",
+		"/C/Dev/Resources/C++/SFML-2.1/Makefile",
+		"/C/Dev/Resources/C++/SFGUI-0.2.0/CMakeFiles/CMakeOutput.log",
+		"/C/Dev/Resources/C++/boost_1_54_0/bin.v2/config.log",
+		"/C/Dev/Resources/C++/SFGUI-0.2.0/CMakeLists.txt",
+		"/C/Program Files (x86)/SFML/cmake/Modules/FindSFML.cmake",
+		"/C/Dev/Resources/C++/boost_1_54_0/project-config.jam",
+		"/C/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeVS12FindMake.cmake",
+		"/C/Program Files (x86)/CMake 2.8/share/cmake-2.8/Modules/CMakeVS11FindMake.cmake",
+		"/C/Dev/Resources/C++/SFML-2.1/CMakeFiles/CMakeError.log",
+		"/C/Dev/Resources/C++/SFGUI/LICENSE",
+		"/C/Dev/Resources/C++/SFGUI/README",
+		"/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/sceneresourcehandler.py",
+		"/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/resourceitem.py",
+		"/C/Dev/Projects/C++/Epsilon/resources/scripts/MyBehaviourClass.py",
+		"/C/Dev/Projects/C++/Epsilon/resources/scripts/CycleValue.py",
+		"/C/Dev/Projects/C++/Epsilon/resources/scripts/core/main.py",
+		"/C/Dev/Projects/Epsilon/epsilon/scripting/testscripts.py",
+		"/C/Dev/Projects/C++/Epsilon/resources/shaders/basic.vert",
+		"/C/Dev/Projects/C++/Epsilon/resources/shaders/material.frag",
+		"/C/Dev/Resources/C++/boost-python-examples-master/10-Embedding/embedding.py",
+		"/C/Dev/Projects/Epsilon/epsilon/render/shader.py",
+		"/C/Dev/Projects/Python/sandbox/expand_test.py",
+		"/C/Dev/Projects/C++/Epsilon/resources/scripts/TestingFeatures.py",
+		"/C/Dev/Projects/C++/Epsilon/resources/scripts/UpdateTest.py",
+		"/C/Dev/Projects/C++/Epsilon/resources/shaders/basic.frag",
+		"/C/Dev/Resources/C++/protobuf-2.5.0/python/README.txt",
+		"/C/Dev/Resources/C++/protobuf-2.5.0/examples/README.txt",
+		"/C/Dev/Resources/C++/protobuf-2.5.0/examples/add_person.py",
+		"/C/Dev/Resources/C++/protobuf-2.5.0/examples/addressbook.proto",
+		"/C/Dev/Resources/C++/protobuf-2.5.0/examples/add_person.cc",
+		"/C/Users/Scott/Downloads/protobuf-2.5.0.tar/protobuf-2.5.0/INSTALL.txt",
+		"/C/Dev/Projects/C++/Epsilon/resources/shaders/material.shader",
+		"/C/Dev/Projects/C++/Epsilon/resources/basic.frag",
+		"/C/Dev/Projects/C++/Epsilon/resources/basic.vert",
+		"/C/Dev/Projects/C++/Tests/PythonEmbedding/Debug/script_test2.py",
+		"/C/Dev/Projects/C++/Tests/PythonEmbedding/Debug/test.py",
+		"/C/Dev/Projects/C++/Tests/PythonEmbedding/Debug/script_test.py",
+		"/C/Dev/Projects/C++/Epsilon/resources/scripts/MyBehaviour.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/CCtoP/Main.sublime-menu",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/CCtoP/CCtoP.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/Default.sublime-commands",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/CCtoP/CCtoP.sublime-commands",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/Pylinter/Main.sublime-menu",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/Dev/Resources/C++/boost-python-examples-master/10-Embedding/mymodule.hpp",
+		"/C/Dev/Resources/C++/boost-python-examples-master/10-Embedding/mymodule.cpp",
+		"/C/Dev/Resources/C++/boost-python-examples-master/10-Embedding/embedding.cpp",
+		"/C/Dev/Resources/C++/boost-python-examples-master/01-HelloWorld/hello.py",
+		"/C/Dev/Resources/C++/boost_1_54_0/INSTALL",
+		"/C/Dev/Projects/Epsilon/tests/ctypes/mesh/mesh_utilities.pyx",
+		"/C/Dev/Projects/Epsilon/tests/ctypes/mesh/mesh_utilities.c",
+		"/C/Dev/Projects/Python/sandbox/bibliography/process.py",
+		"/C/Dev/Projects/Reboot/simple/node/__init__.py",
+		"/C/Dev/Projects/Reboot/simple/simple.py",
+		"/C/Dev/Projects/Python/sandbox/bibliography/original_bibliography.txt",
+		"/C/Dev/Projects/Python/sandbox/bibliography/processed_bibliography.txt",
+		"/C/Dev/Projects/Reboot/simple/node/component.py",
+		"/C/Dev/Projects/Reboot/simple/node/object.py",
+		"/C/Users/Scott/AppData/Local/SWTOR/swtor/settings/client_settings.ini",
+		"/C/Games/Star Wars-The Old Republic/swtor/retailclient/swtor/logs/Client_20131012T000152_5480.log",
+		"/C/Games/Star Wars-The Old Republic/swtor/retailclient/swtor/logs/Client_20131011T235437_5892.log",
+		"/C/Games/Star Wars-The Old Republic/logs/launcher_20131011.log",
+		"/C/Games/Star Wars-The Old Republic/swtor/retailclient/swtor/logs/Client_20131011T235123_1332.log",
+		"/C/Dev/Projects/C++/Epsilon/source/._main.cpp",
+		"/C/Users/Scott/Desktop/SublimeCodeIntel-master/SublimeCodeIntel.py",
+		"/C/Dev/Projects/Reboot/simple/core/config.py",
+		"/C/Dev/Projects/Reboot/simple/core/singleton.py",
+		"/C/Dev/Projects/Reboot/simple/core/event.py",
+		"/C/Dev/Projects/Reboot/simple/core/log.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/SilverCity/LanguageInfo.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/tree_python.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/tree_php.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/tree_javascript.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/tree.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/tclcile.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/rubycile.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/pythoncile2.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/pythoncile1.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/perlcile.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/parseutil.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/langintel.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/lang_ruby.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/lang_python.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/lang_php.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/lang_perl.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/lang_nodejs.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/lang_javascript.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/database/stdlib.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/database/multilanglib.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/database/langlibbase.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/database/langlib.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/database/database.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/database/catalog.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/citadel.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/buffer.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/util.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/accessor.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/manager.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/SilverCity/__init__.py",
+		"/C/Dev/Projects/Reboot/simple/run.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/tree_ruby.py",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/SublimeCodeIntel.py",
+		"/C/Dev/Projects/Reboot/simple/core/start.py",
+		"/C/Dev/Projects/Reboot/simple/framework/__init__.py",
+		"/C/Users/Scott/Downloads/SublimeCodeIntel-master/README.rst",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SideBarEnhancements/CHANGELOG",
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings"
+	],
+	"find":
+	{
+		"height": 36.0
+	},
+	"find_in_files":
+	{
+		"height": 92.0,
+		"where_history":
+		[
+			"C:\\Dev\\Projects\\Epsilon\\epsilon",
+			"C:\\Users\\Scott\\AppData\\Roaming\\Sublime Text 3\\Packages\\SublimeCodeIntel-master\\libs\\codeintel2"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			" w",
+			"position",
+			"<!--scale",
+			"matrial",
+			"scale=",
+			"cmd",
+			"\\",
+			"find_librar",
+			"find_package",
+			"GRAPHICS",
+			"SFML_GRAPHICS",
+			"SFML_GRAPHOC",
+			"HKEY_CURRENT_USER\\\\Software\\\\Microsoft\\\\WDExpress",
+			"HKEY_CURRENT_USER\\\\SOFTWARE\\\\Microsoft\\\\WDExpress\\\\11.0_Config",
+			"pos +=",
+			"self.node.transform.translate(",
+			"Input.key.",
+			"Input.key",
+			"_speed",
+			"ResourceBase",
+			"ConfigurationManager",
+			"(?<!\\A)([A-Z])",
+			"\\w([A-Z])",
+			" Transform::",
+			"\\n+",
+			"\\n*",
+			"vectors[0]",
+			"vectors[i]",
+			"Vector3",
+			"\\",
+			"; W",
+			"(except .*)\\$$",
+			"except (.*)\\$$",
+			"except (.*), (e|ex)\\:$",
+			"except (.*), [e|ex]\\:$",
+			"except (.*), ([e|ex])\\:$",
+			"except .*, .*:$",
+			"\\wexcept .*, .*\\:$",
+			"\\wexcept .*, .*:$",
+			"except .*, ",
+			", err",
+			"print ",
+			"self"
+		],
+		"highlight": true,
+		"in_selection": true,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"\\\\",
+			"_\\1",
+			"\\n",
+			"vector",
+			"v",
+			"/",
+			"\\1",
+			"except \\1 as \\2:$"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/core/main.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1387,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								611,
+								611
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/CameraBehaviour.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2938,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1420,
+								1420
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 136.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/MyBehaviourClass.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1614,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								1614
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/MyBehaviourTemplate.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 283,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								283
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/nodetypes.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11142,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5189,
+								5189
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2391.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 5,
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/TestingFeatures.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1455,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								223,
+								225
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/sceneresourcehandler.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 3293,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/nodetypes.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 11142,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2007,
+								2007
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 666.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1375,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1375,
+								1375
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.51275836299,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 376.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.gotodocumentation":
+	{
+		"height": 311.0
+	},
+	"project": "sublime_epsilon_c++.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"note",
+				"scripts\\resource\\nodetypes.py"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 289.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
