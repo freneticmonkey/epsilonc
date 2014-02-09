@@ -12,8 +12,18 @@ namespace epsilon
 
 	class UIManager
 	{
-	public:
+	private:
 		UIManager();
+		UIManager(UIManager const&);
+		void operator=(UIManager const&);
+
+	public:
+		static UIManager & GetInstance()
+		{
+			static UIManager instance;
+			return instance;
+		};
+
 		~UIManager();
 
 		void Setup(void);
@@ -22,7 +32,7 @@ namespace epsilon
 		void Draw(sf::RenderWindow * window);
 
 		void AddUIWindow(UIWindow::Ptr newWindow);
-
+		UIWindow::Ptr GetWindowByName(const std::string & name);
 		void ProcessEvent(sf::Event &event);
 
 	private:

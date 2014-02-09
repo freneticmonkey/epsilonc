@@ -12,12 +12,12 @@ namespace epsilon
 		return std::make_shared<DebugWindow>(private_struct(), title);
 	}
 
-	DebugWindow::DebugWindow(const private_struct &) 
+	DebugWindow::DebugWindow(const private_struct &) : UIWindow("debug")
 	{
 		windowTitle = std::string("Debug Window");
 	}
 	
-	DebugWindow::DebugWindow(const private_struct &, std::string title)
+	DebugWindow::DebugWindow(const private_struct &, std::string title) : UIWindow("console")
 	{
 		windowTitle = title;
 	}
@@ -26,9 +26,9 @@ namespace epsilon
 	{
 		label = Label::Create("Hello World!");
 		Button::Ptr button( Button::Create("Click Me") );
-		button->GetSignal( Widget::OnLeftClick ).Connect( &DebugWindow::OnButtonClick, this );
+		button->GetSignal(Widget::OnLeftClick).Connect(std::bind(&DebugWindow::OnButtonClick, this));
 
-		Box::Ptr box(Box::Create( Box::VERTICAL, 5.0f ) );
+		Box::Ptr box(Box::Create( Box::Orientation::VERTICAL, 5.0f ) );
 		box->Pack( label );
 		box->Pack( button, false );
 

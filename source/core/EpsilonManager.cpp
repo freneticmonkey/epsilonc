@@ -20,7 +20,6 @@ namespace epsilon
 
 	EpsilonManager::~EpsilonManager(void)
 	{
-		if ( uiManager ) { delete uiManager; }
 	}
 
 	void EpsilonManager::Setup(void)
@@ -28,15 +27,15 @@ namespace epsilon
 		Log("Initialising Epsilon Manager");
 		eventManager = &EventManager::GetInstance();
 
-		inputManager = &InputManager::GetInstance();
-
 		scriptManager = &ScriptManager::GetInstance();
 		scriptManager->Setup();
 
 		renderManager = &RenderManager::GetInstance();
 		renderManager->Setup();
 
-		uiManager = new UIManager();
+		inputManager = &InputManager::GetInstance();
+
+		uiManager = &UIManager::GetInstance();
 		uiManager->Setup();
 		
 		ConsoleWindow::Ptr consoleWindow = ConsoleWindow::Create();
@@ -56,56 +55,6 @@ namespace epsilon
 		Log("Finished Setup");
 	}
 
-	void EpsilonManager::MeshTest(void)
-	{
-		//Node::Ptr triangle2 = sceneManager->CurrentScene()->Root()->CreateChildNode();
-		//triangle2->SetName("triangle");
-		//triangle2->AddComponent(Renderer::Create());
-		//triangle2->GetComponent<Renderer>()
-		//		 ->SetMesh(MeshFactory::GenerateTriangle());
-		//triangleTrans = triangle2->GetComponent<Transform>();
-		//triangleTrans->SetPosition(0.f, 0.f, 0.f);
-		//
-		//// Add a sub child
-        
-        Node::Ptr tChild = sceneManager->CurrentScene()->Root()->CreateChildNode();
-		tChild->SetName("sphere");
-		tChild->AddComponent(Renderer::Create());
-		tChild->GetComponent<Renderer>()
-			  ->SetMesh(MeshFactory::GenerateSphere());
-		tChild->GetComponent<Transform>()
-			  ->SetPosition(1.0f, 1.0f, 0.0f);
-		tChild->AddComponent(scriptManager->CreateBehaviour("MyBehaviourClass.py"));
-		//
-		Node::Ptr plane = sceneManager->CurrentScene()->Root()->CreateChildNode();
-		plane->SetName("plane");
-
-		plane->AddComponent(Renderer::Create());
-		plane->GetComponent<Renderer>()
-			  ->SetMesh(MeshFactory::GeneratePlane(4, 4));
-		
-		Node::Ptr scriptsRoot = sceneManager->CurrentScene()->Root()->CreateChildNode();
-		scriptsRoot->SetName("scriptRoot");
-
-		Node::Ptr script2 = scriptsRoot->CreateChildNode();
-		script2->AddComponent(scriptManager->CreateBehaviour("TestingFeatures.py"));
-        
-		// Create a Grid
-		if ( true )
-		{
-			Node::Ptr grid = sceneManager->CurrentScene()->Root()->CreateChildNode();
-			grid->SetName("grid");
-
-			grid->AddComponent(Renderer::Create());
-			grid->GetComponent<Renderer>()
-				->SetMesh(MeshFactory::GenerateGrid(10, 1));
-		}
-
-		camera = sceneManager->CurrentScene()->GetActiveCamera();
-		camera->GetComponent<Transform>()->SetPosition(0.0f, 1.0f, -8.f);
-		camera->LookAt(Vector3());
-	}
-
 	void EpsilonManager::OnUpdate(float el)
 	{
 #ifdef __APPLE__
@@ -122,8 +71,6 @@ namespace epsilon
 
 		taskGroup.wait();
 #endif
-		
-        
 		// UI cannot be updated in parallel due to SFGUI not being threadsafe, gfx access etc
 		uiManager->OnUpdate(el);
 		renderManager->Draw(el);
@@ -153,52 +100,6 @@ namespace epsilon
 				if ( event.type == sf::Event::Closed )
 				{
 					renderManager->CloseWindow();
-				}
-
-				/*
-				if ( event.type == sf::Event::KeyPressed )
-				{
-
-					if ( event.key.code == sf::Keyboard::Escape )
-					{
-						renderManager->CloseWindow();
-					}
-				}
-				*/
-
-				if ( event.type == sf::Event::KeyReleased )
-				{
-					if (camera)
-					{
-						Transform::Ptr camTrans = camera->GetComponent<Transform>();
-						float amount = 1.0f;// * el;
-						Vector3 trans;
-						switch ( event.key.code )
-						{
-						case sf::Keyboard::A:
-							trans.x = -amount;
-							break;
-						case sf::Keyboard::D:
-							trans.x = amount;
-							break;
-						case sf::Keyboard::W:
-							trans.z = amount;
-							break;
-						case sf::Keyboard::S:
-							trans.z = -amount;
-							break;
-
-						case sf::Keyboard::R:
-							trans.y = amount;
-							break;
-						case sf::Keyboard::F:
-							trans.y = -amount;
-							break;
-						}
-						camTrans->Translate(trans);
-						Vector3 la = camTrans->GetPosition() + (Vector3(0, 0, 5.0f));
-						camera->LookAt(Vector3());
-					}
 				}
 
 			}

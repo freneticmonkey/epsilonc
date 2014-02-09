@@ -1,4 +1,5 @@
 #include "ui/UIManager.h"
+#include <algorithm>
 
 namespace epsilon
 {
@@ -52,7 +53,22 @@ namespace epsilon
 			desktop->Add(newWindow->GetWindow());
 			windowList.push_back(newWindow);
 		}
-		
+	}
+
+	UIWindow::Ptr UIManager::GetWindowByName(const std::string & name)
+	{
+		UIWindow::Ptr window;
+
+		WindowList::iterator foundChildIt = std::find_if(windowList.begin(), windowList.end(), [name](UIWindow::Ptr window){
+			return window->GetName() == name;
+		});
+
+		if (foundChildIt != windowList.end())
+		{
+			window = (*foundChildIt);
+		}
+
+		return window;
 	}
 
 	void UIManager::ProcessEvent(sf::Event &event)

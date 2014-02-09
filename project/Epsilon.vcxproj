@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -42,6 +42,7 @@
     <ClCompile Include="..\source\script\python\RenderModule.cpp" />
     <ClCompile Include="..\source\script\python\SceneModule.cpp" />
     <ClCompile Include="..\source\script\python\ScriptModule.cpp" />
+    <ClCompile Include="..\source\script\python\UIModule.cpp" />
     <ClCompile Include="..\source\script\python\UtilitiesModule.cpp" />
     <ClCompile Include="..\source\script\Script.cpp" />
     <ClCompile Include="..\source\script\ScriptBehaviour.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="..\source\script\python\RenderModule.h" />
     <ClInclude Include="..\source\script\python\SceneModule.h" />
     <ClInclude Include="..\source\script\python\ScriptModule.h" />
+    <ClInclude Include="..\source\script\python\UIModule.h" />
     <ClInclude Include="..\source\script\python\UtilitiesModule.h" />
     <ClInclude Include="..\source\script\Script.h" />
     <ClInclude Include="..\source\script\ScriptBehaviour.h" />
@@ -116,13 +118,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -138,15 +140,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Dev\Resources\C++\SFGUI\include\;C:\Dev\Resources\C++\SFML-2.0-rc-src\include\;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_54_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Dev\Resources\C++\SFGUI\build\lib\$(Configuration)\;C:\Dev\Resources\C++\SFML-2.0-rc-src\build\lib\$(Configuration)\;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_54_0\stage\lib;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files (x86)\SFML\include;C:\Program Files (x86)\SFGUI\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files (x86)\SFGUI\lib;C:\Program Files (x86)\SFML\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Dev\Resources\C++\SFGUI\include\;C:\Dev\Resources\C++\SFML-2.0-rc-src\include\;C:\Dev\Resources\C++\glew-1.9.0\include\;$(IncludePath);C:\Dev\Resources\C++\boost_1_54_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include</IncludePath>
-    <LibraryPath>C:\Dev\Resources\C++\SFGUI\build\lib\$(Configuration)\;C:\Dev\Resources\C++\SFML-2.0-rc-src\build\lib\$(Configuration)\;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_54_0\stage\lib;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files (x86)\SFML\include;C:\Program Files (x86)\SFGUI\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files (x86)\SFGUI\lib;C:\Program Files (x86)\SFML\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -161,7 +163,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-main-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfgui-d.lib;glew32.lib;opengl32.lib;glu32.lib;boost_python-vc110-mt-gd-1_54.lib;tbb_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfgui-d.lib;glew32.lib;opengl32.lib;glu32.lib;boost_python-vc120-mt-gd-1_55.lib;tbb_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

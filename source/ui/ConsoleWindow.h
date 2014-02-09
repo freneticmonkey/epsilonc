@@ -35,8 +35,10 @@ namespace epsilon
 
 		explicit ConsoleWindow(const private_struct &);
 	private:
-		
+		int maxLines;
+		int currentLine;
 		ConsoleLines consoleLines;
+		ConsoleLines::iterator currLabel;
 		ScrolledWindow::Ptr scrolledwindow;
 		Box::Ptr scrolledWindowBox;
 		Box::Ptr viewportBox;

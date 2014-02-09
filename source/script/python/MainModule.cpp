@@ -10,6 +10,7 @@
 #include "script/python/SceneModule.h"
 #include "script/python/ScriptModule.h"
 #include "script/python/UtilitiesModule.h"
+#include "script/python/UIModule.h"
 
 using namespace boost::python;
 
@@ -26,4 +27,5 @@ BOOST_PYTHON_MODULE(epsilon)
 	initRender();
 	initScript();
 	initUtilities();
+	initUI();
 }

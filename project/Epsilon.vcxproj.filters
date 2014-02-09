@@ -164,6 +164,9 @@
     <ClCompile Include="..\source\script\python\LoggingModule.cpp">
       <Filter>Source Files\script\python</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\script\python\UIModule.cpp">
+      <Filter>Source Files\script\python</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\EpsilonCore.h">
@@ -324,6 +327,9 @@
     </ClInclude>
     <ClInclude Include="..\source\core\InputManager.h">
       <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\python\UIModule.h">
+      <Filter>Source Files\script\python</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

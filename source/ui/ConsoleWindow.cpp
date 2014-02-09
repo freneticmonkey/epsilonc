@@ -9,7 +9,10 @@ namespace epsilon
 		return newConsoleWindow;
 	}
 
-	ConsoleWindow::ConsoleWindow(const private_struct &) : LogListener()
+	ConsoleWindow::ConsoleWindow(const private_struct &) : UIWindow("console"),
+														   LogListener(), 
+														   maxLines(25), 
+														   currentLine(0)
 	{
 	}
 	
@@ -17,16 +20,16 @@ namespace epsilon
 	{
 		
 		// Create a box with 10 pixel spacing.
-		Box::Ptr box = Box::Create( Box::VERTICAL, 10.f );
+		Box::Ptr box = Box::Create( Box::Orientation::VERTICAL, 10.f );
 
-		scrolledWindowBox = Box::Create( Box::VERTICAL );
+		scrolledWindowBox = Box::Create(Box::Orientation::VERTICAL);
 
 		// Create the ScrolledWindow.
 		scrolledwindow = ScrolledWindow::Create();
 
 		// Set the ScrolledWindow to always show the horizontal scrollbar
 		// and only show the vertical scrollbar when needed.
-		scrolledwindow->SetScrollbarPolicy( ScrolledWindow::HORIZONTAL_AUTOMATIC | ScrolledWindow::VERTICAL_ALWAYS );
+		scrolledwindow->SetScrollbarPolicy( ScrolledWindow::HORIZONTAL_AUTOMATIC | ScrolledWindow::VERTICAL_ALWAYS | ScrolledWindow::VERTICAL_AUTOMATIC  );
 
 		// Add the ScrolledWindow box to the ScrolledWindow
 		// and create a new viewport automatically.
@@ -39,6 +42,16 @@ namespace epsilon
 		scrolledWindowAlignment = Alignment::Create();
 		scrolledWindowBox->Pack( scrolledWindowAlignment, true, true );
 		scrolledWindowAlignment->SetAlignment( sf::Vector2f(0.0f, 0.0f) );
+
+		// Generate maxLines Labels
+		for ( int i = 0; i < maxLines; i++ )
+		{
+			Label::Ptr newLog = Label::Create();
+			consoleLines.push_back(newLog);
+			//scrolledWindowBox->Pack( newLog );
+			//newLog->SetAlignment( sf::Vector2f(0.0f, 0.0f) );
+		}
+		currLabel = consoleLines.begin();
 
 		// Add everything to our box.
 		box->Pack( scrolledwindow, true, true );
@@ -66,14 +79,48 @@ namespace epsilon
 
 	void ConsoleWindow::Log(std::string content)
 	{
-		Label::Ptr newLog = Label::Create(content.c_str());
-		scrolledWindowBox->Pack( newLog );
-		newLog->SetAlignment( sf::Vector2f(0.0f, 0.0f) );
+		if (false)
+		{
+			Label::Ptr logLbl = Label::Create(content.c_str());
+			scrolledWindowBox->Pack(logLbl);// , false, true );
+			logLbl->SetAlignment(sf::Vector2f(0.0f, 0.0f));
+		}
+		else
+		{
+			if ( currentLine < maxLines )
+			{
+				// Push a new Label into the console box
+				Label::Ptr logLbl = (*currLabel);
+				logLbl->SetText(content.c_str());
+				scrolledWindowBox->Pack(logLbl);// , false, true );
+				logLbl->SetAlignment( sf::Vector2f(0.0f, 0.0f) );
+
+				currentLine++;
+			}
+			else
+			{
+				// Otherwise all of the labels have been added to the console,
+				// just update the text and reorder it
+				(*currLabel)->SetText(content.c_str());
+				scrolledWindowBox->ReorderChild((*currLabel), maxLines - 1);
+			}
+
+			currLabel++;
+			// Iterate to the next console line ensuring wrapping.
+			if (currLabel == consoleLines.end())
+			{
+				currLabel = consoleLines.begin();
+			} 
+		}
 	}
 
 	void ConsoleWindow::Log(std::string logName, std::string content)
 	{
-		content = logName + ": " + content;
-		Log(content);
+		// Ignore the python std out as it is most likely for debugging
+		if (logName != "python")
+		{
+			content = logName + ": " + content;
+			Log(content);
+		}
 	}
 }
