@@ -111,6 +111,15 @@ void initScene()
 		.def("create",&Transform::Create)
 		.staticmethod("create")
 
+		.add_property("local_position", make_function(&Transform::GetLocalPosition, return_value_policy<reference_existing_object>()),
+		(Transform::Ptr(Transform::*)(const Vector3&)) &Transform::SetLocalPosition)
+
+		.add_property("local_orientation", make_function(&Transform::GetLocalOrientation, return_value_policy<reference_existing_object>()),
+		(Transform::Ptr(Transform::*)(const Quaternion&))&Transform::SetLocalOrientation)
+
+		.add_property("local_scale", make_function(&Transform::GetLocalScale, return_value_policy<reference_existing_object>()),
+		(Transform::Ptr(Transform::*)(const Vector3&)) &Transform::SetLocalScale)
+
 		.add_property("position",  make_function(&Transform::GetPosition, return_value_policy<reference_existing_object>()),
 								  ( Transform::Ptr (Transform::*)( const Vector3&) ) &Transform::SetPosition )
 

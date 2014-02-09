@@ -187,6 +187,28 @@ namespace epsilon
         {
             Matrix4 rot, scaleM, pos, res;
             
+			// Rotation & Scale
+			rot = Quaternion::IDENTITY.GetMatrix();// derivedOrientation.GetMatrix();
+			//rot = orientation.GetMatrix();
+			scaleM = Matrix4::CreateScale(derivedScale.x, derivedScale.y, derivedScale.z);
+			res = rot * scaleM;
+
+			for (int i = 0; i < 3; i++)
+			{
+				//cachedTransform[Vector4(res3[i][0],res3[i][1],res3[i][2],0));
+				cachedTransform[4 * i] = res[4 * i];
+				cachedTransform[4 * i + 1] = res[4 * i + 1];
+				cachedTransform[4 * i + 2] = res[4 * i + 2];
+				cachedTransform[4 * i + 3] = 0;
+
+			}
+
+			// Translation
+			cachedTransform[3] = derivedPosition.x;
+			cachedTransform[7] = derivedPosition.y;
+			cachedTransform[11] = derivedPosition.z;
+
+			/*
             // Rotation & Scale
             rot = orientation.GetMatrix();
             scaleM = Matrix4::CreateScale(scale.x, scale.y, scale.z);
@@ -206,6 +228,7 @@ namespace epsilon
             cachedTransform[ 3 ] = position.x;
             cachedTransform[ 7 ] = position.y;
             cachedTransform[ 11 ] = position.z;
+			*/
             
             //res += pos;
             
@@ -246,11 +269,12 @@ namespace epsilon
 		parentNotified = false ;
 
         // Short circuit the off case
-        if (!updateChildren && !needParentUpdate && !needChildUpdate && !parentHasChanged )
+		/*
+		if (!needParentUpdate && !parentHasChanged )
         {
             return;
         }
-
+		*/
 
         // See if we should process everyone
         if (needParentUpdate || parentHasChanged)
@@ -259,24 +283,26 @@ namespace epsilon
             _updateFromParent();
 		}
 
-		if (needChildUpdate || parentHasChanged)
-		{
-			for_each(children->begin(), children->end(), [](Transform::Ptr child){
-				child->_update(true, true);
-			});
-            childrenToUpdate->empty();
-        }
-        else
-        {
-            // Just update selected children
-			for_each(childrenToUpdate->begin(), childrenToUpdate->end(), [](Transform::Ptr child){
-				child->_update(true, false);
-			});
+		//if (updateChildren)
+		//{
+			if (needChildUpdate || parentHasChanged)
+			{
+				for_each(children->begin(), children->end(), [](Transform::Ptr child){
+					child->_update(true, true);
+				});
+			}
+			else
+			{
+				// Just update selected children
+				for_each(childrenToUpdate->begin(), childrenToUpdate->end(), [](Transform::Ptr child){
+					child->_update(true, false);
+				});
+			}
+			childrenToUpdate->empty();
+			needChildUpdate = false;
+		//}
 
-            childrenToUpdate->empty();
-        }
-
-        needChildUpdate = false;
+		
 
     }
 	//-----------------------------------------------------------------------
@@ -336,20 +362,62 @@ namespace epsilon
             derivedScale = scale;
         }
 
+		// Update transform directional vectors
+		forward = derivedOrientation * Vector3::FORWARD;
+		forward.Normalise();
+
+		up = derivedOrientation * Vector3::UP;
+		up.Normalise();
+
+		right = derivedOrientation * Vector3::RIGHT;
+		right.Normalise();
+
 		cachedTransformOutOfDate = true;
 		needParentUpdate = false;
 
     }
 	//-----------------------------------------------------------------------
+	const Quaternion& Transform::GetLocalOrientation() const
+	{
+		return orientation;
+	}
+	//-----------------------------------------------------------------------
     const Quaternion& Transform::GetOrientation() const
     {
-        return orientation;
+        return derivedOrientation;
     }
+
+	//-----------------------------------------------------------------------
+	Transform::Ptr Transform::SetLocalOrientation(const Quaternion & q)
+	{
+		orientation = q;
+		orientation.Normalise();
+		needUpdate();
+		return ThisPtr();
+	}
+	//-----------------------------------------------------------------------
+	Transform::Ptr Transform::SetLocalOrientation(float w, float x, float y, float z)
+	{
+		orientation.w = w;
+		orientation.x = x;
+		orientation.y = y;
+		orientation.z = z;
+		needUpdate();
+		return ThisPtr();
+	}
 
     //-----------------------------------------------------------------------
     Transform::Ptr Transform::SetOrientation( const Quaternion & q )
     {
-        orientation = q;
+		if (parent)
+		{
+			orientation = (parent->_getDerivedOrientation() * q) * q.Inverse();
+			
+		}
+		else
+		{
+			orientation = q;
+		}
 		orientation.Normalise();
         needUpdate();
 		return ThisPtr();
@@ -357,10 +425,7 @@ namespace epsilon
     //-----------------------------------------------------------------------
     Transform::Ptr Transform::SetOrientation( float w, float x, float y, float z)
     {
-        orientation.w = w;
-        orientation.x = x;
-        orientation.y = y;
-        orientation.z = z;
+		SetOrientation(Quaternion(x, y, z, w));
         needUpdate();
 		return ThisPtr();
     }
@@ -372,11 +437,36 @@ namespace epsilon
 		return ThisPtr();
     }
 
+	//-----------------------------------------------------------------------
+	Transform::Ptr Transform::SetLocalPosition(const Vector3& pos)
+	{
+		position = pos;
+		needUpdate(true);
+		return ThisPtr();
+	}
+
+
+	//-----------------------------------------------------------------------
+	Transform::Ptr Transform::SetLocalPosition(float x, float y, float z)
+	{
+		Vector3 v(x, y, z);
+		SetLocalPosition(v);
+		return ThisPtr();
+	}
+
     //-----------------------------------------------------------------------
-    Transform::Ptr Transform::SetPosition(const Vector3& pos)
-    {
-        position = pos;
-        needUpdate();
+	Transform::Ptr Transform::SetPosition(const Vector3& pos)
+	{
+		// Convert World to local
+		if (parent)
+		{
+			position = pos - parent->_getDerivedPosition();
+		}
+		else
+		{
+			position = pos;
+		}
+        needUpdate(true);
 		return ThisPtr();
     }
 
@@ -384,24 +474,27 @@ namespace epsilon
     //-----------------------------------------------------------------------
     Transform::Ptr Transform::SetPosition(float x, float y, float z)
     {
-        Vector3 v(x,y,z);
-        SetPosition(v);
+        SetPosition(Vector3(x, y, z));
 		return ThisPtr();
     }
 
     //-----------------------------------------------------------------------
-    const Vector3 & Transform::GetPosition(void) const
+	const Vector3 & Transform::GetLocalPosition(void) const
+	{
+		return position;
+	}//-----------------------------------------------------------------------
+	const Vector3 & Transform::GetPosition(void) const
     {
-        return position;
+        return derivedPosition;
     }//-----------------------------------------------------------------------
-    Transform::Ptr Transform::SetScale(const Vector3& newScale)
+    Transform::Ptr Transform::SetLocalScale(const Vector3& newScale)
     {
         scale = newScale;
         needUpdate();
 		return ThisPtr();
     }
     //-----------------------------------------------------------------------
-    Transform::Ptr Transform::SetScale(float x, float y, float z)
+	Transform::Ptr Transform::SetLocalScale(float x, float y, float z)
     {
         scale.x = x;
         scale.y = y;
@@ -409,10 +502,34 @@ namespace epsilon
         needUpdate();
 		return ThisPtr();
     }
+	Transform::Ptr Transform::SetScale(const Vector3& newScale)
+	{
+		if (parent)
+		{
+			scale = newScale / parent->_getDerivedScale();
+		}
+		else
+		{
+			scale = newScale;
+		}
+		needUpdate();
+		return ThisPtr();
+	}
+	//-----------------------------------------------------------------------
+	Transform::Ptr Transform::SetScale(float x, float y, float z)
+	{
+		SetScale(Vector3(x, y, z));
+		return ThisPtr();
+	}
+	//-----------------------------------------------------------------------
+	const Vector3 & Transform::GetLocalScale(void) const
+	{
+		return scale;
+	}
     //-----------------------------------------------------------------------
     const Vector3 & Transform::GetScale(void) const
     {
-        return scale;
+        return derivedScale;
     }
     //-----------------------------------------------------------------------
     Transform::Ptr Transform::SetInheritOrientation(bool inherit)

@@ -53,17 +53,17 @@ namespace epsilon
 		// Transform to Vector Helpers
 		Vector3 Forward()
 		{
-			return _getDerivedOrientation() * Vector3::FORWARD;
+			return forward;
 		};
 
 		Vector3 Up()
 		{
-			return _getDerivedOrientation() * Vector3::UP;
+			return up;
 		};
 
 		Vector3 Right()
 		{
-			return _getDerivedOrientation() * Vector3::RIGHT;
+			return right;
 		};
 
 		/** Enumeration denoting the spaces which a transform can be relative to.
@@ -82,21 +82,38 @@ namespace epsilon
 
 		// orientations doesn't necessarily inherit from parents.
 		// determined by the value of inheritOrientation
+			
+		const Quaternion & GetLocalOrientation() const;
 		const Quaternion & GetOrientation() const;
+
+		Transform::Ptr SetLocalOrientation(const Quaternion& q);
+		Transform::Ptr SetLocalOrientation(float w, float x, float y, float z);
+
 		Transform::Ptr SetOrientation( const Quaternion& q);
 		Transform::Ptr SetOrientation( float w, float x, float y, float z);
+
 		Transform::Ptr ResetOrientation();
 		Transform::Ptr SetInheritOrientation(bool inherit);
 		bool GetInheritOrientation(void) const;
 
 		// relative to parent
+		const Vector3 & GetLocalPosition() const;
 		const Vector3 & GetPosition() const;
+
+		Transform::Ptr SetLocalPosition(const Vector3& pos);
+		Transform::Ptr SetLocalPosition(float x, float y, float z);
+
 		Transform::Ptr SetPosition( const Vector3& pos);
 		Transform::Ptr SetPosition( float x, float y, float z);
 
 		// scale also doesn't necessarily inherit from parents
 		// determined by the value of inheritScale
+		const Vector3 & GetLocalScale(void) const;
 		const Vector3 & GetScale(void) const;
+
+		Transform::Ptr SetLocalScale(const Vector3& sscale);
+		Transform::Ptr SetLocalScale(float x, float y, float z);
+
 		Transform::Ptr SetScale( const Vector3& sscale);
 		Transform::Ptr SetScale( float x, float y, float z);
 		Transform::Ptr SetInheritScale(bool inherit);
@@ -196,6 +213,10 @@ namespace epsilon
 		Vector3 position;
 		Quaternion orientation;
 		Vector3 scale;
+
+		Vector3 forward;
+		Vector3 up;
+		Vector3 right;
 
 		Vector3 derivedPosition;
 		Quaternion derivedOrientation;
