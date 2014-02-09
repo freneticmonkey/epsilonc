@@ -36,6 +36,10 @@ namespace epsilon
 								   "Epsilon Engine",
 								   Style::Default,
 								   openglSettings);
+
+		// Set Framerate limit to 60fps
+		window->setFramerateLimit(60);
+
 		font = new Font();
 		//if (!font->loadFromFile("/Users/scottporter/Development/Projects/C++/epsilonc/resources/sansation.ttf"))
 		if (!font->loadFromFile("resources/sansation.ttf"))

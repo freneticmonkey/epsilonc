@@ -37,6 +37,8 @@ namespace epsilon
 		// Utility
 		float GetFPS(float el);
 
+		sf::RenderWindow * GetWindow() { return window;  }
+
 	private:
 		sf::RenderWindow * window;
 		sf::Text * fpsText;
