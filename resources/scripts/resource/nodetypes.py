@@ -1,3 +1,7 @@
+import re
+
+from epsilon import util
+
 from epsilon import ScriptManager
 from epsilon.math import Vector2, Vector3, Quaternion
 
@@ -43,10 +47,10 @@ class BaseXMLNode(object):
 
 		string_value = xml_tag.attrib[name]
 
-		if string_value.find(',') != -1:
-			a = string_value.split(",")
-		else:
-			a = string_value.split(" ")
+		string_value = re.sub(r"[\s|,]+", "|",string_value)
+
+		if string_value.find('|') != -1:
+			a = string_value.split("|")
 		l = len(a)
 		return [float(s) for s in a], l
 
@@ -67,7 +71,7 @@ class BaseXMLNode(object):
 	def parse_rot_axis(self, xml_tag, name=""):
 		rotf, length = self.string_to_float_array(xml_tag, name)
 		if length == 4:
-			return Quaternion().new_rotate_axis(rotf[0], Vector3(rotf[1],rotf[2],rotf[3]))
+			return Quaternion().rotate_axis(Vector3(rotf[0],rotf[1],rotf[2]), rotf[3])
 		else:
 			self.raise_parse_issue("Invalid Rot Axis: %s [%s]" % (name, xml_tag.attrib[name]) )            
 
@@ -147,6 +151,8 @@ class SceneNode(BaseXMLNode):
 
 			# Set the name of the node
 			node.name = node_name				
+
+			print "Attached child: " + node_name
 				
 		# otherwise it's a floating node, not sure what this means...
 		else:
@@ -162,8 +168,9 @@ class SceneTransform(BaseXMLNode):
 		if not scene_node is None:
 
 			if "position" in xml_tag.attrib:
-				scene_node.transform.position = self.parse_vector3(xml_tag, "position")
-			
+				pos = self.parse_vector3(xml_tag, "position")
+				scene_node.transform.position = pos
+
 			if "rotation" in xml_tag.attrib:
 				scene_node.transform.rotation = self.parse_rot_axis(xml_tag, "rotation")
 				
@@ -283,9 +290,9 @@ class SceneMesh(BaseXMLNode):
 					elif preset == "CUBE":
 						default_width_segs = 1
 						default_height_segs = 1
-						width_segs = self.extract_float_attribute(xml_tag, "width_segs", default_width_segs)
-						height_segs = self.extract_float_attribute(xml_tag, "height_segs", default_height_segs)
-						mesh = MeshFactory.generate_cube(default_width_segs, default_height_segs)
+						width_segs = self.extract_int_attribute(xml_tag, "width_segs", default_width_segs)
+						height_segs = self.extract_int_attribute(xml_tag, "height_segs", default_height_segs)
+						mesh = MeshFactory.generate_cube()#default_width_segs, default_height_segs)
 
 					elif preset == "SPHERE":
 						default_stacks = 8
