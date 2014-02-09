@@ -54,10 +54,22 @@ namespace epsilon
 	{
         Vector3 up(0.f, 1.f, 0.f);
         Vector3 from(x, y, z);
-        Vector3 to(lookAtX, lookAtY, lookAtZ);
+        Vector3 to(lookAtX, -lookAtY, lookAtZ);
         
-        viewMatrix = Matrix4::CreateLookAt(from, to, up);
-        		
+		if (from != GetComponent<Transform>()->GetPosition())
+		{
+			GetComponent<Transform>()->SetPosition(from);
+		}
+		
+		// Invert the y-axis - cause opengl.
+		from.y = -from.y;
+		// create the look at matrix.
+		viewMatrix = Matrix4::CreateLookAt(from, to, up);
+
+		// Set the orientation in the transform from the look at matrix
+		GetComponent<Transform>()->SetOrientation(Quaternion(viewMatrix));
+
+
         /*
         Vector3 dir(lookAtX - x, lookAtY - y, lookAtZ - z);
 		Vector3 right = dir.Cross(up);
@@ -141,6 +153,12 @@ namespace epsilon
 		projMatrix[3 * 4 + 2] = (2.0f * farP * nearP) / (nearP - farP);
 		projMatrix[2 * 4 + 3] = -1.0f;
 		projMatrix[3 * 4 + 3] = 0.0f;
+
+		// Inverting the Y-axis cause OpenGL :/
+		/*Matrix4 invertY;
+		invertY[5] = -1;
+		projMatrix *= invertY;*/
+		projMatrix.Scale(1.0f, -1.f, 1.0f);
 	}
 
 }
