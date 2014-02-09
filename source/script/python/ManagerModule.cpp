@@ -5,6 +5,7 @@
 #include "scene/SceneManager.h"
 #include "script/ScriptManager.h"
 #include "script/Script.h"
+#include "ui/UIManager.h"
 
 void initManagers()
 {
@@ -219,4 +220,14 @@ void initManagers()
 		.value("XButton2" , sf::Mouse::Button::XButton2)
 	;
 
+	object uiManager = class_<UIManager, boost::noncopyable>("UIManager", no_init)
+		.def("get_instance", &UIManager::GetInstance, return_value_policy<reference_existing_object>())
+		.staticmethod("get_instance")
+
+		.def("get_window", &UIManager::GetWindowByName)
+		;
+
+	// Injecting the get instance result into the namespace
+	smGI = uiManager.attr("get_instance");
+	package.attr("UIManager") = smGI();
 }
