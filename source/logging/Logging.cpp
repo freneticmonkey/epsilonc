@@ -21,6 +21,7 @@ namespace epsilon
 	{
 		content = this->name + ": " + content + "\n";
 		printf("%s",content.c_str());
+		fflush(stdout);
 
 		if ( !listeners.empty() )
 		{
