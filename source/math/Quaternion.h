@@ -62,10 +62,18 @@ public:
         by = other.y;
         bz = other.z;
         bw = other.w;
-        return Quaternion( ax * bw + ay * bz - az * by + aw * bx,   //x
+		return Quaternion(
+			aw * bx + ax * bw + ay * bz - az * by, //x
+			aw * by + ay * bw + az * bx - ax * bz, //y
+			aw * bz + az * bw + ax * by - ay * bx, //z
+
+			aw * bw - ax * bx - ay * by - az * bz); //w
+		/*
+			return Quaternion( ax * bw + ay * bz - az * by + aw * bx,   //x
                           -ax * bz + ay * bw + az * bx + aw * by,   //y
                           ax * by - ay * bx + az * bw + aw + bz,   //z
                           -ax * bx - ay * by - az * bz + aw * bw ); //w
+		*/
         
         
     }
