@@ -43,7 +43,38 @@ namespace epsilon
 
 		window->resetGLStates();
 
+		// Draw the windows first
 		sfgui->Display( *window );
+
+		// Then the overlays
+		for (OverlayList::iterator i = overlayList.begin(); i != overlayList.end(); i++)
+		{
+			(*i)->Draw(window);
+		}
+	}
+
+	void UIManager::AddUIOverlay(UIOverlay::Ptr newOverlay)
+	{
+		if (newOverlay)
+		{
+			overlayList.push_back(newOverlay);
+		}
+	}
+
+	UIOverlay::Ptr UIManager::GetOverlayByName(const std::string & name)
+	{
+		UIOverlay::Ptr overlay;
+
+		OverlayList::iterator foundChildIt = std::find_if(overlayList.begin(), overlayList.end(), [name](UIOverlay::Ptr overlay){
+			return overlay->GetName() == name;
+		});
+
+		if (foundChildIt != overlayList.end())
+		{
+			overlay = (*foundChildIt);
+		}
+
+		return overlay;
 	}
 
 	void UIManager::AddUIWindow(UIWindow::Ptr newWindow)
@@ -54,6 +85,8 @@ namespace epsilon
 			windowList.push_back(newWindow);
 		}
 	}
+
+	
 
 	UIWindow::Ptr UIManager::GetWindowByName(const std::string & name)
 	{

@@ -10,6 +10,8 @@
 #include "script/ScriptManager.h"
 #include "ui/UIManager.h"
 #include "ui/ConsoleWindow.h"
+#include "ui/DebugStatsOverlay.h"
+#include "ui/Graph.h"
 
 #include "utilities/Utilities.h"
 
@@ -38,6 +40,15 @@ namespace epsilon
 		CycleValue cycle;
 		Transform::Ptr triangleTrans;
 		Camera::Ptr camera;
+
+		Graph::Ptr fpsGraph;
+		Graph::Ptr scriptGraph;
+		Graph::Ptr renderGraph;
+		Graph::Ptr eventsGraph;
+
+		sf::Clock  scriptClock;
+		sf::Clock  renderClock;
+		sf::Clock  eventsClock;
 	};
 }
 

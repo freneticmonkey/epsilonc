@@ -50,7 +50,9 @@
     <ClCompile Include="..\source\script\ScriptManager.cpp" />
     <ClCompile Include="..\source\tests\pointerTests.cpp" />
     <ClCompile Include="..\source\ui\ConsoleWindow.cpp" />
+    <ClCompile Include="..\source\ui\DebugStatsOverlay.cpp" />
     <ClCompile Include="..\source\ui\DebugWindow.cpp" />
+    <ClCompile Include="..\source\ui\Graph.cpp" />
     <ClCompile Include="..\source\ui\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -104,8 +106,11 @@
     <ClInclude Include="..\source\script\ScriptEngineCore.h" />
     <ClInclude Include="..\source\script\ScriptManager.h" />
     <ClInclude Include="..\source\ui\ConsoleWindow.h" />
+    <ClInclude Include="..\source\ui\DebugStatsOverlay.h" />
     <ClInclude Include="..\source\ui\DebugWindow.h" />
+    <ClInclude Include="..\source\ui\Graph.h" />
     <ClInclude Include="..\source\ui\UIManager.h" />
+    <ClInclude Include="..\source\ui\UIOverlay.h" />
     <ClInclude Include="..\source\ui\UIWindow.h" />
     <ClInclude Include="..\source\utilities\Utilities.h" />
   </ItemGroup>

@@ -167,6 +167,12 @@
     <ClCompile Include="..\source\script\python\UIModule.cpp">
       <Filter>Source Files\script\python</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\ui\Graph.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\ui\DebugStatsOverlay.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\EpsilonCore.h">
@@ -330,6 +336,15 @@
     </ClInclude>
     <ClInclude Include="..\source\script\python\UIModule.h">
       <Filter>Source Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\ui\Graph.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\ui\UIOverlay.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\ui\DebugStatsOverlay.h">
+      <Filter>Source Files\ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

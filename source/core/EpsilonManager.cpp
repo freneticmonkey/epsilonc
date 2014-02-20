@@ -37,10 +37,25 @@ namespace epsilon
 
 		uiManager = &UIManager::GetInstance();
 		uiManager->Setup();
+
 		
 		ConsoleWindow::Ptr consoleWindow = ConsoleWindow::Create();
 		consoleWindow->Setup();
 		uiManager->AddUIWindow(consoleWindow);
+
+		DebugStatsOverlay::Ptr debugStatsOverlay = DebugStatsOverlay::Create();
+		debugStatsOverlay->Setup();
+		uiManager->AddUIOverlay(debugStatsOverlay);
+
+		fpsGraph = debugStatsOverlay->CreateGraph("FPS");
+		scriptGraph = debugStatsOverlay->CreateGraph("script");
+		scriptGraph->SetColour(Colour::BLUE);
+		renderGraph = debugStatsOverlay->CreateGraph("render");
+		renderGraph->SetColour(Colour::GREEN);
+		eventsGraph = debugStatsOverlay->CreateGraph("events");
+		eventsGraph->SetColour(Colour::ORANGE);
+
+		//fpsGraph->SetColour(Colour::RED);
 
 		sceneManager = &SceneManager::GetInstance();
 		sceneManager->Setup();
@@ -64,16 +79,31 @@ namespace epsilon
 #else
 		tbb::task_group taskGroup;
 
-		taskGroup.run( [&]() { EventManager::ProcessEvents(0.f); } );
-		taskGroup.run( [&]() { scriptManager->Update(el); } );
+		eventsClock.restart();
+		taskGroup.run( [&]() { 
+			EventManager::ProcessEvents(0.f); 
+			eventsGraph->AddValue(eventsClock.getElapsedTime().asMilliseconds());
+		} );
+
+		scriptClock.restart();
+		taskGroup.run( [&]() { 
+			scriptManager->Update(el); 
+			scriptGraph->AddValue(scriptClock.getElapsedTime().asMilliseconds());
+		} );
+
 		//taskGroup.run( [&]() { uiManager->OnUpdate(el); } );
-		taskGroup.run( [&]() { sceneManager->Cull(); } );
+		
+		taskGroup.run( [&]() { 
+			sceneManager->Cull(); 
+		} );
 
 		taskGroup.wait();
 #endif
 		// UI cannot be updated in parallel due to SFGUI not being threadsafe, gfx access etc
 		uiManager->OnUpdate(el);
+		renderClock.restart();
 		renderManager->Draw(el);
+		renderGraph->AddValue(renderClock.getElapsedTime().asMilliseconds());
 	}
 
 	void EpsilonManager::Run(void)
@@ -103,11 +133,14 @@ namespace epsilon
 				}
 
 			}
-			float el = clock.getElapsedTime().asMicroseconds() / 1000000.0f;
+			float el = clock.getElapsedTime().asMilliseconds();
+			
+			fpsGraph->AddValue(el);
+			
 			// Restart timing for next sequence
 			clock.restart();
 
-			OnUpdate(el);
+			OnUpdate(el / 1000.0f);
 		}
 
 		// Stop Scripts

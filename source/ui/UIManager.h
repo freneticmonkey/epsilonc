@@ -4,11 +4,16 @@
 
 #include "logging/Logging.h"
 #include "ui/UIWindow.h"
+#include "ui/UIOverlay.h"
+#include "ui/Graph.h"
 
 namespace epsilon
 {
 	typedef std::list<UIWindow::Ptr> WindowList;
 	typedef WindowList::iterator WindowListIterator;
+
+	typedef std::list<Graph::Ptr> GraphList;
+	typedef std::list<UIOverlay::Ptr> OverlayList;
 
 	class UIManager
 	{
@@ -31,6 +36,9 @@ namespace epsilon
 		void OnUpdate(float el);
 		void Draw(sf::RenderWindow * window);
 
+		void AddUIOverlay(UIOverlay::Ptr newOverlay);
+		UIOverlay::Ptr GetOverlayByName(const std::string & name);
+
 		void AddUIWindow(UIWindow::Ptr newWindow);
 		UIWindow::Ptr GetWindowByName(const std::string & name);
 		void ProcessEvent(sf::Event &event);
@@ -39,5 +47,6 @@ namespace epsilon
 		sfg::SFGUI * sfgui;
 		sfg::Desktop * desktop;
 		WindowList windowList;
+		OverlayList overlayList;
 	};
 }
