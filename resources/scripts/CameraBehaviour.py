@@ -1,4 +1,5 @@
 from epsilon import Input
+from epsilon.logging import Logger
 from epsilon.math import Vector3, Quaternion
 from epsilon.render import Camera
 from epsilon.scene import TransformSpace
@@ -9,7 +10,7 @@ class CameraBehaviour(object):
 	
 	def __init__(self):
 		self._speed = 10
-		self._angle_speed = 10
+		self._angle_speed = 100.0
 		self._mouse_speed_x = 0.02
 		self._mouse_speed_y = 0.02
 
@@ -18,10 +19,12 @@ class CameraBehaviour(object):
 		print "Camera Name: " + self.node.name
 
 	def on_update(self, dt):
+		# if Input.key_down(Input.Key.Q):
+		# 	print self.node.transform.forward
 
 		# if the right mouse button is down, active cam controls
 		if Input.mouse_button(Input.Button.Right):
-
+			
 			applied_speed = self._speed
 
 			if Input.key(Input.Key.LShift):
@@ -44,25 +47,52 @@ class CameraBehaviour(object):
 			if Input.key(Input.Key.S):
 				self.node.transform.translate(-Vector3.FORWARD * applied_speed * dt )
 
-			angle = self._angle_speed * dt
+			if Input.key(Input.Key.E):
+				self.node.transform.translate(Vector3.UP * applied_speed * dt )
 
-			# Convert to radians
-			angle *= (math.pi / 180.0)
+			if Input.key(Input.Key.C):
+				self.node.transform.translate(-Vector3.UP * applied_speed * dt )
+
+			# angle = self._angle_speed * dt
+
+			# # Convert to radians
+			# angle *= (math.pi / 180.0)
 
 			# convert the mouse input into rotation
-			mouse_pos = Input.mouse_position_relative()
+			#mouse_pos = Input.mouse_position_relative()
+			#print Input.mouse_position()	
 
-			h_angle = self._mouse_speed_x * -mouse_pos.y
-			v_angle = self._mouse_speed_y * -mouse_pos.x
+			#if mouse_pos.x != 0.0 and mouse_pos.y != 0.0:
+			# print mouse_pos
 
-			self.node.transform.rotate(self.node.transform.up, h_angle)
-			self.node.transform.rotate(self.node.transform.right, v_angle)
+			# h_angle = (self._mouse_speed_x * -mouse_pos.x * dt) #/ (self._angle_speed )
+			# v_angle = (self._mouse_speed_y * -mouse_pos.y * dt) #/ (self._angle_speed * dt)
+
+			# h_angle = angle #(self._mouse_speed_x * -mouse_pos.x * angle)
+			# v_angle = 0.0 #(self._mouse_speed_y * -mouse_pos.y * angle)
+
+			#v_angle = 0.0
+
+			#print "Speed: x: %f y: %f" % ( h_angle, v_angle)
+			#print self.node.transform.up
+
+			#self.node.transform.yaw(h_angle)
+			#self.node.transform.rotate(self.node.transform.up, h_angle)
+			#self.node.transform.rotate(self.node.transform.right, v_angle)
 
 			# if h_angle > 0.0:
 			# 	print self.node.transform.forward
 
 			# Set the camera look at position to a point self._speed units in front
-			self.node.lookat(self.node.transform.position, self.node.transform.forward * self._speed)
+			#self.node.lookat(self.node.transform.position, self.node.transform.forward * self._speed)
+			# print "Forward:"
+			# print self.node.transform.forward
+			# print "UP:"
+			# print self.node.transform.up
+			# print ""
+			#self.node.lookat(self.node.transform.forward * self._speed)
+			
+			self.node.lookat(Vector3(1,1,0))
 
 	def on_destroy(self):
 		pass

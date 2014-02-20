@@ -1,6 +1,8 @@
 from epsilon import *
 import random
 
+from epsilon.scene import TransformSpace
+
 from epsilon.render import Colour
 from epsilon.math import Vector3
 from CycleValue import CycleValue
@@ -40,6 +42,16 @@ class MyBehaviour(object):
 	def on_update(self, dt):
 		self._pos.x = self._cycle.get_value(dt) + self._init_pos
 		self.node.transform.position = self._pos# + self._init_pos)
+		#self.node.transform.yaw(dt*0.707, TransformSpace.TS_LOCAL)
+		#self.node.transform.yaw(dt*1.57)
+		
+		if Input.key_down(Input.Key.Q):
+			print "Forward"
+			print self.node.transform.forward
+			print "Up"
+			print self.node.transform.up
+			print "Right"
+			print self.node.transform.right
 
 	def on_destroy(self):
 		pass
