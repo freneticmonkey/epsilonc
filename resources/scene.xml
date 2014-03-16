@@ -14,6 +14,15 @@
 					<script filename="MyBehaviourClass.py"/>
 				</scripts> -->
 			</node>
+
+			<node name="child_plane_node">
+				<transform position="0 -1 0" scale="3 3 3"/><!-- rotation="0.707 0 1 0"/>-->
+				<mesh preset="PLANE"/>
+				<scripts>
+					<script filename="RotationTest.py"/>
+				</scripts>
+			</node>
+
 		</children>
 	</node>
 
@@ -22,15 +31,46 @@
 		<mesh preset="GRID" size="10" resolution="1"/>
 	</node>
 
-
-	<camera name="scene_cam" from="0 1 -8" to="0 1 0" active="True">
-		<scripts>
-			<script filename="CameraBehaviour.py"/>
-		</scripts>
+	<node name="camera_mount">
+		<transform position="0 1 -8"/>
 		<children>
-
+			<camera name="scene_cam" from="0 1 -8" to="0 1 0" active="True">
+				<scripts>
+					<script filename="CameraBehaviour.py"/>
+				</scripts>
+			</camera>
 		</children>
-	</camera>
+	</node>
+
+	<node name="box">
+		<node name="wall_1">
+			<transform position="5 0 0" rotation="0 0 1 1.5707" scale="10 10 10"/>
+			<mesh preset="PLANE"/>
+			<material diffuse="1 0 0 1"/>
+		</node>
+		<node name="wall_2">
+			<transform position="-5 0 0" rotation="0 0 1 -1.5707" scale="10 10 10"/>
+			<mesh preset="PLANE"/>
+			<material diffuse="0 1 0 1"/>
+		</node>
+		<node name="wall_3">
+			<transform position="0 0 5" rotation="1 0 0 1.5707" scale="10 10 10"/>
+			<mesh preset="PLANE"/>
+			<material diffuse="1 1 1 1"/>
+		</node>
+		<node name="wall_4">
+			<transform position="0 5 0" rotation="1 0 0 3.14159" scale="10 10 10"/>
+			<mesh preset="PLANE"/>
+			<material diffuse="1 1 1 1"/>
+		</node>
+
+		<node name="wall_5">
+			<transform position="0 -5 0" rotation="1 0 0 -3.14159" scale="10 10 10"/>
+			<mesh preset="PLANE"/>
+			<material diffuse="1 1 1 1"/>
+		</node>
+
+	</node>
 
 	<node name="markers">
 		<transform position="0 0 0" rotation="0 0 1 0"/>
@@ -40,7 +80,7 @@
 				<mesh preset="SPHERE"/>
 				<material diffuse="1 0 0 1"/>
 				<scripts>
-					<script filename="TransformDebug.py"/>
+					<script filename="KeyboardControl.py"/>
 				</scripts>
 			</node>
 			<node name="marker_2">
