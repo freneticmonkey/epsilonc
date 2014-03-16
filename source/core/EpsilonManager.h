@@ -29,6 +29,8 @@ namespace epsilon
 
 		void MeshTest(void);
 
+		void SetThreadEnable(bool enableThreads);
+
 	private:
 		EventManager * eventManager;
 		InputManager * inputManager;
@@ -43,12 +45,16 @@ namespace epsilon
 
 		Graph::Ptr fpsGraph;
 		Graph::Ptr scriptGraph;
+		Graph::Ptr sceneGraph;
 		Graph::Ptr renderGraph;
 		Graph::Ptr eventsGraph;
 
 		sf::Clock  scriptClock;
+		sf::Clock  sceneClock;
 		sf::Clock  renderClock;
 		sf::Clock  eventsClock;
+
+		bool	   threadEnable;
 	};
 }
 

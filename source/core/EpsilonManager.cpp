@@ -14,12 +14,17 @@
 
 namespace epsilon
 {
-	EpsilonManager::EpsilonManager(void)
+	EpsilonManager::EpsilonManager(void) : threadEnable(true)
 	{
 	}
 
 	EpsilonManager::~EpsilonManager(void)
 	{
+	}
+
+	void EpsilonManager::SetThreadEnable(bool enableThreads)
+	{
+		threadEnable = enableThreads;
 	}
 
 	void EpsilonManager::Setup(void)
@@ -48,10 +53,16 @@ namespace epsilon
 		uiManager->AddUIOverlay(debugStatsOverlay);
 
 		fpsGraph = debugStatsOverlay->CreateGraph("FPS");
+
 		scriptGraph = debugStatsOverlay->CreateGraph("script");
 		scriptGraph->SetColour(Colour::BLUE);
+
+		sceneGraph = debugStatsOverlay->CreateGraph("scene");
+		sceneGraph->SetColour(Colour::CYAN);
+
 		renderGraph = debugStatsOverlay->CreateGraph("render");
 		renderGraph->SetColour(Colour::GREEN);
+
 		eventsGraph = debugStatsOverlay->CreateGraph("events");
 		eventsGraph->SetColour(Colour::ORANGE);
 
@@ -73,32 +84,48 @@ namespace epsilon
 	void EpsilonManager::OnUpdate(float el)
 	{
 #ifdef __APPLE__
-		EventManager::ProcessEvents(0.f);
-        scriptManager->Update(el);
-        sceneManager->Cull();
-#else
-		tbb::task_group taskGroup;
-
-		eventsClock.restart();
-		taskGroup.run( [&]() { 
-			EventManager::ProcessEvents(0.f); 
-			eventsGraph->AddValue(eventsClock.getElapsedTime().asMilliseconds());
-		} );
-
-		scriptClock.restart();
-		taskGroup.run( [&]() { 
-			scriptManager->Update(el); 
-			scriptGraph->AddValue(scriptClock.getElapsedTime().asMilliseconds());
-		} );
-
-		//taskGroup.run( [&]() { uiManager->OnUpdate(el); } );
-		
-		taskGroup.run( [&]() { 
-			sceneManager->Cull(); 
-		} );
-
-		taskGroup.wait();
+		threadEnable = false;
 #endif
+		if (threadEnable)
+		{
+			tbb::task_group taskGroup;
+
+			eventsClock.restart();
+			taskGroup.run([&]() {
+				EventManager::ProcessEvents(0.f);
+				eventsGraph->AddValue(eventsClock.getElapsedTime().asMilliseconds());
+			});
+
+			scriptClock.restart();
+			taskGroup.run([&]() {
+				scriptManager->Update(el);
+				scriptGraph->AddValue(scriptClock.getElapsedTime().asMilliseconds());
+			});
+
+			/*
+			sceneClock.restart();
+			taskGroup.run([&]() {				
+				sceneManager->Update(el);
+				sceneManager->Cull();
+				sceneGraph->AddValue(sceneClock.getElapsedTime().asMilliseconds());
+			});
+			*/
+
+			taskGroup.wait();
+
+			//taskGroup.run( [&]() { uiManager->OnUpdate(el); } );
+		}
+		else
+		{
+			EventManager::ProcessEvents(0.f);
+			scriptManager->Update(el);
+			sceneManager->Update(el);
+			sceneManager->Cull();
+		}
+		
+		sceneManager->Update(el);
+		sceneManager->Cull();
+
 		// UI cannot be updated in parallel due to SFGUI not being threadsafe, gfx access etc
 		uiManager->OnUpdate(el);
 		renderClock.restart();
