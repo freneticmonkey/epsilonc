@@ -35,6 +35,7 @@ class ScriptCore(object):
 		# If escape is pressed, close the window
 		if Input.key_down(Input.Key.Escape):
 			RenderManager.close_window()
+			print 'Closing'
 
 		# If Tilde is pressed toggle the console window
 		if Input.key_down(Input.Key.Tilde):

@@ -41,9 +41,7 @@ class MyBehaviour(object):
 
 	def on_update(self, dt):
 		self._pos.x = self._cycle.get_value(dt) + self._init_pos
-		self.node.transform.position = self._pos# + self._init_pos)
-		#self.node.transform.yaw(dt*0.707, TransformSpace.TS_LOCAL)
-		#self.node.transform.yaw(dt*1.57)
+		self.node.transform.position = self._pos
 		
 		if Input.key_down(Input.Key.Q):
 			print "Forward"
