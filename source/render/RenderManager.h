@@ -37,22 +37,25 @@ namespace epsilon
 		// Utility
 		float GetFPS(float el);
 
+		Vector2 GetResolution() { return resolution;  }
+
 		sf::RenderWindow * GetWindow() { return window;  }
 
 	private:
-		sf::RenderWindow * window;
-		sf::Text * fpsText;
-		sf::Font * font;
+		sf::RenderWindow *	window;
+		sf::Text *			fpsText;
+		sf::Font *			font;
+		Vector2				resolution;
 
 		RenderStateStack::Ptr stateStack;
 
-		float fps;
-		SceneManager * sceneManager;
-		UIManager * uiManager;
+		float				fps;
+		SceneManager *		sceneManager;
+		UIManager *			uiManager;
 
-		static const int NUM_FPS_SAMPLES = 64;
-		float fpsSamples[NUM_FPS_SAMPLES];
-		int currFPSSample;
+		static const int	NUM_FPS_SAMPLES = 64;
+		float				fpsSamples[NUM_FPS_SAMPLES];
+		int					currFPSSample;
 	};
 }
 

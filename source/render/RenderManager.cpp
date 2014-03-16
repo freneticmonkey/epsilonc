@@ -2,7 +2,8 @@
 
 namespace epsilon
 {
-	RenderManager::RenderManager(void) : currFPSSample(0)
+	RenderManager::RenderManager(void) : currFPSSample(0),
+										 resolution(800,600)
 	{
 		for ( int i = 0; i < NUM_FPS_SAMPLES; i++)
 		{
@@ -27,12 +28,12 @@ namespace epsilon
 		Log("Initialising RenderManager");
         
         ContextSettings openglSettings;
-        openglSettings.depthBits = 32;
+        openglSettings.depthBits = 16;
         openglSettings.stencilBits = 8;
         openglSettings.antialiasingLevel = 0;
-        openglSettings.majorVersion = 2;
-        openglSettings.minorVersion = 1;
-		window = new RenderWindow( VideoMode(800, 600),
+        openglSettings.majorVersion = 3;
+        openglSettings.minorVersion = 3;
+		window = new RenderWindow(VideoMode(resolution.x, resolution.y),
 								   "Epsilon Engine",
 								   Style::Default,
 								   openglSettings);
@@ -71,12 +72,7 @@ namespace epsilon
 		Log("INFO: OpenGL Version: ");
 		Log((const char *)glGetString(GL_VERSION));
         
-        // Enable Z-buffer read and write
-		glEnable(GL_DEPTH_TEST);
-		glDepthMask(GL_TRUE);
-		glClearDepth(1.f);
-
-		fps = 0.0f;
+        fps = 0.0f;
 	}
 
 	//void RenderManager::Draw(sf::Time el)
@@ -91,6 +87,11 @@ namespace epsilon
 
 		// Reset any render states
 		stateStack->Reset();
+
+		// Enable Z-buffer read and write
+		glEnable(GL_DEPTH_TEST);
+		glDepthMask(GL_TRUE);
+		glClearDepth(1.f);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
