@@ -19,6 +19,12 @@ struct AxisAngle
         axis = iaxis;
         angle = iangle;
     }
+
+	// To String
+	inline std::string ToString()
+	{
+		return Format("Axis: (x: %5.5f y: %5.5f z: %5.5f) Angle: %5.5f", axis.x, axis.y, axis.z, angle);
+	}
 };
 
 struct Euler
