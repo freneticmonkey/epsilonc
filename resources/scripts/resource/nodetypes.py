@@ -71,7 +71,7 @@ class BaseXMLNode(object):
 	def parse_rot_axis(self, xml_tag, name=""):
 		rotf, length = self.string_to_float_array(xml_tag, name)
 		if length == 4:
-			return Quaternion().rotate_axis(Vector3(rotf[0],rotf[1],rotf[2]), rotf[3])
+			return Quaternion(Vector3(rotf[0],rotf[1],rotf[2]), rotf[3])
 		else:
 			self.raise_parse_issue("Invalid Rot Axis: %s [%s]" % (name, xml_tag.attrib[name]) )            
 
@@ -150,9 +150,7 @@ class SceneNode(BaseXMLNode):
 			node = scene_node.create_child_node()
 
 			# Set the name of the node
-			node.name = node_name				
-
-			print "Attached child: " + node_name
+			node.name = node_name
 				
 		# otherwise it's a floating node, not sure what this means...
 		else:
@@ -172,7 +170,8 @@ class SceneTransform(BaseXMLNode):
 				scene_node.transform.position = pos
 
 			if "rotation" in xml_tag.attrib:
-				scene_node.transform.rotation = self.parse_rot_axis(xml_tag, "rotation")
+				util.debug_break()
+				scene_node.transform.local_orientation = self.parse_rot_axis(xml_tag, "rotation")
 				
 			if "scale" in xml_tag.attrib:
 				scene_node.transform.local_scale = self.parse_vector3(xml_tag, "scale")

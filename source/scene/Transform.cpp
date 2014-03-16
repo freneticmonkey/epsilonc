@@ -1,4 +1,5 @@
 #include "scene/Transform.h"
+#include "logging/Logging.h"
 
 namespace epsilon
 {
@@ -179,203 +180,6 @@ namespace epsilon
 		return foundChild;
 	}
 
-
-	const Matrix4& Transform::_getFullTransform(void)
-    {
-		// Make a transform from the transform components
-		if (cachedTransformOutOfDate)
-        {
-            Matrix4 rot, scaleM, pos, res;
-            
-			// Rotation & Scale
-			rot = Quaternion::IDENTITY.GetMatrix();// derivedOrientation.GetMatrix();
-			//rot = orientation.GetMatrix();
-			scaleM = Matrix4::CreateScale(derivedScale.x, derivedScale.y, derivedScale.z);
-			res = rot * scaleM;
-
-			for (int i = 0; i < 3; i++)
-			{
-				//cachedTransform[Vector4(res3[i][0],res3[i][1],res3[i][2],0));
-				cachedTransform[4 * i] = res[4 * i];
-				cachedTransform[4 * i + 1] = res[4 * i + 1];
-				cachedTransform[4 * i + 2] = res[4 * i + 2];
-				cachedTransform[4 * i + 3] = 0;
-
-			}
-
-			// Translation
-			cachedTransform[3] = derivedPosition.x;
-			cachedTransform[7] = derivedPosition.y;
-			cachedTransform[11] = derivedPosition.z;
-
-			/*
-            // Rotation & Scale
-            rot = orientation.GetMatrix();
-            scaleM = Matrix4::CreateScale(scale.x, scale.y, scale.z);
-            res = rot * scaleM;
-            
-            for (int i = 0; i < 3; i++)
-			{
-				//cachedTransform[Vector4(res3[i][0],res3[i][1],res3[i][2],0));
-                cachedTransform[ 4 * i ]     = res[ 4 * i ];
-                cachedTransform[ 4 * i  + 1] = res[ 4 * i + 1];
-                cachedTransform[ 4 * i  + 2] = res[ 4 * i + 2];
-                cachedTransform[ 4 * i  + 3] = 0;
-                
-			}
-            
-            // Translation
-            cachedTransform[ 3 ] = position.x;
-            cachedTransform[ 7 ] = position.y;
-            cachedTransform[ 11 ] = position.z;
-			*/
-            
-            //res += pos;
-            
-            
-            /*
-			Matrix3 rot3, scale3, res3;
-
-			// rotation
-			orientation.ToRotationMatrix(rot3);
-            
-			// scale
-			scale3 = Matrix3::ZERO;
-			scale3[0][0] = scale.x;
-			scale3[1][1] = scale.y;
-			scale3[2][2] = scale.z;
-
-			res3 = rot3 * scale3;
-
-			for (int i = 0; i < 3; i++)
-			{
-				cachedTransform.SetRow(i, Vector4(res3[i][0],res3[i][1],res3[i][2],0));
-			}
-
-			// Transform
-			cachedTransform(0,3) = position.x;
-			cachedTransform(1,3) = position.y;
-			cachedTransform(2,3) = position.z;
-            */
-
-            cachedTransformOutOfDate = false;
-        }
-        return cachedTransform;
-    }
-
-	void Transform::_update(bool updateChildren, bool parentHasChanged)
-    {
-		// always clear information about parent notification
-		parentNotified = false ;
-
-        // Short circuit the off case
-		/*
-		if (!needParentUpdate && !parentHasChanged )
-        {
-            return;
-        }
-		*/
-
-        // See if we should process everyone
-        if (needParentUpdate || parentHasChanged)
-        {
-            // Update transforms from parent
-            _updateFromParent();
-		}
-
-		//if (updateChildren)
-		//{
-			if (needChildUpdate || parentHasChanged)
-			{
-				for_each(children->begin(), children->end(), [](Transform::Ptr child){
-					child->_update(true, true);
-				});
-			}
-			else
-			{
-				// Just update selected children
-				for_each(childrenToUpdate->begin(), childrenToUpdate->end(), [](Transform::Ptr child){
-					child->_update(true, false);
-				});
-			}
-			childrenToUpdate->empty();
-			needChildUpdate = false;
-		//}
-
-		
-
-    }
-	//-----------------------------------------------------------------------
-	void Transform::_updateFromParent(void)
-	{
-		updateFromParentImpl();
-	}
-    //-----------------------------------------------------------------------
-    void Transform::updateFromParentImpl(void)
-    {
-        if (parent)
-        {
-            // Update orientation
-            const Quaternion& parentOrientation = parent->_getDerivedOrientation();
-            if (inheritOrientation)
-            {
-                // Combine orientation with that of parent
-                derivedOrientation = parentOrientation * orientation;
-            }
-			else
-            {
-                // No inheritence
-                derivedOrientation = orientation;
-            }
-
-            // Update scale
-            const Vector3& parentScale = parent->_getDerivedScale();
-            if (inheritScale)
-            {
-                // Scale own position by parent scale, NB just combine
-                // as equivalent axes, no shearing
-				derivedScale[0] = parentScale.x * scale.x;
-				derivedScale[1] = parentScale.x * scale.y;
-				derivedScale[2] = parentScale.x * scale.z;
-            }
-            else
-            {
-                // No inheritence
-                derivedScale = scale;
-            }
-
-            // Change position vector based on parent's orientation & scale
-			derivedPosition[0] = parentScale.x * position.x;
-			derivedPosition[1] = parentScale.y * position.y;
-			derivedPosition[2] = parentScale.z * position.z;
-
-			derivedPosition = parentOrientation.Rotate(derivedPosition);
-
-            // Add altered position vector to parents
-            derivedPosition += parent->_getDerivedPosition();
-        }
-        else
-        {
-            // Root node, no parent
-            derivedOrientation = orientation;
-            derivedPosition = position;
-            derivedScale = scale;
-        }
-
-		// Update transform directional vectors
-		forward = derivedOrientation * Vector3::FORWARD;
-		forward.Normalise();
-
-		up = derivedOrientation * Vector3::UP;
-		up.Normalise();
-
-		right = derivedOrientation * Vector3::RIGHT;
-		right.Normalise();
-
-		cachedTransformOutOfDate = true;
-		needParentUpdate = false;
-
-    }
 	//-----------------------------------------------------------------------
 	const Quaternion& Transform::GetLocalOrientation() const
 	{
@@ -411,29 +215,28 @@ namespace epsilon
     {
 		if (parent)
 		{
-			orientation = (parent->_getDerivedOrientation() * q) * q.Inverse();
-			
+			orientation = (parent->_getDerivedOrientation() * q) *q.Inverse();
 		}
 		else
 		{
 			orientation = q;
 		}
 		orientation.Normalise();
-        needUpdate();
+        needUpdate(true);
 		return ThisPtr();
     }
     //-----------------------------------------------------------------------
     Transform::Ptr Transform::SetOrientation( float w, float x, float y, float z)
     {
 		SetOrientation(Quaternion(x, y, z, w));
-        needUpdate();
+		needUpdate(true);
 		return ThisPtr();
     }
     //-----------------------------------------------------------------------
     Transform::Ptr Transform::ResetOrientation(void)
     {
         orientation = Quaternion::IDENTITY;
-        needUpdate();
+		needUpdate(true);
 		return ThisPtr();
     }
 
@@ -466,7 +269,7 @@ namespace epsilon
 		{
 			position = pos;
 		}
-        needUpdate(true);
+		needUpdate(true);
 		return ThisPtr();
     }
 
@@ -490,7 +293,7 @@ namespace epsilon
     Transform::Ptr Transform::SetLocalScale(const Vector3& newScale)
     {
         scale = newScale;
-        needUpdate();
+		needUpdate(true);
 		return ThisPtr();
     }
     //-----------------------------------------------------------------------
@@ -499,7 +302,7 @@ namespace epsilon
         scale.x = x;
         scale.y = y;
         scale.z = z;
-        needUpdate();
+		needUpdate(true);
 		return ThisPtr();
     }
 	Transform::Ptr Transform::SetScale(const Vector3& newScale)
@@ -512,7 +315,7 @@ namespace epsilon
 		{
 			scale = newScale;
 		}
-		needUpdate();
+		needUpdate(true);
 		return ThisPtr();
 	}
 	//-----------------------------------------------------------------------
@@ -561,7 +364,7 @@ namespace epsilon
         scale[0] *= multScale.x;
         scale[1] *= multScale.y;
         scale[0] *= multScale.z;
-		needUpdate();
+		needUpdate(true);
 		return ThisPtr();
     }
     //-----------------------------------------------------------------------
@@ -570,7 +373,7 @@ namespace epsilon
         scale[0] *= x;
         scale[1] *= y;
         scale[0] *= z;
-        needUpdate();
+		needUpdate(true);
 		return ThisPtr();
     }
     //-----------------------------------------------------------------------
@@ -615,7 +418,7 @@ namespace epsilon
             position += d;
             break;
         }
-        needUpdate();
+        needUpdate(true);
 		return ThisPtr();
 
     }
@@ -690,9 +493,71 @@ namespace epsilon
             orientation = orientation * qnorm;
             break;
         }
-        needUpdate();
+        needUpdate(true);
 		return ThisPtr();
     }
+
+	const Matrix4& Transform::_getFullTransform(void)
+	{
+		// Make a transform from the transform components
+		if (cachedTransformOutOfDate)
+		{
+			Matrix4 rot, scaleM, pos, res;
+
+			// Rotation & Scale
+			//rot = Quaternion::IDENTITY.GetMatrix();// derivedOrientation.GetMatrix();
+			rot = orientation.GetMatrix();
+			scaleM = Matrix4::CreateScale(derivedScale.x, derivedScale.y, derivedScale.z);
+			res = rot * scaleM;
+
+			for (int i = 0; i < 3; i++)
+			{
+				//cachedTransform[Vector4(res3[i][0],res3[i][1],res3[i][2],0));
+				cachedTransform[4 * i] = res[4 * i];
+				cachedTransform[4 * i + 1] = res[4 * i + 1];
+				cachedTransform[4 * i + 2] = res[4 * i + 2];
+				cachedTransform[4 * i + 3] = 0;
+
+			}
+
+			// Translation
+			cachedTransform[3] = derivedPosition.x;
+			cachedTransform[7] = derivedPosition.y;
+			cachedTransform[11] = derivedPosition.z;
+
+			cachedTransformOutOfDate = false;
+		}
+		return cachedTransform;
+	}
+
+	// Transform to Vector Helpers
+	const Vector3 & Transform::Forward() 
+	{
+		if (cachedTransformOutOfDate)
+		{
+			_updateFromParent();
+		}
+		return forward;
+	};
+
+	const Vector3 & Transform::Up()
+	{
+		if (cachedTransformOutOfDate)
+		{
+			_updateFromParent();
+		}
+		return up;
+	};
+
+	const Vector3 & Transform::Right()
+	{
+		if (cachedTransformOutOfDate)
+		{
+			_updateFromParent();
+		}
+		return right;
+	};
+
     //-----------------------------------------------------------------------
     const Quaternion & Transform::_getDerivedOrientation(void)
     {
@@ -727,7 +592,7 @@ namespace epsilon
         needParentUpdate = true;
 		needChildUpdate = true;
         cachedTransformOutOfDate = true;
-
+		//Log("needUpdate: " + ThisPtr()->componentParent->GetName());
         // Make sure we're not root and parent hasn't been notified before
         if (parent && (!parentNotified || forceParentUpdate))
         {
@@ -736,7 +601,7 @@ namespace epsilon
         }
 
         // all children will be updated
-		childrenToUpdate->empty();
+		childrenToUpdate->clear();
     }
     //-----------------------------------------------------------------------
     void Transform::requestUpdate(Transform::Ptr child, bool forceParentUpdate)
@@ -748,9 +613,11 @@ namespace epsilon
         }
 
 		childrenToUpdate->push_back(child);
+
         // Request selective update of me, if we didn't do it before
         if (parent && (!parentNotified || forceParentUpdate))
 		{
+			//Log("Request Update: " + ThisPtr()->componentParent->GetName());
             parent->requestUpdate(ThisPtr(), forceParentUpdate);
 			parentNotified = true ;
 		}
@@ -759,6 +626,7 @@ namespace epsilon
 		// trigger a cascading update.
 		if ( !parent )
 		{
+			//Log("Hit Root: " + ThisPtr()->componentParent->GetName());
 			_update(needChildUpdate, needParentUpdate);
 		}
     }
@@ -775,5 +643,116 @@ namespace epsilon
         }
     }
 
+	void Transform::_update(bool updateChildren, bool parentHasChanged)
+	{
+		// always clear information about parent notification
+		parentNotified = false;
+
+		// See if we should process everyone
+		if (needParentUpdate || parentHasChanged)
+		{
+			// Update transforms from parent
+			_updateFromParent();
+		}
+		/*
+		if (childrenToUpdate->size() > 0)
+		{
+			for_each(childrenToUpdate->begin(), childrenToUpdate->end(), [](Transform::Ptr child){
+				child->_update(true, false);
+			});
+			childrenToUpdate->clear();
+		}
+		*/
+
+		//if (updateChildren)
+		//{
+			if (needChildUpdate || parentHasChanged)
+			{
+				for_each(children->begin(), children->end(), [](Transform::Ptr child){
+					child->_update(true, true);
+				});
+			}
+			else
+			{
+				for_each(childrenToUpdate->begin(), childrenToUpdate->end(), [](Transform::Ptr child){
+					child->_update(true, false);
+				});
+			}
+			childrenToUpdate->clear();
+			needChildUpdate = false;
+		//}
+
+	}
+	//-----------------------------------------------------------------------
+	void Transform::_updateFromParent(void)
+	{
+		updateFromParentImpl();
+	}
+	//-----------------------------------------------------------------------
+	void Transform::updateFromParentImpl(void)
+	{
+		if (parent)
+		{
+			// Update orientation
+			const Quaternion& parentOrientation = parent->_getDerivedOrientation();
+			if (inheritOrientation)
+			{
+				// Combine orientation with that of parent
+				derivedOrientation = parentOrientation * orientation;
+			}
+			else
+			{
+				// No inheritence
+				derivedOrientation = orientation;
+			}
+
+			// Update scale
+			const Vector3& parentScale = parent->_getDerivedScale();
+			if (inheritScale)
+			{
+				// Scale own position by parent scale, NB just combine
+				// as equivalent axes, no shearing
+				derivedScale[0] = parentScale.x * scale.x;
+				derivedScale[1] = parentScale.x * scale.y;
+				derivedScale[2] = parentScale.x * scale.z;
+			}
+			else
+			{
+				// No inheritence
+				derivedScale = scale;
+			}
+
+			// Change position vector based on parent's orientation & scale
+			derivedPosition[0] = parentScale.x * position.x;
+			derivedPosition[1] = parentScale.y * position.y;
+			derivedPosition[2] = parentScale.z * position.z;
+
+			derivedPosition = parentOrientation.Rotate(derivedPosition);
+
+			// Add altered position vector to parents
+			derivedPosition += parent->_getDerivedPosition();
+		}
+		else
+		{
+			// Root node, no parent
+			derivedOrientation = orientation;
+			derivedPosition = position;
+			derivedScale = scale;
+		}
+
+		// Update transform directional vectors
+		forward = derivedOrientation * Vector3::FORWARD;
+		forward.Normalise();
+
+		up = derivedOrientation * Vector3::UP;
+		up.Normalise();
+
+		right = derivedOrientation * Vector3::RIGHT;
+		right.Normalise();
+
+		cachedTransformOutOfDate = true;
+		needParentUpdate = false;
+
+	}
 
 }

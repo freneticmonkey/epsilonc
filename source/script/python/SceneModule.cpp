@@ -129,9 +129,9 @@ void initScene()
 		.add_property("scale", make_function(&Transform::GetScale, return_value_policy<reference_existing_object>()),
 							   ( Transform::Ptr (Transform::*)( const Vector3&) ) &Transform::SetScale )
 
-		.add_property("forward", &Transform::Forward)
-		.add_property("up", &Transform::Up)
-		.add_property("right", &Transform::Right)
+		.add_property("forward", make_function(&Transform::Forward, return_value_policy<reference_existing_object>()) )
+		.add_property("up", make_function(&Transform::Up, return_value_policy<reference_existing_object>()) )
+		.add_property("right", make_function(&Transform::Right, return_value_policy<reference_existing_object>()) )
 
 		.def("destroy", &Node::Destroy)
 	

@@ -5,6 +5,8 @@
 #include "math/Vector.h"
 #include "scene/NodeComponent.h"
 
+#include "render/RenderManager.h"
+
 #include "render/Camera.h"
 #include "render/Colour.h"
 #include "render/Renderer.h"
@@ -208,8 +210,13 @@ void initRender()
 	;
 	implicitly_convertible<Camera::Ptr, Node::Ptr>();
 
+	object renderConstModule(handle<>(borrowed(PyImport_AddModule("epsilon.render.const"))));
+	renderScope.attr("const") = renderConstModule;
+	scope constScope = renderConstModule;
 
-
+	// Add Render Constants
+	constScope.attr("WIDTH") = RenderManager::GetInstance().GetResolution().x;
+	constScope.attr("HEIGHT") = RenderManager::GetInstance().GetResolution().y;
 
 
 }

@@ -40,6 +40,7 @@ namespace epsilon
 		
 		std::string name;
 		Node::Ptr rootNode;
+		Transform::Ptr rootTransform;
 		Camera::Ptr activeCamera;
 		CameraList sceneCameras;
 	};

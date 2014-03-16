@@ -14,6 +14,7 @@ namespace epsilon
 		activeCamera = Camera::Create("main_camera");
 		sceneCameras.push_back(activeCamera);
 		rootNode->AddChild(activeCamera);
+		rootTransform = rootNode->GetComponent<Transform>();
 	}
 
 	Scene::~Scene(void)
@@ -36,7 +37,7 @@ namespace epsilon
 
 	void Scene::Update(float el)
 	{
-		//rootNode->GetComponent<Transform>()._update(true, true);
+		rootTransform->_update(true, false);
 	}
 
 	void Scene::SetActiveCamera(Camera::Ptr camera)

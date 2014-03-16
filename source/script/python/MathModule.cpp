@@ -311,7 +311,9 @@ void initMath()
 		.def("compute_extremes", &Vector4::ComputeExtremes, return_value_policy<manage_new_object>())
 		;
 	
-	class_<AxisAngle>("AxisAngle", init<Vector3, float>());
+	class_<AxisAngle>("AxisAngle", init<Vector3, float>())
+		.def("__str__", &AxisAngle::ToString)
+		;
 
 	class_<Euler>("Euler", init<float, float, float>());
 
@@ -400,6 +402,11 @@ void initMath()
 		.def(init<Vector3, float>())
 		.def(init<float, float, float>())
 		.def(init<Matrix4>())
+
+		.def_readwrite("x", &Quaternion::x)
+		.def_readwrite("y", &Quaternion::y)
+		.def_readwrite("z", &Quaternion::z)
+		.def_readwrite("w", &Quaternion::w)
 
 		.def(self == self)
 		.def(self != self)

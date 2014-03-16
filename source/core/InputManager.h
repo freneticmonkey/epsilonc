@@ -52,6 +52,16 @@ namespace epsilon
 			mousePosLast = Vector2(mp.x, mp.y);
 		}
 
+		void MouseVisible(bool visible)
+		{
+			rm->GetWindow()->setMouseCursorVisible(visible);
+		}
+
+		void MousePosition(Vector2 nMousePos)
+		{
+			sf::Mouse::setPosition(sf::Vector2i(nMousePos.x, nMousePos.y), *rm->GetWindow());
+		}
+
 		// Process Input events raised by the window
 		void ProcessEvent(sf::Event &event)
 		{
@@ -118,6 +128,16 @@ namespace epsilon
 		{
 			return InputManager::GetInstance().mousePosRelative;
 		};
+
+		static void SetMouseVisible(bool visible)
+		{
+			InputManager::GetInstance().MouseVisible(visible);
+		}
+
+		static void SetMousePosition(Vector2 mousePos)
+		{
+			InputManager::GetInstance().MousePosition(mousePos);
+		}
 
 		// TODO: Implement AXIS handling for controllers
 

@@ -97,8 +97,14 @@ void initManagers()
 		.def("mouse_position", &InputManager::GetMousePosition)
 		.staticmethod("mouse_position")
 
+		.def("set_mouse_position", &InputManager::SetMousePosition)
+		.staticmethod("set_mouse_position")
+
 		.def("mouse_position_relative", &InputManager::GetMousePositionRelative)
 		.staticmethod("mouse_position_relative")
+
+		.def("mouse_visible", &InputManager::SetMouseVisible)
+		.staticmethod("mouse_visible")
 	;
 	// Injecting the get instance result into the namespace
 	smGI = inputManager.attr("get_instance");

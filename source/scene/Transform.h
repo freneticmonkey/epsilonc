@@ -25,6 +25,7 @@ namespace epsilon
 		struct private_struct {};
 
 	public:
+		// Debugging
 		typedef std::shared_ptr<Transform> Ptr;
 
 		explicit Transform(const private_struct &);
@@ -51,20 +52,11 @@ namespace epsilon
 		Transform::Ptr FindChildWithIdRecursive(long id);
 
 		// Transform to Vector Helpers
-		Vector3 Forward()
-		{
-			return forward;
-		};
+		const Vector3 & Forward();
 
-		Vector3 Up()
-		{
-			return up;
-		};
+		const Vector3 & Up();
 
-		Vector3 Right()
-		{
-			return right;
-		};
+		const Vector3 & Right();
 
 		/** Enumeration denoting the spaces which a transform can be relative to.
         */
