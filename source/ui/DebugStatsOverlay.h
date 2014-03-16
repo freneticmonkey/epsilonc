@@ -40,9 +40,15 @@ namespace epsilon
 
 	private:
 		GraphList			graphs;
+		sf::Vector2f		screenPos;
+		sf::Vector2f		dimensions;
 
 		sf::VertexArray		border;
 		sf::RectangleShape  background;
+		float				scale;
+
+		static const float  THIRTY_FPS;
+		static const float  SIXTY_FPS;
 	};
 
 }

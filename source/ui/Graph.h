@@ -7,7 +7,8 @@
 
 namespace epsilon
 {
-	class Graph
+	class Graph : 
+		public std::enable_shared_from_this<Graph>
 	{
 	private:
 		struct private_struct {};
@@ -29,20 +30,28 @@ namespace epsilon
 			return name;
 		}
 
-		void Draw(sf::RenderWindow * window);
+		Graph::Ptr ThisPtr() { return shared_from_this(); }
 
-		void SetColour(Colour theColour);
+		void Draw(sf::RenderWindow * window);
+	
+		Graph::Ptr SetPosition(sf::Vector2f pos);
+		Graph::Ptr SetColour(Colour theColour);
+		bool SetScale(float newScale);
 
 		void AddValue(float value);
 
+		
 		explicit Graph(const private_struct &, std::string graphName);
 		//Graph(const private_struct &, std::string title);
 		
 	private:
 		std::string		name;
 		sf::VertexArray points;
-		sf::Color		colour;
 		unsigned int	currentPoint;
+		sf::Color		colour;
+		float			scale;
+		bool			initialFill;		
+
 		Vector2			screenPos;
 		Vector2			screenDim;
 	};
