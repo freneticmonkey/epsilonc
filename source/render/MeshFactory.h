@@ -38,7 +38,9 @@ namespace epsilon
 
 		static Mesh::Ptr GenerateGrid(int size, int resolution);
 		static Mesh::Ptr GenerateCube();
+		static Mesh::Ptr GenerateWireCube();
 		static Mesh::Ptr GenerateSphere(int slices = 8, int stacks = 8);
+		static Mesh::Ptr GenerateWireSphere();
 		static Mesh::Ptr GeneratePlane(int widthSegments = 1, int heightSegments = 1);
 		static Mesh::Ptr GenerateTriangle();
 		static Mesh::Ptr GenerateIcoHedron();

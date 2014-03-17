@@ -5,6 +5,7 @@
 #include "ui/UIManager.h"
 #include "scene/SceneManager.h"
 #include "render/RenderState.h"
+#include "render/gizmos/GizmoManager.h"
 
 namespace epsilon
 {
@@ -52,6 +53,8 @@ namespace epsilon
 		float				fps;
 		SceneManager *		sceneManager;
 		UIManager *			uiManager;
+
+		GizmoManager *		gizmoManager;
 
 		static const int	NUM_FPS_SAMPLES = 64;
 		float				fpsSamples[NUM_FPS_SAMPLES];

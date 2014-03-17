@@ -22,6 +22,10 @@
     <ClCompile Include="..\source\math\Vector.cpp" />
     <ClCompile Include="..\source\render\Camera.cpp" />
     <ClCompile Include="..\source\render\Colour.cpp" />
+    <ClCompile Include="..\source\render\gizmos\GizmoCube.cpp" />
+    <ClCompile Include="..\source\render\gizmos\GizmoManager.cpp" />
+    <ClCompile Include="..\source\render\gizmos\GizmoSphere.cpp" />
+    <ClCompile Include="..\source\render\GizmoType.cpp" />
     <ClCompile Include="..\source\render\Material.cpp" />
     <ClCompile Include="..\source\render\Mesh.cpp" />
     <ClCompile Include="..\source\render\MeshFactory.cpp" />
@@ -71,6 +75,11 @@
     <ClInclude Include="..\source\math\Vector.h" />
     <ClInclude Include="..\source\render\Camera.h" />
     <ClInclude Include="..\source\render\Colour.h" />
+    <ClInclude Include="..\source\render\gizmos\GizmoCube.h" />
+    <ClInclude Include="..\source\render\gizmos\GizmoSphere.h" />
+    <ClInclude Include="..\source\render\gizmos\GizmoType.h" />
+    <ClInclude Include="..\source\render\gizmos\GizmoManager.h" />
+    <ClInclude Include="..\source\render\gizmos\GizmoOperation.h" />
     <ClInclude Include="..\source\render\Material.h" />
     <ClInclude Include="..\source\render\Mesh.h" />
     <ClInclude Include="..\source\render\MeshFactory.h" />

@@ -180,35 +180,125 @@ namespace epsilon
 
 	Mesh::Ptr MeshFactory::GenerateCube()
 	{
-		return Mesh::Create();
+		Mesh::Ptr newCube =  Mesh::Create();
 
 		VerticesAttrib::List verts;
-		NormalAttrib::List norms;
-		TexCoordAttrib::List texCoords;
+		//NormalAttrib::List norms;
+		//TexCoordAttrib::List texCoords;
 		VertexIndicesBuffer::List faces;
 
-		VecVec raverts;
-		/*
-		faces = [
-            [0, 1, 3],
-            [3, 2, 0],#, 2], # left
-            [4, 6, 7],
-            [7, 5, 4],
-#            [4, 6, 7, 5], # right
-            [7, 3, 1],
-            [1, 5, 7],
-#            [7, 3, 1, 5], # front
-            [0, 2, 6],
-            [6, 4, 0],
-#            [0, 2, 6, 4], # back
-            [3, 7, 2], # top
-            [7, 6, 2],
-            [5, 1, 4], # bottom
-            [1, 0, 4]
-        ]
-		*/
+		verts.push_back(Vector3(-0.5, -0.5, -0.5));
+		verts.push_back(Vector3(-0.5, -0.5, 0.5));
+		verts.push_back(Vector3(-0.5, 0.5, -0.5));
+		verts.push_back(Vector3(-0.5, 0.5, 0.5));
+		verts.push_back(Vector3(0.5, -0.5, -0.5));
+		verts.push_back(Vector3(0.5, -0.5, 0.5));
+		verts.push_back(Vector3(0.5, 0.5, -0.5));
+		verts.push_back(Vector3(0.5, 0.5, 0.5));
+
+		// left
+		faces.push_back(0);
+		faces.push_back(1);
+		faces.push_back(3);
+		faces.push_back(3);
+		faces.push_back(2);
+		faces.push_back(0); 
+
+		// right
+		faces.push_back(4);
+		faces.push_back(6);
+		faces.push_back(7);
+		faces.push_back(7);
+		faces.push_back(5);
+		faces.push_back(4);
+
+		// front
+		faces.push_back(7);
+		faces.push_back(3);
+		faces.push_back(1);
+		faces.push_back(1);
+		faces.push_back(5);
+		faces.push_back(7);
+
+		// back
+		faces.push_back(0);
+		faces.push_back(2);
+		faces.push_back(6);
+		faces.push_back(6);
+		faces.push_back(4);
+		faces.push_back(0);
+
+		// top
+		faces.push_back(3);
+		faces.push_back(7);
+		faces.push_back(2); 
+		faces.push_back(7);
+		faces.push_back(6);
+		faces.push_back(2);
+
+		// bottom
+		faces.push_back(5);
+		faces.push_back(1);
+		faces.push_back(4); 
+		faces.push_back(1);
+		faces.push_back(0);
+		faces.push_back(4);
+		
+		newCube->VertexData()
+			   ->SetVertices(verts)
+			   ->SetIndices(faces);
+		
+		return newCube;
+	}
+
+	Mesh::Ptr MeshFactory::GenerateWireCube()
+	{
+		Mesh::Ptr newCube = Mesh::Create();
+
+		VerticesAttrib::List verts;
+
+		verts.push_back(Vector3(-0.5, -0.5, -0.5));
+		verts.push_back(Vector3(-0.5, -0.5, 0.5));
+
+		verts.push_back(Vector3(-0.5, -0.5, 0.5));
+		verts.push_back(Vector3( 0.5, -0.5, 0.5));
+
+		verts.push_back(Vector3(-0.5, 0.5, -0.5));
+		verts.push_back(Vector3(-0.5, 0.5, 0.5));
+
+		verts.push_back(Vector3(-0.5, 0.5, 0.5));
+		verts.push_back(Vector3( 0.5, 0.5, 0.5));
+
+		verts.push_back(Vector3(0.5, -0.5, -0.5));
+		verts.push_back(Vector3(0.5, -0.5, 0.5));
+
+		verts.push_back(Vector3(-0.5, 0.5, -0.5));
+		verts.push_back(Vector3( 0.5, 0.5, -0.5));
+
+		verts.push_back(Vector3(0.5, 0.5, -0.5));
+		verts.push_back(Vector3(0.5, 0.5, 0.5));
+
+		verts.push_back(Vector3(-0.5, -0.5, -0.5));
+		verts.push_back(Vector3(0.5,  -0.5, -0.5));
+			
+		// Corner Verticals
+		verts.push_back(Vector3(-0.5, -0.5, -0.5));
+		verts.push_back(Vector3(-0.5,  0.5, -0.5));
+
+		verts.push_back(Vector3(0.5, -0.5, -0.5));
+		verts.push_back(Vector3(0.5,  0.5, -0.5));
+
+		verts.push_back(Vector3(0.5, -0.5, 0.5));
+		verts.push_back(Vector3(0.5, 0.5,  0.5));
+
+		verts.push_back(Vector3(-0.5, -0.5, 0.5));
+		verts.push_back(Vector3(-0.5,  0.5, 0.5));
 
 
+		newCube->VertexData()
+			->SetVertices(verts);
+
+		return newCube;
 	}
 
 	Mesh::Ptr MeshFactory::GenerateSphere(int slices, int stacks)
@@ -290,6 +380,61 @@ namespace epsilon
 				 ->SetTexCoords(texCoords)
 				 ->SetIndices(faces);
 				 //->BuildBuffers();
+
+		return newSphere;
+	}
+
+	Mesh::Ptr MeshFactory::GenerateWireSphere()
+	{
+		Mesh::Ptr newSphere = Mesh::Create();
+		VerticesAttrib::List verts;
+
+		ParametricData data;
+		int slices = 8;
+		int stacks = 8;
+		float theta, phi;
+		int v = 0;
+		int next = 0;
+
+		Vector3 last;
+		Vector3 now;
+		Vector3 first;
+		// Generate Vertices
+
+		for (int x = 0; x < (slices + 1); x++)
+		{
+			theta = x * PI / slices;
+			for (int y = 0; y < stacks; y++)
+			{
+				phi = y * TWOPI / stacks;
+				float px = sin(theta) * cos(phi);
+				float py = cos(theta);
+				float pz = -sin(theta) * sin(phi);
+
+				now = Vector3(px, py, pz);
+				
+				if (y == 0)
+				{
+					first = now;
+				}
+				else if ( y % 2 == 0)
+				{
+					verts.push_back(last);
+					verts.push_back(now);
+				}
+				else if (y == (stacks - 1))
+				{
+					verts.push_back(now);
+					verts.push_back(first);
+				}
+				verts.push_back(now);
+
+				last = now;
+			}
+		}
+
+		newSphere->VertexData()
+				 ->SetVertices(verts);
 
 		return newSphere;
 	}

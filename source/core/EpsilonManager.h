@@ -6,6 +6,7 @@
 #include "events/EventManager.h"
 #include "core/InputManager.h"
 #include "render/RenderManager.h"
+#include "render/gizmos/GizmoManager.h"
 #include "scene/SceneManager.h"
 #include "script/ScriptManager.h"
 #include "ui/UIManager.h"
@@ -38,6 +39,7 @@ namespace epsilon
 		RenderManager * renderManager;
 		UIManager * uiManager;
 		SceneManager * sceneManager;
+		GizmoManager * gizmoManager;
 
 		CycleValue cycle;
 		Transform::Ptr triangleTrans;

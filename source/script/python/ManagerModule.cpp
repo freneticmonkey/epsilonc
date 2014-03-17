@@ -2,6 +2,7 @@
 #include "events/EventManager.h"
 #include "core/InputManager.h"
 #include "render/RenderManager.h"
+#include "render/gizmos/GizmoManager.h"
 #include "scene/SceneManager.h"
 #include "script/ScriptManager.h"
 #include "script/Script.h"
@@ -236,4 +237,26 @@ void initManagers()
 	// Injecting the get instance result into the namespace
 	smGI = uiManager.attr("get_instance");
 	package.attr("UIManager") = smGI();
+
+	// Gizmos
+
+	object gizmoManager = class_<GizmoManager, boost::noncopyable>("Gizmos", no_init)
+		.def("get_instance", &GizmoManager::GetInstance, return_value_policy<reference_existing_object>())
+		.staticmethod("get_instance")
+
+		.def("colour", &GizmoManager::SetColour)
+		.staticmethod("colour")
+
+		.def("life", &GizmoManager::SetLife)
+		.staticmethod("life")
+
+		.def("draw_cube", &GizmoManager::DrawCube)
+		.staticmethod("draw_cube")
+
+		.def("draw_sphere", &GizmoManager::DrawSphere)
+		.staticmethod("draw_sphere")
+		;
+	// Injecting Gizmo manager into the namespace
+	smGI = gizmoManager.attr("get_instance");
+	package.attr("Gizmos") = smGI();
 }

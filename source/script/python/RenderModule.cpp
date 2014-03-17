@@ -15,6 +15,8 @@
 #include "render/MeshFactory.h"
 #include "render/VertexData.h"
 
+#include "render/gizmos/GizmoCube.h"
+
 // Colour Python Helper Functions
 void colour_setitem(Colour& v, int index, float value)
 {

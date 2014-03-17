@@ -42,6 +42,9 @@
     <Filter Include="Source Files\utilities">
       <UniqueIdentifier>{55ca7ebc-49c2-4226-8e30-1de39a501c77}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\render\gizmos">
+      <UniqueIdentifier>{f39d7a88-4159-4a64-9851-8d4a78c8c099}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp">
@@ -172,6 +175,18 @@
     </ClCompile>
     <ClCompile Include="..\source\ui\DebugStatsOverlay.cpp">
       <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\gizmos\GizmoManager.cpp">
+      <Filter>Source Files\render\gizmos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\GizmoType.cpp">
+      <Filter>Source Files\render\gizmos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\gizmos\GizmoCube.cpp">
+      <Filter>Source Files\render\gizmos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\gizmos\GizmoSphere.cpp">
+      <Filter>Source Files\render\gizmos</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -345,6 +360,21 @@
     </ClInclude>
     <ClInclude Include="..\source\ui\DebugStatsOverlay.h">
       <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\gizmos\GizmoManager.h">
+      <Filter>Source Files\render\gizmos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\gizmos\GizmoOperation.h">
+      <Filter>Source Files\render\gizmos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\gizmos\GizmoType.h">
+      <Filter>Source Files\render\gizmos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\gizmos\GizmoCube.h">
+      <Filter>Source Files\render\gizmos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\gizmos\GizmoSphere.h">
+      <Filter>Source Files\render\gizmos</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

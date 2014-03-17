@@ -1,4 +1,5 @@
 #include "render/RenderManager.h"
+#include "render/gizmos/GizmoCube.h"
 
 namespace epsilon
 {
@@ -73,6 +74,10 @@ namespace epsilon
 		Log((const char *)glGetString(GL_VERSION));
         
         fps = 0.0f;
+
+		// Get an instance of the GizmoManager for rendering
+		gizmoManager = &GizmoManager::GetInstance();
+		
 	}
 
 	//void RenderManager::Draw(sf::Time el)
@@ -118,6 +123,12 @@ namespace epsilon
 			window->draw(*fpsText);
 		}
 		window->popGLStates();
+
+		// Draw the Gizmos
+		// Setup the Camera and Projection Matrix
+		stateStack->State()->view = sceneManager->CurrentScene()->GetActiveCamera()->GetViewMatrix();
+		stateStack->State()->projection = sceneManager->CurrentScene()->GetActiveCamera()->GetProjectionMatrix();
+		gizmoManager->Draw(stateStack);
 		
 		// Draw the GUI
 		if ( uiManager )

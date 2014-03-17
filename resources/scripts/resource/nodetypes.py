@@ -170,7 +170,6 @@ class SceneTransform(BaseXMLNode):
 				scene_node.transform.position = pos
 
 			if "rotation" in xml_tag.attrib:
-				util.debug_break()
 				scene_node.transform.local_orientation = self.parse_rot_axis(xml_tag, "rotation")
 				
 			if "scale" in xml_tag.attrib:

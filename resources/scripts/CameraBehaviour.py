@@ -1,10 +1,12 @@
 from epsilon import Input
 from epsilon.logging import Logger
 from epsilon.math import Vector3, Quaternion, Vector2
-from epsilon.render import Camera
+from epsilon.render import Camera, Colour
 from epsilon.render.const import *
 from epsilon.scene import TransformSpace
 from epsilon import util
+
+from epsilon import Gizmos
 
 import math
 
@@ -22,12 +24,20 @@ class CameraBehaviour(object):
 		self._tla = False
 
 	def on_start(self):
-
 		print "Camera Name: " + self.node.name
 		self._control = self.node.transform.parent_transform.parent
 
 	def on_update(self, dt):
-		
+
+		Gizmos.colour(Colour.BLUE)
+		for x in range(3):
+			for y in range(3):
+				
+				Gizmos.draw_cube(Vector3(x,y,y), Vector3.ONE)
+
+		Gizmos.colour(Colour.CYAN)
+		Gizmos.draw_sphere(Vector3(0,-1,0), 1)
+
 		self._tla = False
 
 		if Input.key_down(Input.Key.L):
