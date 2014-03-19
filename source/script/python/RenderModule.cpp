@@ -118,8 +118,12 @@ void initRender()
 		.staticmethod("generate_grid")
 		.def("generate_cube", &MeshFactory::GenerateCube)
 		.staticmethod("generate_cube")
+		.def("generate_wire_cube", &MeshFactory::GenerateWireCube)
+		.staticmethod("generate_wire_cube")
 		.def("generate_sphere", &MeshFactory::GenerateSphere)
 		.staticmethod("generate_sphere")
+		.def("generate_wire_sphere", &MeshFactory::GenerateWireSphere)
+		.staticmethod("generate_wire_sphere")
 		.def("generate_plane", &MeshFactory::GeneratePlane)
 		.staticmethod("generate_plane")
 		.def("generate_triangle", &MeshFactory::GenerateTriangle)
@@ -196,19 +200,24 @@ void initRender()
 
 	Camera::Ptr (*CreateStandard)() = &Camera::Create;
 	Camera::Ptr (*CreateName)(std::string) = &Camera::Create;
-
+	
 	class_<Camera, bases<Node>, Camera::Ptr, boost::noncopyable>("Camera", no_init)
 		.def("create", CreateStandard)
 		.def("create", CreateName)
 		.staticmethod("create")
 
+		
 		// Look at
 		.def("lookat", LookAtTarget)
 		.def("lookat", LookAtFromTo)
 		.def("lookat", LookAtFromToComp)
 
+		.def("fps", &Camera::FPS)
 		.def("get_projection_matrix", &Camera::GetProjectionMatrix)
 		.def("get_view_matrix", &Camera::GetViewMatrix)
+
+		.def("screen_to_world", &Camera::ScreenToWorldCoordinate)
+		.def("world_to_screen", &Camera::WorldToScreenCoordinate)
 	;
 	implicitly_convertible<Camera::Ptr, Node::Ptr>();
 
