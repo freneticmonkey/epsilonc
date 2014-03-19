@@ -59,6 +59,7 @@ namespace epsilon
 
 		void MousePosition(Vector2 nMousePos)
 		{
+			mousePosLast = nMousePos;
 			sf::Mouse::setPosition(sf::Vector2i(nMousePos.x, nMousePos.y), *rm->GetWindow());
 		}
 

@@ -25,8 +25,13 @@ namespace epsilon
 		void LookAt(float x, float y, float z, 
 					float lookAtX, float lookAtY, float lookAtZ);
 
+		void FPS(Vector3 pos, float pitch, float yaw);
+		
 		Matrix4 GetProjectionMatrix() { return projMatrix; }
 		Matrix4 GetViewMatrix() { return viewMatrix; }
+
+		Vector3 ScreenToWorldCoordinate(Vector2 screenPos);
+		Vector2 WorldToScreenCoordinate(Vector3 worldPos);
 
 	private:
 		void Setup();
@@ -38,5 +43,7 @@ namespace epsilon
 		float	farDist;
 		float	fov;
 		float	ratio;
+		int		width;
+		int		height;
 	};
 }

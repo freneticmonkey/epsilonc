@@ -9,8 +9,14 @@
 	"build_systems":
 	[
 		{
-			"name" : "run",
+			"name" : "run-debug",
 			"cmd": ["C:\\Dev\\Projects\\C++\\Epsilon\\build\\Win\\Debug\\Epsilon.exe"],
+			"working_dir" : "C:\\Dev\\Projects\\C++\\Epsilon\\",
+			"shell" : true
+		},
+		{
+			"name" : "run-release",
+			"cmd": ["C:\\Dev\\Projects\\C++\\Epsilon\\build\\Win\\Release\\Epsilon.exe"],
 			"working_dir" : "C:\\Dev\\Projects\\C++\\Epsilon\\",
 			"shell" : true
 		}

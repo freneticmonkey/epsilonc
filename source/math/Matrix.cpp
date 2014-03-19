@@ -216,6 +216,17 @@ Matrix4::Matrix4( const Matrix4& mat)
 	*/
 }
 
+Matrix4::Matrix4(float a, float b, float c, float d,
+	float e, float f, float g, float h,
+	float i, float j, float k, float l,
+	float m, float n, float o, float p)
+{
+	data[0] = a; data[1] = b; data[2] = c; data[3] = d;
+	data[4] = e; data[5] = f; data[6] = g; data[7] = h;
+	data[8] = i; data[9] = j; data[10] = k; data[11] = l;
+	data[12]= m; data[13]= n; data[14]= o; data[15]= p;
+}
+
 // Array Access
 float &Matrix4::operator[](int i)
 {

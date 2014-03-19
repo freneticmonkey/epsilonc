@@ -196,7 +196,7 @@ namespace epsilon
 	{
 		orientation = q;
 		orientation.Normalise();
-		needUpdate();
+		needUpdate(true);
 		return ThisPtr();
 	}
 	//-----------------------------------------------------------------------
@@ -206,7 +206,7 @@ namespace epsilon
 		orientation.x = x;
 		orientation.y = y;
 		orientation.z = z;
-		needUpdate();
+		needUpdate(true);
 		return ThisPtr();
 	}
 

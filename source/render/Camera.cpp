@@ -18,24 +18,29 @@ namespace epsilon
 		return newCamera;
 	}
 
-	Camera::Camera(const private_struct &) : Node(Node::private_struct())
+	Camera::Camera(const private_struct &) : Node(Node::private_struct()),
+											 nearDist(0.001f),
+											 farDist(1000.f),
+											 fov(45.0f),
+											 width(800),
+											 height(600)
 	{
 		Setup();
 	}
 
-	Camera::Camera(const private_struct &, std::string name) : Node(Node::private_struct(), name)
+	Camera::Camera(const private_struct &, std::string name) : Node(Node::private_struct(), name),
+																nearDist(0.001f),
+																farDist(1000.f),
+																fov(45.0f),
+																width(800),
+																height(600)
 	{
 		Setup();
 	}
 
 	void Camera::Setup()
 	{
-		nearDist = 0.001f;
-		farDist = 1000.f;
-		fov = 45.0f;
-
-		// FIXME: The Screen resolution shouldn't be hardcoded here.
-		ratio = (1.0f * 800.0f) / 600.0f;
+		ratio = (1.0f * width) / height;
 
 		BuildProjectionMatrix(fov, ratio, nearDist, farDist);
 	}
@@ -56,20 +61,64 @@ namespace epsilon
 	{
         Vector3 up(0.f, 1.f, 0.f);
         Vector3 from(x, y, z);
-        Vector3 to(lookAtX, -lookAtY, lookAtZ);
+        Vector3 to(lookAtX, lookAtY, lookAtZ);
         
-		if (from != GetComponent<Transform>()->GetPosition())
-		{
-			GetComponent<Transform>()->SetPosition(from);
-		}
 		
 		// Invert the y-axis - cause opengl.
-		from.y = -from.y;
+		//from.y = -from.y;
 		// create the look at matrix.
 		viewMatrix = Matrix4::CreateLookAt(from, to, up);
 
 		// Set the orientation in the transform from the look at matrix
-		GetComponent<Transform>()->SetOrientation(viewMatrix.GetRotation());
+		GetComponent<Transform>()->SetLocalOrientation(viewMatrix.GetRotation());
+
+		GetComponent<Transform>()->SetPosition(from);
+	}
+
+	void Camera::FPS(Vector3 pos, float pitch, float yaw)
+	{
+		float cosPitch = cos(pitch);
+		float sinPitch = sin(pitch);
+		float cosYaw = cos(yaw);
+		float sinYaw = sin(yaw);
+
+		Vector3 xaxis(cosYaw, 0, -sinYaw);
+		Vector3 yaxis(sinYaw * sinPitch, cosPitch, cosYaw * sinPitch);
+		Vector3 zaxis(sinYaw * cosPitch, -sinPitch, cosPitch * cosYaw);
+
+		viewMatrix = Matrix4(
+			xaxis.x,		yaxis.x,		  zaxis.x, 0,
+			xaxis.y,		yaxis.y,		  zaxis.y, 0,
+			xaxis.z,		yaxis.z,		  zaxis.z, 0,
+			-xaxis.Dot(pos), -yaxis.Dot(pos), -zaxis.Dot(pos), 1
+		);
+		
+		viewMatrix.Transpose();
+
+		GetComponent<Transform>()->SetPosition(viewMatrix.GetTranslation());
+
+		//// Set the orientation in the transform from the look at matrix
+		GetComponent<Transform>()->SetLocalOrientation(viewMatrix.GetRotation());
+	}
+
+	Vector3 Camera::ScreenToWorldCoordinate(Vector2 screenPos)
+	{
+		float x = 2.0 * screenPos.x / width - 1;
+		float y = -2.0 * screenPos.y / height + 1;
+		Matrix4 viewProj = projMatrix * viewMatrix;
+		Vector3 v = Vector3(x, y, 0) * viewProj.Inverse();
+		return v;
+	}
+
+	Vector2 Camera::WorldToScreenCoordinate(Vector3 worldPos)
+	{
+		Matrix4 viewProj = projMatrix * viewMatrix;
+		// transform world point to clipping coordinates
+		worldPos = viewProj * worldPos;
+		int screenX = (int)round((worldPos.x + 1) / 2.0) * width;
+		// -Y because screen Y axis is top down
+		int screenY = (int)round((1 - worldPos.y) / 2.0) * height;
+		return Vector2(screenX, screenY);
 	}
 
 	void Camera::BuildProjectionMatrix(float fov, float ratio, float nearP, float farP)

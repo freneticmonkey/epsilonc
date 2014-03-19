@@ -2,7 +2,7 @@ from epsilon import Input
 from epsilon.logging import Logger
 from epsilon.math import Vector3, Quaternion, Vector2
 from epsilon.render import Camera, Colour
-from epsilon.render.const import *
+from epsilon.render.const import WIDTH, HEIGHT
 from epsilon.scene import TransformSpace
 from epsilon import util
 
@@ -15,17 +15,21 @@ class CameraBehaviour(object):
 	def __init__(self):
 		self._speed = 10
 		self._angle_speed = 100.0
-		self._mouse_speed_x = 0.2
-		self._mouse_speed_y = 0.2
+		self._mouse_speed_x = 10
+		self._mouse_speed_y = 10
 
 		self._was_down = False
 		self._middle = Vector2(WIDTH/2,HEIGHT/2)
 
-		self._tla = False
-
+		self._v = -math.pi
+		self._h = 0
+		
 	def on_start(self):
-		print "Camera Name: " + self.node.name
+		self._pos = self.node.transform.position
 		self._control = self.node.transform.parent_transform.parent
+
+		# Convert to radians
+		self._angle_speed *= (math.pi / 180.0)
 
 	def on_update(self, dt):
 
@@ -38,71 +42,82 @@ class CameraBehaviour(object):
 		Gizmos.colour(Colour.CYAN)
 		Gizmos.draw_sphere(Vector3(0,-1,0), 1)
 
-		self._tla = False
-
-		if Input.key_down(Input.Key.L):
-			self.node.lookat(Vector3(1,1,0))
+		# Gizmos.colour(Colour.GREEN)
+		# mp = Input.mouse_position()
+		# pos = self.node.screen_to_world(mp)
+		# Gizmos.draw_sphere(pos, 0.1)
 
 		# if the right mouse button is down, active cam controls
 		if Input.mouse_button(Input.Button.Right):
 			Input.mouse_visible(False)
 			self._was_down = True
 
-			# if Input.mouse_button_down(Input.Button.Right):
-			# 	Input.set_mouse_position(self._middle)
+			if Input.mouse_button_down(Input.Button.Right):
+				Input.set_mouse_position(self._middle)
 
 			self.movement(dt)
 			self.rotation(dt)
-			self.look_at()
 
-			# Input.set_mouse_position(self._middle)
+			Input.set_mouse_position(self._middle)
 		else:
 			if self._was_down:
 				Input.mouse_visible(True)
 				self._was_down = False
 
-	def look_at(self):
-		target = self._control.transform.forward * self._speed
-		self.node.lookat(self._control.transform.position, target)
-
 	def rotation(self, dt):
 		angle = self._angle_speed * dt
 
-		# # Convert to radians
-		angle *= (math.pi / 180.0)
-
 		# convert the mouse input into rotation
 		mouse_pos = Input.mouse_position_relative()
-	
-		h_angle = (self._mouse_speed_x * -mouse_pos.x * angle) #angle
-		v_angle = (self._mouse_speed_y * -mouse_pos.y * angle) #0.0
 
-		self._control.transform.rotate(self.node.transform.up, h_angle)
-		self._control.transform.rotate(self.node.transform.right, v_angle)
+		self._h += (mouse_pos.x / WIDTH) * angle * self._mouse_speed_x
+		self._v += (mouse_pos.y / HEIGHT) * angle * self._mouse_speed_y
+
+		self.node.fps(self._control.transform.position, self._v, self._h)
+		# print self.node.transform.forward
+		# self._control.transform.local_orientation = self.node.transform.orientation
 	
 	def movement(self, dt):
 		applied_speed = self._speed
+
+		viewMat = self.node.get_view_matrix()
+		right 	= Vector3(viewMat[0], -viewMat[4], viewMat[8])
+		up 		= Vector3(viewMat[1], -viewMat[5], viewMat[9])
+		forward = Vector3(viewMat[2], -viewMat[6], viewMat[10])
+
+		if Input.key_down(Input.Key.I):
+
+			print "info"
+			print "right: " + str(right)
+			print "up: " + str(up)
+			print "forward: " + str(forward)
 
 		if Input.key(Input.Key.LShift):
 				applied_speed *= 10.0
 
 		if Input.key(Input.Key.A):
-			self._control.transform.translate(-Vector3.RIGHT * applied_speed * dt)
-
+			self._control.transform.translate(-right * applied_speed * dt)
+			# self._control.transform.translate(-Vector3.RIGHT * applied_speed * dt)
+			
 		if Input.key(Input.Key.D):
-			self._control.transform.translate(Vector3.RIGHT * applied_speed * dt )
-
+			self._control.transform.translate(right * applied_speed * dt )
+			# self._control.transform.translate(Vector3.RIGHT * applied_speed * dt )
+			
 		if Input.key(Input.Key.W):
-			self._control.transform.translate(Vector3.FORWARD * applied_speed * dt )
+			self._control.transform.translate(-forward * applied_speed * dt )
+			# self._control.transform.translate(Vector3.FORWARD * applied_speed * dt )
 
 		if Input.key(Input.Key.S):
-			self._control.transform.translate(-Vector3.FORWARD * applied_speed * dt )
+			self._control.transform.translate(forward * applied_speed * dt )
+			# self._control.transform.translate(-Vector3.FORWARD * applied_speed * dt )
 
 		if Input.key(Input.Key.E):
-			self._control.transform.translate(Vector3.UP * applied_speed * dt )
+			self._control.transform.translate(up * applied_speed * dt )
+			# self._control.transform.translate(Vector3.UP * applied_speed * dt )
 
 		if Input.key(Input.Key.C):
-			self._control.transform.translate(-Vector3.UP * applied_speed * dt )
+			self._control.transform.translate(-up * applied_speed * dt )
+			# self._control.transform.translate(-Vector3.UP * applied_speed * dt )
 
 	def on_destroy(self):
 		pass

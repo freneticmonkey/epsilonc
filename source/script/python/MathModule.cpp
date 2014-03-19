@@ -348,7 +348,7 @@ void initMath()
 
 	class_<Matrix4>("Matrix4")
 		.def(init<Matrix4>())
-
+		
 		.def("__str__", &Matrix4::ToString)
 		
 		.def("__getitem__", &matrix4_getitem)
