@@ -13,7 +13,7 @@ namespace epsilon
 
 	DebugStatsOverlay::DebugStatsOverlay(const private_struct &) : UIOverlay("debug_stats"),
 																   border(sf::LinesStrip, 12),
-																   screenPos(5,400),
+																   screenPos(5,500),
 																   dimensions(295,100),
 																   scale(2.0f)
 	{
