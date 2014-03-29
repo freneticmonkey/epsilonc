@@ -16,7 +16,7 @@ namespace epsilon
 
 	void GizmoSphere::Draw(RenderStateStack::Ptr stateStack)
 	{
-		std::for_each(operations.begin(), operations.end(), [&](GizmoOperation::Ptr op){
+		std::for_each(operations[currentOperations].begin(), operations[currentOperations].end(), [&](GizmoOperation::Ptr op){
 			// Configure material
 			stateStack->State()->model = Matrix4::CreateTranslation(op->vector[0].x, 
 																	op->vector[0].y, 

@@ -2,6 +2,7 @@
 #include "EpsilonCore.h"
 #include "render/RenderState.h"
 #include "render/gizmos/GizmoOperation.h"
+#include <atomic>
 
 namespace epsilon
 {
@@ -21,7 +22,8 @@ namespace epsilon
 
 	protected:
 
-		GizmoOperations operations;
+		GizmoOperations		operations[2];
+		std::atomic<int>	currentOperations;
 	};
 }
 

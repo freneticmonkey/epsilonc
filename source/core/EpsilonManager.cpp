@@ -112,12 +112,12 @@ namespace epsilon
 				sceneManager->Cull();
 				sceneGraph->AddValue(sceneClock.getElapsedTime().asMilliseconds());
 			});
+			*/
 			
 			taskGroup.run([&]() {
 				gizmoManager->Update(el);
 				sceneGraph->AddValue(sceneClock.getElapsedTime().asMilliseconds());
 			});
-			*/
 
 			taskGroup.wait();
 
@@ -130,7 +130,7 @@ namespace epsilon
 			sceneManager->Update(el);
 			sceneManager->Cull();
 		}
-		gizmoManager->Update(el);
+		//gizmoManager->Update(el);
 
 		sceneManager->Update(el);
 		sceneManager->Cull();
