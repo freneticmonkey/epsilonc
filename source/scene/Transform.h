@@ -35,6 +35,10 @@ namespace epsilon
 
 		static Transform::Ptr Create();
 		void Destroy();
+        
+        // Handle Transmitting enabled state through the scene graph.
+        void OnEnable();
+        void OnDisable();
 		
 		// Children
 		Transform::Ptr SetParentTransform(Transform::Ptr newParent);

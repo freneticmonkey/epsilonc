@@ -17,8 +17,24 @@ namespace epsilon
 		long GetId() { return id; }
 		const std::string GetName() { return objectName; }
 		std::string GetClass() { return className; }
+        bool IsEnabled() { return enabled; }
+        void Enable()
+        {
+            enabled = true;
+            OnEnable();
+        }
+        void Disable()
+        {
+            enabled = false;
+            OnDisable();
+        }
+        
+        // These functions can be overridden by inheriting classes
+        // in order to responded to enabled/disabled state
+        void OnEnable() {};
+        void OnDisable() {};
 
-		Object()
+		Object() : enabled(true)
 		{
 			std::stringstream ss;
 
@@ -28,7 +44,7 @@ namespace epsilon
 			objectName = className + std::string("_") + ss.str();
 		}
 
-		Object( std::string newClassName )
+		Object( std::string newClassName ) : enabled(true)
 		{
 			std::stringstream ss;
 
@@ -38,7 +54,7 @@ namespace epsilon
 			objectName = className + std::string("_") + ss.str();
 		}
 
-		Object(std::string name, std::string newClassName ) 
+		Object(std::string name, std::string newClassName ) : enabled(true)
 		{
 			id = Object::GenId();
 			className = newClassName;
@@ -56,6 +72,7 @@ namespace epsilon
 		long id;
 		std::string objectName;
 		std::string className;
+        bool enabled;
 
 	private:
 		static long GenId() 

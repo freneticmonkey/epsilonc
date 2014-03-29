@@ -84,25 +84,28 @@ namespace epsilon
 
 	void SceneManager::CullNodeChildren(Node::Ptr node)
 	{
-		Transform::Ptr nodeTrans = node->GetComponent<Transform>();
-		if ( nodeTrans->HasChildren() )
-		{
-			TransformListPtr children = nodeTrans->GetChildren();
-			for ( TransformList::iterator transform = children->begin(); transform != children->end(); transform++)
-			{
-				Node::Ptr childNode = std::dynamic_pointer_cast<epsilon::Node>( (*transform)->GetParent() );
-				if ( childNode && childNode->GetComponent<Renderer>() )
-				{
-					renderList.push_back( childNode->GetComponent<Renderer>() );
-				}
+        // If the node is disabled it's excluded from rendering
+        if (node->IsEnabled())
+        {
+            Transform::Ptr nodeTrans = node->GetComponent<Transform>();
+            if ( nodeTrans->HasChildren() )
+            {
+                TransformListPtr children = nodeTrans->GetChildren();
+                for ( TransformList::iterator transform = children->begin(); transform != children->end(); transform++)
+                {
+                    Node::Ptr childNode = std::dynamic_pointer_cast<epsilon::Node>( (*transform)->GetParent() );
+                    if ( childNode && childNode->GetComponent<Renderer>() )
+                    {
+                        renderList.push_back( childNode->GetComponent<Renderer>() );
+                    }
 
-				if ( (*transform)->HasChildren() )
-				{
-					CullNodeChildren( childNode );
-				}
-			}
-		}
-
+                    if ( (*transform)->HasChildren() )
+                    {
+                        CullNodeChildren( childNode );
+                    }
+                }
+            }
+        }
 	}
 
 	void SceneManager::Draw(RenderStateStack::Ptr stateStack)

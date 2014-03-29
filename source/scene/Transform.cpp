@@ -45,6 +45,22 @@ namespace epsilon
 
 		parent = nullptr;
 	}
+    
+    void Transform::OnEnable()
+    {
+        // Enable each of the children of this transform
+        std::for_each(children->begin(), children->end(), [](Transform::Ptr child){
+            child->componentParent->Enable();
+        });
+    }
+    
+    void Transform::OnDisable()
+    {
+        // Disable each of the children of this transform
+        std::for_each(children->begin(), children->end(), [](Transform::Ptr child){
+            child->componentParent->Disable();
+        });
+    }
 
 	Transform::Ptr Transform::SetParentTransform(Transform::Ptr newParent)
 	{
@@ -645,27 +661,29 @@ namespace epsilon
 
 	void Transform::_update(bool updateChildren, bool parentHasChanged)
 	{
-		// always clear information about parent notification
-		parentNotified = false;
-
-		// See if we should process everyone
-		if (needParentUpdate || parentHasChanged)
-		{
-			// Update transforms from parent
-			_updateFromParent();
-		}
-		/*
-		if (childrenToUpdate->size() > 0)
-		{
-			for_each(childrenToUpdate->begin(), childrenToUpdate->end(), [](Transform::Ptr child){
-				child->_update(true, false);
-			});
-			childrenToUpdate->clear();
-		}
-		*/
-
-		//if (updateChildren)
-		//{
+        if (IsEnabled()) {
+        
+            // always clear information about parent notification
+            parentNotified = false;
+            
+            // See if we should process everyone
+            if (needParentUpdate || parentHasChanged)
+            {
+                // Update transforms from parent
+                _updateFromParent();
+            }
+            /*
+             if (childrenToUpdate->size() > 0)
+             {
+             for_each(childrenToUpdate->begin(), childrenToUpdate->end(), [](Transform::Ptr child){
+             child->_update(true, false);
+             });
+             childrenToUpdate->clear();
+             }
+             */
+            
+            //if (updateChildren)
+            //{
 			if (needChildUpdate || parentHasChanged)
 			{
 				for_each(children->begin(), children->end(), [](Transform::Ptr child){
@@ -680,7 +698,9 @@ namespace epsilon
 			}
 			childrenToUpdate->clear();
 			needChildUpdate = false;
-		//}
+            //}
+            
+        }
 
 	}
 	//-----------------------------------------------------------------------
