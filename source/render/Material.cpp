@@ -10,7 +10,8 @@ namespace epsilon
 	Material::Material(const private_struct &) : ambient(0.3f), 
 												 diffuse(Colour::GREY), 
 												 specular(),
-												 reflectance(0.8f)
+												 reflectance(0.8f),
+                                                 shaderReady(false)
 	{
 		shader = Shader::Create();
 	}
@@ -32,6 +33,8 @@ namespace epsilon
 		diffuseId = shader->GetUniformId("material.diffuse");
 		specId = shader->GetUniformId("material.specular");
 		reflectId = shader->GetUniformId("material.reflectance");
+        
+        shaderReady = true;
 	}
 
 	void Material::SetShader(Shader::Ptr newShader)
@@ -44,7 +47,7 @@ namespace epsilon
 		return shader;
 	}
 
-	void Material::Enable(RenderStateStack::Ptr stateStack)
+	bool Material::Enable(RenderStateStack::Ptr stateStack)
 	{
 		// If the shader hasn't yet been setup
 		if ( !shader->Compiled() )
@@ -64,6 +67,12 @@ namespace epsilon
 			shader->SetColourUniform(specId, specular);
 			shader->SetFloatUniform(reflectId, reflectance);
 		}
+        else
+        {
+            shaderReady = false;
+        }
+        
+        return shaderReady;
 	}
 
 	void Material::Disable()

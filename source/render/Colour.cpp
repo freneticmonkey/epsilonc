@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 
 #include "render/Colour.h"
 #include "utilities/Utilities.h"
@@ -164,7 +165,7 @@ Colour Colour::Tinted(const Colour &other, float prop)
 
 float Colour::NormaliseColourValue(float value)
 {
-	value = max( min(value, 255.0f), 0.0f );
+	value = std::max( std::min(value, 255.0f), 0.0f );
 
 	if ( value > 1.0f )
 	{

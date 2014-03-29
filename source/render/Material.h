@@ -33,11 +33,12 @@ namespace epsilon
 
 		void SetupShader();
 
-		void Enable(RenderStateStack::Ptr stateStack);
+		bool Enable(RenderStateStack::Ptr stateStack);
 		void Disable();
 
 	private:
 		Shader::Ptr shader;
+        bool        shaderReady;
 
 		GLuint ambientId;
 		GLuint diffuseId;

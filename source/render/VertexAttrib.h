@@ -27,7 +27,7 @@ namespace epsilon
 		virtual int DataLength() = 0;
 		virtual float GetUnitValue(int i, int u) = 0;
 
-		virtual void Enable() = 0;
+		virtual bool Enable() = 0;
 		virtual void Disable() = 0;
 	};
 
@@ -81,16 +81,21 @@ namespace epsilon
 
 		float GetUnitValue(int i, int u) { return data[i][u]; }
 
-		void Enable()
+		bool Enable()
 		{
+            bool success = false;
 			if ( attributeStride != -1 )
 			{
                 glVertexAttribPointer(attributeIndex, unitNum, unitType, GL_FALSE, bufferStride, (GLvoid*)attributeStride);
-                CheckOpenGLError("Setting Vertex Attrib Pointer");
+                success = CheckOpenGLError("Setting Vertex Attrib Pointer");
                 
-                glEnableVertexAttribArray(attributeIndex);
-				CheckOpenGLError("Enabling Vertex Attrib");
+                if ( success )
+                {
+                    glEnableVertexAttribArray(attributeIndex);
+                    success = CheckOpenGLError("Enabling Vertex Attrib");
+                }
 			}
+            return success;
 		}
 
 		void Disable()

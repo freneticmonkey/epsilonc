@@ -41,7 +41,8 @@ namespace epsilon
 
 	void Renderer::Draw(RenderStateStack::Ptr stateStack)//Matrix4 viewMatrix, Matrix4 projMatrix)
 	{
-		if ( material )
+        // if a Material and a Mesh have been set. i.e. there is something to render and we know how to render it.
+		if ( material && mesh)
 		{
 			// Set the transform here as this is a NodeComponent, whereas a single material
 			// maybe attached to multiple objects.  This concept will allow for multiple objects
@@ -53,19 +54,15 @@ namespace epsilon
 			// Make this only update if the transform has changed
 			stateStack->State()->model = GetParent()->GetComponent<Transform>()->_getFullTransform();
 
-			// Send the state to the applied material
-			material->Enable(stateStack);
+			// Enable the Material by sending the state to the applied material
+            if ( material->Enable(stateStack) )
+            {
+                mesh->Draw();
+            }
+            
+            material->Disable();
 		}
-
-		if ( mesh )
-		{
-			mesh->Draw();
-		}
-
-		if ( material )
-		{
-			material->Disable();
-		}
+		
 	}
 
 	void Renderer::SetMesh(Mesh::Ptr newMesh)

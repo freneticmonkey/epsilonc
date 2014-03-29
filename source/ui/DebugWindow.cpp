@@ -26,8 +26,9 @@ namespace epsilon
 	{
 		label = Label::Create("Hello World!");
 		Button::Ptr button( Button::Create("Click Me") );
+        /*
 		button->GetSignal(Widget::OnLeftClick).Connect(std::bind(&DebugWindow::OnButtonClick, this));
-
+         */
 		Box::Ptr box(Box::Create( Box::Orientation::VERTICAL, 5.0f ) );
 		box->Pack( label );
 		box->Pack( button, false );
