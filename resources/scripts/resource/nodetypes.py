@@ -182,47 +182,50 @@ class SceneCamera(BaseXMLNode):
 
 	def process_node(self, parse_globals, scene_node, xml_tag):
 
-		if "name" in xml_tag.attrib:
-			camera = Camera.create(xml_tag.attrib["name"])
-		else:
-			camera = Camera.create()
-
-		#Extract whether the camera is the active camera in the scene
-		active = self.extract_bool_attribute(xml_tag, "active", False)
-
-		# Parse Camera look at values
-		if "look_at" in xml_tag.attrib:
-			camera.lookat(self.parse_vector3(xml_tag, "look_at"))
-
-		if "from" in xml_tag.attrib:
-			if "to" in xml_tag.attrib:
-				from_pos = self.parse_vector3(xml_tag, "from")
-				to_pos = self.parse_vector3(xml_tag, "to")
-				camera.lookat(from_pos, to_pos)
-			else:
-				self.raise_parse_issue("camera with 'from' attribute missing 'to' attribute")
-
-		elif "to" in xml_tag.attrib:
-			if "from" in xml_tag.attrib:
-				from_pos = self.parse_vector3(xml_tag, "from")
-				to_pos = self.parse_vector3(xml_tag, "to")
-				camera.lookat(from_pos, to_pos)
-			else:
-				self.raise_parse_issue("camera with 'to' attribute missing 'from' attribute")
-
-		# Add the camera to it's node parent
+		# If a node is set
 		if not scene_node is None:
-			scene_node.add_child(camera)
 
-		# Add the camera to the scene
-		parse_globals.current_scene.add_camera(camera)
-		
-		# if necessary make it the active camera
-		if active:
-			parse_globals.current_scene.active_camera = camera
-			print "Made camera active: %s" % camera.name
-		
-		return camera
+			if "name" in xml_tag.attrib:
+				camera = Camera.create(xml_tag.attrib["name"])
+			else:
+				camera = Camera.create()
+
+			#Extract whether the camera is the active camera in the scene
+			active = self.extract_bool_attribute(xml_tag, "active", False)
+
+			# Parse Camera look at values
+			if "look_at" in xml_tag.attrib:
+				scene_node.transform.lookat(self.parse_vector3(xml_tag, "look_at"))
+
+			if "from" in xml_tag.attrib:
+				if "to" in xml_tag.attrib:
+					from_pos = self.parse_vector3(xml_tag, "from")
+					to_pos = self.parse_vector3(xml_tag, "to")
+					scene_node.transform.lookat(from_pos, to_pos)
+				else:
+					self.raise_parse_issue("camera with 'from' attribute missing 'to' attribute")
+
+			elif "to" in xml_tag.attrib:
+				if "from" in xml_tag.attrib:
+					from_pos = self.parse_vector3(xml_tag, "from")
+					to_pos = self.parse_vector3(xml_tag, "to")
+					scene_node.transform.lookat(from_pos, to_pos)
+				else:
+					self.raise_parse_issue("camera with 'to' attribute missing 'from' attribute")
+
+			# Add the camera to it's node parent
+			#scene_node.add_child(camera)
+			scene_node.add_component(camera)
+
+			# Add the camera to the scene
+			parse_globals.current_scene.add_camera(camera)
+			
+			# if necessary make it the active camera
+			if active:
+				parse_globals.current_scene.active_camera = camera
+				print "Made camera active: %s" % camera.name
+			
+			return camera
 
 class SceneMaterial(BaseXMLNode):
 

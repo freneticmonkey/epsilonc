@@ -193,33 +193,21 @@ void initRender()
 		.add_property("shader", &Material::GetShader, &Material::SetShader)
 	;
 	
-	// LookAt function pointers
-	void (Camera::*LookAtTarget)(Vector3) = &Camera::LookAt;
-	void (Camera::*LookAtFromTo)(Vector3, Vector3) = &Camera::LookAt;
-	void (Camera::*LookAtFromToComp)(float, float, float, float, float, float) = &Camera::LookAt;
-
 	Camera::Ptr (*CreateStandard)() = &Camera::Create;
 	Camera::Ptr (*CreateName)(std::string) = &Camera::Create;
 	
-	class_<Camera, bases<Node>, Camera::Ptr, boost::noncopyable>("Camera", no_init)
+	class_<Camera, bases<NodeComponent>, Camera::Ptr, boost::noncopyable>("Camera", no_init)
 		.def("create", CreateStandard)
 		.def("create", CreateName)
 		.staticmethod("create")
 
-		
-		// Look at
-		.def("lookat", LookAtTarget)
-		.def("lookat", LookAtFromTo)
-		.def("lookat", LookAtFromToComp)
-
-		.def("fps", &Camera::FPS)
 		.def("get_projection_matrix", &Camera::GetProjectionMatrix)
 		.def("get_view_matrix", &Camera::GetViewMatrix)
 
 		.def("screen_to_world", &Camera::ScreenToWorldCoordinate)
 		.def("world_to_screen", &Camera::WorldToScreenCoordinate)
 	;
-	implicitly_convertible<Camera::Ptr, Node::Ptr>();
+	implicitly_convertible<Camera::Ptr, NodeComponent::Ptr>();
 
 	object renderConstModule(handle<>(borrowed(PyImport_AddModule("epsilon.render.const"))));
 	renderScope.attr("const") = renderConstModule;

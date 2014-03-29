@@ -8,6 +8,7 @@ from epsilon import util
 
 from epsilon import Gizmos
 
+from random import randint
 import math
 
 class CameraBehaviour(object):
@@ -34,9 +35,11 @@ class CameraBehaviour(object):
 	def on_update(self, dt):
 
 		Gizmos.colour(Colour.BLUE)
-		for x in range(3):
-			for y in range(3):
-				
+		for x in range(10):
+			for y in range(10):
+				# x = randint(0, x)
+				# y = randint(0, y)
+				# z = randint(0, 10)
 				Gizmos.draw_cube(Vector3(x,y,y), Vector3.ONE)
 
 		Gizmos.colour(Colour.CYAN)
@@ -73,17 +76,21 @@ class CameraBehaviour(object):
 		self._h += (mouse_pos.x / WIDTH) * angle * self._mouse_speed_x
 		self._v += (mouse_pos.y / HEIGHT) * angle * self._mouse_speed_y
 
-		self.node.fps(self._control.transform.position, self._v, self._h)
+		self.node.transform.fps(self._control.transform.position, self._v, self._h)
+		# self.node.transform.fps(self._control.transform.position, self._v, self._h)
 		# print self.node.transform.forward
 		# self._control.transform.local_orientation = self.node.transform.orientation
 	
 	def movement(self, dt):
 		applied_speed = self._speed
 
-		viewMat = self.node.get_view_matrix()
-		right 	= Vector3(viewMat[0], -viewMat[4], viewMat[8])
-		up 		= Vector3(viewMat[1], -viewMat[5], viewMat[9])
-		forward = Vector3(viewMat[2], -viewMat[6], viewMat[10])
+		viewMat = self.node.camera.get_view_matrix()
+		# right 	= Vector3(viewMat[0], -viewMat[4], viewMat[8])
+		# up 		= Vector3(viewMat[1], -viewMat[5], viewMat[9])
+		# forward = Vector3(viewMat[2], -viewMat[6], viewMat[10])
+		right = self.node.transform.right
+		forward = self.node.transform.forward
+		up = self.node.transform.up
 
 		if Input.key_down(Input.Key.I):
 
@@ -96,11 +103,11 @@ class CameraBehaviour(object):
 				applied_speed *= 10.0
 
 		if Input.key(Input.Key.A):
-			self._control.transform.translate(-right * applied_speed * dt)
+			self._control.transform.translate(right * applied_speed * dt)
 			# self._control.transform.translate(-Vector3.RIGHT * applied_speed * dt)
 			
 		if Input.key(Input.Key.D):
-			self._control.transform.translate(right * applied_speed * dt )
+			self._control.transform.translate(-right * applied_speed * dt )
 			# self._control.transform.translate(Vector3.RIGHT * applied_speed * dt )
 			
 		if Input.key(Input.Key.W):

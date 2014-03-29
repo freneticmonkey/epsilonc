@@ -497,6 +497,53 @@ namespace epsilon
 		return ThisPtr();
     }
 
+	void Transform::LookAt(Vector3 target)
+	{
+		LookAt(position, target);
+	}
+
+	void Transform::LookAt(Vector3 from, Vector3 to)
+	{
+		LookAt(from.x, from.y, from.z, to.x, to.y, to.z);
+	}
+
+	void Transform::LookAt(float x, float y, float z,
+		float lookAtX, float lookAtY, float lookAtZ)
+	{
+		Vector3 up(0.f, 1.f, 0.f);
+		Vector3 from(x, y, z);
+		Vector3 to(lookAtX, lookAtY, lookAtZ);
+
+		// create the look at matrix.
+		cachedTransform = Matrix4::CreateLookAt(from, to, up);
+
+		// Set the orientation in the transform from the look at matrix
+		SetLocalOrientation(cachedTransform.GetRotation());
+
+		SetPosition(from);
+	}
+
+	void Transform::FPS(Vector3 pos, float pitch, float yaw)
+	{
+		float cosPitch = cos(pitch);
+		float sinPitch = sin(pitch);
+		float cosYaw = cos(yaw);
+		float sinYaw = sin(yaw);
+
+		Vector3 xaxis(cosYaw, 0, -sinYaw);
+		Vector3 yaxis(sinYaw * sinPitch, cosPitch, cosYaw * sinPitch);
+		Vector3 zaxis(sinYaw * cosPitch, -sinPitch, cosPitch * cosYaw);
+
+		cachedTransform = Matrix4(
+			xaxis.x, xaxis.y, xaxis.z, -xaxis.Dot(pos),
+			yaxis.x, yaxis.y, yaxis.z, -yaxis.Dot(pos),
+			zaxis.x, zaxis.y, zaxis.z, -zaxis.Dot(pos),
+			0,		 0,		  0,		1);
+		
+		SetPosition(cachedTransform.GetTranslation());
+		SetLocalOrientation(cachedTransform.GetRotation());
+	}
+
 	const Matrix4& Transform::_getFullTransform(void)
 	{
 		// Make a transform from the transform components
@@ -513,7 +560,7 @@ namespace epsilon
 			for (int i = 0; i < 3; i++)
 			{
 				//cachedTransform[Vector4(res3[i][0],res3[i][1],res3[i][2],0));
-				cachedTransform[4 * i] = res[4 * i];
+				cachedTransform[4 * i]	   = res[4 * i];
 				cachedTransform[4 * i + 1] = res[4 * i + 1];
 				cachedTransform[4 * i + 2] = res[4 * i + 2];
 				cachedTransform[4 * i + 3] = 0;

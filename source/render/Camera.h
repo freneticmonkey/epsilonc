@@ -1,11 +1,12 @@
 #pragma once
 #include "EpsilonCore.h"
 
-#include "scene/Node.h"
+#include "scene/NodeComponent.h"
+#include "math/Matrix.h"
 
 namespace epsilon
 {
-	class Camera : public Node
+	class Camera : public NodeComponent
 	{
 	protected:
 		struct private_struct {};
@@ -19,16 +20,9 @@ namespace epsilon
 		explicit Camera(const private_struct &);
 		Camera(const private_struct &, std::string name);
 		~Camera(void) {}
-
-		void LookAt(Vector3 target);
-		void LookAt(Vector3 from, Vector3 to);
-		void LookAt(float x, float y, float z, 
-					float lookAtX, float lookAtY, float lookAtZ);
-
-		void FPS(Vector3 pos, float pitch, float yaw);
-		
-		Matrix4 GetProjectionMatrix() { return projMatrix; }
-		Matrix4 GetViewMatrix() { return viewMatrix; }
+				
+		Matrix4 GetProjectionMatrix();
+		Matrix4 GetViewMatrix();
 
 		Vector3 ScreenToWorldCoordinate(Vector2 screenPos);
 		Vector2 WorldToScreenCoordinate(Vector3 worldPos);
@@ -37,7 +31,6 @@ namespace epsilon
 		void Setup();
 		void BuildProjectionMatrix(float fov, float ratio, float nearP, float farP);
 
-		Matrix4 viewMatrix;
 		Matrix4 projMatrix;
 		float	nearDist;
 		float	farDist;

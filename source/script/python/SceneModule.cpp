@@ -84,6 +84,7 @@ void initScene()
 		// Hardcoded Component Accessors
 		.add_property("transform", &Node::GetComponent<Transform>)
 		.add_property("renderer", &Node::GetComponent<Renderer>)
+		.add_property("camera", &Node::GetComponent<Camera>)
 		
 		//.def("script", &Node::GetComponent<Script>)
 
@@ -104,6 +105,9 @@ void initScene()
 	
 
 	Transform::Ptr (*TransformCreateStandard)() = &Transform::Create;
+	void (Transform::*LookAtTarget)(Vector3) = &Transform::LookAt;
+	void (Transform::*LookAtFromTo)(Vector3, Vector3) = &Transform::LookAt;
+	void (Transform::*LookAtFromToComp)(float, float, float, float, float, float) = &Transform::LookAt;
 
 	//register_ptr_to_python<Transform::Ptr>();
 
@@ -188,6 +192,12 @@ void initScene()
 		.def("translate", ( Transform::Ptr (Transform::*)( const Matrix3&, float, float, float, Transform::TransformSpace)  ) &Transform::Translate, TranslateMatrixFloat() )
 		.def("rotate", ( Transform::Ptr (Transform::*)(const Vector3&, const float&, Transform::TransformSpace)  ) &Transform::Rotate, RotateAxis() )
 		.def("rotate", ( Transform::Ptr (Transform::*)(const Quaternion&, Transform::TransformSpace)  ) &Transform::Rotate, RotateQuat() )
+		
+		.def("lookat", LookAtTarget)
+		.def("lookat", LookAtFromTo)
+		.def("lookat", LookAtFromToComp)
+
+		.def("fps", &Transform::FPS)
 	;
 	implicitly_convertible<Transform::Ptr, NodeComponent::Ptr>();
 

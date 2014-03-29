@@ -126,6 +126,13 @@ namespace epsilon
 		Transform::Ptr Rotate(const Vector3& axis, const float& angle, TransformSpace relativeTo = TS_LOCAL);
 		Transform::Ptr Rotate(const Quaternion& q, TransformSpace relativeTo = TS_LOCAL);
 
+		void LookAt(Vector3 target);
+		void LookAt(Vector3 from, Vector3 to);
+		void LookAt(float x, float y, float z,
+					float lookAtX, float lookAtY, float lookAtZ);
+
+		void FPS(Vector3 pos, float pitch, float yaw);
+
 		Matrix3 GetLocalAxes(void) const;
 
       /** Gets the orientation of the node as derived from all parents.

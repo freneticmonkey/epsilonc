@@ -31,14 +31,15 @@
 		<mesh preset="GRID" size="10" resolution="1"/>
 	</node>
 
-	<node name="camera_mount">
-		<transform position="0 1 -8"/>
+	<node name="cam_pos">
 		<children>
-			<camera name="scene_cam" from="0 1 -8" to="0 1 0" active="True">
+			<node name="scene_camera">
+				<transform position="0 1 -8"/>
+				<camera name="scene_cam" from="0 1 -8" to="0 1 0" active="True"/>
 				<scripts>
 					<script filename="CameraBehaviour.py"/>
 				</scripts>
-			</camera>
+			</node>
 		</children>
 	</node>
 
