@@ -1,5 +1,7 @@
 #pragma once
 
+#include <algorithm>
+
 #include "scene/Object.h"
 //#include "scene/Node.h"
 
@@ -66,6 +68,21 @@ namespace epsilon
 			}
 			return foundComponent;
 		}
+        
+        // Handle the toggling of components
+        void OnEnable()
+        {
+            std::for_each(components->begin(), components->end(), [](NodeComponent::Ptr component){
+                component->Enable();
+            });
+        }
+        
+        void OnDisable()
+        {
+            std::for_each(components->begin(), components->end(), [](NodeComponent::Ptr component){
+                component->Disable();
+            });
+        }
 		
 		// Component Fields
 		//NodeComponent::Ptr GetTransform() { return transform; }

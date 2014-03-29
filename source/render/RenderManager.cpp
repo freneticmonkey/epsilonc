@@ -43,15 +43,22 @@ namespace epsilon
 		window->setFramerateLimit(60);
 
 		font = new Font();
-		//if (!font->loadFromFile("/Users/scottporter/Development/Projects/C++/epsilonc/resources/sansation.ttf"))
-		if (!font->loadFromFile("resources/sansation.ttf"))
+
+//FIXME: This is the *worst*.  Fix ASAP after C++ ResourceManager is implemented.
+#ifdef __APPLE__
+        std::string fontPath = "/Users/scottporter/Development/Projects/C++/epsilonc/resources/sansation.ttf";
+#else
+        std::string fontPath = "resources/sansation.ttf";
+#endif
+		
+        if (!font->loadFromFile(fontPath))
 		{
 			Log("Unable to find font: sansation.ttf");
 		}
 		else
 		{
 			// TODO: This needs to be moved into a UI Window with other debug info.
-			fpsText = new Text("FPS: 0.0", *font);
+			fpsText = new Text(std::string("FPS: 0.0"), *font);
 			fpsText->setColor(Color(255,255,255,170));
 			fpsText->setPosition(700.f, 0.f);
 			fpsText->setCharacterSize(16);
@@ -89,27 +96,26 @@ namespace epsilon
 
 		// Clear the window
 		window->clear(sf::Color(50,50,50,255));
-
-		// Reset any render states
+        
+        // Reset any render states
 		stateStack->Reset();
 
 		// Enable Z-buffer read and write
 		glEnable(GL_DEPTH_TEST);
 		glDepthMask(GL_TRUE);
 		glClearDepth(1.f);
-
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        CheckOpenGLError("Clear Error Before Draw");
-
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        
+//        CheckOpenGLError("Clear Error Before Draw");
+        
 		// Do OpenGL drawing here.
 		if (sceneManager)
 		{
 			sceneManager->Draw(stateStack);
 		}
-		window->pushGLStates();
-		window->resetGLStates();
-
+//		window->pushGLStates();
+//		window->resetGLStates();
 		if ( fpsText )
 		{
 			std::ostringstream sstr;
@@ -122,20 +128,20 @@ namespace epsilon
 
 			window->draw(*fpsText);
 		}
-		window->popGLStates();
-
+//		window->popGLStates();
+        /*
 		// Draw the Gizmos
 		// Setup the Camera and Projection Matrix
 		stateStack->State()->view = sceneManager->CurrentScene()->GetActiveCamera()->GetViewMatrix();
 		stateStack->State()->projection = sceneManager->CurrentScene()->GetActiveCamera()->GetProjectionMatrix();
 		gizmoManager->Draw(stateStack);
-		
 		// Draw the GUI
 		if ( uiManager )
 		{
 			uiManager->Draw(window);
 		}
-
+         */
+        
 		// Display the frame
 		window->display();
 	}

@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "14"
             endingLineNumber = "14"
-            landmarkName = "Scene::Scene(const private_struct &amp;)"
+            landmarkName = "Scene::Scene(const private_struct &amp;, std::string sceneName)"
             landmarkType = "5">
             <Locations>
                <Location
@@ -115,13 +115,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../source/render/Renderer.cpp"
-            timestampString = "410160361.291734"
+            filePath = "../../source/core/EpsilonManager.cpp"
+            timestampString = "417305737.164119"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
-            landmarkName = "Renderer::Draw(RenderStateStack::Ptr stateStack)"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "EpsilonManager::OnUpdate(float el)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
