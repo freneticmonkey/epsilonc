@@ -65,6 +65,10 @@ namespace epsilon
 
 		ScriptSource GetSource() { return scriptSource; }
 
+		// Returns whether the script is currently disabled because 
+		// it threw a Python error.
+		bool InError() { return compileError;  }
+
 		// Simple Function Calling
 		/* 
 		// Not implemented for now this can be created in future 
@@ -81,8 +85,13 @@ namespace epsilon
 		
 		// Override in derived classes in order to expose python functions
 		virtual void RegisterScriptFunctions() {}
+
+		// Utility function which is fired when a Python error occurs
+		void HandlePythonError();
 	private:	
 		void RegisterPythonClass();
+
+		bool compileError;
 
 		bool initialised;
 		dict scriptLocalNamespace;

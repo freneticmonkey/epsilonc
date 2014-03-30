@@ -25,6 +25,7 @@ namespace epsilon
 											 text(""),
 											 scriptSource(ScriptSource::NONE),
 											 initialised(false),
+											 compileError(false),
 											 Resource("", ResourceType::Type::SCRIPT)
 	{
 		// Name the Script using its Object ID
@@ -38,6 +39,7 @@ namespace epsilon
 																	filename(filepath),
 																	initialised(false),
 																	text(""),
+																	compileError(false),
 																	Resource(filepath, ResourceType::Type::SCRIPT)
 	{
 		// Name the script
@@ -53,6 +55,7 @@ namespace epsilon
 	Script::Script(const private_struct &, std::string scriptString, ScriptSource source) : NodeComponent("Script"),
 																							scriptSource(source),
 																							initialised(false),
+																							compileError(false),
 																							Resource("", ResourceType::Type::SCRIPT)
 	{
 		switch(scriptSource)
@@ -94,6 +97,15 @@ namespace epsilon
 	{
 	}
 
+	void Script::HandlePythonError()
+	{
+		if (PyErr_Occurred())
+		{
+			compileError = true;
+			PrintPythonError();
+		}
+	}
+
 	bool Script::InitScript()
 	{
 		try
@@ -132,14 +144,13 @@ namespace epsilon
 				OnSetParent();
 			}
 
+			// Set the scripts state to a good state now that it has initialised
 			initialised = true;
+			compileError = false;
 		}
 		catch (const error_already_set&)
 		{
-			if (PyErr_Occurred()) 
-			{
-				PrintPythonError();
-			}	
+			HandlePythonError();
 		}
 
 		// Indicated that the Script Resource has been refreshed

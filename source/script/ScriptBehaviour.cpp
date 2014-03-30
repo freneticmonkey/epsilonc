@@ -54,10 +54,7 @@ namespace epsilon
 			}
 			catch (const error_already_set&)
 			{
-				if (PyErr_Occurred()) 
-				{
-					PrintPythonError();
-				}
+				HandlePythonError();
 			}
 		}
 	}
@@ -73,10 +70,7 @@ namespace epsilon
 			}
 			catch (const error_already_set&)
 			{
-				if (PyErr_Occurred()) 
-				{
-					PrintPythonError();
-				}
+				HandlePythonError();
 			}
 		}
 	}
@@ -92,10 +86,7 @@ namespace epsilon
 			}
 			catch (const error_already_set&)
 			{
-				if (PyErr_Occurred()) 
-				{
-					PrintPythonError();
-				}
+				HandlePythonError();
 			}
 		}
 	}
@@ -111,10 +102,7 @@ namespace epsilon
 			}
 			catch (const error_already_set&)
 			{
-				if (PyErr_Occurred()) 
-				{
-					PrintPythonError();
-				}
+				HandlePythonError();
 			}
 		}
 	}

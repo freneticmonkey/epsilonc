@@ -102,7 +102,7 @@ namespace epsilon
 		RegisterResource(engineCoreScript);
 
 		// Init the Python Script Engine Core
-		if ( engineCoreScript->InitScript() )
+		if (engineCoreScript->InitScript() && !engineCoreScript->InError() )
 		{
 			// Start it immediately
 			success = engineCoreScript->OnStart();
@@ -132,7 +132,10 @@ namespace epsilon
 			{
 				try
 				{
-					(*behaviour)->OnStart();
+					if (!(*behaviour)->InError())
+					{
+						(*behaviour)->OnStart();
+					}
 				}
 				catch (const error_already_set&)
 				{
@@ -171,7 +174,10 @@ namespace epsilon
 		{
 			try
 			{
-				(*behaviour)->Update(dt);
+				if (!(*behaviour)->InError())
+				{
+					(*behaviour)->Update(dt);
+				}
 			}
 			catch (const error_already_set&)
 			{
@@ -197,7 +203,10 @@ namespace epsilon
 		{
 			try
 			{
-				(*behaviour)->OnDestroy();
+				if (!(*behaviour)->InError())
+				{
+					(*behaviour)->OnDestroy();
+				}
 			}
 			catch (const error_already_set&)
 			{
