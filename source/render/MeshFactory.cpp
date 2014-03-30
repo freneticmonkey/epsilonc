@@ -131,7 +131,7 @@ namespace epsilon
 		// if the resolution doesn't evenly divide into the size
 		if ( (size % resolution) > 0.0f )
 		{
-			float diff = size % resolution;
+			float diff = (float)(size % resolution);
 
 			// modify the size so that the resolution evenly fits
 			halfWidth -= diff / 2.0f;
@@ -140,7 +140,7 @@ namespace epsilon
 		// Impossible to have a grid smaller than its resolution
 		if ( size > resolution )
 		{
-			float resStep =  resolution;// / halfWidth;
+			float resStep =  (float)resolution;// / halfWidth;
 
 			// 'Vertical' Lines first
 			for ( float x = -halfWidth; x < halfWidth; x += resStep)

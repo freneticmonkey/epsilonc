@@ -39,7 +39,7 @@ namespace epsilon
 
 	void Camera::Setup()
 	{
-		ratio = (1.0f * width) / height;
+		ratio = (float)((1.0f * width) / height);
 
 		BuildProjectionMatrix(fov, ratio, nearDist, farDist);
 	}
@@ -58,8 +58,8 @@ namespace epsilon
 	Vector3 Camera::ScreenToWorldCoordinate(Vector2 screenPos)
 	{
 		Matrix4 viewMatrix = GetParent()->GetComponent<Transform>()->_getFullTransform();
-		float x = 2.0 * screenPos.x / width - 1;
-		float y = -2.0 * screenPos.y / height + 1;
+		float x = (float)2.0 * screenPos.x / width - 1;
+		float y = (float)-2.0 * screenPos.y / height + 1;
 		Matrix4 viewProj = projMatrix * viewMatrix;
 		Vector3 v = Vector3(x, y, 0) * viewProj.Inverse();
 		return v;
@@ -71,9 +71,9 @@ namespace epsilon
 		Matrix4 viewProj = projMatrix * viewMatrix;
 		// transform world point to clipping coordinates
 		worldPos = viewProj * worldPos;
-		int screenX = (int)round((worldPos.x + 1) / 2.0) * width;
+		float screenX = (float)round((worldPos.x + 1) / 2.0) * width;
 		// -Y because screen Y axis is top down
-		int screenY = (int)round((1 - worldPos.y) / 2.0) * height;
+		float screenY = (float)round((1 - worldPos.y) / 2.0) * height;
 		return Vector2(screenX, screenY);
 	}
 
