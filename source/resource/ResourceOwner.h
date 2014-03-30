@@ -7,29 +7,35 @@
 //  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 
+#include "resource/ResourceOwnerInterface.h"
+#include "resource/ResourceManager.h"
+#include "resource/Resource.h"
 
 namespace epsilon
 {
-    class ResourceOwner
+	class ResourceManager;
+
+	// Derived classes will all be Singletons so, 
+	// this class doesn't need to have shared pointers.
+    class ResourceOwner : public ResourceOwnerInterface
     {
-    private:
+	public:
         
-		struct private_struct {};
-        
-        ResourceOwner(const private_struct &, long nId)
+		ResourceOwner() : ResourceOwnerInterface()
         {
-            uID = nId;
+			ResourceManager::GetInstance().AddResourceOwner(this);
         }
         
-    public:
-        typedef std::shared_ptr<ResourceOwner> Ptr;
-        
-        static ResourceOwner::Ptr Create(long id);
-        
-        
-        ~ResourceOwner();
-        
-    public:
-        long uID;
+		void RegisterResource(Resource::Ptr newResource)
+		{
+			// Set this object as the owner
+			newResource->SetOwner(uID);
+
+			// Send it to the ResourceManager
+			ResourceManager::GetInstance().AddResource(newResource);
+		}
+
+		// Should be redefinted by derived classes
+		virtual void RefreshResources(ResourceIdVector changedResources) {};
     };
 }

@@ -6,59 +6,75 @@
 //  Created by Scott Porter on 25/03/2014.
 //  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
+#include "EpsilonCore.h"
+#include "resource/ResourceType.h"
+#include "utilities/HashedString.h"
 
 namespace epsilon
 {
     class ResourceManager;
  
-    enum ResourceType
-    {
-        TEXT = 1,
-        SCRIPT,
-        MESH,
-        TEXTURE,
-        SHADER
-    };
-    
+	/*
+	 * Resource
+	 * 
+	 * A Resource is a wrapper for a (at the moment) disk based file.
+	 * The Resource class exposes the file state to the Resource Owners.
+	 * This members of this class are managed by the ResourceManager
+	 */
     class Resource
     {
         friend class ResourceManager;
-     private:
+     protected:
         struct private_struct {};
         
-        Resource(const private_struct &, long nOwnerId, int iType = ResourceType::TEXT)
-        {
-            uID = -1;
-            ownerId = nOwnerId;
-            type = iType;
-        }
-
      public:
-        typedef std::shared_ptr<Resource> Ptr;
+		typedef std::shared_ptr<Resource> Ptr;
         
-        static Resource::Ptr Create(long owner, int type)
-        {
-            return std::make_shared<Resource>(private_struct(), owner, type);
-        }
-        ~Resource();
+		static Resource::Ptr Create(std::string theFilePath, ResourceType::Type resType);
         
-        long GetId() { return uID; }
-        int GetType() { return type; }
+		explicit Resource(std::string theFilepath, ResourceType::Type iType = ResourceType::Type::TEXT);
+		~Resource();
+        
+        int		GetType() { return type; }
         
         // Ensure that type based comparison is implemented?
 //        virtual int operator=;
         
-        // This is used by the ResourceManager to set a unique id for the Resource
-    protected:
-        void SetId(long nId)
-        {
-            uID = nId;
-        }
+		long GetOwner() { return ownerId; }
+		void SetOwner(long owner);
+		
+		// The Filepath cannot be changed as its hashed value is the id for the resource!
+		HashedString GetFilepath() { return filepath;  }
+		
+		// Get the Id of the resource from the hash of its filepath.
+		std::size_t GetResourceId() { return filepath.GetHash(); }
+
+		// Get the modified time of the resource when it was last reloaded
+		long GetLastModified(){ return lastModified; }
+		
+		// Get the current modified time of the resource
+		long GetModifiedTime() { return modifiedTime; }
+
+		// Set the modified time of the resource - Intended for use by the Resource Manager
+		void SetModifiedTime(long newModifiedTime);
+
+		// Indicate that the in-memory resource is out of date
+		bool NeedReload() { return lastModified == modifiedTime; }
+
+		// Notify the resource that the in-memory copy is up to date.
+		void SetReloaded() { lastModified = modifiedTime; }
         
+		// TODO!: Add file reading writing functionality in here. :)
+
     private:
-        long uID;
-        long ownerId;
-        int type;
+        long			ownerId;
+        int				type;
+
+		HashedString	filepath;
+		// The modified time on last resource load.
+		long			lastModified;
+		// The modified time of the resource
+		long			modifiedTime;
         
     };
 }

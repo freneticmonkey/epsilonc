@@ -10,16 +10,22 @@ namespace epsilon
 		return std::make_shared<Script>(private_struct());
 	}
 
-	Script::Ptr Script::Create(std::string scriptString, ScriptSource source)
+	Script::Ptr Script::CreateFromFile(std::string filename)
 	{
-		return std::make_shared<Script>(private_struct(), scriptString, source);
+		return std::make_shared<Script>(private_struct(), filename, ScriptSource::FILE);
 	}
 
-	Script::Script(const private_struct &) : NodeComponent("Script"), 
+	Script::Ptr Script::CreateFromText(std::string scriptString)
+	{
+		return std::make_shared<Script>(private_struct(), scriptString, ScriptSource::TEXT);
+	}
+
+	Script::Script(const private_struct &) : NodeComponent("Script"),
 											 filename(""),
 											 text(""),
 											 scriptSource(ScriptSource::NONE),
-											 initialised(false)
+											 initialised(false),
+											 Resource("", ResourceType::Type::SCRIPT)
 	{
 		// Name the Script using its Object ID
 		std::stringstream ss;
@@ -27,9 +33,27 @@ namespace epsilon
 		objectName = std::string("Script_") + ss.str();
 	}
 
+	Script::Script(const private_struct &, std::string filepath) : NodeComponent("Script"),
+																	scriptSource(ScriptSource::FILE),
+																	filename(filepath),
+																	initialised(false),
+																	text(""),
+																	Resource(filepath, ResourceType::Type::SCRIPT)
+	{
+		// Name the script
+		// strip the path and just use the filename
+		unsigned spos = filename.rfind("/");
+		if (spos != std::string::npos)
+		{
+			objectName = filename.substr(spos + 1, std::string::npos);
+		}
+		objectName = filename;
+	}
+
 	Script::Script(const private_struct &, std::string scriptString, ScriptSource source) : NodeComponent("Script"),
 																							scriptSource(source),
-																							initialised(false)
+																							initialised(false),
+																							Resource("", ResourceType::Type::SCRIPT)
 	{
 		switch(scriptSource)
 		{
@@ -101,7 +125,13 @@ namespace epsilon
 			
 			// Register any functions that need to be exposed by this script.
 			RegisterScriptFunctions();
-			
+
+			// For Hotloading.
+			if (this->componentParent)
+			{
+				OnSetParent();
+			}
+
 			initialised = true;
 		}
 		catch (const error_already_set&)
@@ -111,6 +141,10 @@ namespace epsilon
 				PrintPythonError();
 			}	
 		}
+
+		// Indicated that the Script Resource has been refreshed
+		SetReloaded();
+
 		return initialised;
 	}
 

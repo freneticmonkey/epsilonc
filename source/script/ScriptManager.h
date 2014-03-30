@@ -2,6 +2,8 @@
 
 #include "EpsilonCore.h"
 
+#include "resource/ResourceOwner.h"
+
 #include "script/Script.h"
 #include "script/ScriptBehaviour.h"
 #include "script/ScriptEngineCore.h"
@@ -10,13 +12,13 @@
 
 #include "script/python/MainModule.h"
 
-//#include <Python.h>
+#include <atomic>
 
 using namespace boost::python;
 
 namespace epsilon
 {
-	class ScriptManager
+	class ScriptManager : public ResourceOwner
 	{
 		typedef std::vector<Script::Ptr> ScriptList;
 		typedef std::vector<ScriptBehaviour::Ptr> BehaviourList;
@@ -43,6 +45,10 @@ namespace epsilon
 		void Destroy(void);
 		
 		void ReloadScript(Script::Ptr script);
+
+		void RefreshResources(ResourceIdVector changedResources);
+
+		void ProcessChangedResources();
 
 	private:
 		void StartBehaviours();
@@ -93,6 +99,9 @@ namespace epsilon
 
 		PythonLogListener stdErrListener;
 		PythonLogListener stdOutListener;
+
+		ResourceIdVector  resourceChangedQueue[2];
+		std::atomic<int>  currentChangedQueue;
 
 		
 

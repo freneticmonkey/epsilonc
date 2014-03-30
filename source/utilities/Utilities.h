@@ -9,6 +9,10 @@
 #include <errno.h>
 #include <stdarg.h>
 
+// For string split
+#include <vector>
+#include <sstream>
+
 #ifdef _MSC_VER
 #include <windows.h>
 #endif
@@ -74,6 +78,33 @@ namespace epsilon
 		throw(errno);
 	}
 
+
+	/*
+	 * String split functions because the damned std::string class doesn't have it? hmm
+	 */
+
+	// Grabbed from http://stackoverflow.com/a/236803
+	// Skips empty tokens.
+	inline std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
+		std::stringstream ss(s);
+		std::string item;
+		while (std::getline(ss, item, delim)) {
+			if (!item.empty())
+				elems.push_back(item);
+		}
+		return elems;
+	}
+
+	inline std::vector<std::string> split(const std::string &s, char delim) {
+		std::vector<std::string> elems;
+		split(s, delim, elems);
+		return elems;
+	}
+
+
+	/*
+	 * Helper class to easily generate cyclical values
+	 */
 	class CycleValue
 	{
 	public:

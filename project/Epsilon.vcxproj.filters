@@ -45,6 +45,9 @@
     <Filter Include="Source Files\render\gizmos">
       <UniqueIdentifier>{f39d7a88-4159-4a64-9851-8d4a78c8c099}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\resource">
+      <UniqueIdentifier>{da9813cc-324d-49a2-aeb3-dca9208fe5c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp">
@@ -187,6 +190,15 @@
     </ClCompile>
     <ClCompile Include="..\source\render\gizmos\GizmoSphere.cpp">
       <Filter>Source Files\render\gizmos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\resource\ResourceManager.cpp">
+      <Filter>Source Files\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\resource\Resource.cpp">
+      <Filter>Source Files\resource</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\resource\ResourceType.cpp">
+      <Filter>Source Files\resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -375,6 +387,27 @@
     </ClInclude>
     <ClInclude Include="..\source\render\gizmos\GizmoSphere.h">
       <Filter>Source Files\render\gizmos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\resource\Resource.h">
+      <Filter>Source Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\resource\ResourceManager.h">
+      <Filter>Source Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\resource\ResourceOwner.h">
+      <Filter>Source Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\resource\ResourceDependency.h">
+      <Filter>Source Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\utilities\HashedString.h">
+      <Filter>Source Files\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\resource\ResourceOwnerInterface.h">
+      <Filter>Source Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\resource\ResourceType.h">
+      <Filter>Source Files\resource</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

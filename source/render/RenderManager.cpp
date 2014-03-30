@@ -107,15 +107,15 @@ namespace epsilon
         
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-//        CheckOpenGLError("Clear Error Before Draw");
+        CheckOpenGLError("Clear Error Before Draw");
         
 		// Do OpenGL drawing here.
 		if (sceneManager)
 		{
 			sceneManager->Draw(stateStack);
 		}
-//		window->pushGLStates();
-//		window->resetGLStates();
+		window->pushGLStates();
+		window->resetGLStates();
 		if ( fpsText )
 		{
 			std::ostringstream sstr;
@@ -128,8 +128,8 @@ namespace epsilon
 
 			window->draw(*fpsText);
 		}
-//		window->popGLStates();
-        /*
+		window->popGLStates();
+        
 		// Draw the Gizmos
 		// Setup the Camera and Projection Matrix
 		stateStack->State()->view = sceneManager->CurrentScene()->GetActiveCamera()->GetViewMatrix();
@@ -140,7 +140,6 @@ namespace epsilon
 		{
 			uiManager->Draw(window);
 		}
-         */
         
 		// Display the frame
 		window->display();

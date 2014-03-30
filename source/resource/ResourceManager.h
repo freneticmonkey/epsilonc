@@ -11,8 +11,15 @@
 #include <algorithm>
 
 #include "EpsilonCore.h"
-#include "resource/ResourceOwner.h"
+#include "resource/ResourceDependency.h"
+#include "resource/ResourceOwnerInterface.h"
 #include "resource/Resource.h"
+#include "resource/ResourceType.h"
+
+#include <boost/filesystem.hpp>
+
+using namespace boost;
+
 
 namespace epsilon
 {
@@ -21,57 +28,23 @@ namespace epsilon
         UNKNOWN_RESOURCE = 1,
         // So on and so forth
     };
-    
-    class ResourceDependency
-    {
-        typedef std::vector<Resource::Ptr> Dependencies;
-    public:
-        ResourceDependency(Resource::Ptr res)
-        {
-            resource = res;
-        }
-        
-        void AddDependency(Resource::Ptr res)
-        {
-            dependencies.push_back(res);
-        }
-        
-        void RemoveDependency(Resource::Ptr res)
-        {
-            Dependencies::iterator pos = find(dependencies.begin(), dependencies.end(), res);
-            if ( pos != dependencies.end() )
-            {
-                dependencies.erase(pos);
-            }
-        }
-        
-        bool IsDependent(Resource::Ptr res)
-        {
-            return find(dependencies.begin(), dependencies.end(), res) != dependencies.end();
-        }
-        
-        bool IsDependent(long res)
-        {
-            return find_if(dependencies.begin(), dependencies.end(), [res](Resource::Ptr resource) {
-                return resource->GetId() == res;
-            }) != dependencies.end();
-        }
-        
-    private:
-        Resource::Ptr resource;
-        Dependencies  dependencies;
-        
-    };
-    
+
+	/**
+	 * ResourceManager
+	 * 
+	 * This class maintains a list of resources available to be used by
+	 * the engine.  It scans the defined resource folders for files and tracks
+	 * their state.  Resource Owners register the resources they are interested
+	 * in and Resource Manager notifies them when the resource changes on disk.
+	 */
     class ResourceManager
     {
-        //TODO: What structure to store things in?
-        
-        //std::pair<long, Resource::Ptr> ResourceLookup;
-        //typedef std::map<ResourceLookup> resourceMap;
-        typedef std::vector<Resource::Ptr> Resources;
-        
-        // TODO: Need to also initialise a dependency structure here as well.
+		typedef std::map<long, ResourceOwnerInterface *>	ResourceOwners;
+        typedef std::map<std::size_t, Resource::Ptr>		Resources;
+		typedef std::map<std::size_t, ResourceIdVector>		ResourceDependencies;
+		typedef std::vector<std::size_t>					CycleCheck;
+
+		typedef std::map<long, ResourceIdVector>			ChangedResourceMap;
         
     private:
         ResourceManager(void);
@@ -83,16 +56,66 @@ namespace epsilon
             return instance;
         }
         ~ResourceManager(void);
+
+		void SetBasePath(std::string basepath);
+
+		/*
+		 * Build the initial map of resources in the resources folder
+		 */
+		void BuildResourceInfo();
         
-        void AddResource(Resource::Ptr newResource);
+		/*
+		 * Add a new ResourceOwner
+		 *
+		 * ResourceOwners will be notified if any of the resources they own change.
+		 */
+		void AddResourceOwner(ResourceOwnerInterface *owner);
+
+		/*
+		 * Add a new Resource to the map of known resources.  If a Resource is new,
+		 * it's just added to the map.  If a resource is already known, then the file
+		 * information contained in the existing resource is copied to the new Resource.
+		 * This implementation means that the ResourceManager knows about all Resources
+		 * and ResourceOwners only have to know about the Resources they manage.
+		 */
+		void AddResource(Resource::Ptr newResource);
         
         void AddDependency(Resource::Ptr parentResource, Resource::Ptr childResource);
         void RemoveDependency(Resource::Ptr parentResource, Resource::Ptr childResource);
         
+		void SetCheckFrequency(float checkFreq) { checkFrequency = checkFreq; }
+
+		// Periodically checks the state of the files in the resource map
+		void Update(float dt);
+
     private:
-        Resources      resources;
-        
-        long currResourceId;
+		// Internal function used to build the filemap
+		void ParseDirectory(filesystem::path dir);
+		
+		// Internal function to check if resources have changed
+		void CheckForResourceChanges();
+		
+		// Mark the resource and any of its dependents as changed
+		void MarkResourceChanged(ChangedResourceMap &changedResources, CycleCheck &cycleCheck, std::size_t resourceId);
+
+		long GetResourceId() { return resourceId++; }
+		long				 resourceId;
+
+		long GetOwnerId() { return ++ownerId; }
+		long				 ownerId;
+
+		ResourceType		 resourceTypes;
+
+		ResourceOwners		 owners;
+        Resources			 resources;
+		ResourceDependencies dependencies;
+		
+		// The Frequency in seconds between file change checks
+		float				checkFrequency;
+		float				elSinceCheck;
+
+		// The Resources basepath?
+		std::string			basepath;
         
     };
 }

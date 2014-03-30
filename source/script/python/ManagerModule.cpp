@@ -52,7 +52,7 @@ void initManagers()
 		.staticmethod("get_instance")
 
 		//.def("create_script", (Script::Ptr (ScriptManager::*)
-		.def("create_script", CreateScriptStandard)
+		//.def("create_script", CreateScriptStandard)
 		.def("create_script", CreateScriptName )
 
 		.def("create_behaviour", &ScriptManager::CreateBehaviour)

@@ -9,6 +9,8 @@
 #include "render/Mesh.h"
 #include "render/Shader.h"
 
+#include "resource/Resource.h"
+
 namespace epsilon
 {
 	enum ScriptSource
@@ -20,7 +22,8 @@ namespace epsilon
 
 	class Script :
 		public std::enable_shared_from_this<Script>,
-		public NodeComponent
+		public NodeComponent,
+		public Resource
 	{
 	protected:
 		struct private_struct {};
@@ -29,9 +32,17 @@ namespace epsilon
 		typedef std::shared_ptr<Script> Ptr;
 
 		static Script::Ptr Create();
-		static Script::Ptr Create(std::string scriptString, ScriptSource source = ScriptSource::TEXT);
+		static Script::Ptr CreateFromFile(std::string filename);
+		static Script::Ptr CreateFromText(std::string scriptString);
 		
+		// Default constructor.  Possibly not needed
 		explicit Script(const private_struct &);
+
+		// Constructor for specifying a script from a file.
+		explicit Script(const private_struct &, std::string filename);
+
+		// Constructor for specifying a scirpt from text or 
+		// from a file that isn't tracked by the resource hotloading system.
 		explicit Script(const private_struct &, std::string scriptString, ScriptSource scriptSource);
 		~Script(void);
 

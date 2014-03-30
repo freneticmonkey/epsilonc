@@ -68,10 +68,10 @@
 			}
 		},
 		{
-			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/resourceitem.py",
+			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/RotationTest.py",
 			"settings":
 			{
-				"buffer_size": 1086,
+				"buffer_size": 510,
 				"line_ending": "Windows"
 			}
 		},
@@ -98,47 +98,12 @@
 				"buffer_size": 1497,
 				"line_ending": "Windows"
 			}
-		},
-		{
-			"contents": "default: Initialising Epsilon Manager\ndefault: EventManager initialised\ndefault: Initialising RenderManager\ndefault: INFO: OpenGL Version: \ndefault: 3.3.0\ndefault: Initialising UIManager\ndefault: Initialising Scene Manager\npython: Starting Main. Initialising Python Managers\npython: Running Debug Build\nResourceManager: Ignoring file: walk_test.txt\nResourceManager: Loading Scene file: scene.xml\npython: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene.xml\nSceneResourceHandler: Loading scene: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene.xml\npython: Made camera active: scene_cam\nResourceManager: Added Resource: file: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene.xml loading: 1\npython: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene_complex.xml\nResourceManager: Added Resource: file: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene_complex.xml loading: 0\ndefault: Finished Setup\npython: r: 0.50 g: 0.50 b: 0.50 a: 1.0\npython: 1.0\npython: marker_2: x: 0.00000 y: 0.00000 z: 0.00000\npython: Closing\npython: Shutting down ConfigurationManager\n[Finished in 31.8s]",
-			"settings":
-			{
-				"buffer_size": 1047,
-				"line_ending": "Windows",
-				"name": "Build output"
-			}
-		},
-		{
-			"contents": "default: Initialising Epsilon Manager\ndefault: EventManager initialised\ndefault: Initialising RenderManager\ndefault: INFO: OpenGL Version: \ndefault: 3.3.0\ndefault: Initialising UIManager\ndefault: Initialising Scene Manager\npython: Starting Main. Initialising Python Managers\npython: Running Debug Build\nResourceManager: Ignoring file: walk_test.txt\nResourceManager: Loading Scene file: scene.xml\npython: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene.xml\nSceneResourceHandler: Loading scene: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene.xml\npython: Made camera active: scene_cam\nResourceManager: Added Resource: file: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene.xml loading: 1\npython: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene_complex.xml\nResourceManager: Added Resource: file: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene_complex.xml loading: 0\ndefault: Finished Setup\npython: r: 0.50 g: 0.50 b: 0.50 a: 1.0\npython: 1.0\npython: marker_2: x: -1.00000 y: 0.00000 z: 0.00000\npython: info\npython: right: x: 0.69069 y: 0.20639 z: -0.69307\npython: up: x: 0.00000 y: 0.95841 z: 0.28541\npython: forward: x: -0.72315 y: 0.19713 z: -0.66196\npython: info\npython: right: x: 0.71190 y: 0.15330 z: -0.68534\npython: up: x: 0.00000 y: 0.97589 z: 0.21829\npython: forward: x: -0.70228 y: 0.15540 z: -0.69474\npython: Closing\npython: Shutting down ConfigurationManager\n[Finished in 23.6s]",
-			"settings":
-			{
-				"buffer_size": 1366,
-				"line_ending": "Windows",
-				"name": "Build output"
-			}
-		},
-		{
-			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/resourcemanager.py",
-			"settings":
-			{
-				"buffer_size": 7421,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "default: Initialising Epsilon Manager\ndefault: EventManager initialised\ndefault: Initialising RenderManager\ndefault: INFO: OpenGL Version: \ndefault: 3.3.0\ndefault: Initialising UIManager\ndefault: Initialising Scene Manager\npython: Starting Main. Initialising Python Managers\npython: Running Debug Build\nResourceManager: Ignoring file: walk_test.txt\nResourceManager: Loading Scene file: scene.xml\npython: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene.xml\nSceneResourceHandler: Loading scene: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene.xml\npython: Made camera active: scene_cam\nResourceManager: Added Resource: file: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene.xml loading: 1\npython: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene_complex.xml\nResourceManager: Added Resource: file: C:\\Dev\\Projects\\C++\\Epsilon\\resources\\scene_complex.xml loading: 0\ndefault: Finished Setup\npython: r: 0.50 g: 0.50 b: 0.50 a: 1.0\npython: 1.0\npython: marker_2: x: -1.00000 y: 0.00000 z: 0.00000\npython: Closing\npython: Shutting down ConfigurationManager\n[Finished in 21.2s]",
-			"settings":
-			{
-				"buffer_size": 1048,
-				"line_ending": "Windows",
-				"name": "Build output"
-			}
 		}
 	],
 	"build_system": "run-debug",
 	"command_palette":
 	{
-		"height": 310.0,
+		"height": 375.0,
 		"selected_items":
 		[
 			[
@@ -269,6 +234,7 @@
 	},
 	"file_history":
 	[
+		"/C/Dev/Projects/C++/Epsilon/resources/typedefs.cfg",
 		"/C/Dev/Projects/C++/Epsilon/resources/scripts/00481a32-553b-4afc-aeb7-50ca2fb462e0.dmp",
 		"/C/Dev/Projects/C++/Epsilon/project/sublime_epsilon_c++.sublime-project",
 		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
@@ -395,8 +361,7 @@
 		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/tree_ruby.py",
 		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/SublimeCodeIntel.py",
 		"/C/Dev/Projects/Reboot/simple/core/start.py",
-		"/C/Dev/Projects/Reboot/simple/framework/__init__.py",
-		"/C/Users/Scott/Downloads/SublimeCodeIntel-master/README.rst"
+		"/C/Dev/Projects/Reboot/simple/framework/__init__.py"
 	],
 	"find":
 	{
@@ -417,6 +382,9 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"{\"",
+			"SOUND",
+			"TEXT",
 			"randrange",
 			"random",
 			"print",
@@ -584,26 +552,25 @@
 				},
 				{
 					"buffer": 2,
-					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/resourceitem.py",
-					"semi_transient": true,
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/RotationTest.py",
+					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1086,
+						"buffer_size": 510,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								293,
+								293
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Python/Python.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -637,7 +604,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -672,7 +639,7 @@
 			]
 		},
 		{
-			"selected": 3,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -688,8 +655,8 @@
 						"selection":
 						[
 							[
-								1144,
-								1144
+								367,
+								367
 							]
 						],
 						"settings":
@@ -699,119 +666,9 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1047,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1047,
-								1047
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1366,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1366,
-								1366
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/resourcemanager.py",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 7421,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 42.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1048,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1048,
-								1048
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
 					"type": "text"
 				}
 			]

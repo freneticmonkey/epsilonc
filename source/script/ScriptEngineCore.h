@@ -20,7 +20,6 @@ namespace epsilon
 		static ScriptEngineCore::Ptr Create();
 		
 		explicit ScriptEngineCore(const private_struct &);
-		explicit ScriptEngineCore(const private_struct &, std::string scriptString, ScriptSource scriptSource);
 		~ScriptEngineCore(void);
 
 		ScriptEngineCore::Ptr ThisPtr() { return std::static_pointer_cast<ScriptEngineCore,Script>(shared_from_this()); }

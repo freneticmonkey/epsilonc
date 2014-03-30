@@ -7,7 +7,8 @@ namespace epsilon
 									 stdErrListener("error"), 
 									 stdOutListener(""),
 									 engineCoreScript(ScriptEngineCore::Create()),
-									 gilLockCount(0)
+									 gilLockCount(0),
+									 currentChangedQueue(0)
 	{
 	}
 
@@ -27,8 +28,8 @@ namespace epsilon
 	{
 		// Prepend the scripts folder path
 		filename = scriptsFolderPath + filename;
-
-		Script::Ptr newScript = Script::Create(filename);
+		Script::Ptr newScript = Script::CreateFromFile(filename);
+		RegisterResource(newScript);
 		ReloadScript(newScript);
 		scriptList.push_back(newScript);
 		return newScript;
@@ -39,7 +40,8 @@ namespace epsilon
 		// Prepend the scripts folder path
 		filename = scriptsFolderPath + filename;
 
-		ScriptBehaviour::Ptr newBehaviour = ScriptBehaviour::Create(filename, ScriptSource::FILE);
+		ScriptBehaviour::Ptr newBehaviour = ScriptBehaviour::CreateFromFile(filename);
+		RegisterResource(newBehaviour);
 		ReloadScript(newBehaviour);
 		behaviourList.push_back(newBehaviour);
 		startingBehaviours.push_back(newBehaviour);
@@ -95,6 +97,10 @@ namespace epsilon
 	{
 		bool success = false;
 		LockGIL();
+
+		// Register the Script Engine Core with the ResourceManager for hotloading
+		RegisterResource(engineCoreScript);
+
 		// Init the Python Script Engine Core
 		if ( engineCoreScript->InitScript() )
 		{
@@ -176,6 +182,9 @@ namespace epsilon
 			}
 		}
 
+		// While we still have the GIL, reload any changed scripts
+		ProcessChangedResources();
+
 		ReleaseGIL();
 	}
 
@@ -203,6 +212,74 @@ namespace epsilon
 		engineCoreScript->OnDestroy();
 
 		ReleaseGIL();
+	}
+
+	void ScriptManager::RefreshResources(ResourceIdVector changedResources)
+	{
+		// If there are currently queued items in the resources changed queue
+		if (resourceChangedQueue[currentChangedQueue].size() > 0)
+		{
+			// Merge the queues
+			ResourceIdVector tmp;
+			tmp.reserve(resourceChangedQueue[currentChangedQueue].size() + changedResources.size());
+			std::merge(changedResources.begin(), changedResources.end(), resourceChangedQueue[currentChangedQueue].begin(), resourceChangedQueue[currentChangedQueue].end(), std::back_inserter(tmp));
+			resourceChangedQueue[currentChangedQueue].swap(tmp);
+		}
+		else
+		{
+			// otherwise just assign
+			resourceChangedQueue[currentChangedQueue] = changedResources;
+		}
+		
+	}
+
+	void ScriptManager::ProcessChangedResources()
+	{
+		if (resourceChangedQueue[currentChangedQueue].size() > 0)
+		{
+			// Swap the queues
+			currentChangedQueue = !currentChangedQueue;
+
+			Log("ScriptManager", Format("Refreshing Scripts: #: %d", resourceChangedQueue[!currentChangedQueue].size()));
+
+			// Firstly check if the ScriptEngineCore needs to be refreshed.
+			if (std::find(resourceChangedQueue[!currentChangedQueue].begin(), resourceChangedQueue[!currentChangedQueue].end(), engineCoreScript->GetResourceId()) != resourceChangedQueue[!currentChangedQueue].end())
+			{
+				// Restart the engine core.
+				ReloadScript(engineCoreScript);
+
+				// Technically, shouldn't everything be refreshed here?
+			}
+
+			// Now check each of the scripts and behaviours
+			std::for_each(resourceChangedQueue[!currentChangedQueue].begin(), resourceChangedQueue[!currentChangedQueue].end(), [&](std::size_t resourceId){
+				// Check Scripts
+				ScriptList::iterator foundScript = std::find_if(scriptList.begin(), scriptList.end(), [&](Script::Ptr script){
+					return script->GetResourceId() == resourceId;
+				});
+
+				if (foundScript != scriptList.end())
+				{
+					Log("ScriptManager", "Reloading Script: " + (*foundScript)->GetFilepath().GetString() );
+					ReloadScript(*foundScript);
+				}
+
+				// Check Behaviours
+				BehaviourList::iterator foundBehaviour = std::find_if(behaviourList.begin(), behaviourList.end(), [&](ScriptBehaviour::Ptr behaviour){
+					return behaviour->GetResourceId() == resourceId;
+				});
+
+				if (foundBehaviour != behaviourList.end())
+				{
+					Log("ScriptManager", "Reloading Behaviour: " + (*foundBehaviour)->GetFilepath().GetString() );
+
+					ReloadScript(*foundBehaviour);
+				}
+			});
+
+			// empty out the changed resources
+			resourceChangedQueue[!currentChangedQueue].clear();
+		}
 	}
 
 }

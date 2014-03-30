@@ -14,11 +14,20 @@ namespace epsilon
 		return std::make_shared<ScriptBehaviour>(private_struct(), scriptString, source);
 	}
 
+	ScriptBehaviour::Ptr ScriptBehaviour::CreateFromFile(std::string scriptString)
+	{
+		return std::make_shared<ScriptBehaviour>(private_struct(), scriptString);
+	}
+
 	ScriptBehaviour::ScriptBehaviour(const private_struct &) : Script(Script::private_struct())
 	{
 	}
 
 	ScriptBehaviour::ScriptBehaviour(const private_struct &, std::string scriptString, ScriptSource source) : Script(Script::private_struct(), scriptString, source)
+	{
+	}
+
+	ScriptBehaviour::ScriptBehaviour(const private_struct &, std::string filename) : Script(Script::private_struct(), filename)
 	{
 	}
 	

@@ -10,8 +10,7 @@ namespace epsilon
 	}
 
 	ScriptEngineCore::ScriptEngineCore(const private_struct &) : Script(Script::private_struct(), 
-																		std::string("resources/scripts/core/main.py"),
-																		ScriptSource::FILE)
+																		std::string("resources/scripts/core/main.py"))
 	{
 	}
 

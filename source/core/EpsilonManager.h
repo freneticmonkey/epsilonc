@@ -3,6 +3,7 @@
 #include "EpsilonCore.h"
 
 #include "logging/Logging.h"
+#include "resource/ResourceManager.h"
 #include "events/EventManager.h"
 #include "core/InputManager.h"
 #include "render/RenderManager.h"
@@ -33,6 +34,7 @@ namespace epsilon
 		void SetThreadEnable(bool enableThreads);
 
 	private:
+		ResourceManager * resourceManager;
 		EventManager * eventManager;
 		InputManager * inputManager;
 		ScriptManager * scriptManager;

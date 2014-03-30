@@ -30,6 +30,9 @@ namespace epsilon
 	void EpsilonManager::Setup(void)
 	{
 		Log("Initialising Epsilon Manager");
+		resourceManager = &ResourceManager::GetInstance();
+		resourceManager->BuildResourceInfo();
+
 		eventManager = &EventManager::GetInstance();
 
 		scriptManager = &ScriptManager::GetInstance();
@@ -69,15 +72,13 @@ namespace epsilon
 		eventsGraph = debugStatsOverlay->CreateGraph("events");
 		eventsGraph->SetColour(Colour::ORANGE);
 
-		//fpsGraph->SetColour(Colour::RED);
-
 		sceneManager = &SceneManager::GetInstance();
 		sceneManager->Setup();
 
 		renderManager->SetSceneManager(sceneManager);
 		renderManager->SetUIManager(uiManager);
 
-		// Initialise the Python Engine code after all of the c++ managers
+// Initialise the Python Engine code after all of the c++ managers
 		// have initialised
 		scriptManager->StartEngineCore();
 
@@ -119,6 +120,12 @@ namespace epsilon
 				sceneGraph->AddValue(sceneClock.getElapsedTime().asMilliseconds());
 			});
 
+			taskGroup.run([&]() {
+
+				// Check Resources for changes
+				resourceManager->Update(el);
+			});
+
 			taskGroup.wait();
 
 			//taskGroup.run( [&]() { uiManager->OnUpdate(el); } );
@@ -131,7 +138,6 @@ namespace epsilon
 			sceneManager->Cull();
 		}
 		//gizmoManager->Update(el);
-
 		sceneManager->Update(el);
 		sceneManager->Cull();
 
