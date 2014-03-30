@@ -48,6 +48,9 @@
     <Filter Include="Source Files\resource">
       <UniqueIdentifier>{da9813cc-324d-49a2-aeb3-dca9208fe5c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\render\material">
+      <UniqueIdentifier>{6e7511de-4b1d-447b-afe3-a6c04c8d05fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp">
@@ -84,9 +87,6 @@
       <Filter>Source Files\render</Filter>
     </ClCompile>
     <ClCompile Include="..\source\render\RenderManager.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\render\Shader.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
     <ClCompile Include="..\source\scene\Node.cpp">
@@ -149,9 +149,6 @@
     <ClCompile Include="..\source\render\Colour.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\render\Material.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\render\RenderState.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
@@ -200,6 +197,15 @@
     <ClCompile Include="..\source\resource\ResourceType.cpp">
       <Filter>Source Files\resource</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\render\material\Material.cpp">
+      <Filter>Source Files\render\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\material\Shader.cpp">
+      <Filter>Source Files\render\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\material\ShaderStage.cpp">
+      <Filter>Source Files\render\material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\EpsilonCore.h">
@@ -247,9 +253,6 @@
     <ClInclude Include="..\source\render\Colour.h">
       <Filter>Source Files\render</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\render\Material.h">
-      <Filter>Source Files\render</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\render\Mesh.h">
       <Filter>Source Files\render</Filter>
     </ClInclude>
@@ -263,9 +266,6 @@
       <Filter>Source Files\render</Filter>
     </ClInclude>
     <ClInclude Include="..\source\render\RenderState.h">
-      <Filter>Source Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\render\Shader.h">
       <Filter>Source Files\render</Filter>
     </ClInclude>
     <ClInclude Include="..\source\render\VertexAttrib.h">
@@ -408,6 +408,18 @@
     </ClInclude>
     <ClInclude Include="..\source\resource\ResourceType.h">
       <Filter>Source Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\material\Material.h">
+      <Filter>Source Files\render\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\material\Shader.h">
+      <Filter>Source Files\render\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\material\ShaderStage.h">
+      <Filter>Source Files\render\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\material\ShaderUtilities.h">
+      <Filter>Source Files\render\material</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

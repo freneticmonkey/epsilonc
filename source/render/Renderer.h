@@ -3,7 +3,7 @@
 
 #include "scene/NodeComponent.h"
 #include "scene/Transform.h"
-#include "render/Material.h"
+#include "render/material/Material.h"
 #include "render/Mesh.h"
 #include "render/RenderState.h"
 

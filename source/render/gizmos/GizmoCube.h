@@ -1,6 +1,7 @@
-#include "render/gizmos/GizmoType.h"
 #pragma once
-#include "render/Material.h"
+#include "render/gizmos/GizmoType.h"
+
+#include "render/material/Material.h"
 #include "render/RenderState.h"
 #include "render/Mesh.h"
 

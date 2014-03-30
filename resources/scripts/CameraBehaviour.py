@@ -28,6 +28,7 @@ class CameraBehaviour(object):
 	def on_start(self):
 		self._pos = self.node.transform.position
 		self._control = self.node.transform.parent_transform.parent
+		self._control.transform.position = Vector3(0,1,-18)
 
 		# Convert to radians
 		self._angle_speed *= (math.pi / 180.0)

@@ -10,7 +10,7 @@
 #include "render/Camera.h"
 #include "render/Colour.h"
 #include "render/Renderer.h"
-#include "render/Material.h"
+#include "render/material/Material.h"
 #include "render/Mesh.h"
 #include "render/MeshFactory.h"
 #include "render/VertexData.h"

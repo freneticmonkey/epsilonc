@@ -7,7 +7,7 @@
 #include "scene/Transform.h"
 
 #include "render/Mesh.h"
-#include "render/Shader.h"
+#include "render/material/Shader.h"
 
 #include "resource/Resource.h"
 
