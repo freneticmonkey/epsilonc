@@ -32,7 +32,7 @@ namespace epsilon
 		ResourceType();
 		~ResourceType();
 
-		ResourceType::Type GetResourceTypeByExt(std::string ext)
+		static ResourceType::Type GetResourceTypeByExt(std::string ext)
 		{
 			// Ensure lowercase
 			std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
@@ -48,7 +48,7 @@ namespace epsilon
 			return type;
 		}
 
-		ResourceType::Type GetResourceTypeByName(std::string name)
+		static ResourceType::Type GetResourceTypeByName(std::string name)
 		{
 			// Ensure lowercase
 			std::transform(name.begin(), name.end(), name.begin(), ::tolower);

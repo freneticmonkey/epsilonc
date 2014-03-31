@@ -18,8 +18,8 @@ namespace epsilon
 	{
 		// Set Default Shader
 		SetMaterialFile("resources/shaders/material.frag");
-		SetVertexFile("resources/shaders/basic/basic.vert");
-		SetFragmentFile("resources/shaders/basic/basic.frag");
+        AddStage("resources/shaders/basic/basic.vert", ShaderStageType::Type::VERTEX);
+        AddStage("resources/shaders/basic/basic.frag", ShaderStageType::Type::FRAGMENT);
 	}
 
 	Shader::~Shader(void)
@@ -28,156 +28,82 @@ namespace epsilon
 
 	void Shader::Setup()
 	{
-		shaderCompiled = CompileShader();
+		CompileShader();
 	}
+    
+    Shader::Ptr Shader::AddStage(std::string sourceFile, ShaderStageType::Type type)
+    {
+        ShaderStage::Ptr newStage = ShaderStage::Create(sourceFile, type);
+        RegisterResource(newStage);
+        newStage->SetMaterialDefinition(materialStruct);
+        if (stages[type])
+        {
+            stages[type]->RemoveOwner(GetId());
+        }
+        stages[type] = newStage;
+        
+        // invalidate shader
+        shaderCompiled = false;
+        
+        return ThisPtr();
+    }
 
 	void Shader::SetMaterialFile(std::string materialFile)
 	{
 		materialStruct = readfile(materialFile);
 	}
 
-	void Shader::SetVertexSource(std::string vertSource)
-	{
-		vertexSource = Format("%s\n\n%s\n\n", sourceVersion.c_str(), materialStruct.c_str() );
-		vertexSource += vertSource;	
-		vertexFile = "No File: Source code only";
-	}
-
-	void Shader::SetVertexFile(std::string vertFile)
-	{
-		vertexSource = Format("%s\n\n%s\n\n", sourceVersion.c_str(), materialStruct.c_str() );
-		vertexSource += readfile(vertFile);
-		vertexFile = vertFile;
-	}
-	
-	void Shader::SetGeometrySource(std::string geomSource)
-	{
-		geometrySource = Format("%s\n\n", sourceVersion.c_str() );
-		geometrySource += geomSource;
-		geometryFile = "No File: Source code only";
-	}
-
-	void Shader::SetGeometryFile(std::string geomFile)
-	{
-		// Add version def
-		geometrySource = Format("%s\n\n", sourceVersion.c_str() );
-		geometrySource += readfile(geomFile);
-		geometryFile = geomFile;
-	}
-
-	void Shader::SetFragmentSource(std::string fragSource)
-	{
-		fragmentSource = Format("%s\n\n", sourceVersion.c_str() );
-		fragmentSource += fragSource;
-		fragmentFile = "No File: Source code only";
-	}
-
-	void Shader::SetFragmentFile(std::string fragFile)
-	{
-		// Add version def
-		fragmentSource = Format("%s\n\n", sourceVersion.c_str() );
-		fragmentSource += readfile(fragFile);
-		fragmentFile = fragFile;
-	}
-
 	bool Shader::CompileShader()
 	{
 		bool success = true;
+        
+        // Compile/Link Shader Program
+        programId = glCreateProgram();
 
-		if ( HasVertexShader() )
-		{
-			const char * vSource = vertexSource.c_str();
-			
-			// Compile Vertex Shader
-			vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
-			glShaderSource(vertexShaderId, 1, &vSource, NULL);
-			glCompileShader(vertexShaderId);
- 
-			success = CheckOpenGLError("Compiling Vertex Shader: " + vertexFile);
-			
-			DisplayCompileError(vertexShaderId);
-		}
+        // For each stage
+        for (int i = 0; i < ShaderStageType::MAX_STAGES; i++ )
+        {
+            // If the stage is defined
+            if (stages[i])
+            {
+                // Compile it
+                if ( stages[i]->Compile() )
+                {
+                    // If successful
+                    glAttachShader(programId, stages[i]->GetStageId());
+                }
+                else
+                {
+                    success = false;
+                }
+            }
+        }
+        
+        if (success)
+        {
+        
+            glLinkProgram(programId);
 
-		if ( HasGeometryShader() )
-		{
-			const char * gSource = geometrySource.c_str();
+            success = CheckOpenGLError("Linking Shader");
+        }
 
-			// Compile Vertex Shader
-			vertexShaderId = glCreateShader(GL_GEOMETRY_SHADER);
-			glShaderSource(geomShaderId, 1, &gSource, NULL);
-			glCompileShader(geomShaderId);
- 
-			success = CheckOpenGLError("Compiling Geometry Shader: " + geometryFile);
-
-			DisplayCompileError(geomShaderId);
-		}
-
-		if ( HasFragmentShader() )
-		{
-			const char * fSource = fragmentSource.c_str();
-
-			// Compile Fragment Shader
-			fragShaderId = glCreateShader(GL_FRAGMENT_SHADER);
-			glShaderSource(fragShaderId, 1, &fSource, NULL);
-			glCompileShader(fragShaderId);
-
-			success = CheckOpenGLError("Compiling Fragment Shader: " + fragmentFile);
-
-			DisplayCompileError(fragShaderId);
-		}
-
-		if ( success )
-		{
-			// Compile/Link Shader Program
-			programId = glCreateProgram();
-
-			if ( HasVertexShader() )
-			{
-				glAttachShader(programId, vertexShaderId);
-			}
-
-			if ( HasGeometryShader() )
-			{
-				glAttachShader(programId, geomShaderId);
-			}
-
-			if ( HasFragmentShader() )
-			{
-				glAttachShader(programId, fragShaderId);
-			}
-			glLinkProgram(programId);
-
-			success = CheckOpenGLError("Linking Shader");
-
-			viewMatUnf = glGetUniformLocation(programId, "modelViewMatrix");
-			projMatUnf = glGetUniformLocation(programId, "projMatrix");
-		}
+        if ( success )
+        {
+            viewMatUnf = glGetUniformLocation(programId, "modelViewMatrix");
+            projMatUnf = glGetUniformLocation(programId, "projMatrix");
+            
+            shaderCompiled = true;
+        }
 
 		return success;
 	}
-
-	void Shader::DisplayCompileError(GLuint shaderId)
-	{
-		GLint isCompiled = 0;
-		glGetShaderiv(shaderId, GL_COMPILE_STATUS, &isCompiled);
-		if(isCompiled == GL_FALSE)
-		{
-				GLint maxLength = 0;
-				glGetShaderiv(shaderId, GL_INFO_LOG_LENGTH, &maxLength);
-				
-				if (maxLength > 0 )
-				{
-					//The maxLength includes the NULL character
-					std::vector<char> errorLog(maxLength);
-					glGetShaderInfoLog(shaderId, maxLength, &maxLength, &errorLog[0]);
-					Log("Shader Compile Error: \n" + std::string(errorLog.begin(), errorLog.end()) );					
-				}
-				//Exit with failure.
-				glDeleteShader(shaderId); //Don't leak the shader.
-				return;
-		}
-	}
-
+    
+    void Shader::RefreshResources(ResourceIdVector resources)
+    {
+        // Recompile the Shader
+        CompileShader();
+    }
+    
 	GLuint Shader::GetUniformId(std::string uniformName)
 	{
 		if ( shaderCompiled )

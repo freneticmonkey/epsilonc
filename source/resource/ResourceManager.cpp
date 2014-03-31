@@ -176,7 +176,9 @@ namespace epsilon
 			cycleCheck.push_back(resourceId);
 
 			// Add it to the map of changed Resources!
-			changedResources[resources[resourceId]->GetOwner()].push_back(resourceId);
+            std::for_each(resources[resourceId]->GetOwners().begin(), resources[resourceId]->GetOwners().end(), [&](long ownerId){
+                    changedResources[ownerId].push_back(resourceId);
+            });
 
 			// Get the Resource's dependents.
 			ResourceIdVector dependents = dependencies[resourceId];

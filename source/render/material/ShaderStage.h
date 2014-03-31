@@ -12,6 +12,7 @@ namespace epsilon
 	class ShaderStageType
 	{
 	public:
+        static const int MAX_STAGES = 5;
 		enum Type
 		{
 			VERTEX = 1,
@@ -51,13 +52,15 @@ namespace epsilon
 
 		explicit ShaderStage(const private_struct &, std::string filename, ShaderStageType::Type type);
 		~ShaderStage(void);
+        
+        GLuint GetStageId() { return stageId; }
 
 		ShaderStageType::Type GetStageType() { return stageType;  }
 
 		ShaderStage::Ptr SetMaterialDefinition(std::string matDef);
 
 		// Compile the Shader Stage
-		ShaderStage::Ptr Compile();
+		bool Compile();
 
 		// Is the Shader Stage compiled
 		bool Compiled() { return stageCompiled; }

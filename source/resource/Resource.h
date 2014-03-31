@@ -29,6 +29,7 @@ namespace epsilon
         
      public:
 		typedef std::shared_ptr<Resource> Ptr;
+        typedef std::vector<long> OwnerIds;
         
 		static Resource::Ptr Create(std::string theFilePath, ResourceType::Type resType);
         
@@ -40,8 +41,10 @@ namespace epsilon
         // Ensure that type based comparison is implemented?
 //        virtual int operator=;
         
-		long GetOwner() { return ownerId; }
-		void SetOwner(long owner);
+		OwnerIds GetOwners() { return ownerIds; }
+		void AddOwner(long owner);
+        void RemoveOwner(long owner);
+        bool IsOwner(long owner);
 		
 		// The Filepath cannot be changed as its hashed value is the id for the resource!
 		HashedString GetFilepath() { return filepath;  }
@@ -67,7 +70,8 @@ namespace epsilon
 		// TODO!: Add file reading writing functionality in here. :)
 
     private:
-        long			ownerId;
+        OwnerIds		ownerIds;
+        
         int				type;
 
 		HashedString	filepath;

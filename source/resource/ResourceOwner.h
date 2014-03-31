@@ -29,7 +29,7 @@ namespace epsilon
 		void RegisterResource(Resource::Ptr newResource)
 		{
 			// Set this object as the owner
-			newResource->SetOwner(uID);
+			newResource->AddOwner(uID);
 
 			// Send it to the ResourceManager
 			ResourceManager::GetInstance().AddResource(newResource);

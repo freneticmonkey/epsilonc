@@ -44,7 +44,7 @@ namespace epsilon
 		return ThisPtr();
 	}
 
-	ShaderStage::Ptr ShaderStage::Compile()
+	bool ShaderStage::Compile()
 	{
 		// Build the source
 		source	= Format("#version %d\n", version);
@@ -64,7 +64,7 @@ namespace epsilon
 			DisplayCompileError(stageId);
 		}
 
-		return ThisPtr();
+		return stageCompiled;
 	}
 
 	

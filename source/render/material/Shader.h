@@ -7,9 +7,14 @@
 #include "render/RenderState.h"
 #include "render/Colour.h"
 
+#include "render/material/ShaderStage.h"
+#include "resource/ResourceOwner.h"
+
 namespace epsilon
 {
-	class Shader
+	class Shader :
+        public ResourceOwner,
+        public std::enable_shared_from_this<Shader>
 	{
 	private:
 		struct private_struct {} ;
@@ -23,20 +28,10 @@ namespace epsilon
 		~Shader(void);
 
 		void Setup();
+        
+        Shader::Ptr AddStage(std::string sourceFile, ShaderStageType::Type type);
 
 		void SetMaterialFile(std::string materialFile);
-
-		void SetVertexSource(std::string vertSource);
-		void SetVertexFile(std::string vertFile);
-		bool HasVertexShader() { return vertexSource.size() > 0; }
-		
-		void SetGeometrySource(std::string geomSource);
-		void SetGeometryFile(std::string geomFile);
-		bool HasGeometryShader() { return geometrySource.size() > 0; }
-
-		void SetFragmentSource(std::string fragSource);
-		void SetFragmentFile(std::string fragFile);
-		bool HasFragmentShader() { return fragmentSource.size() > 0; }
 
 		GLuint GetUniformId(std::string uniformName);
 
@@ -49,32 +44,27 @@ namespace epsilon
 
 		bool Active() { return shaderActive; }
 		bool Compiled() { return shaderCompiled; }
+        
+        void RefreshResources(ResourceIdVector resources);
 
 	private:
+        Shader::Ptr ThisPtr() { return shared_from_this(); }
+        
 		bool CompileShader();
-
-		void DisplayCompileError(GLuint shaderId);
 
 		bool shaderCompiled;
 		bool shaderActive;
-
-		GLuint vertexShaderId;
-		GLuint geomShaderId;
-		GLuint fragShaderId;
-		GLuint programId;
+        
+        // The Shader program Id
+        GLuint programId;
+        
+        ShaderStage::Ptr stages[ShaderStageType::MAX_STAGES];
 
 		GLuint positionUnf;
 		GLuint rotationUnf;
 
 		GLuint viewMatUnf;
 		GLuint projMatUnf;
-
-		std::string vertexSource;
-		std::string vertexFile;
-		std::string geometrySource;
-		std::string geometryFile;
-		std::string fragmentSource;
-		std::string fragmentFile;
 
 		// Hard code this in for now
 		std::string materialStruct;
