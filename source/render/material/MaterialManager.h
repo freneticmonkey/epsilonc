@@ -23,6 +23,8 @@ namespace epsilon
 
 		void Setup();
 
+		Material::Ptr CreateMaterial(std::string name);
+
 		Material::Ptr GetMaterialByName(std::string name);
 		Shader::Ptr	  GetShaderByName(std::string name);
 

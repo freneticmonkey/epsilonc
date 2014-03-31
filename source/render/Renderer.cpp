@@ -21,13 +21,17 @@ namespace epsilon
 	Renderer::Renderer(const private_struct &) : NodeComponent("Renderer")
 	{
 		mesh = Mesh::Create();
-		material = MaterialManager::GetInstance().GetMaterialByName("default");
+		//material = MaterialManager::GetInstance().GetMaterialByName("default";
+		std::string materialName = Format("Material_%d", GetId());
+		material = MaterialManager::GetInstance().CreateMaterial(materialName);
 	}
 
 	Renderer::Renderer(const private_struct &, Mesh::Ptr newMesh) : NodeComponent("Renderer")
 	{
 		mesh = newMesh;
-		material = MaterialManager::GetInstance().GetMaterialByName("default");
+		//material = MaterialManager::GetInstance().GetMaterialByName("default");
+		std::string materialName = Format("Material_%d", GetId());
+		material = MaterialManager::GetInstance().CreateMaterial(materialName);
 	}
 
 	Renderer::Renderer(const private_struct &, Mesh::Ptr newMesh, Material::Ptr newMaterial) : NodeComponent("Renderer")

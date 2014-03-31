@@ -37,22 +37,33 @@ namespace epsilon
 	{
 		if (shader)
 		{
-			// Compile the shader
-			shader->Setup();
+			// Setup the shader, compile etc
+			if (!shader->Compiled())
+			{
+				shader->Setup();
+			}
 
-			// Get the Shader's Unform values for the material
-			ambientId	= shader->GetUniformId("material.ambient");
-			diffuseId	= shader->GetUniformId("material.diffuse");
-			specId		= shader->GetUniformId("material.specular");
-			reflectId	= shader->GetUniformId("material.reflectance");
+			if (shader->Compiled() && !shader->InError())
+			{
+				// Get the Shader's Unform values for the material
+				ambientId = shader->GetUniformId("material.ambient");
+				diffuseId = shader->GetUniformId("material.diffuse");
+				specId	  = shader->GetUniformId("material.specular");
+				reflectId = shader->GetUniformId("material.reflectance");
 
-			shaderReady = true;
+				shaderReady = true;
+			}
+			else
+			{
+				shaderReady = false;
+			}
 		}
 	}
 
 	void Material::SetShader(Shader::Ptr newShader)
 	{
 		shader = newShader;
+		SetupShader();
 	}
 
 	Shader::Ptr Material::GetShader()
@@ -72,19 +83,18 @@ namespace epsilon
 				// functions are exposed to python, and therefore other threads
 				SetupShader();
 			}
-
-			// If the shader is ready to go
-			if (shader->UseShader(stateStack))
+			
+			if (shaderReady)
 			{
-				// Set the material's colour values into the shader
-				shader->SetColourUniform(ambientId, ambient);
-				shader->SetColourUniform(diffuseId, diffuse);
-				shader->SetColourUniform(specId, specular);
-				shader->SetFloatUniform(reflectId, reflectance);
-			}
-			else
-			{
-				shaderReady = false;
+				// If the shader is ready to go
+				if (shader->UseShader(stateStack))
+				{
+					// Set the material's colour values into the shader
+					shader->SetColourUniform(ambientId, ambient);
+					shader->SetColourUniform(diffuseId, diffuse);
+					shader->SetColourUniform(specId, specular);
+					shader->SetFloatUniform(reflectId, reflectance);
+				}
 			}
 		}
         

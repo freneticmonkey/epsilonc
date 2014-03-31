@@ -127,6 +127,10 @@ namespace epsilon
 	{
 		bool success = true;
 
+
+		// Ensure that the shader isn't active when we try to compile it (if hotloading).
+		DisableShader();
+
 		// If the shader doesn't have any stages defined, use the basic shader
 		bool hasStages = false;
 		for (int i = 0; i < ShaderStageType::MAX_STAGES; i++)
@@ -242,7 +246,15 @@ namespace epsilon
 	{
 		if ( shaderCompiled )
 		{
-			glUseProgram(programId);
+			// Check if the shader is already bound, if I ever write batching, 
+			// this will be result in a easy performance boost?
+			GLuint currProg;
+			glGetIntegerv(GL_CURRENT_PROGRAM, (GLint*) &currProg);
+
+			if (currProg != programId)
+			{
+				glUseProgram(programId);
+			}
 
 			shaderActive = true;
 		}
@@ -255,7 +267,15 @@ namespace epsilon
 
 		if ( shaderCompiled )
 		{
-			glUseProgram(programId);
+			// Check if the shader is already bound, if I ever write batching, 
+			// this will be result in a easy performance boost?
+			GLuint currProg;
+			glGetIntegerv(GL_CURRENT_PROGRAM, (GLint*)&currProg);
+
+			if (currProg != programId)
+			{
+				glUseProgram(programId);
+			}
 
 			shaderActive = true;
 

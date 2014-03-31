@@ -48,6 +48,26 @@ namespace epsilon
 		});
 	}
 
+	Material::Ptr MaterialManager::CreateMaterial(std::string name)
+	{
+		Material::Ptr newMaterial;
+
+		// Check if material with name already exists
+		if (materials.find(name) != materials.end())
+		{
+			Log("MaterialManager", Format("Error: Material with name: %s already exists.", name.c_str()));
+		}
+		else
+		{
+			// Create a new material
+			newMaterial = Material::Create(name);
+			// Set the default shader
+			newMaterial->SetShader(shaders["default.shader"]);
+			materials[name] = newMaterial;
+		}
+		return newMaterial;
+	}
+
 	Material::Ptr MaterialManager::GetMaterialByName(std::string name)
 	{
 		Material::Ptr foundMaterial;

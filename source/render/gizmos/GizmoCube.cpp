@@ -7,7 +7,7 @@ namespace epsilon
 	GizmoCube::GizmoCube()
 	{
 		mesh = MeshFactory::GenerateWireCube();
-		material = MaterialManager::GetInstance().GetMaterialByName("default");
+		material = MaterialManager::GetInstance().GetMaterialByName("gizmo");
 	}
 
 	GizmoCube::~GizmoCube()

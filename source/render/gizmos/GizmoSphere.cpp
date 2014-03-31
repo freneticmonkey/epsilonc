@@ -7,7 +7,7 @@ namespace epsilon
 	GizmoSphere::GizmoSphere()
 	{
 		mesh = MeshFactory::GenerateWireSphere();
-		material = MaterialManager::GetInstance().GetMaterialByName("default");
+		material = MaterialManager::GetInstance().GetMaterialByName("gizmo");
 	}
 
 	GizmoSphere::~GizmoSphere()
