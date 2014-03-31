@@ -85,6 +85,9 @@ namespace epsilon
         
 		void SetCheckFrequency(float checkFreq) { checkFrequency = checkFreq; }
 
+		// Search known resources by regex
+		ResourceList FindResources(std::string searchExpression);
+
 		// Periodically checks the state of the files in the resource map
 		void Update(float dt);
 

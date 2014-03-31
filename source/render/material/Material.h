@@ -18,9 +18,13 @@ namespace epsilon
 		typedef std::shared_ptr<Material> Ptr;
 
 		static Material::Ptr Create();
+		static Material::Ptr Create(std::string matName);
 		
 		explicit Material(const private_struct &);
+		explicit Material(const private_struct &, std::string matName);
 		~Material(void);
+
+		std::string GetName() { return name; }
 
 		Colour ambient;
 		Colour diffuse;
@@ -37,6 +41,7 @@ namespace epsilon
 		void Disable();
 
 	private:
+		std::string name;
 		Shader::Ptr shader;
         bool        shaderReady;
 

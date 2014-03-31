@@ -132,19 +132,36 @@ namespace epsilon
 		buffersBuilt = true;
 	}
 
-	void VertexData::Enable()
+	bool VertexData::Enable()
 	{
+		bool success = false;
+
 		// Enable the OpenGL Buffers
 		for ( VertexBufferList::iterator buffer = buffers.begin(); buffer != buffers.end(); buffer++ )
 		{
-			(*buffer)->Enable();
+			success = (*buffer)->Enable();
+
+			if (!success)
+			{
+				break;
+			}
 		}
 
-		// Enable the Vertex Attributes
-		for ( VertexAttribList::iterator attrib = attributes.begin(); attrib != attributes.end(); attrib++ )
+		// If the buffers were successfully bound
+		if (success)
 		{
-			(*attrib)->Enable();
+			// Enable the Vertex Attributes
+			for (VertexAttribList::iterator attrib = attributes.begin(); attrib != attributes.end(); attrib++)
+			{
+				success = (*attrib)->Enable();
+
+				if (!success)
+				{
+					break;
+				}
+			}
 		}
+		return success;
 	}
 
 	void VertexData::Disable()
@@ -164,20 +181,21 @@ namespace epsilon
 
 	void VertexData::Draw()
 	{
-		Enable();
-
-		// If drawing surfaces
-		if ( hasIndices )
+		if (Enable())
 		{
-			glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_SHORT, 0);
-			CheckOpenGLError("DrawElements");
+			// If drawing surfaces
+			if (hasIndices)
+			{
+				glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_SHORT, 0);
+				CheckOpenGLError("DrawElements");
+			}
+			else
+			{
+				// Drawing Lines - this is a temporary hack for grids until Materials or some such are implemented.
+				glDrawArrays(GL_LINES, 0, numVertices);
+				CheckOpenGLError("DrawArrays");
+			}
+			Disable();
 		}
-		else
-		{
-			// Drawing Lines - this is a temporary hack for grids until Materials or some such are implemented.
-			glDrawArrays(GL_LINES, 0, numVertices);
-			CheckOpenGLError("DrawArrays");
-		}
-		Disable();
 	}
 }

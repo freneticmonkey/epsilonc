@@ -5,8 +5,10 @@
 //  Created by Scott Porter on 25/03/2014.
 //  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
+#include <regex>
 
 #include "ResourceManager.h"
+#include "utilities/Utilities.h"
 
 namespace epsilon
 {
@@ -61,7 +63,7 @@ namespace epsilon
 				// Replace existing resource with the new resource in the resource map
 				resources[newResource->GetResourceId()] = newResource;
 
-				Log("ResourceManager", "Registering Resource from Manaager: " + newResource->GetFilepath().GetString());
+				Log("ResourceManager", "Registering Resource from Manager: " + newResource->GetFilepath().GetString());
 			}
 		}
     }
@@ -78,6 +80,26 @@ namespace epsilon
 
 		resVec->erase(std::remove(resVec->begin(), resVec->end(), childResource->GetResourceId()), resVec->end());
     }
+
+	ResourceList ResourceManager::FindResources(std::string searchExpression)
+	{
+		std::regex expression(searchExpression);
+
+		ResourceList results;
+		
+		// Check the regular expression against each of the known resources
+		std::for_each(resources.begin(), resources.end(), [&](std::pair<std::size_t, Resource::Ptr> resourcePair){
+
+			// If the resource path matches the regular expression
+			if (std::regex_match(resourcePair.second->GetFilepath().GetString(), expression))
+			{
+				// Store it in the results
+				results.push_back(resourcePair.second);
+			}
+		});
+
+		return results;
+	}
 
 	void ResourceManager::Update(float dt)
 	{
@@ -172,11 +194,14 @@ namespace epsilon
 		// If the Resource is not already in the CycleCheck vector
 		if (std::find(cycleCheck.begin(), cycleCheck.end(), resourceId) == cycleCheck.end())
 		{
+			Log("ResourceManager", Format("Change detected for resource: %s", resources[resourceId]->GetFilepath().GetString().c_str()));
+
 			// Add the current Resource to the cycle check list.
 			cycleCheck.push_back(resourceId);
 
 			// Add it to the map of changed Resources!
-            std::for_each(resources[resourceId]->GetOwners().begin(), resources[resourceId]->GetOwners().end(), [&](long ownerId){
+			Resource::OwnerIds owners = resources[resourceId]->GetOwners();
+			std::for_each(owners.begin(), owners.end(), [&](long ownerId){
                     changedResources[ownerId].push_back(resourceId);
             });
 

@@ -179,9 +179,13 @@ void initRender()
 		.def_readonly("BLACK", &Colour::BLACK)
 		.def_readonly("GREY", &Colour::GREY)
 	;
+	
+	Material::Ptr(*MaterialCreateStandard)() = &Material::Create;
+	Material::Ptr(*MaterialCreateName)(std::string) = &Material::Create;
 
 	class_<Material, Material::Ptr, boost::noncopyable>("Material", no_init)
-		.def("create", &Material::Create)
+		.def("create", MaterialCreateStandard)
+		.def("create", MaterialCreateName)
 		.staticmethod("create")
 
 		// Colour Information

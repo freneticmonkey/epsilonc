@@ -41,6 +41,9 @@ namespace epsilon
 		renderManager = &RenderManager::GetInstance();
 		renderManager->Setup();
 
+		materialManager = &MaterialManager::GetInstance();
+		materialManager->Setup();
+
 		inputManager = &InputManager::GetInstance();
 
 		uiManager = &UIManager::GetInstance();

@@ -7,6 +7,7 @@
 #include "events/EventManager.h"
 #include "core/InputManager.h"
 #include "render/RenderManager.h"
+#include "render/material/MaterialManager.h"
 #include "render/gizmos/GizmoManager.h"
 #include "scene/SceneManager.h"
 #include "script/ScriptManager.h"
@@ -39,6 +40,7 @@ namespace epsilon
 		InputManager * inputManager;
 		ScriptManager * scriptManager;
 		RenderManager * renderManager;
+		MaterialManager * materialManager;
 		UIManager * uiManager;
 		SceneManager * sceneManager;
 		GizmoManager * gizmoManager;

@@ -19,11 +19,13 @@ namespace epsilon
 			TESSELATION,
 			GEOMETRY,
 			FRAGMENT,
-			COMPUTE
+			COMPUTE,
+			UNKNOWN
 		};
 
 		typedef std::map<Type, std::string> StageNames;
 		typedef std::map<Type, int>			StageConstants;
+		typedef std::map<std::string, Type>	StageConstantNames;
 
 		static std::string GetStageName(Type type)
 		{
@@ -35,9 +37,22 @@ namespace epsilon
 			return constants[type];
 		}
 
+		static Type GetStageConstantByName(std::string name)
+		{
+			if (constantNames.find(name) != constantNames.end())
+			{
+				return constantNames[name];
+			}
+			else
+			{
+				return Type::UNKNOWN;
+			}
+		}
+
 	private:
-		static StageNames		names;
-		static StageConstants	constants;
+		static StageNames			names;
+		static StageConstants		constants;
+		static StageConstantNames	constantNames;
 	};
 	
 

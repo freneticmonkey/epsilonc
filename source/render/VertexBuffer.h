@@ -15,7 +15,7 @@ namespace epsilon
 	{
 	public:
 		virtual void BuildBuffer() = 0;
-		virtual void Enable() = 0;
+		virtual bool Enable() = 0;
 		virtual void Disable() = 0;
 	};
 
@@ -65,18 +65,20 @@ namespace epsilon
 			glBindBuffer(bufferTypeGL, bufferId);
 			glBufferData(bufferTypeGL, bufferSize, &bufferData[0], GL_STATIC_DRAW);
 
-			CheckOpenGLError("Creating buffer");
+			CheckOpenGLError("Creating Vertex buffer");
             Disable();
 		}
 
-		void Enable()
+		bool Enable()
 		{
+			bool success = false;
 			if ( bufferId != -1 )
 			{
                 glBindBuffer(bufferTypeGL, bufferId);
                 
-				CheckOpenGLError("Binding buffer");
+				success = CheckOpenGLError("Binding Vertex buffer");
 			}
+			return success;
 		}
 
 		void Disable()

@@ -41,7 +41,7 @@ namespace epsilon
         // Ensure that type based comparison is implemented?
 //        virtual int operator=;
         
-		OwnerIds GetOwners() { return ownerIds; }
+		const OwnerIds & GetOwners() { return ownerIds; }
 		void AddOwner(long owner);
         void RemoveOwner(long owner);
         bool IsOwner(long owner);

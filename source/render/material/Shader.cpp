@@ -1,8 +1,14 @@
 #include "render/material/Shader.h"
 
 #include <iostream>
+#include <algorithm>
+#include <boost/filesystem.hpp>
+#include <boost/algorithm/string/replace.hpp>
+
 #include "utilities/Utilities.h"
 #include "render/RenderUtilities.h"
+
+using namespace boost;
 
 namespace epsilon
 {
@@ -11,19 +17,85 @@ namespace epsilon
 		return std::make_shared<Shader>(private_struct());
 	}
 
-	Shader::Shader(const private_struct &) : shaderCompiled(false), 
+	Shader::Ptr Shader::CreateFromDefinition(std::string definitionFile)
+	{
+		Shader::Ptr newShader = std::make_shared<Shader>(private_struct());
+		newShader->SetupFromDefinition(definitionFile);
+		return newShader;
+	}
+
+	Shader::Shader(const private_struct &) : ResourceOwner(),
+											 shaderCompiled(false), 
 											 shaderActive(false),
-											 sourceVersion("#version 330")
+											 sourceVersion("#version 330"),
+											 compileError(false)
 
 	{
-		// Set Default Shader
-		SetMaterialFile("resources/shaders/material.frag");
-        AddStage("resources/shaders/basic/basic.vert", ShaderStageType::Type::VERTEX);
-        AddStage("resources/shaders/basic/basic.frag", ShaderStageType::Type::FRAGMENT);
 	}
 
 	Shader::~Shader(void)
 	{
+	}
+
+	void Shader::SetupFromDefinition(std::string definitionFile)
+	{
+		std::string definitions = readfile(definitionFile);
+
+		// pull apart the filename and use it as the shader name
+		name = filesystem::path(definitionFile).filename().string();
+
+		// Break into lines
+		std::vector<std::string> lines = split(definitions, '\n');
+
+		std::map<std::string, std::string> fileStages;
+
+		std::for_each(lines.begin(), lines.end(), [&](std::string line) {
+
+			// If the line contains a delimiter and is not a comment line
+			if ((line.find("=") != std::string::npos) && (line[0] != '#') )
+			{
+				// strip line whitespace
+				line.erase(std::remove_if(line.begin(), line.end(), ::isspace), line.end());
+
+				// grab the line contents in the form <shader_stage>=<filename>
+				std::vector<std::string> pair = split(line, '=');
+				std::transform(pair[0].begin(), pair[0].end(), pair[0].begin(), ::tolower);
+				std::string type = pair[0];
+
+				// Build the absolute filename
+				filesystem::path filepath(pair[1]);
+
+				// If a relative path, make it relative to the resources folder 
+				// using the path of the definitions file as a guide
+				if (filepath.is_relative())
+				{
+					filepath = filesystem::path(definitionFile).parent_path() / filepath;
+				}
+				
+				// Store the stage
+				fileStages[type] = filepath.string();
+			}
+		});
+
+		// Process the results
+		std::for_each(fileStages.begin(), fileStages.end(), [&](std::pair<std::string, std::string> stage){
+
+			// If a material was defined
+			if (stage.first == "material")
+			{
+				SetMaterialFile(stage.second);
+			}
+			else
+			{
+				// Otherwise try to process this item as a shader stage
+				ShaderStageType::Type stageType = ShaderStageType::GetStageConstantByName(stage.first);
+
+				if (stageType != ShaderStageType::Type::UNKNOWN)
+				{
+					AddStage(stage.second, stageType);
+				}
+			}
+		});
 	}
 
 	void Shader::Setup()
@@ -31,7 +103,7 @@ namespace epsilon
 		CompileShader();
 	}
     
-    Shader::Ptr Shader::AddStage(std::string sourceFile, ShaderStageType::Type type)
+    void Shader::AddStage(std::string sourceFile, ShaderStageType::Type type)
     {
         ShaderStage::Ptr newStage = ShaderStage::Create(sourceFile, type);
         RegisterResource(newStage);
@@ -44,8 +116,6 @@ namespace epsilon
         
         // invalidate shader
         shaderCompiled = false;
-        
-        return ThisPtr();
     }
 
 	void Shader::SetMaterialFile(std::string materialFile)
@@ -56,9 +126,30 @@ namespace epsilon
 	bool Shader::CompileShader()
 	{
 		bool success = true;
+
+		// If the shader doesn't have any stages defined, use the basic shader
+		bool hasStages = false;
+		for (int i = 0; i < ShaderStageType::MAX_STAGES; i++)
+		{
+			if (stages[i])
+			{
+				hasStages = true;
+				break;
+			}
+		}
+
+		if (!hasStages)
+		{
+			// Set Default Shader
+			SetMaterialFile("resources/shaders/basic/default.mat");
+			AddStage("resources/shaders/basic/default.vert", ShaderStageType::Type::VERTEX);
+			AddStage("resources/shaders/basic/default.frag", ShaderStageType::Type::FRAGMENT);
+		}
         
         // Compile/Link Shader Program
         programId = glCreateProgram();
+
+		compileError = false;
 
         // For each stage
         for (int i = 0; i < ShaderStageType::MAX_STAGES; i++ )
@@ -75,6 +166,7 @@ namespace epsilon
                 else
                 {
                     success = false;
+					compileError = true;
                 }
             }
         }
@@ -85,6 +177,12 @@ namespace epsilon
             glLinkProgram(programId);
 
             success = CheckOpenGLError("Linking Shader");
+
+			if (!success)
+			{
+				DisplayCompileError(programId);
+				compileError = true;
+			}
         }
 
         if ( success )
@@ -101,7 +199,9 @@ namespace epsilon
     void Shader::RefreshResources(ResourceIdVector resources)
     {
         // Recompile the Shader
-        CompileShader();
+        //CompileShader();
+		shaderCompiled = false;
+		compileError = false;
     }
     
 	GLuint Shader::GetUniformId(std::string uniformName)

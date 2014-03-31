@@ -1,12 +1,13 @@
 #include "render/gizmos/GizmoCube.h"
 #include "render/MeshFactory.h"
+#include "render/material/MaterialManager.h"
 
 namespace epsilon
 {
 	GizmoCube::GizmoCube()
 	{
 		mesh = MeshFactory::GenerateWireCube();
-		material = Material::Create();
+		material = MaterialManager::GetInstance().GetMaterialByName("default");
 	}
 
 	GizmoCube::~GizmoCube()

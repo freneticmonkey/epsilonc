@@ -13,8 +13,7 @@
 namespace epsilon
 {
 	class Shader :
-        public ResourceOwner,
-        public std::enable_shared_from_this<Shader>
+        public ResourceOwner
 	{
 	private:
 		struct private_struct {} ;
@@ -23,13 +22,18 @@ namespace epsilon
 		typedef std::shared_ptr<Shader> Ptr;
 
 		static Shader::Ptr Create();
+		static Shader::Ptr CreateFromDefinition(std::string definitionFile);
 
 		explicit Shader(const private_struct &);
 		~Shader(void);
 
+		std::string GetName() { return name; }
+
+		void SetupFromDefinition(std::string definitionFile);
+
 		void Setup();
         
-        Shader::Ptr AddStage(std::string sourceFile, ShaderStageType::Type type);
+        void AddStage(std::string sourceFile, ShaderStageType::Type type);
 
 		void SetMaterialFile(std::string materialFile);
 
@@ -44,16 +48,19 @@ namespace epsilon
 
 		bool Active() { return shaderActive; }
 		bool Compiled() { return shaderCompiled; }
+		bool InError() { return compileError; }
         
         void RefreshResources(ResourceIdVector resources);
 
 	private:
-        Shader::Ptr ThisPtr() { return shared_from_this(); }
-        
+		std::string name;
+
 		bool CompileShader();
 
 		bool shaderCompiled;
 		bool shaderActive;
+
+		bool compileError;
         
         // The Shader program Id
         GLuint programId;

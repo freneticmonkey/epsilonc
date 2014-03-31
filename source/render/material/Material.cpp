@@ -7,13 +7,26 @@ namespace epsilon
 		return std::make_shared<Material>(private_struct());
 	}
 
+	Material::Ptr Material::Create(std::string matName)
+	{
+		return std::make_shared<Material>(private_struct(), matName);
+	}
+
 	Material::Material(const private_struct &) : ambient(0.3f), 
 												 diffuse(Colour::GREY), 
 												 specular(),
 												 reflectance(0.8f),
                                                  shaderReady(false)
 	{
-		shader = Shader::Create();
+	}
+
+	Material::Material(const private_struct &, std::string matName) : name(matName),
+																	  ambient(0.3f),
+																	  diffuse(Colour::GREY),
+																	  specular(),
+																	  reflectance(0.8f),
+																	  shaderReady(false)
+	{
 	}
 
 	Material::~Material(void)
@@ -22,19 +35,19 @@ namespace epsilon
 
 	void Material::SetupShader()
 	{
-		// Set the GLSL definition of the material in the shader
-		shader->SetMaterialFile("resources/shaders/material.frag");
+		if (shader)
+		{
+			// Compile the shader
+			shader->Setup();
 
-		// Compile the shader
-		shader->Setup();
+			// Get the Shader's Unform values for the material
+			ambientId	= shader->GetUniformId("material.ambient");
+			diffuseId	= shader->GetUniformId("material.diffuse");
+			specId		= shader->GetUniformId("material.specular");
+			reflectId	= shader->GetUniformId("material.reflectance");
 
-		// Get the Shader's Unform values for the material
-		ambientId = shader->GetUniformId("material.ambient");
-		diffuseId = shader->GetUniformId("material.diffuse");
-		specId = shader->GetUniformId("material.specular");
-		reflectId = shader->GetUniformId("material.reflectance");
-        
-        shaderReady = true;
+			shaderReady = true;
+		}
 	}
 
 	void Material::SetShader(Shader::Ptr newShader)
@@ -49,35 +62,41 @@ namespace epsilon
 
 	bool Material::Enable(RenderStateStack::Ptr stateStack)
 	{
-		// If the shader hasn't yet been setup
-		if ( !shader->Compiled() )
+		if (shader)
 		{
-			// Trigger the Shader setup here.  This needs to happen so that it only 
-			// occurs during render in the main thread. The constructor/SetShader
-			// functions are exposed to python, and therefore other threads
-			SetupShader();
-		}
+			// If the shader hasn't yet been setup
+			if (!shader->Compiled() && !shader->InError())
+			{
+				// Trigger the Shader setup here.  This needs to happen so that it only 
+				// occurs during render in the main thread. The constructor/SetShader
+				// functions are exposed to python, and therefore other threads
+				SetupShader();
+			}
 
-		// If the shader is ready to go
-		if ( shader->UseShader(stateStack) )
-		{
-			// Set the material's colour values into the shader
-			shader->SetColourUniform(ambientId, ambient);
-			shader->SetColourUniform(diffuseId, diffuse);
-			shader->SetColourUniform(specId, specular);
-			shader->SetFloatUniform(reflectId, reflectance);
+			// If the shader is ready to go
+			if (shader->UseShader(stateStack))
+			{
+				// Set the material's colour values into the shader
+				shader->SetColourUniform(ambientId, ambient);
+				shader->SetColourUniform(diffuseId, diffuse);
+				shader->SetColourUniform(specId, specular);
+				shader->SetFloatUniform(reflectId, reflectance);
+			}
+			else
+			{
+				shaderReady = false;
+			}
 		}
-        else
-        {
-            shaderReady = false;
-        }
         
         return shaderReady;
 	}
 
 	void Material::Disable()
 	{
-		shader->DisableShader();
+		if (shader)
+		{
+			shader->DisableShader();
+		}
 	}
 
 }

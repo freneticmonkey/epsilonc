@@ -51,7 +51,7 @@ namespace epsilon
 		int GetColourIndex() { return colourIndex; }
 		int GetTexCoordIndex() { return texCoordIndex; }
 
-		void Enable();
+		bool Enable();
 		void Draw();
 		void Disable();
 

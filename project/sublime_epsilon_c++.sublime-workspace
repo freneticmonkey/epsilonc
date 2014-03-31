@@ -76,7 +76,7 @@
 			}
 		},
 		{
-			"file": "/C/Dev/Projects/C++/Epsilon/resources/shaders/basic/basic.vert",
+			"file": "/C/Dev/Projects/C++/Epsilon/resources/shaders/basic/default.vert",
 			"settings":
 			{
 				"buffer_size": 436,
@@ -92,10 +92,34 @@
 			}
 		},
 		{
+			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/resourcehandler.py",
+			"settings":
+			{
+				"buffer_size": 549,
+				"line_ending": "Windows"
+			}
+		},
+		{
 			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/MyBehaviourClass.py",
 			"settings":
 			{
 				"buffer_size": 1497,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Dev/Projects/C++/Epsilon/resources/shaders/basic/default.frag",
+			"settings":
+			{
+				"buffer_size": 122,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Dev/Projects/C++/Epsilon/resources/shaders/basic/default.mat",
+			"settings":
+			{
+				"buffer_size": 114,
 				"line_ending": "Windows"
 			}
 		}
@@ -103,7 +127,7 @@
 	"build_system": "run-debug",
 	"command_palette":
 	{
-		"height": 375.0,
+		"height": 310.0,
 		"selected_items":
 		[
 			[
@@ -234,6 +258,8 @@
 	},
 	"file_history":
 	[
+		"/C/Dev/Projects/C++/Epsilon/resources/shaders/basic/default.shader",
+		"/C/Dev/Projects/C++/Epsilon/resources/shaders/material.frag",
 		"/C/Dev/Projects/C++/Epsilon/resources/typedefs.cfg",
 		"/C/Dev/Projects/C++/Epsilon/resources/scripts/00481a32-553b-4afc-aeb7-50ca2fb462e0.dmp",
 		"/C/Dev/Projects/C++/Epsilon/project/sublime_epsilon_c++.sublime-project",
@@ -278,7 +304,6 @@
 		"/C/Dev/Projects/C++/Epsilon/resources/scripts/CycleValue.py",
 		"/C/Dev/Projects/Epsilon/epsilon/scripting/testscripts.py",
 		"/C/Dev/Projects/C++/Epsilon/resources/shaders/basic.vert",
-		"/C/Dev/Projects/C++/Epsilon/resources/shaders/material.frag",
 		"/C/Dev/Resources/C++/boost-python-examples-master/10-Embedding/embedding.py",
 		"/C/Dev/Projects/Epsilon/epsilon/render/shader.py",
 		"/C/Dev/Projects/Python/sandbox/expand_test.py",
@@ -360,8 +385,7 @@
 		"/C/Dev/Projects/Reboot/simple/run.py",
 		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/tree_ruby.py",
 		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/SublimeCodeIntel.py",
-		"/C/Dev/Projects/Reboot/simple/core/start.py",
-		"/C/Dev/Projects/Reboot/simple/framework/__init__.py"
+		"/C/Dev/Projects/Reboot/simple/core/start.py"
 	],
 	"find":
 	{
@@ -489,7 +513,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
@@ -518,7 +542,7 @@
 						"translation.y": 168.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -534,8 +558,8 @@
 						"selection":
 						[
 							[
-								945,
-								945
+								1158,
+								1158
 							]
 						],
 						"settings":
@@ -544,10 +568,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 252.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -563,8 +587,8 @@
 						"selection":
 						[
 							[
-								347,
-								347
+								293,
+								293
 							]
 						],
 						"settings":
@@ -576,12 +600,12 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "/C/Dev/Projects/C++/Epsilon/resources/shaders/basic/basic.vert",
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/shaders/basic/default.vert",
 					"semi_transient": false,
 					"settings":
 					{
@@ -592,8 +616,8 @@
 						"selection":
 						[
 							[
-								436,
-								436
+								365,
+								365
 							]
 						],
 						"settings":
@@ -604,7 +628,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
@@ -620,8 +644,8 @@
 						"selection":
 						[
 							[
-								6002,
-								6002
+								10515,
+								10546
 							]
 						],
 						"settings":
@@ -630,20 +654,50 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2306.0,
+						"translation.y": 3006.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/resourcehandler.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 549,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
-					"buffer": 5,
+					"buffer": 6,
 					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/MyBehaviourClass.py",
 					"semi_transient": false,
 					"settings":
@@ -668,7 +722,63 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/shaders/basic/default.frag",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 122,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								120,
+								120
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/shaders/basic/default.mat",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 114,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								114,
+								114
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -702,7 +812,7 @@
 		"cols":
 		[
 			0.0,
-			0.445856040782,
+			0.414792719396,
 			1.0
 		],
 		"rows":

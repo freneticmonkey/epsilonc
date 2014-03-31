@@ -22,6 +22,14 @@ namespace epsilon
 		{ Type::COMPUTE,	GL_COMPUTE_SHADER }
 	};
 
+	ShaderStageType::StageConstantNames ShaderStageType::constantNames = {
+		{ "vertex",		Type::VERTEX },
+		{ "tesselation",Type::TESSELATION },
+		{ "geometry",	Type::GEOMETRY },
+		{ "fragment",	Type::FRAGMENT },
+		{ "compute",	Type::COMPUTE }
+	};
+
 	ShaderStage::Ptr ShaderStage::Create(std::string filename, ShaderStageType::Type type)
 	{
 		return std::make_shared<ShaderStage>(private_struct(), filename, type);
@@ -48,7 +56,7 @@ namespace epsilon
 	{
 		// Build the source
 		source	= Format("#version %d\n", version);
-		source += Format("%s\n", materialDef);
+		source += Format("%s\n", materialDef.c_str());
 		source += readfile(GetFilepath().GetString());
 
 		// Compile the stage
@@ -57,12 +65,17 @@ namespace epsilon
 		glShaderSource(stageId, 1, &stageSource, NULL);
 		glCompileShader(stageId);
 
-		stageCompiled = CheckOpenGLError(Format("Compiling %s Shader: %s", ShaderStageType::GetStageName(stageType), GetFilepath().GetString()));
+		std::string filename = GetFilepath().GetString();
+		std::string stageName = ShaderStageType::GetStageName(stageType);
+		stageCompiled = CheckOpenGLError(Format("Compiling %s Shader: %s", stageName.c_str(), filename.c_str()));
 
 		if (!stageCompiled)
 		{
 			DisplayCompileError(stageId);
 		}
+
+		// Mark the Resource as having loaded
+		SetReloaded();
 
 		return stageCompiled;
 	}

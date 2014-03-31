@@ -27,6 +27,7 @@
     <ClCompile Include="..\source\render\gizmos\GizmoSphere.cpp" />
     <ClCompile Include="..\source\render\GizmoType.cpp" />
     <ClCompile Include="..\source\render\material\Material.cpp" />
+    <ClCompile Include="..\source\render\material\MaterialManager.cpp" />
     <ClCompile Include="..\source\render\material\Shader.cpp" />
     <ClCompile Include="..\source\render\material\ShaderStage.cpp" />
     <ClCompile Include="..\source\render\Mesh.cpp" />
@@ -85,6 +86,7 @@
     <ClInclude Include="..\source\render\gizmos\GizmoManager.h" />
     <ClInclude Include="..\source\render\gizmos\GizmoOperation.h" />
     <ClInclude Include="..\source\render\material\Material.h" />
+    <ClInclude Include="..\source\render\material\MaterialManager.h" />
     <ClInclude Include="..\source\render\material\Shader.h" />
     <ClInclude Include="..\source\render\material\ShaderStage.h" />
     <ClInclude Include="..\source\render\material\ShaderUtilities.h" />

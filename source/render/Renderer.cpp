@@ -1,4 +1,5 @@
 #include "render/Renderer.h"
+#include "render/material/MaterialManager.h"
 
 namespace epsilon
 {
@@ -20,13 +21,13 @@ namespace epsilon
 	Renderer::Renderer(const private_struct &) : NodeComponent("Renderer")
 	{
 		mesh = Mesh::Create();
-		material = Material::Create();
+		material = MaterialManager::GetInstance().GetMaterialByName("default");
 	}
 
 	Renderer::Renderer(const private_struct &, Mesh::Ptr newMesh) : NodeComponent("Renderer")
 	{
 		mesh = newMesh;
-		material = Material::Create();
+		material = MaterialManager::GetInstance().GetMaterialByName("default");
 	}
 
 	Renderer::Renderer(const private_struct &, Mesh::Ptr newMesh, Material::Ptr newMaterial) : NodeComponent("Renderer")

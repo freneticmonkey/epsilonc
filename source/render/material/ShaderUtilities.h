@@ -4,7 +4,7 @@
 
 namespace epsilon
 {
-	void DisplayCompileError(GLuint shaderId)
+	inline void DisplayCompileError(GLuint shaderId)
 	{
 		GLint isCompiled = 0;
 		glGetShaderiv(shaderId, GL_COMPILE_STATUS, &isCompiled);
