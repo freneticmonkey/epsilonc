@@ -2,6 +2,7 @@
 
 #include "scene/Node.h"
 #include "render/Camera.h"
+#include "render/Light.h"
 
 namespace epsilon
 {
@@ -32,6 +33,9 @@ namespace epsilon
 		bool AddCamera(Camera::Ptr newCamera);
 		Camera::Ptr GetCamera(std::string name);
 
+		bool AddLight(Light::Ptr newLight);
+		Light::Ptr GetLight(std::string name);
+
 		bool operator==(Scene::Ptr other);
 		bool operator==(std::string name);
 
@@ -43,6 +47,8 @@ namespace epsilon
 		Transform::Ptr rootTransform;
 		Camera::Ptr activeCamera;
 		CameraList sceneCameras;
+
+		LightList sceneLights;
 	};
 
 }

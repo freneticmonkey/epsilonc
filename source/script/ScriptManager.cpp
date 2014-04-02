@@ -8,7 +8,8 @@ namespace epsilon
 									 stdOutListener(""),
 									 engineCoreScript(ScriptEngineCore::Create()),
 									 gilLockCount(0),
-									 currentChangedQueue(0)
+									 currentChangedQueue(0),
+									 activeResourceId(-1)
 	{
 	}
 
@@ -101,12 +102,16 @@ namespace epsilon
 		// Register the Script Engine Core with the ResourceManager for hotloading
 		RegisterResource(engineCoreScript);
 
+		activeResourceId = engineCoreScript->GetResourceId();
+
 		// Init the Python Script Engine Core
 		if (engineCoreScript->InitScript() && !engineCoreScript->InError() )
 		{
 			// Start it immediately
 			success = engineCoreScript->OnStart();
 		}
+
+		activeResourceId = -1;
 
 		ReleaseGIL();
 		return success;
@@ -116,7 +121,19 @@ namespace epsilon
 	{
 		bool success = false;
 		LockGIL();
+
+		activeResourceId = script->GetResourceId();
+
+		// Notify the script of the reload
+		script->BeforeReload();
+
 		success = script->InitScript();
+
+		// Notify the script that the reload has finished
+		script->AfterReload();
+
+		activeResourceId = -1;
+
 		ReleaseGIL();
 		// return success;
 	}
@@ -134,7 +151,9 @@ namespace epsilon
 				{
 					if (!(*behaviour)->InError())
 					{
+						activeResourceId = (*behaviour)->GetResourceId();
 						(*behaviour)->OnStart();
+						activeResourceId = -1;
 					}
 				}
 				catch (const error_already_set&)
@@ -176,7 +195,9 @@ namespace epsilon
 			{
 				if (!(*behaviour)->InError())
 				{
+					activeResourceId = (*behaviour)->GetResourceId();
 					(*behaviour)->Update(dt);
+					activeResourceId = -1;
 				}
 			}
 			catch (const error_already_set&)
@@ -205,7 +226,9 @@ namespace epsilon
 			{
 				if (!(*behaviour)->InError())
 				{
+					activeResourceId = (*behaviour)->GetResourceId();
 					(*behaviour)->OnDestroy();
+					activeResourceId = -1;
 				}
 			}
 			catch (const error_already_set&)

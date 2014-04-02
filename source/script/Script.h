@@ -79,6 +79,11 @@ namespace epsilon
 		bool Call(std::string funcName);
 		bool Call(std::string funcName, FuncParams params);
 		*/
+
+		// Hotload notification.
+		void BeforeReload();
+		void AfterReload();
+
 	protected:
 		// Find a function in the Python Namespace parameter
 		object FindPythonFunction(std::string funcName);
@@ -106,6 +111,9 @@ namespace epsilon
 		// The name which any class instances must be called in Python
 		// must be called to be recognised as the modules 'class'
 		static const std::string INSTANCE_VAR_NAME;
+
+		object beforeReloadFunction;
+		object afterReloadFunction;
 	};
 
 }

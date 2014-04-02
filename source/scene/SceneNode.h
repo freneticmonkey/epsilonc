@@ -31,6 +31,7 @@ namespace epsilon
     
     class SceneNode : public Node
     {
+		friend Scene;
         protected:
             struct private_struct {};
             
@@ -59,18 +60,24 @@ namespace epsilon
             Transform::Ptr  CreateTransform();
             Light::Ptr      CreateLight(std::string name = "");
             Camera::Ptr     CreateCamera(std::string name = "");
-            Renderer::Ptr   CreateRenderer(std::string name = "");
+            Renderer::Ptr   CreateRenderer();
         
             // The following functions are exposed to Python and will result in the active script being
             // set as the owner of the resulting object
+			
+			// Create a child node.
+			SceneNode::Ptr ScriptCreateChild(std::string name = "");
+
             Transform::Ptr  ScriptCreateTransform();
             Light::Ptr      ScriptCreateLight(std::string name = "");
             Camera::Ptr     ScriptCreateCamera(std::string name = "");
-            Renderer::Ptr   ScriptCreateRenderer(std::string name = "");
+            Renderer::Ptr   ScriptCreateRenderer();
         
         protected:
         
             void SetScene(Scene::Ptr newScene) { sceneOwner = newScene; }
+			void HandleScriptOwner(NodeComponent::Ptr newComponent);
+
         private:
             Scene::Ptr  sceneOwner;
     };

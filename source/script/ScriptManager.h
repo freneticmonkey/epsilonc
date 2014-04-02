@@ -46,6 +46,12 @@ namespace epsilon
 		
 		void ReloadScript(Script::Ptr script);
 
+		// Is a script currently being processed.
+		bool IsActive() { return activeResourceId != -1; }
+
+		// Return the ResourceId of the Script currently being processed (if any)
+		bool GetActiveResource() { return activeResourceId; }
+
 		void RefreshResources(ResourceIdVector changedResources);
 
 		void ProcessChangedResources();
@@ -102,6 +108,9 @@ namespace epsilon
 
 		ResourceIdVector  resourceChangedQueue[2];
 		std::atomic<int>  currentChangedQueue;
+
+		// The active script.
+		long activeResourceId;
 
 		
 

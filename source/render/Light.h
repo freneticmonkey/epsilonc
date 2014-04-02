@@ -16,6 +16,10 @@
 
 namespace epsilon
 {
+	class Light;
+
+	typedef std::list< std::shared_ptr<Light> > LightList;
+
 	class Light : public NodeComponent
 	{
 	protected:

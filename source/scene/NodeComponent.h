@@ -84,13 +84,12 @@ namespace epsilon
             });
         }
         
-        long GetResouceOwner() { return resourceOwner; }
+		// For Resource Management
+		void SetResourceOwner(long ownerId) { resourceOwner = ownerId; }
+        long GetResourceOwner() { return resourceOwner; }
         
 	protected:
         
-        // For Resource Management
-        void SetResourceOwner(long ownerId) { resourceOwner = ownerId; }
-
 		NodeComponent::Ptr componentParent;
 			
 		NodeComponentListPtr components;

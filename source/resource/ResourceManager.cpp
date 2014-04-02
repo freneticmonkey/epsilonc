@@ -68,18 +68,31 @@ namespace epsilon
 		}
     }
     
+	void ResourceManager::AddDependency(long parentResourceId, long childResourceId)
+	{
+		dependencies[parentResourceId].push_back(childResourceId);
+	}
+
     void ResourceManager::AddDependency(Resource::Ptr parentResource, Resource::Ptr childResource)
     {
 		dependencies[parentResource->GetResourceId()].push_back(childResource->GetResourceId());
     }
     
-    void ResourceManager::RemoveDependency(Resource::Ptr parentResource, Resource::Ptr childResource)
+    void ResourceManager::RemoveDependency(long parentResourceId, long childResourceId)
     {
+		// Remove Id of the child resource from the parent resource's dependency list
+		ResourceIdVector * resVec = &dependencies[parentResourceId];
+
+		resVec->erase(std::remove(resVec->begin(), resVec->end(), childResourceId), resVec->end());
+    }
+
+	void ResourceManager::RemoveDependency(Resource::Ptr parentResource, Resource::Ptr childResource)
+	{
 		// Remove Id of the child resource from the parent resource's dependency list
 		ResourceIdVector * resVec = &dependencies[parentResource->GetResourceId()];
 
 		resVec->erase(std::remove(resVec->begin(), resVec->end(), childResource->GetResourceId()), resVec->end());
-    }
+	}
 
 	ResourceList ResourceManager::FindResources(std::string searchExpression)
 	{

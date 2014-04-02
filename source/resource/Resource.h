@@ -41,6 +41,8 @@ namespace epsilon
         // Ensure that type based comparison is implemented?
 //        virtual int operator=;
         
+		long GetReourceId() { return filepath.GetHash();  }
+
 		const OwnerIds & GetOwners() { return ownerIds; }
 		void AddOwner(long owner);
         void RemoveOwner(long owner);

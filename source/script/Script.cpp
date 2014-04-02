@@ -138,6 +138,10 @@ namespace epsilon
 			// Register any functions that need to be exposed by this script.
 			RegisterScriptFunctions();
 
+			// Register Hotloading callbacks
+			beforeReloadFunction = FindPythonFunction("before_reload");
+			afterReloadFunction = FindPythonFunction("after_reload");
+
 			// For Hotloading.
 			if (this->componentParent)
 			{
@@ -236,5 +240,37 @@ namespace epsilon
 		text = scriptText;
 		scriptSource = ScriptSource::TEXT;
 		return ThisPtr();
+	}
+
+	void Script::BeforeReload()
+	{
+		object result;
+		if (!beforeReloadFunction.is_none())
+		{
+			try
+			{
+				result = beforeReloadFunction();
+			}
+			catch (const error_already_set&)
+			{
+				HandlePythonError();
+			}
+		}
+	}
+
+	void Script::AfterReload()
+	{
+		object result;
+		if (!afterReloadFunction.is_none())
+		{
+			try
+			{
+				result = afterReloadFunction();
+			}
+			catch (const error_already_set&)
+			{
+				HandlePythonError();
+			}
+		}
 	}
 }

@@ -80,8 +80,11 @@ namespace epsilon
 		 */
 		void AddResource(Resource::Ptr newResource);
         
-        void AddDependency(Resource::Ptr parentResource, Resource::Ptr childResource);
-        void RemoveDependency(Resource::Ptr parentResource, Resource::Ptr childResource);
+        void AddDependency(long parentResourceId, long childResourceId);
+		void AddDependency(Resource::Ptr parentResource, Resource::Ptr childResource);
+
+        void RemoveDependency(long parentResource, long childResource);
+		void RemoveDependency(Resource::Ptr parentResource, Resource::Ptr childResource);
         
 		void SetCheckFrequency(float checkFreq) { checkFrequency = checkFreq; }
 

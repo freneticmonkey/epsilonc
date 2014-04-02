@@ -96,8 +96,9 @@ namespace epsilon
 			// keep track of it
 			sceneCameras.push_back(newCamera);
 		}
+
 		// Return the result of the add
-		return found;
+		return !found;
 	}
 
 	Camera::Ptr Scene::GetCamera(std::string name)
@@ -115,6 +116,39 @@ namespace epsilon
 		}
 
 		return foundCam;
+	}
+
+	bool Scene::AddLight(Light::Ptr light)
+	{
+		bool success = false;
+
+		LightList::iterator it = std::find_if(sceneLights.begin(), sceneLights.end(), [&](Light::Ptr light){
+			return light->GetName() == name;
+		});
+
+		if (it != sceneLights.end())
+		{
+			sceneLights.push_back(light);
+			success = true;
+		}
+
+		return success;
+	}
+
+	Light::Ptr Scene::GetLight(std::string name)
+	{
+		Light::Ptr foundLight;
+
+		LightList::iterator it = std::find_if(sceneLights.begin(), sceneLights.end(), [&](Light::Ptr light){
+			return light->GetName() == name;
+		});
+
+		if (it != sceneLights.end())
+		{
+			foundLight = *it;
+		}
+
+		return foundLight;
 	}
 
 }

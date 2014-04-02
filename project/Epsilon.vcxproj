@@ -26,6 +26,7 @@
     <ClCompile Include="..\source\render\gizmos\GizmoManager.cpp" />
     <ClCompile Include="..\source\render\gizmos\GizmoSphere.cpp" />
     <ClCompile Include="..\source\render\GizmoType.cpp" />
+    <ClCompile Include="..\source\render\Light.cpp" />
     <ClCompile Include="..\source\render\material\Material.cpp" />
     <ClCompile Include="..\source\render\material\MaterialManager.cpp" />
     <ClCompile Include="..\source\render\material\Shader.cpp" />
@@ -42,6 +43,7 @@
     <ClCompile Include="..\source\scene\Node.cpp" />
     <ClCompile Include="..\source\scene\Scene.cpp" />
     <ClCompile Include="..\source\scene\SceneManager.cpp" />
+    <ClCompile Include="..\source\scene\SceneNode.cpp" />
     <ClCompile Include="..\source\scene\Transform.cpp" />
     <ClCompile Include="..\source\script\python\EventsModule.cpp" />
     <ClCompile Include="..\source\script\python\LoggingModule.cpp" />
@@ -85,6 +87,7 @@
     <ClInclude Include="..\source\render\gizmos\GizmoType.h" />
     <ClInclude Include="..\source\render\gizmos\GizmoManager.h" />
     <ClInclude Include="..\source\render\gizmos\GizmoOperation.h" />
+    <ClInclude Include="..\source\render\Light.h" />
     <ClInclude Include="..\source\render\material\Material.h" />
     <ClInclude Include="..\source\render\material\MaterialManager.h" />
     <ClInclude Include="..\source\render\material\Shader.h" />
@@ -111,6 +114,7 @@
     <ClInclude Include="..\source\scene\Object.h" />
     <ClInclude Include="..\source\scene\Scene.h" />
     <ClInclude Include="..\source\scene\SceneManager.h" />
+    <ClInclude Include="..\source\scene\SceneNode.h" />
     <ClInclude Include="..\source\scene\Transform.h" />
     <ClInclude Include="..\source\script\PythonLogListener.h" />
     <ClInclude Include="..\source\script\python\EventsModule.h" />

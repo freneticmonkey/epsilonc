@@ -209,6 +209,12 @@
     <ClCompile Include="..\source\render\material\MaterialManager.cpp">
       <Filter>Source Files\render\material</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\render\Light.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\scene\SceneNode.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\EpsilonCore.h">
@@ -426,6 +432,12 @@
     </ClInclude>
     <ClInclude Include="..\source\render\material\MaterialManager.h">
       <Filter>Source Files\render\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\Light.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\scene\SceneNode.h">
+      <Filter>Source Files\scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
