@@ -235,14 +235,16 @@ class SceneMaterial(BaseXMLNode):
 			if scene_node.renderer is None:
 				scene_node.renderer.create()
 
-			if "ambient" in xml_tag.attrib:
-				scene_node.renderer.material.diffuse = self.parse_colour(xml_tag, "ambient")
+			if not scene_node.renderer.material is None:
 
-			if "diffuse" in xml_tag.attrib:
-				scene_node.renderer.material.diffuse = self.parse_colour(xml_tag, "diffuse")
+				if "ambient" in xml_tag.attrib:
+					scene_node.renderer.material.diffuse = self.parse_colour(xml_tag, "ambient")
 
-			if "specular" in xml_tag.attrib:
-				scene_node.renderer.material.diffuse = self.parse_colour(xml_tag, "specular")
+				if "diffuse" in xml_tag.attrib:
+					scene_node.renderer.material.diffuse = self.parse_colour(xml_tag, "diffuse")
+
+				if "specular" in xml_tag.attrib:
+					scene_node.renderer.material.diffuse = self.parse_colour(xml_tag, "specular")
 
 class SceneColour(BaseXMLNode):
 

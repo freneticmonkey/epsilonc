@@ -22,10 +22,10 @@ namespace epsilon
 	public:
 		typedef std::shared_ptr<NodeComponent> Ptr;
 		
-		NodeComponent(std::string className) : Object(className) {};
-		NodeComponent(std::string name, std::string newClassName ) : Object(name, newClassName) {};
+		NodeComponent(std::string className) : Object(className), resourceOwner(0) {};
+		NodeComponent(std::string name, std::string newClassName ) : Object(name, newClassName), resourceOwner(0) {};
 		virtual ~NodeComponent(void) {};
-
+        
 		void SetParent(NodeComponent::Ptr parent) 
 		{ 
 			this->componentParent = parent; 
@@ -83,19 +83,20 @@ namespace epsilon
                 component->Disable();
             });
         }
-		
-		// Component Fields
-		//NodeComponent::Ptr GetTransform() { return transform; }
-		//NodeComponent::Ptr GetRenderer() { return renderer; }
-
+        
+        long GetResouceOwner() { return resourceOwner; }
+        
 	protected:
+        
+        // For Resource Management
+        void SetResourceOwner(long ownerId) { resourceOwner = ownerId; }
 
 		NodeComponent::Ptr componentParent;
 			
 		NodeComponentListPtr components;
-
-		//NodeComponent::Ptr transform;
-		//NodeComponent::Ptr renderer;
+        
+        // The resource that owns this object!
+        long        resourceOwner;
 	};
 
 }

@@ -3,6 +3,7 @@
 #include <map>
 #include <algorithm>
 #include <ctype.h>
+#include <string>
 
 namespace epsilon
 {

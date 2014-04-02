@@ -1,6 +1,11 @@
 #include "render/material/ShaderStage.h"
 #include "utilities/Utilities.h"
 
+#include <string>
+#include <boost/format.hpp>
+
+using namespace boost;
+
 namespace epsilon
 {
 	/*
@@ -54,28 +59,43 @@ namespace epsilon
 
 	bool ShaderStage::Compile()
 	{
-		// Build the source
-		source	= Format("#version %d\n", version);
-		source += Format("%s\n", materialDef.c_str());
-		source += readfile(GetFilepath().GetString());
-
-		// Compile the stage
-		const char * stageSource = source.c_str();
-		stageId = glCreateShader(ShaderStageType::GetStageConstant(stageType));
-		glShaderSource(stageId, 1, &stageSource, NULL);
-		glCompileShader(stageId);
-
-		std::string filename = GetFilepath().GetString();
-		std::string stageName = ShaderStageType::GetStageName(stageType);
-		stageCompiled = CheckOpenGLError(Format("Compiling %s Shader: %s", stageName.c_str(), filename.c_str()));
-
-		if (!stageCompiled)
-		{
-			DisplayCompileError(stageId);
-		}
-
-		// Mark the Resource as having loaded
-		SetReloaded();
+        GLboolean canCompile;
+        
+        glGetBooleanv(GL_SHADER_COMPILER, &canCompile);
+        
+        if ( canCompile != GL_FALSE)
+        {
+            // Build the source
+            //source	= Format("#version %d\n", version);
+            //source += Format("%s\n", materialDef.c_str());
+            source = str(format("#version %d\n") % version);
+            source += str(format("%s\n") % materialDef);
+            source += readfile(GetFilepath().GetString());
+            
+            // Compile the stage
+            const char * stageSource = source.c_str();
+            stageId = glCreateShader(ShaderStageType::GetStageConstant(stageType));
+            glShaderSource(stageId, 1, &stageSource, NULL);
+            glCompileShader(stageId);
+            
+            std::string filename = GetFilepath().GetString();
+            std::string stageName = ShaderStageType::GetStageName(stageType);
+            stageCompiled = CheckOpenGLError(str(format("Compiling %s Shader: %s") % stageName % filename ));
+            
+            if (!stageCompiled)
+            {
+                DisplayCompileError(stageId);
+                
+                Log("Shader",source);
+            }
+            
+            // Mark the Resource as having loaded
+            SetReloaded();
+        }
+        else
+        {
+            Log("ShaderStage","Shader Compiling not supported.");
+        }
 
 		return stageCompiled;
 	}

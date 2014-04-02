@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		104CC9AE18E0E84500E85F16 /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 104CC9AD18E0E84500E85F16 /* ResourceManager.cpp */; };
 		108D3517186E88C00002E4F4 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1059E704184AFBDA00416AD8 /* Python.framework */; };
-		109E8968186E6B3D00E95E3B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 109E8967186E6B3D00E95E3B /* OpenGL.framework */; };
+		10A88B0E18EAF178000D61AE /* MaterialManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10A88B0C18EAF178000D61AE /* MaterialManager.cpp */; };
+		10A88B0F18EAFB72000D61AE /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 109E8967186E6B3D00E95E3B /* OpenGL.framework */; };
 		10B94DAB18DE5421002A53C9 /* GizmoCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10B94DA118DE5421002A53C9 /* GizmoCube.cpp */; };
 		10B94DAC18DE5421002A53C9 /* GizmoManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10B94DA318DE5421002A53C9 /* GizmoManager.cpp */; };
 		10B94DAD18DE5421002A53C9 /* GizmoSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10B94DA618DE5421002A53C9 /* GizmoSphere.cpp */; };
@@ -17,6 +18,7 @@
 		10D3AFFE18B625790041DBC5 /* DebugStatsOverlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10D3AFF918B625790041DBC5 /* DebugStatsOverlay.cpp */; };
 		10D3AFFF18B625790041DBC5 /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10D3AFFB18B625790041DBC5 /* Graph.cpp */; };
 		10D3B00218B625900041DBC5 /* UIModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10D3B00018B625900041DBC5 /* UIModule.cpp */; };
+		10E0274218EB71FF002FEA14 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10E0274118EB71FF002FEA14 /* Light.cpp */; };
 		10EC44B71878422700B48152 /* EpsilonManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44501878422700B48152 /* EpsilonManager.cpp */; };
 		10EC44B81878422700B48152 /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44561878422700B48152 /* Event.cpp */; };
 		10EC44B91878422700B48152 /* EventListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44581878422700B48152 /* EventListener.cpp */; };
@@ -56,6 +58,7 @@
 		10EC44DE1878422700B48152 /* ConsoleWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44AE1878422700B48152 /* ConsoleWindow.cpp */; };
 		10EC44DF1878422700B48152 /* DebugWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44B01878422700B48152 /* DebugWindow.cpp */; };
 		10EC44E01878422700B48152 /* UIManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44B21878422700B48152 /* UIManager.cpp */; };
+		10F5B1A118EBF1D900A2A9B9 /* SceneNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10F5B1A018EBF1D900A2A9B9 /* SceneNode.cpp */; };
 		10FBE90018E8CD5400027082 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10FBE8F918E8CD5400027082 /* Material.cpp */; };
 		10FBE90118E8CD5400027082 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10FBE8FB18E8CD5400027082 /* Shader.cpp */; };
 		10FBE90218E8CD5400027082 /* ShaderStage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10FBE8FD18E8CD5400027082 /* ShaderStage.cpp */; };
@@ -79,6 +82,8 @@
 		1059E704184AFBDA00416AD8 /* Python.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Python.framework; sourceTree = "<group>"; };
 		1059E70C184AFBDA00416AD8 /* sndfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sndfile.framework; sourceTree = "<group>"; };
 		109E8967186E6B3D00E95E3B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		10A88B0C18EAF178000D61AE /* MaterialManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialManager.cpp; path = material/MaterialManager.cpp; sourceTree = "<group>"; };
+		10A88B0D18EAF178000D61AE /* MaterialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaterialManager.h; path = material/MaterialManager.h; sourceTree = "<group>"; };
 		10B94DA118DE5421002A53C9 /* GizmoCube.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GizmoCube.cpp; path = gizmos/GizmoCube.cpp; sourceTree = "<group>"; };
 		10B94DA218DE5421002A53C9 /* GizmoCube.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GizmoCube.h; path = gizmos/GizmoCube.h; sourceTree = "<group>"; };
 		10B94DA318DE5421002A53C9 /* GizmoManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GizmoManager.cpp; path = gizmos/GizmoManager.cpp; sourceTree = "<group>"; };
@@ -97,6 +102,8 @@
 		10D3B00018B625900041DBC5 /* UIModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIModule.cpp; sourceTree = "<group>"; };
 		10D3B00118B625900041DBC5 /* UIModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIModule.h; sourceTree = "<group>"; };
 		10D3B00318B625EF0041DBC5 /* InputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InputManager.h; sourceTree = "<group>"; };
+		10E0274018EB7185002FEA14 /* Light.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Light.h; sourceTree = "<group>"; };
+		10E0274118EB71FF002FEA14 /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Light.cpp; sourceTree = "<group>"; };
 		10EC44501878422700B48152 /* EpsilonManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EpsilonManager.cpp; sourceTree = "<group>"; };
 		10EC44511878422700B48152 /* EpsilonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpsilonManager.h; sourceTree = "<group>"; };
 		10EC44521878422700B48152 /* EpsilonCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpsilonCore.h; sourceTree = "<group>"; };
@@ -184,6 +191,8 @@
 		10EC44B31878422700B48152 /* UIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIManager.h; sourceTree = "<group>"; };
 		10EC44B41878422700B48152 /* UIWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWindow.h; sourceTree = "<group>"; };
 		10EC44B61878422700B48152 /* Utilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utilities.h; sourceTree = "<group>"; };
+		10F5B19F18EBF1C900A2A9B9 /* SceneNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneNode.h; sourceTree = "<group>"; };
+		10F5B1A018EBF1D900A2A9B9 /* SceneNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SceneNode.cpp; sourceTree = "<group>"; };
 		10FBE8F918E8CD5400027082 /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Material.cpp; path = material/Material.cpp; sourceTree = "<group>"; };
 		10FBE8FA18E8CD5400027082 /* Material.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Material.h; path = material/Material.h; sourceTree = "<group>"; };
 		10FBE8FB18E8CD5400027082 /* Shader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Shader.cpp; path = material/Shader.cpp; sourceTree = "<group>"; };
@@ -204,8 +213,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10A88B0F18EAFB72000D61AE /* OpenGL.framework in Frameworks */,
 				108D3517186E88C00002E4F4 /* Python.framework in Frameworks */,
-				109E8968186E6B3D00E95E3B /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,12 +376,14 @@
 		10EC44691878422700B48152 /* render */ = {
 			isa = PBXGroup;
 			children = (
-				10FBE8F818E8CD3B00027082 /* material */,
 				10EC446A1878422700B48152 /* Camera.cpp */,
 				10EC446B1878422700B48152 /* Camera.h */,
 				10EC446C1878422700B48152 /* Colour.cpp */,
 				10EC446D1878422700B48152 /* Colour.h */,
 				10B94DA018DE5403002A53C9 /* gizmos */,
+				10E0274118EB71FF002FEA14 /* Light.cpp */,
+				10E0274018EB7185002FEA14 /* Light.h */,
+				10FBE8F818E8CD3B00027082 /* material */,
 				10EC44701878422700B48152 /* Mesh.cpp */,
 				10EC44711878422700B48152 /* Mesh.h */,
 				10EC44721878422700B48152 /* MeshFactory.cpp */,
@@ -406,6 +417,8 @@
 				10EC448A1878422700B48152 /* SceneManager.h */,
 				10EC448B1878422700B48152 /* Transform.cpp */,
 				10EC448C1878422700B48152 /* Transform.h */,
+				10F5B19F18EBF1C900A2A9B9 /* SceneNode.h */,
+				10F5B1A018EBF1D900A2A9B9 /* SceneNode.cpp */,
 			);
 			path = scene;
 			sourceTree = "<group>";
@@ -494,6 +507,8 @@
 		10FBE8F818E8CD3B00027082 /* material */ = {
 			isa = PBXGroup;
 			children = (
+				10A88B0C18EAF178000D61AE /* MaterialManager.cpp */,
+				10A88B0D18EAF178000D61AE /* MaterialManager.h */,
 				10FBE8F918E8CD5400027082 /* Material.cpp */,
 				10FBE8FA18E8CD5400027082 /* Material.h */,
 				10FBE8FB18E8CD5400027082 /* Shader.cpp */,
@@ -555,9 +570,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10E0274218EB71FF002FEA14 /* Light.cpp in Sources */,
+				10F5B1A118EBF1D900A2A9B9 /* SceneNode.cpp in Sources */,
 				10EC44C11878422700B48152 /* Colour.cpp in Sources */,
 				10EC44CD1878422700B48152 /* Scene.cpp in Sources */,
 				10EC44CE1878422700B48152 /* SceneManager.cpp in Sources */,
+				10A88B0E18EAF178000D61AE /* MaterialManager.cpp in Sources */,
 				10EC44C71878422700B48152 /* RenderState.cpp in Sources */,
 				10B94DAD18DE5421002A53C9 /* GizmoSphere.cpp in Sources */,
 				10EC44C41878422700B48152 /* MeshFactory.cpp in Sources */,
@@ -652,6 +670,10 @@
 					"/Users/scottporter/Development/Resources/c_libs/C++/boost_1_55_0/stage/lib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-D__gl3_h_",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"$(SFML_SYSTEM)",
@@ -663,6 +685,8 @@
 					"-ltbb_debug",
 					"-lGLEW",
 					"-lboost_python",
+					"-lboost_filesystem",
+					"-lboost_system",
 				);
 				SDKROOT = macosx;
 				SFML_AUDIO = "$(SFML_LINK_PREFIX)sfml-audio$(SFML_LINK_SUFFIX)";
@@ -717,6 +741,10 @@
 					"/Users/scottporter/Development/Resources/c_libs/C++/boost_1_55_0/stage/lib",
 				);
 				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CPLUSPLUSFLAGS = (
+					"$(OTHER_CFLAGS)",
+					"-D__gl3_h_",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"$(SFML_SYSTEM)",
@@ -728,6 +756,8 @@
 					"-ltbb",
 					"-lGLEW",
 					"-lboost_python",
+					"-lboost_filesystem",
+					"-lboost_system",
 				);
 				SDKROOT = macosx;
 				SFML_AUDIO = "$(SFML_LINK_PREFIX)sfml-audio$(SFML_LINK_SUFFIX)";
