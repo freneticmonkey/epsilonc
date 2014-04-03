@@ -21,7 +21,11 @@ class ResourceManager(object):
 
 	def init(self):
 		self._load_resources_cfg()
-		self._load_resources()
+
+		try:
+			self._load_resources()
+		except Exception, e:
+			print "Error loading scene: " + str(e)
 		
 	@property
 	def current_path(self):

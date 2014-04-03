@@ -1,12 +1,17 @@
 #pragma once
 
+#include "scene/SceneBase.h"
 #include "scene/SceneNode.h"
 #include "render/Camera.h"
 #include "render/Light.h"
 
 namespace epsilon
 {
+
+	class SceneNode;
+
 	class Scene :
+		public SceneBase,
 		public std::enable_shared_from_this<Scene>
 	{
 	private:
@@ -20,6 +25,8 @@ namespace epsilon
 
 		explicit Scene(const private_struct &, std::string sceneName);
 		~Scene(void);
+
+		void Setup();
 	
 		std::string GetName() { return name; }
 

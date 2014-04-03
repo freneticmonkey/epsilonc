@@ -5,7 +5,6 @@
 
 namespace epsilon
 {
-	
 	class ScriptBehaviour : 
 		public Script
 	{
@@ -40,5 +39,8 @@ namespace epsilon
 		object destroyFunction;
 		object drawGizmosFunction;
 	};
+
+	// List define.
+	typedef std::vector<ScriptBehaviour::Ptr> ScriptBehaviourList;
 
 }

@@ -104,6 +104,8 @@ namespace epsilon
 			compileError = true;
 			PrintPythonError();
 		}
+
+		PyErr_Clear();
 	}
 
 	bool Script::InitScript()
@@ -186,10 +188,27 @@ namespace epsilon
 		// Firstly, check for a class instance
 		if ( !behaviourClass.is_none() )
 		{
-			if ( behaviourClass.attr(funcName.c_str()) )
+			bool existingCompileState = compileError;
+			// We have to wrap this in a try/catch because python will throw
+			// an AttributeException if functions are not defined.
+			
+			try
 			{
-				targetFunction = behaviourClass.attr(funcName.c_str());
+				if (behaviourClass.attr(funcName.c_str()))
+				{
+					targetFunction = behaviourClass.attr(funcName.c_str());
+				}
 			}
+			catch (const error_already_set&)
+			{
+				// Don't display error for functions that we're trying to hook that don't exist.
+				// It's not an error.
+				//HandlePythonError();
+				PyErr_Clear();
+			}
+
+			// also make sure that the compile error state is reset here as well.
+			compileError = existingCompileState;
 		}
 		
 		// Check the local namespace
@@ -223,6 +242,23 @@ namespace epsilon
 		if ( scriptLocalNamespace.contains(INSTANCE_VAR_NAME) )
 		{
 			behaviourClass = scriptLocalNamespace[INSTANCE_VAR_NAME];
+		}
+	}
+
+	object Script::GetScriptObject()
+	{
+		return behaviourClass;
+	}
+
+	std::string Script::GetClassname()
+	{
+		if (!behaviourClass.is_none())
+		{
+			return extract<std::string>(behaviourClass.attr("__dict__").attr("__class__").attr("__name__"));
+		}
+		else
+		{
+			return std::string("None");
 		}
 	}
 

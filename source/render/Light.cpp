@@ -40,7 +40,7 @@ namespace epsilon
         transform = componentParent->GetComponent<Transform>();
     }
     
-    Vector3 Light::GetPositon()
+    Vector3 Light::GetPosition()
     {
         return transform->GetPosition();
     }

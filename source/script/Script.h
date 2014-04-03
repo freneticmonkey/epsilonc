@@ -60,6 +60,12 @@ namespace epsilon
 		Script::Ptr SetScriptFile(std::string scriptFilename);
 		Script::Ptr SetScriptText(std::string scriptText);
 
+		// Allow access to the script object rather than exposing all of the 
+		// properties, classname etc.  Probably dangerous. :D
+		object GetScriptObject();
+
+		std::string GetClassname();
+
 		std::string GetFilename() { return filename; }
 		std::string GetText() { return text; }
 

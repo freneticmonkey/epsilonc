@@ -38,6 +38,10 @@ namespace epsilon
 
 		ScriptBehaviour::Ptr CreateBehaviour(std::string filename);
 
+		// Register an externally created behaviour with the ScriptManager, and in 
+		// turn the ResourceManager
+		void AddBehaviour(ScriptBehaviour::Ptr newBehaviour);
+
 		bool StartEngineCore();
 
 		void Setup(void);

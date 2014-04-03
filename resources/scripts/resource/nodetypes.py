@@ -147,15 +147,12 @@ class SceneNode(BaseXMLNode):
 		if not scene_node is None:
 
 			# create a node from the current parent node
-			node = scene_node.create_child_node()
-
-			# Set the name of the node
-			node.name = node_name
+			node = scene_node.create_child(node_name)
 				
 		# otherwise it's a floating node, not sure what this means...
 		else:
-			node = Node.create(node_name)
-			self._log("WARNING: Scene contains an unattached node: %s" % node_name)
+			#node = Node.create(node_name)
+			self._log("WARNING: Ignored: Scene Definition contains an unattached node: %s" % node_name)
 
 		return node
 
@@ -186,9 +183,9 @@ class SceneCamera(BaseXMLNode):
 		if not scene_node is None:
 
 			if "name" in xml_tag.attrib:
-				camera = Camera.create(xml_tag.attrib["name"])
+				camera = scene_node.create_camera(xml_tag.attrib["name"])
 			else:
-				camera = Camera.create()
+				camera = scene_node.create_camera()
 
 			#Extract whether the camera is the active camera in the scene
 			active = self.extract_bool_attribute(xml_tag, "active", False)
@@ -215,10 +212,10 @@ class SceneCamera(BaseXMLNode):
 
 			# Add the camera to it's node parent
 			#scene_node.add_child(camera)
-			scene_node.add_component(camera)
+			#scene_node.add_component(camera)
 
 			# Add the camera to the scene
-			parse_globals.current_scene.add_camera(camera)
+			#parse_globals.current_scene.add_camera(camera)
 			
 			# if necessary make it the active camera
 			if active:
@@ -233,7 +230,7 @@ class SceneMaterial(BaseXMLNode):
 		if not scene_node is None:
 			# ensure that the node has a renderer
 			if scene_node.renderer is None:
-				scene_node.renderer.create()
+				scene_node.create_renderer()
 
 			if not scene_node.renderer.material is None:
 
@@ -252,7 +249,7 @@ class SceneColour(BaseXMLNode):
 		if not scene_node is None:
 			# ensure that the node has a renderer
 			if scene_node.renderer is None:
-				scene_node.renderer.create()
+				scene_node.create_renderer()
 
 			if "ambient" in xml_tag.attrib:
 				scene_node.renderer.material.diffuse = self.parse_colour(xml_tag, "ambient")
@@ -321,8 +318,14 @@ class SceneMesh(BaseXMLNode):
 						mesh = MeshFactory.generate_octohedron()
 
 			# ensure that the node has a renderer and that a mesh was generated
-			if scene_node.renderer is None and mesh is not None:
-				scene_node.add_component(Renderer.create(mesh))
+			if mesh is not None:
+				if scene_node.renderer is None:
+					scene_node.create_renderer()
+
+				scene_node.renderer.mesh = mesh
+
+			# if scene_node.renderer is None and mesh is not None:
+			# 	scene_node.add_component(Renderer.create(mesh))
 
 
 class SceneBehaviour(BaseXMLNode):
@@ -330,8 +333,8 @@ class SceneBehaviour(BaseXMLNode):
 	def process_node(self, parse_globals, scene_node, xml_tag):
 		if not scene_node is None:
 			if "filename" in xml_tag.attrib:                
-				scene_node.add_component(ScriptManager.create_behaviour(xml_tag.attrib["filename"]))
-
+				#scene_node.add_component(ScriptManager.create_behaviour(xml_tag.attrib["filename"]))
+				scene_node.create_behaviour(xml_tag.attrib["filename"])
 
 class SceneChildren(BaseXMLNode):
 	def process_node(self, parse_globals, scene_node, xml_tag):
@@ -352,7 +355,8 @@ class SceneScript(BaseXMLNode):
 			self._log("Loading scripts by name currently unsupported. Name: %s" % xml_tag.attrib["name"])
 
 		if "filename" in xml_tag.attrib:
-			scene_node.add_component(ScriptManager.create_behaviour(xml_tag.attrib["filename"]))
+			# scene_node.add_component(ScriptManager.create_behaviour(xml_tag.attrib["filename"]))
+			scene_node.create_behaviour(xml_tag.attrib["filename"])
 
 		# If a scene node has been defined
 		if scene_node is None:

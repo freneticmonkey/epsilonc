@@ -42,7 +42,7 @@ namespace epsilon
         Vector4 attenuation;
         float   angle;
         
-        Vector3 GetPositon();
+        Vector3 GetPosition();
         Vector3 GetDirection();
         
 	private:

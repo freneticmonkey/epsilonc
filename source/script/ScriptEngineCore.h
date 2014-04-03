@@ -26,7 +26,7 @@ namespace epsilon
 
 		bool OnStart();
 		bool Update(float dt);
-		bool OnDestroy();
+		void OnDestroy();
 
 	protected:
 		void RegisterScriptFunctions();

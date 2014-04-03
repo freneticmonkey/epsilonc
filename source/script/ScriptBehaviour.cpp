@@ -39,8 +39,8 @@ namespace epsilon
 	{
 		startFunction = FindPythonFunction("on_start");
 		updateFunction = FindPythonFunction("on_update");
-		//destroyFunction = FindPythonFunction("on_destroy");
-		//drawGizmosFunction = FindPythonFunction("on_draw_gizmos");
+		destroyFunction = FindPythonFunction("on_destroy");
+		drawGizmosFunction = FindPythonFunction("on_draw_gizmos");
 	}
 
 	void ScriptBehaviour::OnStart()

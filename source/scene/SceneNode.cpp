@@ -43,11 +43,12 @@ namespace epsilon
 	{
 	}
     
+	// Add / Move a child node from one parent to another
 	void SceneNode::AddChild(SceneNode::Ptr newChild)
 	{
 		GetTransform()->AddChild( newChild->GetComponent<Transform>() );
+		newChild->SetScene(sceneOwner);
 	}
-    
     
 	// Create a child node.
 	SceneNode::Ptr SceneNode::CreateChild(std::string name)
@@ -100,6 +101,17 @@ namespace epsilon
 		return renderer;
 	}
 
+	ScriptBehaviour::Ptr SceneNode::CreateBehaviour(std::string filename)
+	{
+		ScriptBehaviour::Ptr newScript = ScriptBehaviour::Create(filename, ScriptSource::FILE);
+
+		// Register the new script with the ResourceManager
+		ScriptManager * sm = &ScriptManager::GetInstance();
+		sm->AddBehaviour(newScript);
+		AddComponent(newScript);
+		scripts.push_back(newScript);
+		return newScript;
+	}
 
 	// The following functions are exposed to Python and will result in the active script being
 	// set as the owner of the resulting object
@@ -129,6 +141,16 @@ namespace epsilon
 				}
 			}
 		}
+	}
+
+	// Add / Move a child node from one parent to another
+	void SceneNode::ScriptAddChild(SceneNode::Ptr newChild)
+	{
+		// Ensure that the node's transform is notified of the change
+		AddChild(newChild);
+
+		// Set the owner of the node to 
+		HandleScriptOwner(newChild);
 	}
 
 	// Create a child node.
@@ -174,6 +196,46 @@ namespace epsilon
 		HandleScriptOwner(renderer);
 		return renderer;
 
+	}
+
+	ScriptBehaviour::Ptr SceneNode::ScriptCreateBehaviour(std::string filename)
+	{
+		ScriptBehaviour::Ptr newScript = CreateBehaviour(filename);
+		HandleScriptOwner(newScript);
+		return newScript;
+	}
+
+
+	// Script Accessor functions
+	ScriptBehaviour::Ptr SceneNode::GetScriptByClassname(std::string classname)
+	{
+		ScriptBehaviour::Ptr theScript;
+
+		ScriptBehaviourList::iterator foundScript;
+		foundScript = std::find_if(scripts.begin(), scripts.end(), [&](ScriptBehaviour::Ptr script){
+			return classname == script->GetClassname();
+		});
+
+		if (foundScript != scripts.end())
+		{
+			theScript = *foundScript;
+		}
+
+		return theScript;
+	}
+
+	ScriptBehaviourList SceneNode::GetScriptsByClassname(std::string classname)
+	{
+		ScriptBehaviourList theScripts;
+
+		std::for_each(scripts.begin(), scripts.end(), [&](ScriptBehaviour::Ptr script){
+			if (classname == script->GetClassname())
+			{
+				theScripts.push_back(script);
+			}
+		});
+
+		return theScripts;
 	}
 }
 

@@ -4,24 +4,13 @@ namespace epsilon
 {
 	Scene::Ptr Scene::Create(std::string name)
 	{
-		return std::make_shared<Scene>(private_struct(), name);
+		Scene::Ptr newScene = std::make_shared<Scene>(private_struct(), name);
+		newScene->Setup();
+		return newScene;
 	}
 
 	Scene::Scene(const private_struct &, std::string sceneName) : name(sceneName)
-	{
-        // Create a root node for the scene
-        rootNode = SceneNode::Create("root");
-        
-        // Set the this scene as the current scene
-        rootNode->SetScene(ThisPtr());
-        
-        // Get the new node's transform as the scene root transform
-        rootTransform = rootNode->GetTransform();
-        
-        // Attach a node with a camera as the default scene camera
-        SceneNode::Ptr camNode = rootNode->CreateChild("camera_node");
-        camNode->CreateCamera("main_camera");
-        
+	{   
 	}
 
 	Scene::~Scene(void)
@@ -30,6 +19,25 @@ namespace epsilon
 		{
 			rootNode->OnDestroy();
 		}
+	}
+
+	// Initialise the default values of the scene
+	void Scene::Setup()
+	{
+		// Create a root node for the scene
+		rootNode = SceneNode::Create("root");
+
+		// Set the this scene as the current scene
+		rootNode->SetScene(ThisPtr());
+
+		// Get the new node's transform as the scene root transform
+		rootTransform = rootNode->GetTransform();
+
+		// Attach a node with a camera as the default scene camera
+		SceneNode::Ptr camNode = rootNode->CreateChild("camera_node");
+		
+		// Set the new camera as the default / active camera
+		SetActiveCamera(camNode->CreateCamera("main_camera"));
 	}
 
 	bool Scene::operator==(Scene::Ptr other)

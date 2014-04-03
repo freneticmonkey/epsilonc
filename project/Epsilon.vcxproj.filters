@@ -439,5 +439,8 @@
     <ClInclude Include="..\source\scene\SceneNode.h">
       <Filter>Source Files\scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\scene\SceneBase.h">
+      <Filter>Source Files\scene</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

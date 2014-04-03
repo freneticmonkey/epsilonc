@@ -9,6 +9,7 @@
 
 #include "render/Camera.h"
 #include "render/Colour.h"
+#include "render/Light.h"
 #include "render/Renderer.h"
 #include "render/material/Material.h"
 #include "render/Mesh.h"
@@ -66,11 +67,6 @@ void initRender()
 
 		.def("get_vertexdata", &Mesh::VertexData)
 	;
-
-	// Register conversion from PyObject to Mesh::Ptr
-	//std_shared_ptr_from_python_converter<Mesh>();
-
-	//register_ptr_to_python<Renderer::Ptr>();
 
 	Renderer::Ptr (*RendererCreateStandard)() = &Renderer::Create;
 	Renderer::Ptr (*RendererCreateMesh)(Mesh::Ptr) = &Renderer::Create;
@@ -197,14 +193,7 @@ void initRender()
 		.add_property("shader", &Material::GetShader, &Material::SetShader)
 	;
 	
-	Camera::Ptr (*CreateStandard)() = &Camera::Create;
-	Camera::Ptr (*CreateName)(std::string) = &Camera::Create;
-	
 	class_<Camera, bases<NodeComponent>, Camera::Ptr, boost::noncopyable>("Camera", no_init)
-		.def("create", CreateStandard)
-		.def("create", CreateName)
-		.staticmethod("create")
-
 		.def("get_projection_matrix", &Camera::GetProjectionMatrix)
 		.def("get_view_matrix", &Camera::GetViewMatrix)
 
@@ -212,6 +201,15 @@ void initRender()
 		.def("world_to_screen", &Camera::WorldToScreenCoordinate)
 	;
 	implicitly_convertible<Camera::Ptr, NodeComponent::Ptr>();
+
+	class_<Light, bases<NodeComponent>, Light::Ptr, boost::noncopyable>("Light", no_init)
+		.def("position", &Light::GetPosition)
+		.def("direction", &Light::GetDirection)
+
+		.def_readwrite("diffuse", &Light::diffuse)
+		.def_readwrite("attenuation", &Light::attenuation)
+		.def_readwrite("angle", &Light::angle)
+	;
 
 	object renderConstModule(handle<>(borrowed(PyImport_AddModule("epsilon.render.const"))));
 	renderScope.attr("const") = renderConstModule;

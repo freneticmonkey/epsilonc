@@ -2,7 +2,7 @@
 
 #include "logging/Logging.h"
 #include "scene/Scene.h"
-#include "scene/Node.h"
+#include "scene/SceneNode.h"
 #include "scene/Transform.h"
 #include "render/RenderState.h"
 
@@ -45,7 +45,7 @@ namespace epsilon
 
 	private:
 
-		void CullNodeChildren(Node::Ptr node);
+		void CullNodeChildren(SceneNode::Ptr node);
 
 		SceneList scenes;
 		Scene::Ptr currentScene;

@@ -69,16 +69,14 @@ namespace epsilon
 		return success;
 	}
 
-	bool ScriptEngineCore::OnDestroy()
+	void ScriptEngineCore::OnDestroy()
 	{
-		bool success = false;
 		object result;
 		if ( !destroyFunction.is_none() )
 		{
 			try
 			{
 				result = destroyFunction();
-				success = true;
 			}
 			catch (const error_already_set&)
 			{
@@ -88,6 +86,5 @@ namespace epsilon
 				}
 			}
 		}
-		return success;
 	}
 }

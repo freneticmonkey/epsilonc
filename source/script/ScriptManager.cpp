@@ -49,6 +49,14 @@ namespace epsilon
 		return newBehaviour;
 	}
 
+	void ScriptManager::AddBehaviour(ScriptBehaviour::Ptr newBehaviour)
+	{
+		RegisterResource(newBehaviour);
+		ReloadScript(newBehaviour);
+		behaviourList.push_back(newBehaviour);
+		startingBehaviours.push_back(newBehaviour);
+	}
+
 	void ScriptManager::Setup()
 	{
 		try

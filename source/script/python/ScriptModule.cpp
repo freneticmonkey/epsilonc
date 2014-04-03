@@ -20,11 +20,12 @@ void initScript()
 	;
 
 	class_<Script, bases<NodeComponent>, Script::Ptr, boost::noncopyable>("Script", no_init)
-		// Not exposing any functions here so that Script Manager is the only place to create
-		// Scripts.
+		
 		.def_readonly("filename", &Script::GetFilename)
 		.def_readonly("text", &Script::GetText)
 		.def_readonly("source_type", &Script::GetSource)
+		.def_readonly("script_object", &Script::GetScriptObject)
+		.def_readonly("script_classname", &Script::GetClassname)
 	;
 	implicitly_convertible<Script::Ptr, NodeComponent::Ptr>();
 

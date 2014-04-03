@@ -72,38 +72,34 @@ namespace epsilon
 		// Just get the root for now
 		renderList.clear();
 
-
-		Node::Ptr root = currentScene->Root();
-		// Do not add root node which doesn't have a renderer to the renderList ~!!!!!!
-		//renderList.push_back(root);
-
 		// Add Root's children
-		CullNodeChildren(root);
-		
+		CullNodeChildren(currentScene->Root());
 	}
 
-	void SceneManager::CullNodeChildren(Node::Ptr node)
+	void SceneManager::CullNodeChildren(SceneNode::Ptr node)
 	{
         // If the node is disabled it's excluded from rendering
         if (node->IsEnabled())
         {
-            Transform::Ptr nodeTrans = node->GetComponent<Transform>();
+            Transform::Ptr nodeTrans = node->GetTransform();
             if ( nodeTrans->HasChildren() )
             {
                 TransformListPtr children = nodeTrans->GetChildren();
-                for ( TransformList::iterator transform = children->begin(); transform != children->end(); transform++)
-                {
-                    Node::Ptr childNode = std::dynamic_pointer_cast<epsilon::Node>( (*transform)->GetParent() );
-                    if ( childNode && childNode->GetComponent<Renderer>() )
-                    {
-                        renderList.push_back( childNode->GetComponent<Renderer>() );
-                    }
 
-                    if ( (*transform)->HasChildren() )
-                    {
-                        CullNodeChildren( childNode );
-                    }
-                }
+				std::for_each(children->begin(), children->end(), [&](Transform::Ptr transform){
+					
+					SceneNode::Ptr childNode = std::dynamic_pointer_cast<epsilon::SceneNode>(transform->GetParent());
+
+					if (childNode->GetRenderer())
+					{
+						renderList.push_back(childNode->GetRenderer());
+					}
+
+					if (transform->HasChildren())
+					{
+						CullNodeChildren(childNode);
+					}
+				});
             }
         }
 	}
@@ -126,7 +122,7 @@ namespace epsilon
 		for ( RenderList::iterator renderer = renderList.begin(); renderer != renderList.end(); renderer++)
 		{
 			// Render
-			//(*renderer)->Draw(stateStack);//viewMatrix, projMatrix);
+			(*renderer)->Draw(stateStack);//viewMatrix, projMatrix);
 		}
 
 		stateStack->Pop();

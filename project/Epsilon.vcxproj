@@ -113,6 +113,7 @@
     <ClInclude Include="..\source\scene\NodeComponent.h" />
     <ClInclude Include="..\source\scene\Object.h" />
     <ClInclude Include="..\source\scene\Scene.h" />
+    <ClInclude Include="..\source\scene\SceneBase.h" />
     <ClInclude Include="..\source\scene\SceneManager.h" />
     <ClInclude Include="..\source\scene\SceneNode.h" />
     <ClInclude Include="..\source\scene\Transform.h" />

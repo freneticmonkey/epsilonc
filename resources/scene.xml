@@ -1,25 +1,22 @@
 <scene name="basic_scene">
 	
 	<node name="main_node">
-		<transform position="1 1 0"/><!-- rotation="0.707 0 1 0"/>-->
+		<transform position="1 1 0"/>
 		<mesh preset="SPHERE"/>
 		<scripts>
-			<script filename="MyBehaviourClass.py"/>
+			<script filename="resources/scripts/MyBehaviourClass.py"/>
 		</scripts>
 		<children>
 			<node name="child_node">
-				<transform position="0 2 0"/><!-- rotation="0.707 0 1 0"/>-->
+				<transform position="0 2 0"/>
 				<mesh preset="SPHERE"/>
-				<!-- <scripts>
-					<script filename="MyBehaviourClass.py"/>
-				</scripts> -->
 			</node>
 
 			<node name="child_plane_node">
-				<transform position="0 -1 0" scale="3 3 3"/><!-- rotation="0.707 0 1 0"/>-->
+				<transform position="0 -1 0" scale="3 3 3"/>
 				<mesh preset="PLANE"/>
 				<scripts>
-					<script filename="RotationTest.py"/>
+					<script filename="resources/scripts/RotationTest.py"/>
 				</scripts>
 			</node>
 
@@ -27,7 +24,7 @@
 	</node>
 
 	<node name="grid">
-		<transform position="0 0 0"/><!-- rotation="0.707 0 1 0"/>-->
+		<transform position="0 0 0"/>
 		<mesh preset="GRID" size="10" resolution="1"/>
 	</node>
 
@@ -35,10 +32,9 @@
 		<transform position="0 1 -8"/>
 		<children>
 			<node name="scene_camera">
-				<!-- <transform position="0 1 -8"/> -->
 				<camera name="scene_cam" from="0 1 -8" to="0 1 0" active="True"/>
 				<scripts>
-					<script filename="CameraBehaviour.py"/>
+					<script filename="resources/scripts/CameraBehaviour.py"/>
 				</scripts>
 			</node>
 		</children>
@@ -81,33 +77,21 @@
 				<transform position="1 0 0" scale="0.1 0.1 0.1"/>
 				<mesh preset="SPHERE"/>
 				<material diffuse="1 0 0 1"/>
-				<scripts>
-					<script filename="KeyboardControl.py"/>
-				</scripts>
 			</node>
 			<node name="marker_2">
 				<transform position="-1 0 0" scale="0.1 0.1 0.1"/>
 				<mesh preset="SPHERE"/>
 				<material diffuse="0 1 0 1"/>
-				<scripts>
-					<script filename="TransformDebug.py"/>
-				</scripts>
 			</node>
 			<node name="marker_3">
 				<transform position="0 0 1" scale="0.1 0.1 0.1"/>
 				<mesh preset="SPHERE"/>
 				<material diffuse="1 1 0 1"/>
-				<scripts>
-					<!-- <script filename="TransformDebug.py"/> -->
-				</scripts>
 			</node>
 			<node name="marker_4">
 				<transform position="0 0 -1" scale="0.1 0.1 0.1"/>
 				<mesh preset="SPHERE"/>
 				<material diffuse="1 1 0 1"/>
-				<scripts>
-					<!-- <script filename="TransformDebug.py"/> -->
-				</scripts>
 			</node>
 
 		</children>
