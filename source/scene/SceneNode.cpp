@@ -9,17 +9,24 @@
 #include "scene/SceneNode.h"
 #include "resource/ResourceManager.h"
 #include "script/ScriptManager.h"
+#include <boost/format.hpp>
+
+using namespace boost;
 
 namespace epsilon
 {
 	SceneNode::Ptr SceneNode::Create()
 	{
-		return std::make_shared<SceneNode>(private_struct());
+        SceneNode::Ptr newNode = std::make_shared<SceneNode>(private_struct());
+        newNode->CreateTransform();
+        return newNode;
 	}
 
-	SceneNode::Ptr SceneNode::Create(std::string matName)
+	SceneNode::Ptr SceneNode::Create(std::string name)
 	{
-		return std::make_shared<SceneNode>(private_struct(), matName);
+        SceneNode::Ptr newNode = std::make_shared<SceneNode>(private_struct(), name);
+        newNode->CreateTransform();
+        return newNode;
 	}
 
 	SceneNode::SceneNode(const private_struct &) : Node(Node::private_struct()),
@@ -35,13 +42,13 @@ namespace epsilon
 	SceneNode::~SceneNode(void)
 	{
 	}
-
-	void SceneNode::Destroy()
+    
+	void SceneNode::AddChild(SceneNode::Ptr newChild)
 	{
-		// Destroy Components here?
-		// for each component destroy or something....
+		GetTransform()->AddChild( newChild->GetComponent<Transform>() );
 	}
-
+    
+    
 	// Create a child node.
 	SceneNode::Ptr SceneNode::CreateChild(std::string name)
 	{
@@ -53,9 +60,9 @@ namespace epsilon
 	// The following are the internal component functions.
 	Transform::Ptr SceneNode::CreateTransform()
 	{
-		Transform::Ptr newTrans = Transform::Create();
-		AddComponent(newTrans);
-		return newTrans;
+		transform = Transform::Create();
+		AddComponent(transform);
+        return transform;
 	}
 
 	Light::Ptr SceneNode::CreateLight(std::string name)
@@ -63,13 +70,13 @@ namespace epsilon
 		// Set default name if none specified
 		if (name == "")
 		{
-			name = "Light_" + GetId();
+            name = boost::str(format("Light_%d") % GetId() );
 		}
 
-		Light::Ptr newLight = Light::Create(name);
-		AddComponent(newLight);
-		sceneOwner->AddLight(newLight);
-		return newLight;
+		light = Light::Create(name);
+		AddComponent(light);
+		sceneOwner->AddLight(light);
+		return light;
 	}
 
 	Camera::Ptr SceneNode::CreateCamera(std::string name)
@@ -77,18 +84,18 @@ namespace epsilon
 		// Set the default name if none specified.
 		if (name == "")
 		{
-			name = "Camera_" + GetId();
+            name = boost::str(format("Camera_%d") % GetId() );
 		}
 
-		Camera::Ptr newCamera = Camera::Create(name);
-		AddComponent(newCamera);
-		sceneOwner->AddCamera(newCamera);
-		return newCamera;
+		camera = Camera::Create(name);
+		AddComponent(camera);
+		sceneOwner->AddCamera(camera);
+		return camera;
 	}
 
 	Renderer::Ptr SceneNode::CreateRenderer()
 	{
-		Renderer::Ptr renderer = Renderer::Create();
+		renderer = Renderer::Create();
 		AddComponent(renderer);
 		return renderer;
 	}

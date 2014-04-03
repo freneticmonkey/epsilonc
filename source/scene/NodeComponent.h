@@ -33,8 +33,11 @@ namespace epsilon
 		}
 		NodeComponent::Ptr GetParent() { return this->componentParent; }
 
-		// List to parent set Event
+		// Listen to parent set Event
 		virtual void OnSetParent() {}
+        
+        // Listen to Destroy
+        virtual void OnDestroy() {}
 
 		template<class C>
 		std::shared_ptr<C> GetComponent()

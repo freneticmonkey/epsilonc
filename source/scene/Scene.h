@@ -1,6 +1,6 @@
 #pragma once
 
-#include "scene/Node.h"
+#include "scene/SceneNode.h"
 #include "render/Camera.h"
 #include "render/Light.h"
 
@@ -23,7 +23,7 @@ namespace epsilon
 	
 		std::string GetName() { return name; }
 
-		Node::Ptr Root() { return rootNode; }
+		SceneNode::Ptr Root() { return rootNode; }
 		
 		// Camera Handling
 		Camera::Ptr GetActiveCamera() { return activeCamera; }
@@ -41,9 +41,10 @@ namespace epsilon
 
 		void Update(float el);
 	private:
-		
+		Scene::Ptr ThisPtr() { return shared_from_this(); }
+        
 		std::string name;
-		Node::Ptr rootNode;
+		SceneNode::Ptr rootNode;
 		Transform::Ptr rootTransform;
 		Camera::Ptr activeCamera;
 		CameraList sceneCameras;

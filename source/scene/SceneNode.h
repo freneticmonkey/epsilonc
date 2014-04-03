@@ -20,7 +20,6 @@
 #include "render/Light.h"
 #include "render/Renderer.h"
 
-
 namespace epsilon
 {
     class Scene;
@@ -42,14 +41,18 @@ namespace epsilon
             static SceneNode::Ptr Create();
             static SceneNode::Ptr Create(std::string name);
             
-            void Destroy();
-            
             explicit SceneNode(const private_struct &);
             SceneNode(const private_struct &, std::string name);
             ~SceneNode(void);
         
             // Get the Scene that this Node is a part of
             Scene::Ptr GetScene() { return sceneOwner; }
+        
+            // Node component accessors;
+            Transform::Ptr  GetTransform() { return transform; }
+            Light::Ptr      GetLight() { return light; }
+            Camera::Ptr     GetCamera() { return camera; }
+            Renderer::Ptr   GetRenderer() { return renderer; }
         
             // Create a child node.
             SceneNode::Ptr CreateChild(std::string name = "");
@@ -74,11 +77,18 @@ namespace epsilon
             Renderer::Ptr   ScriptCreateRenderer();
         
         protected:
-        
+            void AddChild(SceneNode::Ptr newChild);
             void SetScene(Scene::Ptr newScene) { sceneOwner = newScene; }
 			void HandleScriptOwner(NodeComponent::Ptr newComponent);
+        
+        
 
         private:
             Scene::Ptr  sceneOwner;
+        
+            Transform::Ptr transform;
+            Light::Ptr light;
+            Camera::Ptr camera;
+            Renderer::Ptr renderer;
     };
 }

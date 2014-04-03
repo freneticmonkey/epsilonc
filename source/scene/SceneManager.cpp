@@ -126,7 +126,7 @@ namespace epsilon
 		for ( RenderList::iterator renderer = renderList.begin(); renderer != renderList.end(); renderer++)
 		{
 			// Render
-			(*renderer)->Draw(stateStack);//viewMatrix, projMatrix);
+			//(*renderer)->Draw(stateStack);//viewMatrix, projMatrix);
 		}
 
 		stateStack->Pop();

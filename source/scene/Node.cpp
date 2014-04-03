@@ -5,14 +5,12 @@ namespace epsilon
 	Node::Ptr Node::Create()
 	{
 		Node::Ptr newNode = std::make_shared<Node>(private_struct());
-		newNode->CreateComponents();
 		return newNode;
 	}
 
 	Node::Ptr Node::Create(std::string name)
 	{
 		Node::Ptr newNode = std::make_shared<Node>(private_struct(), name);
-		newNode->CreateComponents();
 		return newNode;
 	}
 
@@ -30,33 +28,15 @@ namespace epsilon
 	{
 	}
 
-	void Node::Destroy()
+	void Node::OnDestroy()
 	{
-		// Destroy child Nodes
-		/*
-		TransformListPtr children = Transform()->GetChildren();
-		for ( TransformList::iterator trans = children->begin(); trans != children->end(); trans++ ) 
-		{
-			//((Node *)(*trans)->node)->Destroy();
-		}
-		*/
-		
-		// Remove children from Transform
-		//Transform()->Destroy();
-		GetComponent<Transform>()->Destroy();
-
-		// Remove components from this node.
+        // Propagate destroy event to all node components attached to this node.
+        std::for_each(components->begin(), components->end(), [](NodeComponent::Ptr component){
+            component->OnDestroy();
+        });
+        
+        // Remove components from this node.
 		RemoveAllComponents();
-	}
-
-	void Node::CreateComponents()
-	{
-		//transform = Transform::Create();
-		//AddComponent(transform);
-		AddComponent(Transform::Create());
-
-		//renderer = Renderer::Create();
-		//AddComponent(renderer);
 	}
 
 	Node::Ptr Node::AddComponent(NodeComponent::Ptr newComponent)
@@ -73,18 +53,6 @@ namespace epsilon
 		{
 			
 			newComponent->SetParent(ThisPtr());
-			/*
-			// Assign the new component to the appropriate Node property
-			string componentName = newComponent->GetClass();
-			if ( componentName == "Transform")
-			{
-				transform = newComponent;
-			}
-			else if (componentName == "Renderer")
-			{
-				renderer = newComponent;
-			}
-			*/
 
 			components->push_back(newComponent);
 
@@ -98,25 +66,6 @@ namespace epsilon
 		components->remove(removeComponent);
 		return ThisPtr();
 	}
-
-	/*
-	template<class C>
-	shared_ptr<C> Node::GetComponent()
-	{
-		shared_ptr<C> foundComponent;
-					
-		// Assign the new transform to the Node's NodeComponents		
-		for ( NodeComponentList::iterator component = components->begin(); component != components->end(); component++ )
-		{
-			foundComponent = dynamic_pointer_cast<C>( *component );
-			if ( foundComponent != nullptr )
-			{
-				break;
-			}
-		}
-		return foundComponent;
-	}
-	*/
 
 	void Node::RemoveAllComponents()
 	{
@@ -143,20 +92,5 @@ namespace epsilon
 	bool Node::operator==(std::string name)
 	{
 		return objectName == name;
-	}
-
-	Node::Ptr Node::CreateChildNode()
-	{
-		Node::Ptr newChild = Node::Create();
-
-		// Attach new Node
-		AddChild(newChild);
-		return newChild;
-	}
-
-	Node::Ptr Node::AddChild(Node::Ptr newChild)
-	{
-		GetComponent<Transform>()->AddChild( newChild->GetComponent<Transform>() );
-		return ThisPtr();
 	}
 }

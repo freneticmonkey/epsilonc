@@ -76,32 +76,49 @@ void initScene()
 		.def("create",NodeCreateNamed)
 		.staticmethod("create")
 
-		.def("destroy", &Node::Destroy)
+//		.def("destroy", &Node::Destroy)
 		.def("add_component", &Node::AddComponent)
 		.def("remove_component", &Node::RemoveComponent)
 		//.def("get_component", &Node::GetComponent)
 
 		// Hardcoded Component Accessors
-		.add_property("transform", &Node::GetComponent<Transform>)
-		.add_property("renderer", &Node::GetComponent<Renderer>)
-		.add_property("camera", &Node::GetComponent<Camera>)
+//		.add_property("transform", &Node::GetComponent<Transform>)
+//		.add_property("renderer", &Node::GetComponent<Renderer>)
+//		.add_property("camera", &Node::GetComponent<Camera>)
 		
 		//.def("script", &Node::GetComponent<Script>)
 
-		.def("create_child_node", &Node::CreateChildNode)
-		.def("add_child", &Node::AddChild)
+//		.def("create_child_node", &Node::CreateChildNode)
+//		.def("add_child", &Node::AddChild)
 
 		.def(self == other<Node::Ptr>())
 		.def(self == long())
 		.def(self == std::string())
 	;
 
-	enum_<Transform::TransformSpace>("TransformSpace")
-		.value("TS_LOCAL",  Transform::TransformSpace::TS_LOCAL)
-		.value("TS_PARENT", Transform::TransformSpace::TS_PARENT)
-		.value("TS_WORLD",  Transform::TransformSpace::TS_WORLD)
+	class_<SceneNode, bases<Node>, SceneNode::Ptr, boost::noncopyable>("SceneNode", no_init)
+    
+        .def("create_child", ( SceneNode::Ptr (SceneNode::*)() ) &SceneNode::CreateChild)
+        .def("create_child", ( SceneNode::Ptr (SceneNode::*)(std::string) ) &SceneNode::CreateChild)
+        
+        .def("create_light", ( Light::Ptr (SceneNode::*)() ) &SceneNode::CreateLight)
+        .def("create_light", ( Light::Ptr (SceneNode::*)(std::string) ) &SceneNode::CreateLight)
+        
+        .def("create_camera", ( Camera::Ptr (SceneNode::*)() ) &SceneNode::CreateCamera)
+        .def("create_camera", ( Camera::Ptr (SceneNode::*)(std::string) ) &SceneNode::CreateCamera)
+        
+        .def("create_renderer", ( Renderer::Ptr (SceneNode::*)() ) &SceneNode::CreateRenderer)
+        
+        .def(self == other<SceneNode::Ptr>())
+        .def(self == long())
+        .def(self == std::string())
 	;
-
+    
+	enum_<Transform::TransformSpace>("TransformSpace")
+    .value("TS_LOCAL",  Transform::TransformSpace::TS_LOCAL)
+    .value("TS_PARENT", Transform::TransformSpace::TS_PARENT)
+    .value("TS_WORLD",  Transform::TransformSpace::TS_WORLD)
+	;
 	
 
 	Transform::Ptr (*TransformCreateStandard)() = &Transform::Create;
@@ -112,8 +129,8 @@ void initScene()
 	//register_ptr_to_python<Transform::Ptr>();
 
 	class_<Transform, bases<NodeComponent>, Transform::Ptr, boost::noncopyable>("Transform", no_init)
-		.def("create",&Transform::Create)
-		.staticmethod("create")
+//		.def("create",&Transform::Create)
+//		.staticmethod("create")
 
 		.add_property("local_position", make_function(&Transform::GetLocalPosition, return_value_policy<reference_existing_object>()),
 		(Transform::Ptr(Transform::*)(const Vector3&)) &Transform::SetLocalPosition)
@@ -137,7 +154,7 @@ void initScene()
 		.add_property("up", make_function(&Transform::Up, return_value_policy<reference_existing_object>()) )
 		.add_property("right", make_function(&Transform::Right, return_value_policy<reference_existing_object>()) )
 
-		.def("destroy", &Node::Destroy)
+//		.def("destroy", &Node::Destroy)
 	
 		.add_property("parent_transform", &Transform::GetParentTransform, &Transform::SetParentTransform)
 
@@ -210,7 +227,7 @@ void initScene()
 		.def("create", &Scene::Create)
 		.staticmethod("create")
 
-		.def("destroy", &Node::Destroy)
+//		.def("destroy", &Node::Destroy)
 	
 		.def_readonly("name", &Scene::GetName)
 		.def_readonly("root", &Scene::Root)

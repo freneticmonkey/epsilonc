@@ -9,23 +9,26 @@ namespace epsilon
 
 	Scene::Scene(const private_struct &, std::string sceneName) : name(sceneName)
 	{
-		rootNode = Node::Create("root");
-		
-		// Create and attach the default camera
-		Node::Ptr camNode = rootNode->CreateChildNode();
-		Camera::Ptr activeCamera = Camera::Create("main_camera");
-		camNode->AddComponent(activeCamera);
-		sceneCameras.push_back(activeCamera);
-		rootNode->AddChild(camNode);
-
-		rootTransform = rootNode->GetComponent<Transform>();
+        // Create a root node for the scene
+        rootNode = SceneNode::Create("root");
+        
+        // Set the this scene as the current scene
+        rootNode->SetScene(ThisPtr());
+        
+        // Get the new node's transform as the scene root transform
+        rootTransform = rootNode->GetTransform();
+        
+        // Attach a node with a camera as the default scene camera
+        SceneNode::Ptr camNode = rootNode->CreateChild("camera_node");
+        camNode->CreateCamera("main_camera");
+        
 	}
 
 	Scene::~Scene(void)
 	{
 		if ( rootNode != NULL )
 		{
-			rootNode->Destroy();
+			rootNode->OnDestroy();
 		}
 	}
 
