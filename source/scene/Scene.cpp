@@ -38,6 +38,11 @@ namespace epsilon
 		
 		// Set the new camera as the default / active camera
 		SetActiveCamera(camNode->CreateCamera("main_camera"));
+
+		// Move default camera to a suitable position
+		camNode->transform->SetPosition(0, 1, -10);
+
+		//camNode->transform->LookAt(Vector3(0, 1, 0));
 	}
 
 	bool Scene::operator==(Scene::Ptr other)
