@@ -11,7 +11,6 @@ out vec4 ex_Colour;
 void main()
 {
 	// Set the normals as the default colour
-	//ex_Colour = colour;//vec4(normal.z, 0.0f, 0.0f, 1.0f);
 	ex_Colour = material.diffuse;
 	gl_Position = projMatrix * modelViewMatrix * vec4(position,1.0);
 	
