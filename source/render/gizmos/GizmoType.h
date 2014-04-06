@@ -1,6 +1,8 @@
 #pragma once
 #include "EpsilonCore.h"
 #include "render/RenderState.h"
+#include "render/material/Material.h"
+#include "render/Mesh.h"
 #include "render/gizmos/GizmoOperation.h"
 #include <atomic>
 
@@ -16,7 +18,10 @@ namespace epsilon
 		~GizmoType(void);
 
 		void Update(float el);
-		virtual void Draw(RenderStateStack::Ptr stateStack) {};
+		
+		virtual Matrix4 ExtractTransform(GizmoOperation::Ptr op) { return Matrix4();  };
+
+		void Draw(RenderStateStack::Ptr stateStack);
 
 		void QueueOperation(const GizmoOperation::Ptr op);
 
@@ -24,6 +29,9 @@ namespace epsilon
 
 		GizmoOperations		operations[2];
 		std::atomic<int>	currentOperations;
+
+		Material::Ptr			material;
+		Mesh::Ptr				mesh;
 	};
 }
 

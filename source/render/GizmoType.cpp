@@ -41,4 +41,33 @@ namespace epsilon
 
 		currentOperations = !currentOperations;
 	}
+
+	void GizmoType::Draw(RenderStateStack::Ptr stateStack)
+	{
+		std::for_each(operations[currentOperations].begin(), operations[currentOperations].end(), [&](GizmoOperation::Ptr op){
+			// Configure material
+			stateStack->State()->model = ExtractTransform(op);
+
+			// Set Colour
+			material->diffuse = op->colour;
+
+			// Set Transformation Properties
+			if (material->Enable(stateStack))
+			{
+				// Draw if the last draw was ok
+				// OR if the last draw of this mesh was not ok, but the material has been refreshed, so we can try again.
+				if (mesh->DrawOk() || (!mesh->DrawOk() && material->HasRefreshed()))
+				{
+					mesh->Draw();
+				}
+			}
+
+			material->Disable();
+
+			op->MarkRendered();
+			//TODO: Draw Spheres using instancing
+
+		});
+		// Done.
+	}
 }

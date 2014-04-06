@@ -15,31 +15,13 @@ namespace epsilon
 
 	}
 
-	void GizmoSphere::Draw(RenderStateStack::Ptr stateStack)
+	Matrix4 GizmoSphere::ExtractTransform(GizmoOperation::Ptr op)
 	{
-		std::for_each(operations[currentOperations].begin(), operations[currentOperations].end(), [&](GizmoOperation::Ptr op){
-			// Configure material
-			stateStack->State()->model = Matrix4::CreateTranslation(op->vector[0].x, 
-																	op->vector[0].y, 
-																	op->vector[0].z)
-															 .Scale(op->value[0], 
-																	op->value[0], 
-																	op->value[0]);
-			// Set Colour
-			material->diffuse = op->colour;
-
-			// Set Transformation Properties
-			material->Enable(stateStack);
-
-			// Draw Sphere
-			mesh->Draw();
-
-			material->Disable();
-
-			op->MarkRendered();
-			//TODO: Draw Spheres using instancing
-
-		});
-		// Done.
+		return Matrix4::CreateTranslation(op->vector[0].x,
+											op->vector[0].y,
+											op->vector[0].z)
+									.Scale(op->value[0],
+											op->value[0],
+											op->value[0]);
 	}
 }

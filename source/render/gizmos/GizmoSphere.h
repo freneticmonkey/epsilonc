@@ -1,9 +1,6 @@
-#include "render/gizmos/GizmoType.h"
 #pragma once
-#include "render/material/Material.h"
-#include "render/RenderState.h"
-#include "render/Mesh.h"
 
+#include "render/gizmos/GizmoType.h"
 #include "render/gizmos/GizmoOperation.h"
 
 namespace epsilon
@@ -23,11 +20,7 @@ namespace epsilon
 		}
 		~GizmoSphere(void);
 
-		void Draw(RenderStateStack::Ptr stateStack);
-
-	private:
-		Material::Ptr			material;
-		Mesh::Ptr				mesh;
+		Matrix4 ExtractTransform(GizmoOperation::Ptr op);
 
 	};
 }
