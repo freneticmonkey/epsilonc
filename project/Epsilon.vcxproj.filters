@@ -442,5 +442,8 @@
     <ClInclude Include="..\source\scene\SceneBase.h">
       <Filter>Source Files\scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\render\material\ShaderUniform.h">
+      <Filter>Source Files\render\material</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

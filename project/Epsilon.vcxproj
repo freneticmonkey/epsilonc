@@ -92,6 +92,7 @@
     <ClInclude Include="..\source\render\material\MaterialManager.h" />
     <ClInclude Include="..\source\render\material\Shader.h" />
     <ClInclude Include="..\source\render\material\ShaderStage.h" />
+    <ClInclude Include="..\source\render\material\ShaderUniform.h" />
     <ClInclude Include="..\source\render\material\ShaderUtilities.h" />
     <ClInclude Include="..\source\render\Mesh.h" />
     <ClInclude Include="..\source\render\MeshFactory.h" />
