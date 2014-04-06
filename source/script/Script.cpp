@@ -203,7 +203,6 @@ namespace epsilon
 			{
 				// Don't display error for functions that we're trying to hook that don't exist.
 				// It's not an error.
-				//HandlePythonError();
 				PyErr_Clear();
 			}
 
