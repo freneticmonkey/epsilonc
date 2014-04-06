@@ -43,13 +43,34 @@ namespace epsilon
 		scrolledWindowBox->Pack( scrolledWindowAlignment, true, true );
 		scrolledWindowAlignment->SetAlignment( sf::Vector2f(0.0f, 0.0f) );
 
+		// Get a list of all previous log messages
+		LogList initLog = Logger::FlushInitLog();
+		
+		// resize init log to console maxLines
+		while (initLog.size() > maxLines)
+		{
+			initLog.pop_front();
+		}
+		LogList::iterator initLogMsg = initLog.begin();
+
+		std::string logMessage;
+
 		// Generate maxLines Labels
 		for ( int i = 0; i < maxLines; i++ )
 		{
-			Label::Ptr newLog = Label::Create();
+			// Get a init msg.
+			if (initLogMsg != initLog.end())
+			{
+				logMessage = *initLogMsg;
+				initLogMsg++;
+			}
+			else
+			{
+				logMessage = "";
+			}
+
+			Label::Ptr newLog = Label::Create(logMessage);
 			consoleLines.push_back(newLog);
-			//scrolledWindowBox->Pack( newLog );
-			//newLog->SetAlignment( sf::Vector2f(0.0f, 0.0f) );
 		}
 		currLabel = consoleLines.begin();
 
@@ -60,14 +81,6 @@ namespace epsilon
 		window = Window::Create();
 		window->SetTitle("Console");
 		window->Add(box);
-
-		// Fill the console with all previous log messages to ensure that it's up-to-date
-		LogList initLog = Logger::FlushInitLog();
-
-		for ( LogList::iterator log = initLog.begin(); log != initLog.end(); log++)
-		{
-			this->Log( (*log) );
-		}
 	}
 
 	void ConsoleWindow::OnUpdate(float seconds)
