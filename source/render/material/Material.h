@@ -5,6 +5,7 @@
 
 #include "render/Colour.h"
 #include "render/material/Shader.h"
+#include "render/material/ShaderUniform.h"
 #include "render/RenderState.h"
 
 namespace epsilon
@@ -40,15 +41,33 @@ namespace epsilon
 		bool Enable(RenderStateStack::Ptr stateStack);
 		void Disable();
 
+		bool HasRefreshed() { return hasRefreshed; }
+
+		void OnFrameStart();
+
 	private:
 		std::string name;
 		Shader::Ptr shader;
         bool        shaderReady;
+		bool		hasRefreshed;
+		int			shaderCompileVersion;
 
-		GLuint ambientId;
-		GLuint diffuseId;
-		GLuint specId;
-		GLuint reflectId;
+		ShaderUniform::Ptr ambientUniform;
+		ShaderUniform::Ptr diffuseUniform;
+		ShaderUniform::Ptr specularUniform;
+		ShaderUniform::Ptr reflectanceUniform;
+
+		struct LightUniforms
+		{
+			ShaderUniform::Ptr position;
+			ShaderUniform::Ptr direction;
+			ShaderUniform::Ptr diffuse;
+			ShaderUniform::Ptr attenuation;
+		};
+
+		const int MAX_LIGHTS = 4;
+
+		std::vector<LightUniforms> lightUniforms;
 	};
 
 }

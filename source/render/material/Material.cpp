@@ -1,4 +1,5 @@
 #include "render/material/Material.h"
+#include <algorithm>
 
 namespace epsilon
 {
@@ -16,7 +17,9 @@ namespace epsilon
 												 diffuse(Colour::GREY), 
 												 specular(),
 												 reflectance(0.8f),
-                                                 shaderReady(false)
+												 shaderReady(false),
+												 hasRefreshed(false),
+												 shaderCompileVersion(0)
 	{
 	}
 
@@ -25,7 +28,9 @@ namespace epsilon
 																	  diffuse(Colour::GREY),
 																	  specular(),
 																	  reflectance(0.8f),
-																	  shaderReady(false)
+																	  shaderReady(false),
+																	  hasRefreshed(false),
+																	  shaderCompileVersion(0)
 	{
 	}
 
@@ -43,25 +48,43 @@ namespace epsilon
 				shader->Setup();
 			}
 
-			if (shader->Compiled() && !shader->InError())
+			// Get the Shader's uniforms
+			if ( shader->Compiled() && 
+				 // If the shader isn't in error
+				 !shader->InError() )
 			{
 				// Get the Shader's Unform values for the material
-				ambientId = shader->GetUniformId("material.ambient");
-				diffuseId = shader->GetUniformId("material.diffuse");
-				specId	  = shader->GetUniformId("material.specular");
-				reflectId = shader->GetUniformId("material.reflectance");
+				ambientUniform = shader->GetUniform("material.ambient");
+				diffuseUniform = shader->GetUniform("material.diffuse");
+				specularUniform = shader->GetUniform("material.specular");
+				reflectanceUniform = shader->GetUniform("material.reflectance");
 
-				shaderReady = true;
-			}
-			else
-			{
-				shaderReady = false;
+				// If possible set the uniforms for the light struct
+				for (int i = 0; i < MAX_LIGHTS; i++)
+				{
+					// Try to get the first light uniform
+					LightUniforms uniforms;
+					uniforms.position = shader->GetUniform(Format("lights[%d].position", i));
+
+					// If successfull get the rest and keep track of it.
+					if (uniforms.position)
+					{
+						uniforms.direction = shader->GetUniform(Format("lights[%d].direction", i));
+						uniforms.diffuse = shader->GetUniform(Format("lights[%d].diffuse", i));
+						uniforms.attenuation = shader->GetUniform(Format("lights[%d].attenuation, i"));
+						lightUniforms.push_back(uniforms);
+					}
+				}
+
+				shaderCompileVersion = shader->GetCompileVersion();
+				hasRefreshed = true;
 			}
 		}
 	}
 
 	void Material::SetShader(Shader::Ptr newShader)
 	{
+		// If setting the same shader object ignore the set.
 		shader = newShader;
 		SetupShader();
 	}
@@ -75,8 +98,10 @@ namespace epsilon
 	{
 		if (shader)
 		{
-			// If the shader hasn't yet been setup
-			if (!shader->Compiled() && !shader->InError())
+			// Get the Shader's uniforms
+			if (!shader->Compiled() ||
+				// and the shader's compile version isn't the last version we checked.
+				(shaderCompileVersion < shader->GetCompileVersion()))
 			{
 				// Trigger the Shader setup here.  This needs to happen so that it only 
 				// occurs during render in the main thread. The constructor/SetShader
@@ -84,18 +109,51 @@ namespace epsilon
 				SetupShader();
 			}
 			
-			if (shaderReady)
-			{
-				// If the shader is ready to go
-				if (shader->UseShader(stateStack))
+			//if (!shader->InError())
+			//{
+				// Set the material's colour values into the shader
+				if (ambientUniform)
+					ambientUniform->SetVector4(ambient.ToVector4());
+
+				if (diffuseUniform)
+					diffuseUniform->SetVector4(diffuse.ToVector4());
+
+				if (specularUniform)
+					specularUniform->SetVector4(specular.ToVector4());
+
+				if (reflectanceUniform)
+					reflectanceUniform->SetFloat(reflectance);
+
+				// Inject the lighting info into the shader
+				LightList lights = stateStack->State()->lights;
+
+				for (int i = 0; i < std::min((int)lights.size(), MAX_LIGHTS); i++)
 				{
-					// Set the material's colour values into the shader
-					shader->SetColourUniform(ambientId, ambient);
-					shader->SetColourUniform(diffuseId, diffuse);
-					shader->SetColourUniform(specId, specular);
-					shader->SetFloatUniform(reflectId, reflectance);
+					if (i < (int)lightUniforms.size())
+					{
+						if (lightUniforms[i].position )
+							lightUniforms[i].position->SetVector3(lights[i]->GetPosition());
+
+						if (lightUniforms[i].direction)
+							lightUniforms[i].direction->SetVector3(lights[i]->GetDirection());
+
+						if (lightUniforms[i].diffuse)
+							lightUniforms[i].diffuse->SetVector4(lights[i]->diffuse.ToVector4());
+
+						if (lightUniforms[i].attenuation)
+							lightUniforms[i].attenuation->SetVector3(lights[i]->attenuation);
+					}
 				}
+
+				// Push the shader variables into the Shader on the GPU
+				shaderReady = shader->UseShader(stateStack);
+				/*
 			}
+			else
+			{
+				shaderReady = false;
+			}
+			*/
 		}
         
         return shaderReady;
@@ -107,6 +165,11 @@ namespace epsilon
 		{
 			shader->DisableShader();
 		}
+	}
+
+	void Material::OnFrameStart()
+	{
+		hasRefreshed = false;
 	}
 
 }
