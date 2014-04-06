@@ -103,7 +103,7 @@ namespace epsilon
 
 	ScriptBehaviour::Ptr SceneNode::CreateBehaviour(std::string filename)
 	{
-		ScriptBehaviour::Ptr newScript = ScriptBehaviour::Create(filename, ScriptSource::FILE);
+		ScriptBehaviour::Ptr newScript = ScriptBehaviour::CreateFromFile(filename);
 
 		// Register the new script with the ResourceManager
 		ScriptManager * sm = &ScriptManager::GetInstance();
