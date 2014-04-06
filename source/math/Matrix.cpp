@@ -28,6 +28,23 @@ Matrix3::Matrix3( const Matrix3& mat)
 	}
 }
 
+Matrix3::Matrix3(const Vector3& v1, 
+				 const Vector3& v2, 
+				 const Vector3& v3)
+{
+	data[0] = v1.x;
+	data[1] = v1.y;
+	data[2] = v1.z;
+
+	data[3] = v2.x;
+	data[4] = v2.y;
+	data[5] = v2.z;
+
+	data[6] = v3.x;
+	data[7] = v3.y;
+	data[8] = v3.z;
+}
+
 Matrix3::Matrix3( float a, float b, float c,
                  float e, float f, float g,
                  float i, float j, float k )
@@ -216,6 +233,14 @@ Matrix4::Matrix4( const Matrix4& mat)
 	*/
 }
 
+Matrix4::Matrix4(const Vector4& v1, const Vector4& v2, const Vector4& v3, const Vector4& v4)
+{
+	data[0] = v1.x;		data[1] = v1.y;		data[2] = v1.z;		data[3] = v1.w;
+	data[4] = v2.x;		data[5] = v2.y;		data[6] = v2.z;		data[7] = v2.w;
+	data[8] = v3.x;		data[9] = v3.y;		data[10] = v3.z;	data[11] = v3.w;
+	data[12] = v4.x;	data[13] = v4.y;	data[14] = v4.z;	data[15] = v4.w;
+}
+
 Matrix4::Matrix4(float a, float b, float c, float d,
 	float e, float f, float g, float h,
 	float i, float j, float k, float l,
@@ -384,7 +409,7 @@ Matrix4 Matrix4::CreateTranslation(float x, float y, float z)
 {
     Matrix4 newmat;
     newmat.data[3] = x;
-    newmat.data[4] = y;
+    newmat.data[7] = y;
     newmat.data[11] = z;
     return newmat;
 }

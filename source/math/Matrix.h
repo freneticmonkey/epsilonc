@@ -17,6 +17,7 @@ public:
     // Constructors
     Matrix3();
     Matrix3( const Matrix3& mat);
+	Matrix3(const Vector3& v1, const Vector3& v2, const Vector3& v3);
     Matrix3( float a, float b, float c,
              float e, float f, float g,
              float i, float j, float k );
@@ -118,6 +119,7 @@ public:
     // Constructors
     Matrix4();
     Matrix4( const Matrix4& mat );
+	Matrix4(const Vector4& v1, const Vector4& v2, const Vector4& v3, const Vector4& v4);
 	Matrix4(float a, float b, float c, float d,
 			float e, float f, float g, float h,
 			float i, float j, float k, float l,
@@ -189,20 +191,20 @@ public:
 		mydata[2] = data[0] * other.data[2] + data[1] * other.data[6] + data[2] * other.data[10] + data[3] * other.data[14];
 		mydata[3] = data[0] * other.data[3] + data[1] * other.data[7] + data[2] * other.data[11] + data[3] * other.data[15];
     
-		mydata[4] = data[4] * other.data[1] + data[5] * other.data[4] + data[6] * other.data[8]  + data[7] * other.data[12];
-		mydata[5] = data[4] * other.data[2] + data[5] * other.data[5] + data[6] * other.data[9]  + data[7] * other.data[13];
-		mydata[6] = data[4] * other.data[3] + data[5] * other.data[6] + data[6] * other.data[10] + data[7] * other.data[14];
-		mydata[7] = data[4] * other.data[4] + data[5] * other.data[7] + data[6] * other.data[11] + data[7] * other.data[15];
+		mydata[4] = data[4] * other.data[0] + data[5] * other.data[4] + data[6] * other.data[8]  + data[7] * other.data[12];
+		mydata[5] = data[4] * other.data[1] + data[5] * other.data[5] + data[6] * other.data[9]  + data[7] * other.data[13];
+		mydata[6] = data[4] * other.data[2] + data[5] * other.data[6] + data[6] * other.data[10] + data[7] * other.data[14];
+		mydata[7] = data[4] * other.data[3] + data[5] * other.data[7] + data[6] * other.data[11] + data[7] * other.data[15];
     
-		mydata[8]  = data[8] * other.data[1] + data[9] * other.data[4] + data[10] * other.data[8]  + data[11] * other.data[12];
-		mydata[9]  = data[8] * other.data[2] + data[9] * other.data[5] + data[10] * other.data[9]  + data[11] * other.data[13];
-		mydata[10] = data[8] * other.data[3] + data[9] * other.data[6] + data[10] * other.data[10] + data[11] * other.data[14];
-		mydata[11] = data[8] * other.data[4] + data[9] * other.data[7] + data[10] * other.data[11] + data[11] * other.data[15];
+		mydata[8]  = data[8] * other.data[0] + data[9] * other.data[4] + data[10] * other.data[8]  + data[11] * other.data[12];
+		mydata[9]  = data[8] * other.data[1] + data[9] * other.data[5] + data[10] * other.data[9]  + data[11] * other.data[13];
+		mydata[10] = data[8] * other.data[2] + data[9] * other.data[6] + data[10] * other.data[10] + data[11] * other.data[14];
+		mydata[11] = data[8] * other.data[3] + data[9] * other.data[7] + data[10] * other.data[11] + data[11] * other.data[15];
     
-		mydata[12] = data[12] * other.data[1] + data[13] * other.data[4] + data[14] * other.data[8]  + data[15] * other.data[12];
-		mydata[13] = data[12] * other.data[2] + data[13] * other.data[5] + data[14] * other.data[9]  + data[15] * other.data[13];
-		mydata[14] = data[12] * other.data[3] + data[13] * other.data[6] + data[14] * other.data[10] + data[15] * other.data[14];
-		mydata[15] = data[12] * other.data[4] + data[13] * other.data[7] + data[14] * other.data[11] + data[15] * other.data[15];
+		mydata[12] = data[12] * other.data[0] + data[13] * other.data[4] + data[14] * other.data[8]  + data[15] * other.data[12];
+		mydata[13] = data[12] * other.data[1] + data[13] * other.data[5] + data[14] * other.data[9]  + data[15] * other.data[13];
+		mydata[14] = data[12] * other.data[2] + data[13] * other.data[6] + data[14] * other.data[10] + data[15] * other.data[14];
+		mydata[15] = data[12] * other.data[3] + data[13] * other.data[7] + data[14] * other.data[11] + data[15] * other.data[15];
     
 		//data = mydata;
 		for (int i = 0; i < 16; i++)
