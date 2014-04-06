@@ -18,13 +18,15 @@ namespace epsilon
 		
 		VertexData::Ptr VertexData() { return vd; }
 
-		void Draw();
+		bool Draw();
+		bool DrawOk() { return drawOk; }
 
 		explicit Mesh(const private_struct &);
 		~Mesh(void);
 
 	private:
 		VertexData::Ptr vd;
+		bool			drawOk;
 	};
 
 }

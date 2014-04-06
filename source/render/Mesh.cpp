@@ -7,7 +7,7 @@ namespace epsilon
 		return std::make_shared<Mesh>(private_struct());
 	}
 
-	Mesh::Mesh(const private_struct &)
+	Mesh::Mesh(const private_struct &) : drawOk(true)
 	{
 		vd = VertexData::Create();
 	}
@@ -16,13 +16,14 @@ namespace epsilon
 	{
 	}
 	
-	void Mesh::Draw()
+	bool Mesh::Draw()
 	{
 		if ( !vd->HasBuiltBuffers() )
 		{
 			vd->BuildBuffers();
 		}
-		vd->Draw();
+		drawOk = vd->Draw();
+		return drawOk;
 	}
 
 }
