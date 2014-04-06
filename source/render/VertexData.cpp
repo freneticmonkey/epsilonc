@@ -179,9 +179,10 @@ namespace epsilon
 		}
 	}
 
-	void VertexData::Draw()
+	bool VertexData::Draw()
 	{
-		if (Enable())
+		bool success = Enable();
+		if (success)
 		{
 			// If drawing surfaces
 			if (hasIndices)
@@ -197,5 +198,6 @@ namespace epsilon
 			}
 			Disable();
 		}
+		return success;
 	}
 }

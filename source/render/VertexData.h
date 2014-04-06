@@ -52,7 +52,7 @@ namespace epsilon
 		int GetTexCoordIndex() { return texCoordIndex; }
 
 		bool Enable();
-		void Draw();
+		bool Draw();
 		void Disable();
 
 	private:
