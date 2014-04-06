@@ -66,6 +66,7 @@ namespace epsilon
 		// Process Input events raised by the window
 		void ProcessEvent(sf::Event &event)
 		{
+			// Ignore input events if the window is not selected.
 			switch(event.type)
 			{
 				case sf::Event::KeyPressed:
@@ -90,8 +91,16 @@ namespace epsilon
 		// Keyboard
 		static bool GetKey(sf::Keyboard::Key key)
 		{
-			// For this we just need to query SFML
-			return sf::Keyboard::isKeyPressed(key);
+			bool result = false;
+			
+			// Ensure that the window is in focus.
+			if (InputManager::GetInstance().rm->WindowInFocus())
+			{
+				// For this we just need to query SFML
+				result = sf::Keyboard::isKeyPressed(key);
+			}
+			
+			return result;
 		};
 
 		static bool GetKeyDown(sf::Keyboard::Key key)
@@ -107,12 +116,21 @@ namespace epsilon
 		// Mouse
 		static bool GetMouseButton(sf::Mouse::Button button)
 		{
-			return sf::Mouse::isButtonPressed(button);
+			bool result = false;
+
+			// Ensure that the window is in focus.
+			if (InputManager::GetInstance().rm->WindowInFocus())
+			{
+				// For this we just need to query SFML
+				result = sf::Mouse::isButtonPressed(button);
+			}
+
+			return result;
 		};
 
 		static bool GetMouseButtonDown(sf::Mouse::Button button)
 		{
-			return InputManager::GetInstance().buttonDown[button];
+			return  InputManager::GetInstance().buttonDown[button];
 		};
 
 		static bool GetMouseButtonUp(sf::Mouse::Button button)

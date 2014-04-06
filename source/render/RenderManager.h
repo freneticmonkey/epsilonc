@@ -27,7 +27,11 @@ namespace epsilon
 		// Exposed Window Methods
 		bool WindowOpen(void);
 		void CloseWindow(void);
+		bool WindowInFocus(void);
+
 		bool PollEvent(sf::Event &event);
+
+		void ProcessEvent(sf::Event &event);
 
 		// Scene
 		void SetSceneManager(SceneManager * sm);
@@ -47,6 +51,8 @@ namespace epsilon
 		sf::Text *			fpsText;
 		sf::Font *			font;
 		Vector2				resolution;
+
+		bool				windowInFocus;
 
 		RenderStateStack::Ptr stateStack;
 

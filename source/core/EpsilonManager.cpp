@@ -164,24 +164,32 @@ namespace epsilon
 			// Fire On Frame Start Events
 			inputManager->OnFrameStart();
 
-			while ( renderManager->PollEvent( event ) )
+			while (renderManager->PollEvent(event))
 			{
-				// Process the UI events
-				uiManager->ProcessEvent(event);
+				// Let the RenderManager process window event first.
+				renderManager->ProcessEvent(event);
 
-				// Process the input events AFTER UI so that UI gets preference
-				inputManager->ProcessEvent(event);
+				// If the window is in focus
+				if (renderManager->WindowInFocus())
+				{
+					// Process the UI events
+					uiManager->ProcessEvent(event);
 
-				if ( event.type == sf::Event::Closed )
+					// Process the input events AFTER UI so that UI gets preference
+					inputManager->ProcessEvent(event);
+				}
+
+				if (event.type == sf::Event::Closed)
 				{
 					renderManager->CloseWindow();
 				}
-
 			}
+			
 			float el = clock.getElapsedTime().asMilliseconds();
 			
 			fpsGraph->AddValue(el);
-			
+
+
 			// Restart timing for next sequence
 			clock.restart();
 

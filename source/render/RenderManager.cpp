@@ -4,7 +4,8 @@
 namespace epsilon
 {
 	RenderManager::RenderManager(void) : currFPSSample(0),
-										 resolution(800,600)
+										 resolution(800,600),
+										 windowInFocus(true)
 	{
 		for ( int i = 0; i < NUM_FPS_SAMPLES; i++)
 		{
@@ -158,9 +159,29 @@ namespace epsilon
 		}
 	}
 
+	bool RenderManager::WindowInFocus(void)
+	{
+		return windowInFocus;
+	}
+
 	bool RenderManager::PollEvent(sf::Event &event)
 	{
 		return window->pollEvent(event);
+	}
+
+	void RenderManager::ProcessEvent(sf::Event &event)
+	{
+		// Ignore input events if the window is not selected.
+		switch (event.type)
+		{
+			// Check for window focus
+			case sf::Event::GainedFocus:
+				windowInFocus = true;
+				break;
+			case sf::Event::LostFocus:
+				windowInFocus = false;
+				break;
+		}
 	}
 
 	void RenderManager::SetSceneManager(SceneManager * sm)
