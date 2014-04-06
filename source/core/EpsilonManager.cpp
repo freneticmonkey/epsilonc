@@ -88,6 +88,12 @@ namespace epsilon
 		Log("Finished Setup");
 	}
 
+	void EpsilonManager::OnFrameStart()
+	{
+		inputManager->OnFrameStart();
+		materialManager->OnFrameStart();
+	}
+
 	void EpsilonManager::OnUpdate(float el)
 	{
 #ifdef __APPLE__
@@ -162,7 +168,7 @@ namespace epsilon
 		while ( renderManager->WindowOpen() )
 		{
 			// Fire On Frame Start Events
-			inputManager->OnFrameStart();
+			OnFrameStart();
 
 			while (renderManager->PollEvent(event))
 			{

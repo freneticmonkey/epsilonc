@@ -27,6 +27,7 @@ namespace epsilon
 		~EpsilonManager(void);
 
 		void Setup(void);
+		void OnFrameStart(void);
 		void OnUpdate(float el);
 		void Run(void);
 
