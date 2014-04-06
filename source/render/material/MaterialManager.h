@@ -23,10 +23,13 @@ namespace epsilon
 
 		void Setup();
 
+		Material::Ptr CreateMaterial();
 		Material::Ptr CreateMaterial(std::string name);
 
 		Material::Ptr GetMaterialByName(std::string name);
 		Shader::Ptr	  GetShaderByName(std::string name);
+
+		void OnFrameStart();
 
 	private:
 		MaterialList materials;

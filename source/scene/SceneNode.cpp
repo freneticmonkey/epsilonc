@@ -34,7 +34,7 @@ namespace epsilon
 	{
 	}
 
-	SceneNode::SceneNode(const private_struct &, std::string name) : Node(Node::private_struct()),
+	SceneNode::SceneNode(const private_struct &, std::string name) : Node(Node::private_struct(), name),
 																	 sceneOwner(0)
 	{
 	}

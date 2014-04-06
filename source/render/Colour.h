@@ -37,6 +37,10 @@ public:
 	Colour(float grey);
 	// Standard Component Constructor
 	Colour(float ir, float ig, float ib, float ia);
+	
+	// From Vectors
+	Colour(const Vector3& other);
+	Colour(const Vector4& other);
 
 	// Assignment / Conversion
 	Colour& operator=(const Colour& other);
@@ -44,6 +48,8 @@ public:
 	
 	// Helper Function for Python because construtor overloading is problematic.
 	static Colour FromVector4(const Vector4& other);
+	
+	Vector4 ToVector4();
 
 	// Array Access
 	float &operator[](int i);

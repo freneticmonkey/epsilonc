@@ -21,6 +21,22 @@ Colour::Colour(float grey)
 	a = grey; 
 }
 
+Colour::Colour(const Vector3& other)
+{
+	r = NormaliseColourValue(other.x);
+	g = NormaliseColourValue(other.y);
+	b = NormaliseColourValue(other.z);
+	a = 1.0f;
+}
+
+Colour::Colour(const Vector4& other)
+{
+	r = NormaliseColourValue(other.x);
+	g = NormaliseColourValue(other.y);
+	b = NormaliseColourValue(other.z);
+	a = NormaliseColourValue(other.w);
+}
+
 Colour::Colour(float ir, float ig, float ib, float ia)
 {
 	r = NormaliseColourValue(ir);
@@ -51,6 +67,11 @@ Colour& Colour::operator=(const Vector4& other)
 Colour Colour::FromVector4(const Vector4& other)
 {
 	return Colour(other.x, other.y, other.z, other.w);
+}
+
+Vector4 Colour::ToVector4()
+{
+	return Vector4(r, g, b, a);
 }
 
 float &Colour::operator[](int i)

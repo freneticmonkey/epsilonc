@@ -12,6 +12,8 @@
 #include "render/Light.h"
 #include "render/Renderer.h"
 #include "render/material/Material.h"
+#include "render/material/Shader.h"
+#include "render/material/ShaderUniform.h"
 #include "render/Mesh.h"
 #include "render/MeshFactory.h"
 #include "render/VertexData.h"
@@ -180,9 +182,9 @@ void initRender()
 	Material::Ptr(*MaterialCreateName)(std::string) = &Material::Create;
 
 	class_<Material, Material::Ptr, boost::noncopyable>("Material", no_init)
-		.def("create", MaterialCreateStandard)
-		.def("create", MaterialCreateName)
-		.staticmethod("create")
+		//.def("create", MaterialCreateStandard)
+		//.def("create", MaterialCreateName)
+		//.staticmethod("create")
 
 		// Colour Information
 		.def_readwrite("ambient", &Material::ambient)
@@ -192,7 +194,32 @@ void initRender()
 		// Shader Access
 		.add_property("shader", &Material::GetShader, &Material::SetShader)
 	;
-	
+
+	// Shader and Shader Uniform access
+	enum_<ShaderUniform::OpenGLTypes>("ShaderUniformType")
+		.value("FLOAT",		ShaderUniform::OpenGLTypes::FLOAT)
+		.value("VECTOR2",	ShaderUniform::OpenGLTypes::VECTOR2)
+		.value("VECTOR3",	ShaderUniform::OpenGLTypes::VECTOR3)
+		.value("VECTOR4",	ShaderUniform::OpenGLTypes::VECTOR4)
+		.value("MATRIX",	ShaderUniform::OpenGLTypes::MATRIX)
+		;
+
+	class_<ShaderUniform, ShaderUniform::Ptr, boost::noncopyable>("ShaderUniform", no_init)
+		.add_property("changed", &ShaderUniform::HasChanged)
+		.add_property("type",	 &ShaderUniform::GetType)
+
+		.add_property("float",	 &ShaderUniform::GetFloat, &ShaderUniform::SetFloat)
+		.add_property("vector2", &ShaderUniform::GetVector2, &ShaderUniform::SetVector2)
+		.add_property("vector3", &ShaderUniform::GetVector3, &ShaderUniform::SetVector3)
+		.add_property("vector4", &ShaderUniform::GetVector4, &ShaderUniform::SetVector4)
+		.add_property("matrix4", &ShaderUniform::GetMatrix4, &ShaderUniform::SetMatrix4)
+	;
+
+	class_<Shader, Shader::Ptr, boost::noncopyable>("Shader", no_init)
+		.add_property("name", &Shader::GetName)
+		.def("get_uniform", &Shader::GetUniform)
+		;
+
 	class_<Camera, bases<NodeComponent>, Camera::Ptr, boost::noncopyable>("Camera", no_init)
 		.def("get_projection_matrix", &Camera::GetProjectionMatrix)
 		.def("get_view_matrix", &Camera::GetViewMatrix)

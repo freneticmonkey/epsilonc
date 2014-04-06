@@ -142,7 +142,7 @@ namespace epsilon
 			return light->GetName() == name;
 		});
 
-		if (it != sceneLights.end())
+		if (it == sceneLights.end())
 		{
 			sceneLights.push_back(light);
 			success = true;

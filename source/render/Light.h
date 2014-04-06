@@ -18,7 +18,7 @@ namespace epsilon
 {
 	class Light;
 
-	typedef std::list< std::shared_ptr<Light> > LightList;
+	typedef std::vector< std::shared_ptr<Light> > LightList;
 
 	class Light : public NodeComponent
 	{
@@ -39,7 +39,7 @@ namespace epsilon
         void OnSetParent();
         
         Colour  diffuse;
-        Vector4 attenuation;
+        Vector3 attenuation;
         float   angle;
         
         Vector3 GetPosition();

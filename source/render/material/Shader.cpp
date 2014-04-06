@@ -28,7 +28,8 @@ namespace epsilon
 											 shaderCompiled(false), 
 											 shaderActive(false),
 											 sourceVersion("#version 330"),
-											 compileError(false)
+											 compileError(false),
+											 compileVersion(0)
 
 	{
 	}
@@ -191,10 +192,32 @@ namespace epsilon
 
         if ( success )
         {
+			// Extract the shader uniforms and build the ShaderValue Map
+			// courtesy: http://stackoverflow.com/a/4970703
+			int total = -1;
+			glGetProgramiv(programId, GL_ACTIVE_UNIFORMS, &total);
+			for (int i = 0; i < total; ++i)
+			{
+				int name_len = -1, num = -1;
+				GLenum type = GL_ZERO;
+				char name[100];
+				glGetActiveUniform(programId, GLuint(i), sizeof(name)-1,
+					&name_len, &num, &type, name);
+				name[name_len] = 0;
+				GLuint location = glGetUniformLocation(programId, name);
+
+				// Add to the uniform map
+				uniforms[std::string(name)] = ShaderUniform::Create(location, type);
+			}
+
+			// old code, but grab the modelView and proMatrix uniforms
             viewMatUnf = glGetUniformLocation(programId, "modelViewMatrix");
             projMatUnf = glGetUniformLocation(programId, "projMatrix");
             
             shaderCompiled = true;
+
+			// Increment the compile version
+			compileVersion++;
         }
 
 		return success;
@@ -242,12 +265,24 @@ namespace epsilon
 		return success;
 	}
 
+	ShaderUniform::Ptr Shader::GetUniform(std::string name)
+	{
+		ShaderUniform::Ptr uniform;
+
+		if (uniforms.find(name) != uniforms.end())
+		{
+			uniform = uniforms[name];
+		}
+		return uniform;
+	}
+
 	bool Shader::UseShader()
 	{
 		if ( shaderCompiled )
 		{
 			// Check if the shader is already bound, if I ever write batching, 
 			// this will be result in a easy performance boost?
+			/*
 			GLuint currProg;
 			glGetIntegerv(GL_CURRENT_PROGRAM, (GLint*) &currProg);
 
@@ -255,6 +290,9 @@ namespace epsilon
 			{
 				glUseProgram(programId);
 			}
+			*/
+
+			glUseProgram(programId);
 
 			shaderActive = true;
 		}
@@ -278,6 +316,17 @@ namespace epsilon
 			}
 
 			shaderActive = true;
+			
+			// For each of the uniforms values exposed by the shader
+			std::for_each(uniforms.begin(), uniforms.end(), [&](std::pair<std::string, ShaderUniform::Ptr> uniform){
+
+				// If their value has changed since it was last set in the shader.
+				if (uniform.second->HasChanged())
+				{
+					// Set it in the shader
+					uniform.second->SetShaderValue();
+				}
+			});
 
 			// Calculate the model view matrix
 			Matrix4 modelViewMatrix = state->view * state->model;

@@ -43,6 +43,8 @@ namespace epsilon
 		bool AddLight(Light::Ptr newLight);
 		Light::Ptr GetLight(std::string name);
 
+		LightList GetLights() { return sceneLights; }
+
 		bool operator==(Scene::Ptr other);
 		bool operator==(std::string name);
 

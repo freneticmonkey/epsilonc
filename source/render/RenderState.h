@@ -3,6 +3,7 @@
 #include <list>
 #include <memory>
 #include "math/Matrix.h"
+#include "render/Light.h"
 
 class RenderState
 {
@@ -29,9 +30,10 @@ public:
 	}
 	~RenderState() {}
 
-	Matrix4 model;
-	Matrix4 view;
-	Matrix4 projection;
+	Matrix4		model;
+	Matrix4		view;
+	Matrix4		projection;
+	LightList	lights;
 };
 
 typedef std::list<RenderState::Ptr> RenderStateList;

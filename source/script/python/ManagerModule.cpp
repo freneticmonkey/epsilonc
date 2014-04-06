@@ -2,6 +2,7 @@
 #include "events/EventManager.h"
 #include "core/InputManager.h"
 #include "render/RenderManager.h"
+#include "render/material/MaterialManager.h"
 #include "render/gizmos/GizmoManager.h"
 #include "scene/SceneManager.h"
 #include "script/ScriptManager.h"
@@ -259,4 +260,22 @@ void initManagers()
 	// Injecting Gizmo manager into the namespace
 	smGI = gizmoManager.attr("get_instance");
 	package.attr("Gizmos") = smGI();
+
+	Material::Ptr(MaterialManager::*CreateMaterialStandard)(void) = &MaterialManager::CreateMaterial;
+	Material::Ptr(MaterialManager::*CreateMaterialName)(std::string) = &MaterialManager::CreateMaterial;
+
+	object materialManager = class_<MaterialManager, boost::noncopyable>("MaterialManager", no_init)
+		.def("get_instance", &MaterialManager::GetInstance, return_value_policy<reference_existing_object>())
+		.staticmethod("get_instance")
+
+		.def("create_material", CreateMaterialStandard)
+		.def("create_material", CreateMaterialName)
+
+		.def("get_material_by_name", &MaterialManager::GetMaterialByName)
+		.def("get_shader_by_name", &MaterialManager::GetShaderByName)
+		;
+
+	// Injecting Gizmo manager into the namespace
+	smGI = materialManager.attr("get_instance");
+	package.attr("MaterialManager") = smGI();
 }

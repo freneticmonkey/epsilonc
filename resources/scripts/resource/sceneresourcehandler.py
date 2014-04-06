@@ -43,6 +43,8 @@ class SceneResourceHandler(ResourceHandlerBase):
 					   SceneNode,
 					   SceneTransform,
 					   SceneCamera,
+					   SceneLight,
+					   SceneMaterials,
 					   SceneMaterial,
 					   SceneColour,
 					   SceneMesh,

@@ -3,7 +3,9 @@ import re
 from epsilon import util
 
 from epsilon import ScriptManager
-from epsilon.math import Vector2, Vector3, Quaternion
+from epsilon import MaterialManager
+
+from epsilon.math import Vector2, Vector3, Vector4, Quaternion
 
 from epsilon.scene import Transform
 from epsilon.scene import Node
@@ -53,6 +55,13 @@ class BaseXMLNode(object):
 			a = string_value.split("|")
 		l = len(a)
 		return [float(s) for s in a], l
+
+	def parse_vector4(self, xml_tag, name=""):
+		coordf, length = self.string_to_float_array(xml_tag, name)
+		if length == 4:
+			return Vector4(*coordf)
+		else:
+			self.raise_parse_issue("Invalid Vector3: %s [%s]" % (name, xml_tag.attrib[name]) )
 
 	def parse_vector3(self, xml_tag, name=""):
 		coordf, length = self.string_to_float_array(xml_tag, name)
@@ -224,24 +233,76 @@ class SceneCamera(BaseXMLNode):
 			
 			return camera
 
+class SceneLight(BaseXMLNode):
+
+	def process_node(self, parse_globals, scene_node, xml_tag):
+
+		if not scene_node is None:
+
+			light = None
+
+			if "name" in xml_tag.attrib:
+				light = scene_node.create_light(xml_tag.attrib["name"])
+			else:
+				light = scene_node.create_light()
+
+			if not light is None:
+				if "diffuse" in xml_tag.attrib:
+					light.diffuse = self.parse_colour(xml_tag, "diffuse")
+
+				if "attenuation" in xml_tag.attrib:
+					light.attenuation = self.parse_vector3(xml_tag, "attenuation")
+
+				if "angle" in xml_tag.attrib:
+					default_angle = 0.0
+					light.angle = self.extract_float_attribute(xml_tag, "angle", default_angle)
+
+class SceneMaterials(BaseXMLNode):
+	
+	# Don't do anything here each material will process itself
+	def process_node(self, parse_globals, scene_node, xml_tag):	
+		pass
+
 class SceneMaterial(BaseXMLNode):
 
 	def process_node(self, parse_globals, scene_node, xml_tag):
+
+		material = None
+
+		# if there is a node then the material is being created and applied directly
 		if not scene_node is None:
 			# ensure that the node has a renderer
 			if scene_node.renderer is None:
 				scene_node.create_renderer()
 
 			if not scene_node.renderer.material is None:
+				material = scene_node.renderer.material
+		else:
+			# The material is most likely being pre-declared. So create it
+			if "name" in xml_tag.attrib:
+				new_material = MaterialManager.create_material(xml_tag.attrib["name"])
+			else:
+				new_material = MaterialManager.create_material()
+				print "Warning: Material declared with no name: Name defaulting to: " + new_material.name
 
-				if "ambient" in xml_tag.attrib:
-					scene_node.renderer.material.diffuse = self.parse_colour(xml_tag, "ambient")
+			material = new_material
 
-				if "diffuse" in xml_tag.attrib:
-					scene_node.renderer.material.diffuse = self.parse_colour(xml_tag, "diffuse")
+		if "ambient" in xml_tag.attrib:
+			material.ambient = self.parse_colour(xml_tag, "ambient")
 
-				if "specular" in xml_tag.attrib:
-					scene_node.renderer.material.diffuse = self.parse_colour(xml_tag, "specular")
+		if "diffuse" in xml_tag.attrib:
+			material.diffuse = self.parse_colour(xml_tag, "diffuse")
+
+		if "specular" in xml_tag.attrib:
+			material.specular = self.parse_colour(xml_tag, "specular")
+
+		if "shader" in xml_tag.attrib:
+			shader = MaterialManager.get_shader_by_name(xml_tag.attrib["shader"])
+
+			if not shader is None:
+				material.shader = shader
+			else:
+				self.raise_parse_issue("Material with unknown shader: " + xml_tag.attrib["shader"])
 
 class SceneColour(BaseXMLNode):
 
@@ -366,7 +427,29 @@ class SceneScript(BaseXMLNode):
 # 
 class SceneShader(BaseXMLNode):
 	def process_node(self, parse_globals, scene_node, xml_tag):
-		pass
+		material = None
+
+		# if there is a node then the material is being created and applied directly
+		if not scene_node is None:
+			# ensure that the node has a renderer
+			if scene_node.renderer is None:
+				scene_node.create_renderer()
+
+			if not scene_node.renderer.material is None:
+				material = scene_node.renderer.material
+		
+		if not material is None:
+
+			# The material is most likely being pre-declared. So create it
+			if "name" in xml_tag.attrib:
+				shader = MaterialManager.get_shader_by_name(xml_tag.attrib["name"])
+
+				if not shader is None:
+					material.shader = shader
+				else:
+					print "Warning: Unknown shader requested: " + xml_tag.attrib["name"]
+		else:
+			self.raise_parse_issue("Error: SceneNode: %s: doesn't have a material" % scene_node.name)
 
 class SceneTexture(BaseXMLNode):
 	def process_node(self, parse_globals, scene_node, xml_tag):

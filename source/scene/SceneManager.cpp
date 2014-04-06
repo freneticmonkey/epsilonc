@@ -118,6 +118,7 @@ namespace epsilon
 		// Update the matrices
 		stateStack->State()->view = currentScene->GetActiveCamera()->GetViewMatrix();
 		stateStack->State()->projection = currentScene->GetActiveCamera()->GetProjectionMatrix();
+		stateStack->State()->lights = currentScene->GetLights();
 		
 		for ( RenderList::iterator renderer = renderList.begin(); renderer != renderList.end(); renderer++)
 		{

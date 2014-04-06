@@ -48,6 +48,11 @@ namespace epsilon
 		});
 	}
 
+	Material::Ptr MaterialManager::CreateMaterial()
+	{
+		return CreateMaterial("Material_" + std::to_string(materials.size()));
+	}
+
 	Material::Ptr MaterialManager::CreateMaterial(std::string name)
 	{
 		Material::Ptr newMaterial;
@@ -87,5 +92,12 @@ namespace epsilon
 			foundShader = shaders[name];
 		}
 		return foundShader;
+	}
+
+	void MaterialManager::OnFrameStart()
+	{
+		std::for_each(materials.begin(), materials.end(), [](std::pair<std::string, Material::Ptr> material){
+			material.second->OnFrameStart();
+		});
 	}
 }
