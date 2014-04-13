@@ -2,13 +2,17 @@
 
 namespace epsilon
 {
-	VertexData::Ptr VertexData::Create()
+    VertexData::Ptr VertexData::currentlyBound = VertexData::Ptr();
+    VertexData::Ptr VertexData::Create()
 	{
 		return std::make_shared<VertexData>(private_struct());
 	}
 
 	VertexData::VertexData(const private_struct &)
 	{
+        vaoId = 0;
+        bound = false;
+        
 		numVertices = 0;
 		vertexIndex = -1;
 		normalIndex = -1;
@@ -21,18 +25,35 @@ namespace epsilon
 
 	VertexData::~VertexData()
 	{
-		while( !buffers.empty() )
-		{
-			delete buffers.back();
-			buffers.pop_back();
-		}
-
-		while( !attributes.empty() )
-		{
-			delete attributes.back();
-			attributes.pop_back();
-		}
+		Destroy();
 	}
+    
+    void VertexData::Destroy()
+    {
+        if ( vaoId != 0 )
+        {        
+            while( !buffers.empty() )
+            {
+                delete buffers.back();
+                buffers.pop_back();
+            }
+            
+            while( !attributes.empty() )
+            {
+                delete attributes.back();
+                attributes.pop_back();
+            }
+        
+            bool success;
+            glDeleteVertexArrays(1, &vaoId);
+            success = CheckOpenGLError("Deleting VAO");
+            if ( success )
+            {
+                Log("Deleted VAO Id: " + std::to_string(vaoId));
+                vaoId = 0;
+            }
+        }
+    }
 
 	VertexData::Ptr VertexData::SetVertices(VerticesAttrib::List vertexData)
 	{
@@ -81,6 +102,17 @@ namespace epsilon
 
 	void VertexData::BuildBuffers()
 	{
+        if ( currentlyBound )
+        {
+            currentlyBound->Disable();
+        }
+        
+        // Generate a VertexArrayObject
+        CheckOpenGLError("Before Generating VAO");
+        glGenVertexArrays(1, &vaoId);
+        CheckOpenGLError("Generated VAO");
+        Log("VAO Id: " + std::to_string(vaoId));
+        
 		// Build the vertex buffer data
 		size_t stride = 0;
 		VertexDataBuffer::List vertexData;
@@ -135,38 +167,71 @@ namespace epsilon
 	bool VertexData::Enable()
 	{
 		bool success = false;
-
-		// Enable the OpenGL Buffers
-		for ( VertexBufferList::iterator buffer = buffers.begin(); buffer != buffers.end(); buffer++ )
-		{
-			success = (*buffer)->Enable();
-
-			if (!success)
-			{
-				break;
-			}
-		}
-
-		// If the buffers were successfully bound
-		if (success)
-		{
-			// Enable the Vertex Attributes
-			for (VertexAttribList::iterator attrib = attributes.begin(); attrib != attributes.end(); attrib++)
-			{
-				success = (*attrib)->Enable();
-
-				if (!success)
-				{
-					break;
-				}
-			}
-		}
+        
+        // if the VAO is not already bound
+        GLint boundVAO;
+        glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &boundVAO);
+        
+        bound = (boundVAO == vaoId);
+        
+        if ( !bound )
+        {
+            // Enable the VAO
+            
+            // Disable the current VAO if necessary
+            if ( currentlyBound && (boundVAO > 0 ) )
+            {
+                currentlyBound->Disable();
+            }
+            
+            glBindVertexArray(vaoId);
+            CheckOpenGLError("Binding VAO");
+            
+            // Enable the OpenGL Buffers
+            for ( VertexBufferList::iterator buffer = buffers.begin(); buffer != buffers.end(); buffer++ )
+            {
+                success = (*buffer)->Enable();
+                
+                if (!success)
+                {
+                    break;
+                }
+            }
+            
+            // If the buffers were successfully bound
+            if (success)
+            {
+                // Enable the Vertex Attributes
+                for (VertexAttribList::iterator attrib = attributes.begin(); attrib != attributes.end(); attrib++)
+                {
+                    success = (*attrib)->Enable();
+                    
+                    if (!success)
+                    {
+                        break;
+                    }
+                }
+            }
+            
+            if ( success )
+            {
+                bound = true;
+                currentlyBound = ThisPtr();
+            }
+            
+        }
+        else
+        {
+            // it's already bound so return success
+            success = true;
+        }
+        
 		return success;
 	}
 
 	void VertexData::Disable()
 	{
-		// Disable the OpenGL Buffers
+        // Disable the OpenGL Buffers
 		for ( VertexBufferList::iterator buffer = buffers.begin(); buffer != buffers.end(); buffer++ )
 		{
 			(*buffer)->Disable();
@@ -177,6 +242,12 @@ namespace epsilon
 		{
 			(*attrib)->Disable();
 		}
+        
+        // Disabling the VAO
+        glBindVertexArray(0);
+        CheckOpenGLError("Disabling VAO");
+        
+        bound = false;
 	}
 
 	bool VertexData::Draw()
@@ -196,8 +267,10 @@ namespace epsilon
 				glDrawArrays(GL_LINES, 0, numVertices);
 				CheckOpenGLError("DrawArrays");
 			}
-			Disable();
 		}
+        
+        //Disable();
+        
 		return success;
 	}
 }

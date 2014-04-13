@@ -5,7 +5,7 @@ namespace epsilon
 	ConsoleWindow::Ptr ConsoleWindow::Create()
 	{
 		Ptr newConsoleWindow = std::make_shared<ConsoleWindow>(private_struct());
-		Logger::addListener(newConsoleWindow);
+		Logger::getInstance().addListener(newConsoleWindow);
 		return newConsoleWindow;
 	}
 
@@ -44,7 +44,7 @@ namespace epsilon
 		scrolledWindowAlignment->SetAlignment( sf::Vector2f(0.0f, 0.0f) );
 
 		// Get a list of all previous log messages
-		LogList initLog = Logger::FlushInitLog();
+		LogList initLog = Logger::getInstance().FlushInitLog();
 		
 		// resize init log to console maxLines
 		while (initLog.size() > maxLines)
@@ -89,6 +89,12 @@ namespace epsilon
 		scrolledwindow->Update(seconds);
 		window->Update(seconds);
 	}
+    
+    void ConsoleWindow::Destroy()
+    {
+        // Stop listening to Logger
+        Logger::getInstance().	removeListener(shared_from_this());
+    }
 
 	void ConsoleWindow::Log(std::string content)
 	{

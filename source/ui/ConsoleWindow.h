@@ -16,7 +16,8 @@ namespace epsilon
 
 	class ConsoleWindow :
 		public UIWindow, 
-		public LogListener
+		public LogListener,
+        public std::enable_shared_from_this<ConsoleWindow>
 	{
 	private:
 		struct private_struct {};
@@ -28,6 +29,7 @@ namespace epsilon
 
 		void Setup(void);
 		void OnUpdate(float seconds);
+        void Destroy();
 
 		// Log Listener Functions
 		void Log(std::string content);

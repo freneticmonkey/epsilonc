@@ -29,6 +29,8 @@ namespace epsilon
 		void Setup();
 
 		void OnUpdate(float seconds);
+        
+        void Destroy();
 
 		void Draw(sf::RenderWindow * window);
 

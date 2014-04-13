@@ -29,6 +29,8 @@ namespace epsilon
 
 	void EpsilonManager::Setup(void)
 	{
+        logger = &Logger::getInstance();
+        
 		Log("Initialising Epsilon Manager");
 		resourceManager = &ResourceManager::GetInstance();
 		resourceManager->BuildResourceInfo();
@@ -146,7 +148,7 @@ namespace epsilon
 			sceneManager->Update(el);
 			sceneManager->Cull();
 		}
-		//gizmoManager->Update(el);
+		gizmoManager->Update(el);
 		sceneManager->Update(el);
 		sceneManager->Cull();
 
@@ -156,6 +158,20 @@ namespace epsilon
 		renderManager->Draw(el);
 		renderGraph->AddValue(renderClock.getElapsedTime().asMilliseconds());
 	}
+    
+    void EpsilonManager::OnClose(void)
+    {
+        // Stop Scripts
+		scriptManager->Destroy();
+        
+        // Clean up OpenGL
+        renderManager->Destroy();
+        
+        // Stop UI
+        uiManager->Destroy();
+        
+        renderManager->CloseWindow();
+    }
 
 	void EpsilonManager::Run(void)
 	{
@@ -164,6 +180,7 @@ namespace epsilon
 		// Handle events here until event manager is implemented.
 		sf::Event event;
 		sf::Clock clock;
+        bool hasClosed = false;
 
 		while ( renderManager->WindowOpen() )
 		{
@@ -187,7 +204,9 @@ namespace epsilon
 
 				if (event.type == sf::Event::Closed)
 				{
-					renderManager->CloseWindow();
+                    // Break Main loop
+                    hasClosed = true;
+					break;
 				}
 			}
 			
@@ -200,10 +219,13 @@ namespace epsilon
 			clock.restart();
 
 			OnUpdate(el / 1000.0f);
+            
+            if (hasClosed)
+            {
+                break;
+            }
 		}
-
-		// Stop Scripts
-		scriptManager->Destroy();
-
+        
+        OnClose();
 	}
 }

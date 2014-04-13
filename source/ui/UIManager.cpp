@@ -1,4 +1,5 @@
 #include "ui/UIManager.h"
+#include "render/RenderUtilities.h"
 #include <algorithm>
 
 namespace epsilon
@@ -21,8 +22,14 @@ namespace epsilon
 
 		sfgui = new sfg::SFGUI();
 		desktop = new sfg::Desktop();
-
 	}
+    
+    void UIManager::Destroy()
+    {
+        std::for_each(windowList.begin(), windowList.end(), [](UIWindow::Ptr window){
+            window->Destroy();
+        });
+    }
 
 	//void UIManager::OnUpdate( sf::Time el )
 	void UIManager::OnUpdate( float el )
@@ -42,14 +49,17 @@ namespace epsilon
 		// Setup the window to display the GUI
 
 		window->resetGLStates();
+//        CheckOpenGLError("Window UI Reset");
 
 		// Draw the windows first
 		sfgui->Display( *window );
-
+//        CheckOpenGLError("SFGUI Draw");
+        
 		// Then the overlays
 		for (OverlayList::iterator i = overlayList.begin(); i != overlayList.end(); i++)
 		{
 			(*i)->Draw(window);
+//            CheckOpenGLError("Window Drawn: " + (*i)->GetName());
 		}
 	}
 

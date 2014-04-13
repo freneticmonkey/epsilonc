@@ -60,7 +60,6 @@ namespace epsilon
 	bool ShaderStage::Compile()
 	{
         GLboolean canCompile;
-        
         glGetBooleanv(GL_SHADER_COMPILER, &canCompile);
         
         if ( canCompile != GL_FALSE)
@@ -75,18 +74,43 @@ namespace epsilon
             // Compile the stage
             const char * stageSource = source.c_str();
             stageId = glCreateShader(ShaderStageType::GetStageConstant(stageType));
+            CheckOpenGLError("Creating shader");
             glShaderSource(stageId, 1, &stageSource, NULL);
+            CheckOpenGLError("Setting shader source");
+            
             glCompileShader(stageId);
             
-            std::string filename = GetFilepath().GetString();
-            std::string stageName = ShaderStageType::GetStageName(stageType);
-            stageCompiled = CheckOpenGLError(str(format("Compiling %s Shader: %s") % stageName % filename ));
+            GLint compileState;
+            glGetShaderiv(stageId, GL_COMPILE_STATUS, &compileState);
             
-            if (!stageCompiled)
+            if ( compileState == GL_FALSE)
             {
-                DisplayCompileError(stageId);
+                stageCompiled = false;
                 
-                Log("Shader",source);
+                GLint logLength;
+                glGetShaderiv(stageId, GL_INFO_LOG_LENGTH, &logLength);
+                
+                if (logLength > 0 )
+                {
+                    GLchar * infoLog = (GLchar *)malloc(logLength);
+                    glGetShaderInfoLog(stageId, logLength, &logLength, infoLog);
+                    Log(std::string(infoLog));
+                }
+                
+                std::string filename = GetFilepath().GetString();
+                std::string stageName = ShaderStageType::GetStageName(stageType);
+                CheckOpenGLError(str(format("Compiling %s Shader: %s") % stageName % filename ));
+                
+                if (!stageCompiled)
+                {
+                    DisplayCompileError(stageId);
+                    
+                    Log(str(format("Shader: %s\n") % filename ),source);
+                }
+            }
+            else
+            {
+                stageCompiled = true;
             }
             
             // Mark the Resource as having loaded
@@ -95,6 +119,7 @@ namespace epsilon
         else
         {
             Log("ShaderStage","Shader Compiling not supported.");
+            CheckOpenGLError("Can Compile Shaders");
         }
 
 		return stageCompiled;

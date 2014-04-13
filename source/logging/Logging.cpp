@@ -23,13 +23,9 @@ namespace epsilon
 		printf("%s",content.c_str());
 		fflush(stdout);
 
-		if ( !listeners.empty() )
-		{
-			for (LogListenerIterator i = listeners.begin(); i != listeners.end(); i++ )
-			{
-				(*i)->Log(content);
-			}
-		}
+        std::for_each(listeners.begin(), listeners.end(), [&](LogListener::Ptr listener){
+            listener->Log(content);
+        });
 	}
 
 	LogStream::Ptr LogStream::Create(std::string logName)
@@ -44,49 +40,44 @@ namespace epsilon
 
 	void LogStream::RemoveListener(LogListener::Ptr rmListener)
 	{
-		listeners.remove(rmListener);
+        listeners.erase(std::remove(listeners.begin(), listeners.end(), rmListener), listeners.end());
 	}
 
 	Logger::Logger() : logInit(true)
 	{
 		logs[std::string("default")] = LogStream::Create("default");
-		listeners = new LogListenerList;
 	}
 
 	Logger::~Logger()
 	{
-		delete listeners;
+        printf("Warning: Logger destroyed.\n");
+		fflush(stdout);
 	}
 
 	void Logger::Log(std::string content)
 	{
-		Logger::Log(std::string("default"), content);
+		Log(std::string("default"), content);
 	}
 
 	void Logger::Log(std::string logName, std::string content)
 	{
 		LogListener::Ptr listener;
-		Logger::GetLog(logName)->Log(content);
+		GetLog(logName)->Log(content);
 
 		if ( Logger::getInstance().logInit )
 		{
 			Logger::getInstance().initLog.push_back(logName + ": " + content);
 		}
-
-		LogListenerList * listeners = Logger::getInstance().listeners;
-		if ( !listeners->empty() )
-		{
-			for (LogListenerIterator i = listeners->begin(); i != listeners->end(); i++ )
-			{
-				listener = (*i);
-				listener->Log(logName, content);
-			}
-		}
+        
+        LogListenerList * listeners = &Logger::getInstance().listeners;
+        
+        std::for_each(listeners->begin(), listeners->end(), [&](LogListener::Ptr listener){
+            listener->Log(logName, content);
+        });
 	}
 
 	LogStream::Ptr Logger::GetLog(std::string loggerName)
 	{
-		LogStreamMap logs = Logger::getInstance().logs;
 		LogStream::Ptr theLog;
 	
 		LogMapIterator foundLog = logs.find(loggerName);
@@ -97,6 +88,7 @@ namespace epsilon
 		}
 		else
 		{
+            // FIXME: This should be a separate CreateLog(xxx) function
 			theLog = LogStream::Create(loggerName);
 			logs[loggerName] = theLog;
 		}
@@ -105,13 +97,11 @@ namespace epsilon
 
 	void Logger::addListener(LogListener::Ptr newListener)
 	{
-		LogListenerList * listeners = Logger::getInstance().listeners;
-		LogStreamMap logs = Logger::getInstance().logs;
 		LogStream::Ptr log;
 		
 		if ( newListener->GetLogName() == "" )
 		{
-			listeners->push_back(newListener);
+			listeners.push_back(newListener);
 		}
 		else
 		{
@@ -125,13 +115,12 @@ namespace epsilon
 
 	void Logger::removeListener(LogListener::Ptr rmListener)
 	{
-		LogListenerList * listeners = Logger::getInstance().listeners;
-		LogStreamMap logs = Logger::getInstance().logs;
-		LogStream::Ptr log;
+        LogStream::Ptr log;
 
 		if ( rmListener->GetLogName() == "" )
 		{
-			listeners->remove(rmListener);
+            listeners.erase(std::remove(listeners.begin(), listeners.end(), rmListener), listeners.end());
+//			listeners->remove(rmListener);
 		}
 		else
 		{
@@ -154,21 +143,21 @@ namespace epsilon
 	// Namespace functions
 	void Log(const char * content)
 	{ 
-		Logger::Log(std::string(content)); 
+		Logger::getInstance().Log(std::string(content));
 	}
 
 	void Log(const char* logName, const char* content)
 	{ 
-		Logger::Log(std::string(logName), std::string(content)); 
+		Logger::getInstance().Log(std::string(logName), std::string(content));
 	}
 
 	void Log(std::string content)
 	{
-		Logger::Log(content);
+		Logger::getInstance().Log(content);
 	}
 
 	void Log(std::string logName, std::string content)
 	{
-		Logger::Log(logName, content);
+		Logger::getInstance().Log(logName, content);
 	}
 }

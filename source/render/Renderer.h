@@ -28,7 +28,8 @@ namespace epsilon
 		~Renderer(void);
 
 		void Draw(RenderStateStack::Ptr stateStack);//Matrix4 viewMatrix, Matrix4 projMatrix);
-
+        void Destroy();
+        
 		void SetMesh(Mesh::Ptr newMesh);
 		Mesh::Ptr GetMesh();
 

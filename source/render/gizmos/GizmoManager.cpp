@@ -37,6 +37,13 @@ namespace epsilon
 			gizmo->Draw(stateStack);
 		});
 	}
+    
+    void GizmoManager::Destroy()
+    {
+        std::for_each(gizmos.begin(), gizmos.end(), [](GizmoType * gizmo){
+			gizmo->Destroy();
+		});
+    }
 
 	void GizmoManager::Update(float el)
 	{

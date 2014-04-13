@@ -54,10 +54,16 @@ namespace epsilon
 		bool Enable();
 		bool Draw();
 		void Disable();
+        
+        void Destroy();
 
 	private:
 		VertexData::Ptr ThisPtr() { return shared_from_this(); }
 
+        GLuint vaoId;
+        
+        bool bound;
+        
 		VertexBufferList buffers;
 		VertexAttribList attributes;
 		int numVertices;
@@ -70,9 +76,10 @@ namespace epsilon
 		bool hasIndices;
 
 		bool buffersBuilt;
-
-
-
+        
+    public:
+        // Tracking for the currently bound VAO - Temporary
+        static VertexData::Ptr currentlyBound;
 	};
 
 }

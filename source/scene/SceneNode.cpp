@@ -9,6 +9,7 @@
 #include "scene/SceneNode.h"
 #include "resource/ResourceManager.h"
 #include "script/ScriptManager.h"
+#include "render/RenderManager.h"
 #include <boost/format.hpp>
 
 using namespace boost;
@@ -96,7 +97,8 @@ namespace epsilon
 
 	Renderer::Ptr SceneNode::CreateRenderer()
 	{
-		renderer = Renderer::Create();
+        RenderManager * rm = &RenderManager::GetInstance();
+		renderer = rm->CreateRenderer();
 		AddComponent(renderer);
 		return renderer;
 	}

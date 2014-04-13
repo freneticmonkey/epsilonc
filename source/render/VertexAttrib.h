@@ -29,6 +29,7 @@ namespace epsilon
 
 		virtual bool Enable() = 0;
 		virtual void Disable() = 0;
+        virtual void Destroy() = 0;
 	};
 
 	template<class Type>
@@ -37,74 +38,24 @@ namespace epsilon
 	public:
 		typedef std::vector<Type> List;
 
-		VertexAttrib(List vData, VertexAttribType type)
-		{
-			data = vData;
-			attributeStride = -1;
-			attributeIndex = -1;
-			bufferStride = -1;
-
-			unitNum = 3;
-			unitType = GL_FLOAT;
-			switch(type)
-			{
-				case COLOUR:
-					unitNum = 4;
-					break;
-				case TEXCOORD:
-					unitNum = 2;
-					break;
-			}
-		}
-
+        VertexAttrib(List vData, VertexAttribType type);
 		~VertexAttrib() {}
 
 		size_t GetStride() { return attributeStride; }
-		size_t UpdateStride(size_t currentStride)
-		{
-			attributeStride = currentStride;
-			return currentStride + (sizeof(GLfloat) * unitNum);
-		}
+		size_t UpdateStride(size_t currentStride);
 
-		void SetBufferStride(size_t buffStride)
-		{
-			bufferStride = buffStride;
-		}
+		void SetBufferStride(size_t buffStride);
 
-		void SetAttribIndex(GLuint attribIndex)
-		{
-			attributeIndex = attribIndex;
-		}
+		void SetAttribIndex(GLuint attribIndex);
 
 		int GetUnitNum() { return unitNum; }
 		int DataLength() { return data.size(); }
 
 		float GetUnitValue(int i, int u) { return data[i][u]; }
 
-		bool Enable()
-		{
-            bool success = false;
-			if ( attributeStride != -1 )
-			{
-                glVertexAttribPointer(attributeIndex, unitNum, unitType, GL_FALSE, bufferStride, (GLvoid*)attributeStride);
-                success = CheckOpenGLError("Setting Vertex Attrib Pointer");
-                
-                if ( success )
-                {
-                    glEnableVertexAttribArray(attributeIndex);
-                    success = CheckOpenGLError("Enabling Vertex Attrib");
-                }
-			}
-            return success;
-		}
-
-		void Disable()
-		{
-			if ( attributeStride != -1 )
-			{
-				glDisableVertexAttribArray(attributeIndex);
-			}
-		}
+		bool Enable();
+		void Disable();
+        void Destroy();
 
 	private:
 		int unitNum;

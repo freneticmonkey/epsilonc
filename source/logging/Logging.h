@@ -25,7 +25,7 @@ namespace epsilon
 		std::string logName;
 	};
 
-	typedef std::list<LogListener::Ptr> LogListenerList;
+	typedef std::vector<LogListener::Ptr> LogListenerList;
 	typedef LogListenerList::iterator LogListenerIterator;
 
 	class LogStream
@@ -60,33 +60,33 @@ namespace epsilon
 	class Logger
 	{
 	public:
-		static void Log(std::string content);
-		static void Log(std::string logName, std::string content);
+		void Log(std::string content);
+		void Log(std::string logName, std::string content);
 		
-		static void addListener(LogListener::Ptr newListener);
-		static void removeListener(LogListener::Ptr rmListener);
+		void addListener(LogListener::Ptr newListener);
+		void removeListener(LogListener::Ptr rmListener);
 
 		// Used by the UI to ensure in-engine console is accurate
-		static LogList FlushInitLog();
-
-	private:
-		Logger();
-		~Logger();
-		static LogStream::Ptr GetLog(std::string loggerName);
-
-		static Logger& getInstance(void)
+		LogList FlushInitLog();
+        
+        static Logger & getInstance(void)
 		{
 			static Logger instance;
 			return instance;
 		}
+        
+	private:
+		Logger();
+		~Logger();
+		LogStream::Ptr GetLog(std::string loggerName);
 
-		// Do not implement these functions to prevent access outside 
+		// Do not implement these functions to prevent access outside
 		// of getInstance
 		Logger(Logger const&);
 		void operator=(Logger const&);
 
 		LogStreamMap logs;
-		LogListenerList * listeners;
+		LogListenerList listeners;
 
 		LogList initLog;
 		bool logInit;

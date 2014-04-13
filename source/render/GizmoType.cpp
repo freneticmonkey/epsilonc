@@ -41,6 +41,14 @@ namespace epsilon
 
 		currentOperations = !currentOperations;
 	}
+    
+    void GizmoType::Destroy()
+    {
+        if ( mesh )
+        {
+            mesh->Destroy();
+        }
+    }
 
 	void GizmoType::Draw(RenderStateStack::Ptr stateStack)
 	{

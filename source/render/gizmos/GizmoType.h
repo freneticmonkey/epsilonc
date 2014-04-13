@@ -22,6 +22,8 @@ namespace epsilon
 		virtual Matrix4 ExtractTransform(GizmoOperation::Ptr op) { return Matrix4();  };
 
 		void Draw(RenderStateStack::Ptr stateStack);
+        
+        void Destroy();
 
 		void QueueOperation(const GizmoOperation::Ptr op);
 

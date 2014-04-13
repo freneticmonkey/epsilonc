@@ -19,7 +19,7 @@ void initLogging()
 	// This is a virtual base class
 	class_<epsilon::LogListener, epsilon::LogListener::Ptr, boost::noncopyable>("LogListener", no_init);
 
-	void (*LogNamedContent)(std::string, std::string)= &epsilon::Logger::Log;
+	void (*LogNamedContent)(std::string, std::string)= &epsilon::Log;
 
 	class_<epsilon::Logger, boost::noncopyable>("Logger", no_init)
 		//.def("log", (void (Logger::*)(string, string) ) &Logger::Log, LoggerLog())

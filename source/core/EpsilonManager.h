@@ -29,6 +29,7 @@ namespace epsilon
 		void Setup(void);
 		void OnFrameStart(void);
 		void OnUpdate(float el);
+        void OnClose(void);
 		void Run(void);
 
 		void MeshTest(void);
@@ -36,6 +37,7 @@ namespace epsilon
 		void SetThreadEnable(bool enableThreads);
 
 	private:
+        Logger * logger;
 		ResourceManager * resourceManager;
 		EventManager * eventManager;
 		InputManager * inputManager;

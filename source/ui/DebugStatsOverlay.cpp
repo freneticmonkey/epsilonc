@@ -76,6 +76,11 @@ namespace epsilon
 		border[11].color = sf::Color(0, 255, 0, 150);
 
 	}
+    
+    void DebugStatsOverlay::Destroy()
+    {
+        
+    }
 
 	void DebugStatsOverlay::OnUpdate(float seconds)
 	{

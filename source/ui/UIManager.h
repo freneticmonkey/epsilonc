@@ -35,6 +35,7 @@ namespace epsilon
 		//void OnUpdate(sf::Time el);
 		void OnUpdate(float el);
 		void Draw(sf::RenderWindow * window);
+        void Destroy();
 
 		void AddUIOverlay(UIOverlay::Ptr newOverlay);
 		UIOverlay::Ptr GetOverlayByName(const std::string & name);

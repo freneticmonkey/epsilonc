@@ -20,6 +20,7 @@ namespace epsilon
 
 		bool Draw();
 		bool DrawOk() { return drawOk; }
+        void Destroy();
 
 		explicit Mesh(const private_struct &);
 		~Mesh(void);

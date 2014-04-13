@@ -21,6 +21,7 @@ namespace epsilon
 
 		void Setup(void);
 		void OnUpdate(float seconds);
+        void Destroy();
 
 		void OnButtonClick();
 		

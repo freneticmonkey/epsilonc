@@ -15,6 +15,14 @@ namespace epsilon
 	Mesh::~Mesh(void)
 	{
 	}
+    
+    void Mesh::Destroy()
+    {
+        if ( vd->HasBuiltBuffers())
+        {
+            vd->Destroy();
+        }
+    }
 	
 	bool Mesh::Draw()
 	{

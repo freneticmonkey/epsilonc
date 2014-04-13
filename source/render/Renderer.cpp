@@ -43,6 +43,11 @@ namespace epsilon
 	Renderer::~Renderer(void)
 	{
 	}
+    
+    void Renderer::Destroy()
+    {
+        mesh->Destroy();
+    }
 
 	void Renderer::Draw(RenderStateStack::Ptr stateStack)//Matrix4 viewMatrix, Matrix4 projMatrix)
 	{

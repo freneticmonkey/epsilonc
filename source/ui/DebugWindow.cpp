@@ -37,6 +37,11 @@ namespace epsilon
 		window->SetTitle(windowTitle);
 		window->Add(box);
 	}
+    
+    void DebugWindow::Destroy()
+    {
+        
+    }
 
 	void DebugWindow::OnUpdate(float seconds)
 	{

@@ -27,7 +27,7 @@ namespace epsilon
 		void Setup(void);
 		void Draw(RenderStateStack::Ptr stateStack);
 		void Update(float el);
-
+        void Destroy();
 		GizmoManager & AddGizmo(GizmoType * newGizmo);
 
 		// Draw Gizmos

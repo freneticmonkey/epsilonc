@@ -20,6 +20,8 @@ namespace epsilon
 		virtual void Setup(void) = 0;
 
 		virtual void OnUpdate(float seconds) = 0;
+        
+        virtual void Destroy() = 0;
 
 		sfg::Window::Ptr GetWindow() { return window; }
 		std::string GetName() { return name; }
