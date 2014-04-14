@@ -47,7 +47,7 @@ namespace epsilon
 
 		// Set Framerate limit to 60fps
 		window->setFramerateLimit(60);
-/*
+
 		font = new Font();
 
 //FIXME: This is the *worst*.  Fix ASAP after C++ ResourceManager is implemented.
@@ -64,12 +64,12 @@ namespace epsilon
 		else
 		{
 			// TODO: This needs to be moved into a UI Window with other debug info.
-//			fpsText = new Text(std::string("FPS: 0.0"), *font);
-//			fpsText->setColor(Color(255,255,255,170));
-//			fpsText->setPosition(700.f, 0.f);
-//			fpsText->setCharacterSize(16);
+			fpsText = new Text(std::string("FPS: 0.0"), *font);
+			fpsText->setColor(Color(255,255,255,170));
+			fpsText->setPosition(700.f, 0.f);
+			fpsText->setCharacterSize(16);
 		}
-*/
+
 		//window->setVerticalSyncEnabled(true);
 
 		// Initialising OpenGL
@@ -175,10 +175,10 @@ namespace epsilon
 		{
             std::string output = boost::str(format("FPS: %f") % GetFPS(el) );
 			
-            std::ostringstream sstr;
-			sstr << GetFPS(el);
-//			std::string output("FPS: ");
-			output += std::string(sstr.str());
+//            std::ostringstream sstr;
+//			sstr << GetFPS(el);
+////			std::string output("FPS: ");
+//			output += std::string(sstr.str());
 
 		//	fpsText->setString(output);
 			window->setTitle(output);
