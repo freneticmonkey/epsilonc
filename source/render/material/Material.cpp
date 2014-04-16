@@ -1,6 +1,10 @@
 #include "render/material/Material.h"
 #include <algorithm>
 
+#include <boost/format.hpp>
+
+using namespace boost;
+
 namespace epsilon
 {
 	Material::Ptr Material::Create()
@@ -64,14 +68,14 @@ namespace epsilon
 				{
 					// Try to get the first light uniform
 					LightUniforms uniforms;
-					uniforms.position = shader->GetUniform(Format("lights[%d].position", i));
+					uniforms.position = shader->GetUniform(boost::str(format("lights[%d].position") % i));
 
 					// If successfull get the rest and keep track of it.
 					if (uniforms.position)
 					{
-						uniforms.direction = shader->GetUniform(Format("lights[%d].direction", i));
-						uniforms.diffuse = shader->GetUniform(Format("lights[%d].diffuse", i));
-						uniforms.attenuation = shader->GetUniform(Format("lights[%d].attenuation, i"));
+						uniforms.direction = shader->GetUniform(boost::str(format("lights[%d].direction") % i));
+						uniforms.diffuse = shader->GetUniform(boost::str(format("lights[%d].diffuse") % i));
+						uniforms.attenuation = shader->GetUniform(boost::str(format("lights[%d].attenuation") % i));
 						lightUniforms.push_back(uniforms);
 					}
 				}

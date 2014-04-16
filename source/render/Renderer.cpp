@@ -1,6 +1,10 @@
 #include "render/Renderer.h"
 #include "render/material/MaterialManager.h"
 
+#include <boost/format.hpp>
+
+using namespace boost;
+
 namespace epsilon
 {
 	Renderer::Ptr Renderer::Create()
@@ -22,7 +26,7 @@ namespace epsilon
 	{
 		mesh = Mesh::Create();
 		//material = MaterialManager::GetInstance().GetMaterialByName("default";
-		std::string materialName = Format("Material_%d", GetId());
+        std::string materialName = boost::str(format("Material_%d") % GetId());
 		material = MaterialManager::GetInstance().CreateMaterial(materialName);
 	}
 
@@ -30,7 +34,7 @@ namespace epsilon
 	{
 		mesh = newMesh;
 		//material = MaterialManager::GetInstance().GetMaterialByName("default");
-		std::string materialName = Format("Material_%d", GetId());
+		std::string materialName = boost::str(format("Material_%d") % GetId());
 		material = MaterialManager::GetInstance().CreateMaterial(materialName);
 	}
 

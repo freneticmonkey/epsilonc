@@ -9,6 +9,10 @@
 #ifndef Epsilon_Rotation_h
 #define Epsilon_Rotation_h
 
+#include <boost/format.hpp>
+
+using namespace boost;
+
 struct AxisAngle
 {
     Vector3 axis;
@@ -23,7 +27,7 @@ struct AxisAngle
 	// To String
 	inline std::string ToString()
 	{
-		return Format("Axis: (x: %5.5f y: %5.5f z: %5.5f) Angle: %5.5f", axis.x, axis.y, axis.z, angle);
+        return boost::str(format("Axis: (%s) Angle: %5.5f") % axis.ToString() % angle);
 	}
 };
 

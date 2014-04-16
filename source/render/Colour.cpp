@@ -5,6 +5,8 @@
 #include "utilities/Utilities.h"
 #include "error/Exception.h"
 
+#include <boost/format.hpp>
+
 using namespace epsilon;
 
 Colour::Colour() : r(1.0f), g(1.0f), b(1.0f), a(1.0f)
@@ -100,7 +102,7 @@ float &Colour::operator[](int i)
 
 std::string Colour::ToString()
 {
-	return Format("r: %3.2f g: %3.2f b: %3.2f a: %1.1f", r, g, b, a);
+    return boost::str(format("r: %3.2f g: %3.2f b: %3.2f a: %1.1f") % r % g % b % a);
 }
 
 Colour Colour::FromHex(std::string hexStr)

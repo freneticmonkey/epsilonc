@@ -40,10 +40,12 @@ class ScriptCore(object):
 		# If Tilde is pressed toggle the console window
 		if Input.key_down(Input.Key.Tilde):
 			self._console_window.visible = not self._console_window.visible
+			print "Visible: " + self._console_window._visible
 
 	def on_destroy(self):
-		self._cm.save_configuration()
-
+		# self._cm.save_configuration()
+		pass
+		
 	def _init_resources(self):
 		self._rm = ResourceManager()
 		self._rm.add_handler(SceneResourceHandler())

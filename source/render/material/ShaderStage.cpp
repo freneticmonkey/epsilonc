@@ -65,8 +65,6 @@ namespace epsilon
         if ( canCompile != GL_FALSE)
         {
             // Build the source
-            //source	= Format("#version %d\n", version);
-            //source += Format("%s\n", materialDef.c_str());
             source = str(format("#version %d\n") % version);
             source += str(format("%s\n") % materialDef);
             source += readfile(GetFilepath().GetString());

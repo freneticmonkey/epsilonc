@@ -60,7 +60,7 @@ namespace epsilon
 		// Check if material with name already exists
 		if (materials.find(name) != materials.end())
 		{
-			Log("MaterialManager", Format("Error: Material with name: %s already exists.", name.c_str()));
+            Log("MaterialManager", boost::str(format("Error: Material with name: %s already exists.") % name ));
 		}
 		else
 		{
@@ -69,6 +69,8 @@ namespace epsilon
 			// Set the default shader
 			newMaterial->SetShader(shaders["default.shader"]);
 			materials[name] = newMaterial;
+            
+            Log("Created new material: " + name);
 		}
 		return newMaterial;
 	}

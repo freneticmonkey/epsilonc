@@ -90,46 +90,7 @@ namespace epsilon
 			formatted_list = format_exception(hexc,hval,htb);
 		//}
 
-		formatted = str("\n").join(formatted_list);
+		formatted = python::str("\n").join(formatted_list);
 		Log( extract<std::string>(formatted) );
 	}
-
-
-	//inline void PrintPythonError()
-	//{
-	//	// From: http://stackoverflow.com/a/1418703
-	//		
-	//	PyObject *ptype, *pvalue, *ptraceback;
-	//	PyErr_Fetch(&ptype, &pvalue, &ptraceback);
-
-	//	if ( ptype != NULL && pvalue != NULL && ptraceback != NULL )
-	//	{
-	//		handle<> hType(ptype);
-	//		object extype(hType);
-	//		handle<> hTraceback(ptraceback);
-	//		object traceback(hTraceback);
-
-	//		//Extract error message
-	//		std::string strErrorMessage = extract<std::string>(pvalue);
-
-	//		Log(Format("Python Load Error: %s", strErrorMessage));
-
-	//		//Extract line number (top entry of call stack)
-	//		// if you want to extract another levels of call stack
-	//		// also process traceback.attr("tb_next") recurently
-	//		long lineno = extract<long> (traceback.attr("tb_lineno"));
-	//		std::string filename = extract<string>(traceback.attr("tb_frame").attr("f_code").attr("co_filename"));
-	//		std::string funcname = extract<string>(traceback.attr("tb_frame").attr("f_code").attr("co_name"));
-
-	//		// Using c_str as python strings don't have a trailing \0 (c_str adds one)
-	//		Log(Format("%s: %s():%d", filename.c_str(), funcname.c_str(), lineno));
-
-	//		Py_XDECREF(ptype);
-	//		Py_XDECREF(pvalue);
-	//		Py_XDECREF(ptraceback);
-	//	}
-
-	//	// Print to stdout
-	//	PyErr_PrintEx(0);
-	//}
 }

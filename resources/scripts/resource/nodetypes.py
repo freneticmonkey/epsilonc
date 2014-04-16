@@ -287,22 +287,25 @@ class SceneMaterial(BaseXMLNode):
 
 			material = new_material
 
-		if "ambient" in xml_tag.attrib:
-			material.ambient = self.parse_colour(xml_tag, "ambient")
+		if not material is None:
+			if "ambient" in xml_tag.attrib:
+				material.ambient = self.parse_colour(xml_tag, "ambient")
 
-		if "diffuse" in xml_tag.attrib:
-			material.diffuse = self.parse_colour(xml_tag, "diffuse")
+			if "diffuse" in xml_tag.attrib:
+				material.diffuse = self.parse_colour(xml_tag, "diffuse")
 
-		if "specular" in xml_tag.attrib:
-			material.specular = self.parse_colour(xml_tag, "specular")
+			if "specular" in xml_tag.attrib:
+				material.specular = self.parse_colour(xml_tag, "specular")
 
-		if "shader" in xml_tag.attrib:
-			shader = MaterialManager.get_shader_by_name(xml_tag.attrib["shader"])
+			if "shader" in xml_tag.attrib:
+				shader = MaterialManager.get_shader_by_name(xml_tag.attrib["shader"])
 
-			if not shader is None:
-				material.shader = shader
-			else:
-				self.raise_parse_issue("Material with unknown shader: " + xml_tag.attrib["shader"])
+				if not shader is None:
+					material.shader = shader
+				else:
+					self.raise_parse_issue("Material with unknown shader: " + xml_tag.attrib["shader"])
+		else:
+			print "%s : doesn't have a material?" % scene_node.name 
 
 class SceneColour(BaseXMLNode):
 

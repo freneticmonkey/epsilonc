@@ -88,7 +88,7 @@ namespace epsilon
 		// if a new camera
 		if (!found)
 		{
-			Log(Format("Error setting active camera.  Unknown camera: %s", name.c_str()));
+			Log("Error setting active camera.  Unknown camera: " + name);
 		}
 	}
 

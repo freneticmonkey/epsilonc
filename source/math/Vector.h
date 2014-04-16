@@ -4,6 +4,10 @@
 #include <list>
 #include "utilities/Utilities.h"
 
+#include <boost/format.hpp>
+
+using namespace boost;
+
 using namespace epsilon;
 
 class Vector2
@@ -20,7 +24,7 @@ public:
 	// To String
 	inline std::string ToString() 
 	{
-		return Format("x: %5.5f y: %5.5f", x, y);
+		return boost::str(format("x: %5.5f y: %5.5f") % x % y);
 	}
 
 	// Assignment
@@ -198,7 +202,7 @@ public:
 	// To String
 	inline std::string ToString() 
 	{
-		return Format("x: %5.5f y: %5.5f z: %5.5f", x, y, z);
+        return boost::str(format("x: %5.5f y: %5.5f z: %5.5f") % x % y % z);
 	}
 
 	// Assignment
@@ -433,7 +437,7 @@ public:
 	// To String
 	inline std::string ToString() 
 	{
-		return Format("x: %5.5f y: %5.5f z: %5.5f w: %5.5f", x, y, z, w);
+        return boost::str(format("x: %5.5f y: %5.5f z: %5.5f w: %5.5f") % x % y % z % w);
 	}
     
 	// Assignment

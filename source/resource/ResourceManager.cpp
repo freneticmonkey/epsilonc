@@ -10,6 +10,10 @@
 #include "ResourceManager.h"
 #include "utilities/Utilities.h"
 
+#include <boost/format.hpp>
+
+using namespace epsilon;
+
 namespace epsilon
 {
 	ResourceManager::ResourceManager(void) :resourceId(0),
@@ -207,7 +211,7 @@ namespace epsilon
 		// If the Resource is not already in the CycleCheck vector
 		if (std::find(cycleCheck.begin(), cycleCheck.end(), resourceId) == cycleCheck.end())
 		{
-			Log("ResourceManager", Format("Change detected for resource: %s", resources[resourceId]->GetFilepath().GetString().c_str()));
+			Log("ResourceManager", "Change detected for resource: " + resources[resourceId]->GetFilepath().GetString());
 
 			// Add the current Resource to the cycle check list.
 			cycleCheck.push_back(resourceId);

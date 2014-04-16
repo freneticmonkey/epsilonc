@@ -3,6 +3,10 @@
 #include <ostream>
 #include "utilities/Utilities.h"
 
+#include <boost/format.hpp>
+
+using namespace boost;
+
 namespace epsilon
 {
 
@@ -13,7 +17,7 @@ namespace epsilon
 	
 		BoundaryException(std::string className, int access, int max)
 		{
-			msg = Format("%s: Boundary error. Max: %d Accessed: %d", className.c_str(), max, access);
+            msg = boost::str(format("%s: Boundary error. Max: %d Accessed: %d") % className % max % access );
 		}
         
         virtual ~BoundaryException() throw() {}

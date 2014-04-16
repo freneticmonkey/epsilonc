@@ -174,16 +174,8 @@ namespace epsilon
         if ( fpsText )
 		{
             std::string output = boost::str(format("FPS: %f") % GetFPS(el) );
-			
-//            std::ostringstream sstr;
-//			sstr << GetFPS(el);
-////			std::string output("FPS: ");
-//			output += std::string(sstr.str());
-
-		//	fpsText->setString(output);
 			window->setTitle(output);
-
-		//	window->draw(*fpsText);
+			window->draw(*fpsText);
 		}
         window->popGLStates();
         

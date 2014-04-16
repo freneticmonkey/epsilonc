@@ -166,7 +166,7 @@ void initMath()
 
 	scope mathScope = mathModule;
 
-	class_<Vector2>("Vector2", init< optional<float> >())
+	class_<Vector2>("Vector2", init< python::optional<float> >())
 			.def(init<Vector2>())
 			.def(init<float,float>())
 	
@@ -209,7 +209,7 @@ void initMath()
 		.def("compute_extremes", &Vector2::ComputeExtremes, return_value_policy<manage_new_object>())
 		;
 
-	class_<Vector3>("Vector3", init< optional<float> >())
+	class_<Vector3>("Vector3", init< python::optional<float> >())
 			.def(init<Vector3>())
 			.def(init<float,float,float>())
 	
@@ -271,7 +271,7 @@ void initMath()
 		.def_readonly("UNIT_X", &Vector3::UNIT_X)
 		;
 
-	class_<Vector4>("Vector4", init< optional<float> >())
+	class_<Vector4>("Vector4", init< python::optional<float> >())
 			.def(init<Vector4>())
 			.def(init<float,float,float,float>())
 	

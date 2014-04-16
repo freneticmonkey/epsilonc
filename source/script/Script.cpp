@@ -1,5 +1,6 @@
 #include "script/Script.h"
 #include "script/ScriptCommon.h"
+#include <boost/format.hpp>
 
 namespace epsilon
 {
@@ -231,7 +232,8 @@ namespace epsilon
 				default:
 					break;
 			}
-			Log(Format("%s method not found in script: %s", funcName.c_str(), scriptName.c_str()));
+            Log(boost::str(format("%s method not found in script: %s") % funcName.c_str() % scriptName.c_str()));
+            
 		}
 		return targetFunction;
 	}

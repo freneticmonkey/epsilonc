@@ -1,6 +1,10 @@
 #include "script/ScriptManager.h"
 #include "utilities/Utilities.h"
 
+#include <boost/format.hpp>
+
+using namespace boost;
+
 namespace epsilon
 {
 	ScriptManager::ScriptManager() : scriptsFolderPath("resources/scripts/"),
@@ -76,7 +80,7 @@ namespace epsilon
 
 			// Insert the scripts path into the Python sys.path
 			object cwd = import("os").attr("getcwd");
-			import("sys").attr("path").attr("insert")(0, cwd() + "/" + str(scriptsFolderPath.c_str()));
+			import("sys").attr("path").attr("insert")(0, cwd() + "/" + python::str(scriptsFolderPath.c_str()));
 
 			// Get Module Global namespace
 			pythonGlobalModule = import("__main__");
@@ -280,7 +284,7 @@ namespace epsilon
 			// Swap the queues
 			currentChangedQueue = !currentChangedQueue;
 
-			Log("ScriptManager", Format("Refreshing Scripts: #: %d", resourceChangedQueue[!currentChangedQueue].size()));
+			Log("ScriptManager", boost::str(format("Refreshing Scripts: #: %d") % resourceChangedQueue[!currentChangedQueue].size()));
 
 			// Firstly check if the ScriptEngineCore needs to be refreshed.
 			if (std::find(resourceChangedQueue[!currentChangedQueue].begin(), resourceChangedQueue[!currentChangedQueue].end(), engineCoreScript->GetResourceId()) != resourceChangedQueue[!currentChangedQueue].end())
