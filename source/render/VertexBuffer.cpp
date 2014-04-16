@@ -11,7 +11,7 @@
 namespace epsilon
 {
     template<class Type>
-    VertexBuffer<Type>::VertexBuffer(VertexBuffer::List data, VertexBufferType type)
+	VertexBuffer<Type>::VertexBuffer(std::vector<Type> data, VertexBufferType type)
     {
         bufferId = 0;
         bufferSize = -1;
