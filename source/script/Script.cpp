@@ -1,6 +1,11 @@
 #include "script/Script.h"
 #include "script/ScriptCommon.h"
+#include "resource/ResourceManager.h"
+
 #include <boost/format.hpp>
+#include <boost/filesystem.hpp>
+
+using namespace boost;
 
 namespace epsilon
 {
@@ -13,7 +18,7 @@ namespace epsilon
 
 	Script::Ptr Script::CreateFromFile(std::string filename)
 	{
-		return std::make_shared<Script>(private_struct(), filename, ScriptSource::FILE);
+        return std::make_shared<Script>(private_struct(), filename, ScriptSource::FILE);
 	}
 
 	Script::Ptr Script::CreateFromText(std::string scriptString)
@@ -51,6 +56,10 @@ namespace epsilon
 			objectName = filename.substr(spos + 1, std::string::npos);
 		}
 		objectName = filename;
+        
+        filename = ResourceManager::GetInstance().GetResourceFullPath(filename);
+        UpdateResourceFilename(filename);
+        
 	}
 
 	Script::Script(const private_struct &, std::string scriptString, ScriptSource source) : NodeComponent("Script"),
@@ -59,17 +68,23 @@ namespace epsilon
 																							compileError(false),
 																							Resource("", ResourceType::Type::SCRIPT)
 	{
-		switch(scriptSource)
+        switch(scriptSource)
 		{
 			case ScriptSource::FILE:
-				filename = scriptString;
+            {
+                filename = scriptString;
 				text = "";
 				break;
+            }
 			case ScriptSource::TEXT:
+            {
 				filename = "";
 				text = scriptString;
 				
 				break;
+            }
+            default:
+                break;
 		}
 
 		// Name the script
@@ -84,6 +99,10 @@ namespace epsilon
 				objectName = scriptString.substr(spos+1, std::string::npos);
 			}
 			objectName = scriptString;
+            
+            // Ensure that the Resource base class has an absolute filename
+            filename = ResourceManager::GetInstance().GetResourceFullPath(filename);
+            UpdateResourceFilename(filename);
 		}
 		else
 		{
@@ -262,16 +281,18 @@ namespace epsilon
 			return std::string("None");
 		}
 	}
-
+/*
 	Script::Ptr Script::SetScriptFile(std::string scriptFilename)
 	{
-		filename = scriptFilename;
+		// Ensuring that the path to the script is absolute
+        filename = ResourceManager::GetInstance().GetResourceFullPath(scriptFilename);
+        
 		// Clear text in preparation for next init
 		text = "";
 		scriptSource = ScriptSource::FILE;
 		return ThisPtr();
 	}
-
+*/
 	Script::Ptr Script::SetScriptText(std::string scriptText)
 	{
 		text = scriptText;

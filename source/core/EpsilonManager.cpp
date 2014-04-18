@@ -21,6 +21,11 @@ namespace epsilon
 	EpsilonManager::~EpsilonManager(void)
 	{
 	}
+    
+    void EpsilonManager::SetBasePath(std::string bp)
+    {
+        basepath = bp;
+    }
 
 	void EpsilonManager::SetThreadEnable(bool enableThreads)
 	{
@@ -33,6 +38,10 @@ namespace epsilon
         
 		Log("Initialising Epsilon Manager");
 		resourceManager = &ResourceManager::GetInstance();
+        if (basepath != "")
+        {
+            resourceManager->SetBasePath(basepath);
+        }
 		resourceManager->BuildResourceInfo();
 
 		eventManager = &EventManager::GetInstance();

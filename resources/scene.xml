@@ -39,25 +39,19 @@
 	</node>
 
 	
-	<node name="cam_pos">
+	<node name="camera_pos">
 		<transform position="0 1 -8"/>
 		<children>
-			<node name="cam_yaw">
-				<children>
-					<node name="cam_pitch">
-						<!--<camera name="scene_cam" from="0 1 -8" to="0 1 0" active="True"/>-->
-						<camera name="scene_cam" active="True"/>
-						<scripts>
-							<script filename="resources/scripts/CameraBehaviour.py"/>
-						</scripts>
-					</node>
-				</children>
+			<node name="camera_node">
+				<camera name="scene_cam" active="True"/>
+				<scripts>
+					<script filename="resources/scripts/CameraBehaviour.py"/>
+				</scripts>
 			</node>
 		</children>
 	</node>
 
 	<node>
-		
 		<scripts>
 			<script filename="resources/scripts/RotationTest.py"/>
 		</scripts>

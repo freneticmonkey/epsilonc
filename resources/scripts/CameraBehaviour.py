@@ -26,9 +26,15 @@ class CameraBehaviour(object):
 		self._h = 0
 		
 	def on_start(self):
-		self._pos = self.node.transform.position
-		self._control = self.node.transform.parent_transform.parent
-		self._control.transform.position = Vector3(0,1,-18)
+		
+		n = self.node
+		while not n is None:
+			print n.name
+			print n.transform.position
+			if not n.transform.parent_transform is None:
+				n = n.transform.parent_transform.parent
+			else:
+				break
 
 		# Convert to radians
 		self._angle_speed *= (math.pi / 180.0)
@@ -52,11 +58,11 @@ class CameraBehaviour(object):
 		# Gizmos.draw_sphere(pos, 0.1)
 
 		# if the right mouse button is down, active cam controls
-		if Input.mouse_button(Input.Button.Left):
+		if Input.mouse_button(Input.Button.Right):
 			Input.mouse_visible(False)
 			self._was_down = True
 
-			if Input.mouse_button_down(Input.Button.Left):
+			if Input.mouse_button_down(Input.Button.Right):
 				Input.set_mouse_position(self._middle)
 
 			self.movement(dt)
@@ -77,18 +83,12 @@ class CameraBehaviour(object):
 		self._h += (mouse_pos.x / WIDTH) * angle * self._mouse_speed_x
 		self._v += (mouse_pos.y / HEIGHT) * angle * self._mouse_speed_y
 
-		self.node.transform.fps(self._control.transform.position, self._v, self._h)
-		# self.node.transform.fps(self._control.transform.position, self._v, self._h)
-		# print self.node.transform.forward
-		# self._control.transform.local_orientation = self.node.transform.orientation
+		self.node.transform.fps(self.node.transform.parent_transform.position, self._v, self._h)
 	
 	def movement(self, dt):
 		applied_speed = self._speed
 
 		viewMat = self.node.camera.get_view_matrix()
-		# right 	= Vector3(viewMat[0], -viewMat[4], viewMat[8])
-		# up 		= Vector3(viewMat[1], -viewMat[5], viewMat[9])
-		# forward = Vector3(viewMat[2], -viewMat[6], viewMat[10])
 		right = self.node.transform.right
 		forward = self.node.transform.forward
 		up = self.node.transform.up
@@ -99,33 +99,28 @@ class CameraBehaviour(object):
 			print "right: " + str(right)
 			print "up: " + str(up)
 			print "forward: " + str(forward)
+			print "pos: " + str(self.node.transform.parent_transform.position)
 
 		if Input.key(Input.Key.LShift):
 				applied_speed *= 10.0
 
 		if Input.key(Input.Key.A):
-			self._control.transform.translate(right * applied_speed * dt)
-			# self._control.transform.translate(-Vector3.RIGHT * applied_speed * dt)
+			self.node.transform.parent_transform.translate(Vector3.RIGHT * applied_speed * dt)
 			
 		if Input.key(Input.Key.D):
-			self._control.transform.translate(-right * applied_speed * dt )
-			# self._control.transform.translate(Vector3.RIGHT * applied_speed * dt )
+			self.node.transform.parent_transform.translate(-Vector3.RIGHT * applied_speed * dt )
 			
 		if Input.key(Input.Key.W):
-			self._control.transform.translate(-forward * applied_speed * dt )
-			# self._control.transform.translate(Vector3.FORWARD * applied_speed * dt )
+			self.node.transform.parent_transform.translate(-Vector3.FORWARD * applied_speed * dt )
 
 		if Input.key(Input.Key.S):
-			self._control.transform.translate(forward * applied_speed * dt )
-			# self._control.transform.translate(-Vector3.FORWARD * applied_speed * dt )
+			self.node.transform.parent_transform.translate(Vector3.FORWARD * applied_speed * dt )
 
 		if Input.key(Input.Key.E):
-			self._control.transform.translate(up * applied_speed * dt )
-			# self._control.transform.translate(Vector3.UP * applied_speed * dt )
+			self.node.transform.parent_transform.translate(Vector3.UP * applied_speed * dt )
 
 		if Input.key(Input.Key.C):
-			self._control.transform.translate(-up * applied_speed * dt )
-			# self._control.transform.translate(-Vector3.UP * applied_speed * dt )
+			self.node.transform.parent_transform.translate(-Vector3.UP * applied_speed * dt )
 
 	def on_destroy(self):
 		pass

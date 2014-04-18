@@ -57,7 +57,7 @@ namespace epsilon
 		// These functions might be the wrong way of going about things
 		// Maybe scripts should only be created. If the source
 		// changes, then create a new script? - Think about script names...
-		Script::Ptr SetScriptFile(std::string scriptFilename);
+		//Script::Ptr SetScriptFile(std::string scriptFilename);
 		Script::Ptr SetScriptText(std::string scriptText);
 
 		// Allow access to the script object rather than exposing all of the 

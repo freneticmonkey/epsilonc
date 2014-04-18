@@ -25,7 +25,9 @@ namespace epsilon
 	public:
 		EpsilonManager(void);
 		~EpsilonManager(void);
-
+        
+        void SetBasePath(std::string bp);
+        
 		void Setup(void);
 		void OnFrameStart(void);
 		void OnUpdate(float el);
@@ -64,6 +66,8 @@ namespace epsilon
 		sf::Clock  eventsClock;
 
 		bool	   threadEnable;
+        
+        std::string basepath;
 	};
 }
 

@@ -21,6 +21,11 @@ namespace epsilon
 	{
 
 	}
+    
+    void Resource::UpdateResourceFilename(std::string updatedFilename)
+    {
+        filepath = HashedString(filesystem::path(updatedFilename).make_preferred().string());
+    }
 	
 	void Resource::AddOwner(long owner)
 	{

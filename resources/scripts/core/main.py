@@ -29,6 +29,7 @@ class ScriptCore(object):
 		# Hide the console window by default
 		self._console_window = UIManager.get_window("console")
 		
+
 		if not self._console_window is None:
 			self._console_window.visible = False
 
@@ -50,8 +51,13 @@ class ScriptCore(object):
 		
 	def _init_resources(self):
 		self._rm = ResourceManager()
-		self._rm.add_handler(SceneResourceHandler())
-		self._rm.init()
+		# self._rm.add_handler(SceneResourceHandler())
+		# self._rm.init()
+
+		self._sr = SceneResourceHandler()
+		self._scene = self._sr.process_resource("scene.xml", True)
+		print "After scene init"
+		# self._rm.process_resource("scene.xml")
 
 # For Epsilon Access
 _instance = ScriptCore()

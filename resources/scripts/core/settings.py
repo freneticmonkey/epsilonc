@@ -11,7 +11,7 @@ class Settings(BaseSingleton):
         self.settings = {
             'ResourceSettings' : 
             {
-                'path' : 'resources'
+                'path' : ''
             }
         }
 

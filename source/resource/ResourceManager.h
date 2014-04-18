@@ -57,7 +57,9 @@ namespace epsilon
         }
         ~ResourceManager(void);
 
-		void SetBasePath(std::string basepath);
+		void        SetBasePath(std::string basepath);
+        std::string GetBasePath() { return basepath; }
+        std::string GetResourceFullPath(std::string resourceRelativePath);
 
 		/*
 		 * Build the initial map of resources in the resources folder

@@ -70,6 +70,10 @@ namespace epsilon
 		void SetReloaded() { lastModified = modifiedTime; }
         
 		// TODO!: Add file reading writing functionality in here. :)
+    protected:
+        // This is used solely by inherited classes to override filenames in constructors
+        // if some manipulation (e.g. make path absolute) needs to occur.
+        void UpdateResourceFilename(std::string updatedFilename);
 
     private:
         OwnerIds		ownerIds;

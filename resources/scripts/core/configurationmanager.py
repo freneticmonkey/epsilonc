@@ -16,7 +16,7 @@ class ConfigurationManager(BaseSingleton):
 
     def __init__(self):
         self._filename = 'settings.cfg'
-        self._filepath = os.path.join(os.getcwd(), self._filename)
+        self._filepath = os.path.join(os.getcwd(),"..", self._filename)
 
         self._config_exists = os.path.exists(self._filepath)
 

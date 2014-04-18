@@ -1,5 +1,6 @@
 #include "script/ScriptManager.h"
 #include "utilities/Utilities.h"
+#include "resource/ResourceManager.h"
 
 #include <boost/format.hpp>
 
@@ -7,7 +8,7 @@ using namespace boost;
 
 namespace epsilon
 {
-	ScriptManager::ScriptManager() : scriptsFolderPath("resources/scripts/"),
+	ScriptManager::ScriptManager() : scriptsFolderPath("/scripts/"),
 									 stdErrListener("error"), 
 									 stdOutListener(""),
 									 engineCoreScript(ScriptEngineCore::Create()),
@@ -78,10 +79,13 @@ namespace epsilon
 			PyEval_InitThreads();
 			gilLockCount = 1;
 
-			// Insert the scripts path into the Python sys.path
-			object cwd = import("os").attr("getcwd");
-			import("sys").attr("path").attr("insert")(0, cwd() + "/" + python::str(scriptsFolderPath.c_str()));
-
+			// Insert the resources/scripts path into the Python sys.path
+			std::string resourcePath = ResourceManager::GetInstance().GetBasePath() + scriptsFolderPath;
+            import("sys").attr("path").attr("insert")(0, python::str(resourcePath.c_str()));
+            
+            // Also change the python cwd to the resources folder
+            import("os").attr("chdir")(python::str(ResourceManager::GetInstance().GetBasePath()));
+            
 			// Get Module Global namespace
 			pythonGlobalModule = import("__main__");
 			pythonGlobalNamespace = extract<dict>(pythonGlobalModule.attr("__dict__"));

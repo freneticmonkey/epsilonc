@@ -21,8 +21,9 @@ namespace epsilon
 											checkFrequency(1.0f), 
 											elSinceCheck(0.f),
 											// hardcoded to resources for now.
-											basepath("resources")
-    {        
+											basepath("")
+    {
+        basepath = filesystem::initial_path().string() + "/resources";
     }
     
     ResourceManager::~ResourceManager(void)
@@ -31,8 +32,52 @@ namespace epsilon
 
 	void ResourceManager::SetBasePath(std::string newBasepath)
 	{
-		basepath = newBasepath;
+        // Ensure that the new base path is absolute
+        filesystem::path bp(newBasepath);
+        if ( !bp.is_absolute() )
+        {
+            bp = filesystem::canonical(bp);
+        }
+		basepath = bp.string();
+        Log("ResourceManager", "Basepath: " + basepath);
 	}
+    
+    std::string ResourceManager::GetResourceFullPath(std::string resourceRelativePath)
+    {
+        std::string fullpath;
+        
+        filesystem::path bp(basepath);
+        filesystem::path rPath(resourceRelativePath);
+        
+        // If the path includes the resources folder, remove the resources folder from the path.
+        if ( (*rPath.begin()).string() == "resources" )
+        {
+            filesystem::path temp;
+            
+            for (filesystem::path::iterator it = (++rPath.begin()); it != rPath.end(); it++)
+            {
+                temp /= *it;
+            }
+            rPath = temp;
+        }
+        
+        // Check if the path is a sub path under the resource folder.
+        filesystem::path rFolder = bp / (*rPath.begin());
+        if ( filesystem::exists(rFolder) )
+        {
+            // build the final path
+            fullpath = filesystem::complete(bp / rPath).string();
+            Log("ResourceManager", "Resolved Resource Path: " + fullpath );
+        }
+        else
+        {
+            rPath = filesystem::complete(bp / rPath);
+            Log("ResourceManager", "Error Resolving Resource Path. Path doesn't exist: " + rPath.string() );
+            fullpath = "error";
+        }
+        return fullpath;
+        
+    }
 
 	void ResourceManager::BuildResourceInfo()
 	{
@@ -51,6 +96,13 @@ namespace epsilon
 		// currently can't generate an id or check its state, so it isn't handled
 		if (newResource->GetFilepath().GetString().length() > 0)
 		{
+            // Make the path to the resource absolute (if it isn't already)
+            filesystem::path resPath(newResource->GetFilepath().GetString());
+            if ( !resPath.is_absolute() )
+            {
+                newResource->filepath = HashedString(GetResourceFullPath(newResource->GetFilepath().GetString()));
+            }
+            
 			// Use the filepath hash as the Resource id.
 			if (resources.find(newResource->GetResourceId()) == resources.end())
 			{
@@ -67,7 +119,7 @@ namespace epsilon
 				// Replace existing resource with the new resource in the resource map
 				resources[newResource->GetResourceId()] = newResource;
 
-//				Log("ResourceManager", "Registering Resource from Manager: " + newResource->GetFilepath().GetString());
+				Log("ResourceManager", "Registering Resource from Manager: " + newResource->GetFilepath().GetString());
 			}
 		}
     }
@@ -160,7 +212,7 @@ namespace epsilon
 					AddResource(newResource);
 
 					// Display debug
-//					Log("ResourceManager", "Found Resource: " + std::string(dir_itr->path().string()));
+					Log("ResourceManager", "Found Resource: " + std::string(dir_itr->path().string()));
 				}
 			}
 			catch (const std::exception & ex)
