@@ -57,9 +57,11 @@
 	</node>
 
 	<node>
+		
 		<scripts>
 			<script filename="resources/scripts/RotationTest.py"/>
 		</scripts>
+		
 		<children>
 			<node name="scene_light">
 				<light name="a_light" diffuse="1.0 1.0 1.0 1.0" attenuation="0 0 0.002"/>
@@ -70,6 +72,7 @@
 			</node>		
 		</children>
 	</node>
+
 
 	<node name="box">
 		<node name="wall_1">

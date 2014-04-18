@@ -11,20 +11,14 @@ class MyBehaviour(object):
 	
 	def __init__(self):
 		self._sphere_trans = None
-		self._pos = Vector3.ZERO
+		# Wow.  Setting a const value here (Vector3.ZERO) crashes on OSX.... prob related to trying to set a value
+		# to a const object
+		self._pos = Vector3(0)
 		self._cycle = CycleValue()
 		self._init_pos = 0
 
 	def on_start(self):
-		#return
-		# sm = SceneManager.get_instance()
-		# scene = sm.current_scene()
-		# root = scene.root()
-
-		# self._sphere_trans = root.transform.find_child_with_name("sphere")
-		#self._init_pos = self._sphere_trans.get_position().x
 		self._init_pos = self.node.transform.position.x
-
 		colour = self.node.renderer.material.diffuse
 		print colour
 		if colour != Colour.YELLOW:

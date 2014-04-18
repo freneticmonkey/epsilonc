@@ -52,11 +52,11 @@ class CameraBehaviour(object):
 		# Gizmos.draw_sphere(pos, 0.1)
 
 		# if the right mouse button is down, active cam controls
-		if Input.mouse_button(Input.Button.Right):
+		if Input.mouse_button(Input.Button.Left):
 			Input.mouse_visible(False)
 			self._was_down = True
 
-			if Input.mouse_button_down(Input.Button.Right):
+			if Input.mouse_button_down(Input.Button.Left):
 				Input.set_mouse_position(self._middle)
 
 			self.movement(dt)

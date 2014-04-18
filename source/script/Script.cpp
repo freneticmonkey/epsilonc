@@ -232,7 +232,7 @@ namespace epsilon
 				default:
 					break;
 			}
-            Log(boost::str(format("%s method not found in script: %s") % funcName.c_str() % scriptName.c_str()));
+//            Log(boost::str(format("%s method not found in script: %s") % funcName.c_str() % scriptName.c_str()));
             
 		}
 		return targetFunction;

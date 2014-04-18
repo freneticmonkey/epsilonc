@@ -50,12 +50,9 @@ namespace epsilon
 
 		font = new Font();
 
-//FIXME: This is the *worst*.  Fix ASAP after C++ ResourceManager is implemented.
-#ifdef __APPLE__
-        std::string fontPath = "/Users/scottporter/Development/Projects/C++/epsilonc/resources/sansation.ttf";
-#else
+//FIXME: This is the *worst*.  UI only on Windows build for now.
+#ifndef __APPLE__
         std::string fontPath = "resources/sansation.ttf";
-#endif
 		
         if (!font->loadFromFile(fontPath))
 		{
@@ -69,7 +66,7 @@ namespace epsilon
 			fpsText->setPosition(700.f, 0.f);
 			fpsText->setCharacterSize(16);
 		}
-
+#endif
 		//window->setVerticalSyncEnabled(true);
 
 		// Initialising OpenGL
@@ -110,9 +107,7 @@ namespace epsilon
 	//void RenderManager::Draw(sf::Time el)
 	void RenderManager::Draw(float el)
 	{
-        bool checkOGLErrors = false;
-		
-		// Make this window active
+        // Make this window active
 		window->setActive(true);
 
 		// Clear the window
@@ -120,17 +115,6 @@ namespace epsilon
 
         // Reset any render states
 		stateStack->Reset();
-
-		// Enable Z-buffer read and write
-        if ( checkOGLErrors )
-        {
-            CheckOpenGLError("Window cleared");
-        }
-        else
-        {
-            // Clear errors to be sure we get real errors
-            glGetError();
-        }
         
 		glEnable(GL_DEPTH_TEST);
 		glDepthMask(GL_TRUE);
@@ -138,83 +122,33 @@ namespace epsilon
         
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        if ( checkOGLErrors )
-        {
-            CheckOpenGLError("Clear Screen");
-        }
-        else
-        {
-            // Clear errors before drawing to be sure we get real errors
-            glGetError();
-        }
-        
 		// Do OpenGL drawing here.
 		if (sceneManager)
 		{
 			sceneManager->Draw(stateStack);
 		}
         
-        if ( checkOGLErrors )
-        {
-            Log("==== After Draw ==== ");
-        }
-		window->pushGLStates();
-        
-        if ( checkOGLErrors )
-        {
-            CheckOpenGLError("Push GL States");
-        }
-		window->resetGLStates();
-        
-        if ( checkOGLErrors )
-        {
-            CheckOpenGLError("Post draw window reset");
-        }
+        std::string output = boost::str(format("Epsilon - FPS: %f") % GetFPS(el) );
+        window->setTitle(output);
         
         if ( fpsText )
 		{
-            std::string output = boost::str(format("FPS: %f") % GetFPS(el) );
-			window->setTitle(output);
-			window->draw(*fpsText);
+            window->pushGLStates();
+            window->resetGLStates();
+            window->draw(*fpsText);
+            window->popGLStates();
 		}
-        window->popGLStates();
         
-        if ( checkOGLErrors )
-        {
-            CheckOpenGLError("Pop States");
-        }
-        else
-        {
-            // Clear errors before drawing gizmos to be sure we get real errors
-            glGetError();
-        }
-        
-		// Draw the Gizmos
+        // Draw the Gizmos
 		// Setup the Camera and Projection Matrix
 		stateStack->State()->view = sceneManager->CurrentScene()->GetActiveCamera()->GetViewMatrix();
 		stateStack->State()->projection = sceneManager->CurrentScene()->GetActiveCamera()->GetProjectionMatrix();
 		gizmoManager->Draw(stateStack);
 		
-        if ( checkOGLErrors )
-        {
-            CheckOpenGLError("Gizmos Drawn");
-            // FIXME: Should be a manager?
-    //        if ( VertexData::currentlyBound )
-    //        {
-    //            VertexData::currentlyBound->Disable();
-    //        }
-        
-            Log("==== After Gizmo Draw ==== ");
-        }
-		
         // Draw the GUI
 		if ( uiManager )
 		{
 			uiManager->Draw(window);
-            if ( checkOGLErrors )
-            {
-                CheckOpenGLError("UI Drawn");
-            }
 		}
         
 		// Display the frame
@@ -287,10 +221,14 @@ namespace epsilon
     
 	void RenderManager::SetUIManager(UIManager * uim)
 	{
+        
+#ifndef __APPLE__
+        // Disable setting the UIManager on OSX as the UI isn't working.
 		if ( uim )
 		{
 			uiManager = uim;
 		}
+#endif
 	}
 
 	float RenderManager::GetFPS(float el)

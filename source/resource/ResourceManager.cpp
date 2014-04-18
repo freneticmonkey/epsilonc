@@ -67,7 +67,7 @@ namespace epsilon
 				// Replace existing resource with the new resource in the resource map
 				resources[newResource->GetResourceId()] = newResource;
 
-				Log("ResourceManager", "Registering Resource from Manager: " + newResource->GetFilepath().GetString());
+//				Log("ResourceManager", "Registering Resource from Manager: " + newResource->GetFilepath().GetString());
 			}
 		}
     }
@@ -160,7 +160,7 @@ namespace epsilon
 					AddResource(newResource);
 
 					// Display debug
-					Log("ResourceManager", "Found Resource: " + std::string(dir_itr->path().string()));
+//					Log("ResourceManager", "Found Resource: " + std::string(dir_itr->path().string()));
 				}
 			}
 			catch (const std::exception & ex)

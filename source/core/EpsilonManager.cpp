@@ -54,7 +54,9 @@ namespace epsilon
 		// Create and Register Gizmos
 		gizmoManager = &GizmoManager::GetInstance();
 		gizmoManager->Setup();
-		
+        
+#ifndef __APPLE__
+        // No graphs on OSX due to the UI being OpenGL 2 and everything being sad :'(
 		ConsoleWindow::Ptr consoleWindow = ConsoleWindow::Create();
 		consoleWindow->Setup();
 		uiManager->AddUIWindow(consoleWindow);
@@ -76,7 +78,7 @@ namespace epsilon
 
 		eventsGraph = debugStatsOverlay->CreateGraph("events");
 		eventsGraph->SetColour(Colour::ORANGE);
-
+#endif
 		sceneManager = &SceneManager::GetInstance();
 		sceneManager->Setup();
 
@@ -144,11 +146,13 @@ namespace epsilon
 		else
 		{
 			EventManager::ProcessEvents(0.f);
+            resourceManager->Update(el);
 			scriptManager->Update(el);
 			sceneManager->Update(el);
 			sceneManager->Cull();
 		}
-		gizmoManager->Update(el);
+		// The following managers currently don't support running in parallel due to OpenGL or whatever.
+        gizmoManager->Update(el);
 		sceneManager->Update(el);
 		sceneManager->Cull();
 
@@ -156,7 +160,10 @@ namespace epsilon
 		uiManager->OnUpdate(el);
 		renderClock.restart();
 		renderManager->Draw(el);
-		renderGraph->AddValue(renderClock.getElapsedTime().asMilliseconds());
+        if ( renderGraph )
+        {
+            renderGraph->AddValue(renderClock.getElapsedTime().asMilliseconds());
+        }
 	}
     
     void EpsilonManager::OnClose(void)
@@ -212,8 +219,10 @@ namespace epsilon
 			
 			float el = clock.getElapsedTime().asMilliseconds();
 			
-			fpsGraph->AddValue(el);
-
+            if ( fpsGraph )
+            {
+                fpsGraph->AddValue(el);
+            }
 
 			// Restart timing for next sequence
 			clock.restart();

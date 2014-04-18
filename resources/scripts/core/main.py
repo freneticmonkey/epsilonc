@@ -28,7 +28,9 @@ class ScriptCore(object):
 
 		# Hide the console window by default
 		self._console_window = UIManager.get_window("console")
-		self._console_window.visible = False
+		
+		if not self._console_window is None:
+			self._console_window.visible = False
 
 	def on_update(self, dt):
 		
