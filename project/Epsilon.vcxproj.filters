@@ -215,6 +215,12 @@
     <ClCompile Include="..\source\scene\SceneNode.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\render\VertexAttrib.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\VertexBuffer.cpp">
+      <Filter>Source Files\render</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\EpsilonCore.h">

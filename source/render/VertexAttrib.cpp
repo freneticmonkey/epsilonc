@@ -3,7 +3,7 @@
 namespace epsilon
 {
     template<class Type>
-    VertexAttrib<Type>::VertexAttrib(VertexAttrib::List vData, VertexAttribType type)
+	VertexAttrib<Type>::VertexAttrib(std::vector<Type> vData, VertexAttribType type)
     {
         data = vData;
         attributeStride = -1;
