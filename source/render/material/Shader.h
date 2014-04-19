@@ -79,6 +79,7 @@ namespace epsilon
 		GLuint positionUnf;
 		GLuint rotationUnf;
 
+        GLuint modelMatUnf;
 		GLuint viewMatUnf;
 		GLuint projMatUnf;
 

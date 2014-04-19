@@ -19,13 +19,13 @@ class MyBehaviour(object):
 
 	def on_start(self):
 		self._init_pos = self.node.transform.position.x
-		colour = self.node.renderer.material.diffuse
-		print colour
-		if colour != Colour.YELLOW:
-			random.seed(self.node.id)
-			self.node.renderer.material.diffuse = Colour(random.random(), 
-														 random.random(), 
-														 random.random(), 1.0)
+		# colour = self.node.renderer.material.diffuse
+		
+		# if colour != Colour.YELLOW:
+		# 	random.seed(self.node.id)
+		# 	self.node.renderer.material.diffuse = Colour(random.random(), 
+		# 												 random.random(), 
+		# 												 random.random(), 1.0)
 
 		# Randomly set the cycle direction
 		if random.random() < 0.5:

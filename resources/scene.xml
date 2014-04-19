@@ -5,6 +5,23 @@
 		<material name="default_red" diffuse="1.0 0 0 1.0"/>
 	</materials>
 
+	<node>
+		<transform position="0 0 0"/>
+		<scripts>
+			<script filename="resources/scripts/MyBehaviourClass.py"/>
+		</scripts>
+		<children>
+			<node>
+				<transform position="0 0 0"/>
+				<mesh preset="SPHERE"/>
+				<material diffuse="1 0.5 0 1">
+					<shader name="phong.shader"/>
+				</material>
+			</node>
+		</children>
+	</node>
+	
+
 	<node name="main_node">
 		<transform position="2 1 0"/>
 		<mesh preset="SPHERE"/>
@@ -15,6 +32,15 @@
 			<script filename="resources/scripts/MyBehaviourClass.py"/>
 		</scripts>
 		<children>
+			
+			<node name="child_node_cube">
+				<transform position="-2 2 0"/>
+				<mesh preset="CUBE"/>
+				<material diffuse="1 0.5 0 1">
+					<shader name="phong.shader"/>
+				</material>
+			</node>
+
 			<node name="child_node">
 				<transform position="0 2 0"/>
 				<mesh preset="SPHERE"/>
@@ -26,6 +52,9 @@
 			<node name="child_plane_node">
 				<transform position="0 -1 0" scale="3 3 3"/>
 				<mesh preset="PLANE"/>
+				<material diffuse="0 0 1 1">
+					<shader name="phong.shader"/>
+				</material>
 				<scripts>
 					<script filename="resources/scripts/RotationTest.py"/>
 				</scripts>
@@ -40,7 +69,7 @@
 
 	
 	<node name="camera_pos">
-		<transform position="0 1 -8"/>
+		<transform position="0 -2 -10"/>
 		<children>
 			<node name="camera_node">
 				<camera name="scene_cam" active="True"/>
@@ -53,15 +82,16 @@
 
 	<node>
 		<scripts>
-			<script filename="resources/scripts/RotationTest.py"/>
+			<!-- <script filename="resources/scripts/RotationTest.py"/> -->
 		</scripts>
 		
 		<children>
 			<node name="scene_light">
 				<light name="a_light" diffuse="1.0 1.0 1.0 1.0" attenuation="0 0 0.002"/>
-				<transform position="-2 3 1"/>
+				<transform position="0 3 0"/>
 				<scripts>
 					<script filename="resources/scripts/PositionGizmo.py"/>
+					<script filename="resources/scripts/KeyboardControl.py"/>
 				</scripts>
 			</node>		
 		</children>

@@ -211,8 +211,8 @@ namespace epsilon
 			}
 
 			// old code, but grab the modelView and proMatrix uniforms
-            viewMatUnf = glGetUniformLocation(programId, "modelViewMatrix");
-            projMatUnf = glGetUniformLocation(programId, "projMatrix");
+//            viewMatUnf = glGetUniformLocation(programId, "modelViewMatrix");
+//            projMatUnf = glGetUniformLocation(programId, "projMatrix");
             
             shaderCompiled = true;
 
@@ -329,12 +329,12 @@ namespace epsilon
 			});
 
 			// Calculate the model view matrix
-			Matrix4 modelViewMatrix = state->view * state->model;
-			modelViewMatrix.Transpose();
-
-			// Send it to the shader
-			glUniformMatrix4fv(viewMatUnf, 1, GL_FALSE, &modelViewMatrix[0]);
-			glUniformMatrix4fv(projMatUnf, 1, GL_FALSE, &state->projection[0]);
+//			Matrix4 modelViewMatrix = state->view * state->model;
+//			modelViewMatrix.Transpose();
+//
+//			// Send it to the shader
+//			glUniformMatrix4fv(viewMatUnf, 1, GL_FALSE, &modelViewMatrix[0]);
+//			glUniformMatrix4fv(projMatUnf, 1, GL_FALSE, &state->projection[0]);
 		}
 		return shaderActive;
 	}

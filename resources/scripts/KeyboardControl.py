@@ -10,18 +10,19 @@ class KeyboardControl(object):
 		self._mouse_speed_x = 0.02
 		self._mouse_speed_y = 0.02
 
+		self._on = False
+
 	def on_start(self):
 		pass
 		
 	def on_update(self, dt):
-		if Input.mouse_button_down(Input.Button.Left):
-			print "Button Down"
-
-		if Input.mouse_button_up(Input.Button.Left):
-			print "Button Up"
-
-		# if the right mouse button is down, active cam controls
-		if Input.mouse_button(Input.Button.Left):
+		if Input.key_up(Input.Key.RAlt):
+			self._on = not self._on
+			if self._on:
+				print "kb on"
+			else:
+				print "kb off"
+		if self._on:
 			
 			applied_speed = self._speed
 

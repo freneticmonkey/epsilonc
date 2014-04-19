@@ -22,8 +22,8 @@ class CameraBehaviour(object):
 		self._was_down = False
 		self._middle = Vector2(WIDTH/2,HEIGHT/2)
 
-		self._v = -math.pi
-		self._h = 0
+		self._v = 0
+		self._h = -math.pi
 		
 	def on_start(self):
 		
@@ -35,22 +35,24 @@ class CameraBehaviour(object):
 				n = n.transform.parent_transform.parent
 			else:
 				break
+		print self.node.transform.parent_transform.position
+		self.node.transform.fps(self.node.transform.parent_transform.position, self._v, self._h)
 
 		# Convert to radians
 		self._angle_speed *= (math.pi / 180.0)
 
 	def on_update(self, dt):
 
-		Gizmos.colour(Colour.BLUE)
-		for x in range(10):
-			for y in range(10):
-				# x = randint(0, x)
-				# y = randint(0, y)
-				# z = randint(0, 10)
-				Gizmos.draw_cube(Vector3(x,y,y), Vector3.ONE)
+		# Gizmos.colour(Colour.BLUE)
+		# for x in range(10):
+		# 	for y in range(10):
+		# 		# x = randint(0, x)
+		# 		# y = randint(0, y)
+		# 		# z = randint(0, 10)
+		# 		Gizmos.draw_cube(Vector3(x,y,y), Vector3.ONE)
 
-		Gizmos.colour(Colour.CYAN)
-		Gizmos.draw_sphere(Vector3(0,-1,0), 1)
+		# Gizmos.colour(Colour.CYAN)
+		# Gizmos.draw_sphere(Vector3(0,-1,0), 1)
 
 		# Gizmos.colour(Colour.GREEN)
 		# mp = Input.mouse_position()
@@ -93,6 +95,8 @@ class CameraBehaviour(object):
 		forward = self.node.transform.forward
 		up = self.node.transform.up
 
+		self.node.transform.parent_transform.orientation = viewMat.get_rotation()
+
 		if Input.key_down(Input.Key.I):
 
 			print "info"
@@ -105,16 +109,16 @@ class CameraBehaviour(object):
 				applied_speed *= 10.0
 
 		if Input.key(Input.Key.A):
-			self.node.transform.parent_transform.translate(Vector3.RIGHT * applied_speed * dt)
+			self.node.transform.parent_transform.translate(-Vector3.RIGHT * applied_speed * dt)
 			
 		if Input.key(Input.Key.D):
-			self.node.transform.parent_transform.translate(-Vector3.RIGHT * applied_speed * dt )
+			self.node.transform.parent_transform.translate(Vector3.RIGHT * applied_speed * dt )
 			
 		if Input.key(Input.Key.W):
-			self.node.transform.parent_transform.translate(-Vector3.FORWARD * applied_speed * dt )
+			self.node.transform.parent_transform.translate(Vector3.FORWARD * applied_speed * dt )
 
 		if Input.key(Input.Key.S):
-			self.node.transform.parent_transform.translate(Vector3.FORWARD * applied_speed * dt )
+			self.node.transform.parent_transform.translate(-Vector3.FORWARD * applied_speed * dt )
 
 		if Input.key(Input.Key.E):
 			self.node.transform.parent_transform.translate(Vector3.UP * applied_speed * dt )

@@ -67,7 +67,7 @@ namespace epsilon
 			fpsText->setCharacterSize(16);
 		}
 #endif
-		//window->setVerticalSyncEnabled(true);
+//		window->setVerticalSyncEnabled(true);
 
 		// Initialising OpenGL
         
@@ -76,6 +76,8 @@ namespace epsilon
         CheckOpenGLError("Before init GLEW");
         
         glewExperimental = GL_TRUE;
+        
+        //FIXME: Potential crash issue here.
         GlewInitResult = glewInit();
 
         CheckOpenGLError("After init GLEW");

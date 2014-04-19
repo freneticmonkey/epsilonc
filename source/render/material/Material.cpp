@@ -62,8 +62,14 @@ namespace epsilon
 				diffuseUniform = shader->GetUniform("material.diffuse");
 				specularUniform = shader->GetUniform("material.specular");
 				reflectanceUniform = shader->GetUniform("material.reflectance");
+                
+                // Get the Shader's uniform values for the transform
+                modelUniform = shader->GetUniform("modelMatrix");
+                viewUniform = shader->GetUniform("viewMatrix");
+                projectionUniform = shader->GetUniform("projectionMatrix");
 
 				// If possible set the uniforms for the light struct
+                /*
 				for (int i = 0; i < MAX_LIGHTS; i++)
 				{
 					// Try to get the first light uniform
@@ -79,7 +85,20 @@ namespace epsilon
 						lightUniforms.push_back(uniforms);
 					}
 				}
-
+                */
+                // Try to get the first light uniform
+                LightUniforms uniforms;
+                uniforms.position = shader->GetUniform(boost::str(format("light.position")));
+                
+                // If successfull get the rest and keep track of it.
+                if (uniforms.position)
+                {
+                    uniforms.direction = shader->GetUniform(boost::str(format("light.direction") ));
+                    uniforms.diffuse = shader->GetUniform(boost::str(format("light.diffuse") ));
+                    uniforms.attenuation = shader->GetUniform(boost::str(format("light.attenuation") ));
+                    lightUniforms.push_back(uniforms);
+                }
+                
 				shaderCompileVersion = shader->GetCompileVersion();
 				hasRefreshed = true;
 			}
@@ -127,6 +146,16 @@ namespace epsilon
 
 				if (reflectanceUniform)
 					reflectanceUniform->SetFloat(reflectance);
+            
+                // Set Transform
+                if (modelUniform)
+                    modelUniform->SetMatrix4(stateStack->State()->model);
+            
+                if (viewUniform)
+                    viewUniform->SetMatrix4(stateStack->State()->view);
+                
+                if (projectionUniform)
+                    projectionUniform->SetMatrix4(stateStack->State()->projection);
 
 				// Inject the lighting info into the shader
 				LightList lights = stateStack->State()->lights;

@@ -66,7 +66,8 @@ namespace epsilon
 			// rather than creating it directly itself.
 
 			// Make this only update if the transform has changed
-			stateStack->State()->model = GetParent()->GetComponent<Transform>()->_getFullTransform();
+            Matrix4 m = GetParent()->GetComponent<Transform>()->_getFullTransform();
+			stateStack->State()->model = m;
 
 			// Enable the Material by sending the state to the applied material
             if ( material->Enable(stateStack) )

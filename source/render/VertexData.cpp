@@ -68,7 +68,7 @@ namespace epsilon
 	VertexData::Ptr VertexData::SetNormals(NormalAttrib::List normalData)
 	{
 		NormalAttrib * normals = new NormalAttrib(normalData, VertexAttribType::NORMAL);
-		normalIndex = attributes.size() + 1;
+		normalIndex = attributes.size();
 		normals->SetAttribIndex(normalIndex);
 		attributes.push_back( normals );
 		return ThisPtr();

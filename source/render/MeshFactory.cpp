@@ -74,7 +74,7 @@ namespace epsilon
 		for ( int n = 0; n < ((rows + 1) * (columns + 1)); n++ )
 		{
 			//data.normals.push_back(Vector3::UP);
-			data.normals.push_back(Vector3(1.0f, 0.5f, 0.0f));
+			data.normals.push_back(Vector3(0.0f, 1.0f, 0.0f));
 			data.colours.push_back(Vector4(1.0f, 1.0f, 1.0f, 1.0f));
 		}
 
@@ -183,18 +183,33 @@ namespace epsilon
 		Mesh::Ptr newCube =  Mesh::Create();
 
 		VerticesAttrib::List verts;
-		//NormalAttrib::List norms;
+		NormalAttrib::List norms;
 		//TexCoordAttrib::List texCoords;
 		VertexIndicesBuffer::List faces;
 
 		verts.push_back(Vector3(-0.5, -0.5, -0.5));
-		verts.push_back(Vector3(-0.5, -0.5, 0.5));
-		verts.push_back(Vector3(-0.5, 0.5, -0.5));
-		verts.push_back(Vector3(-0.5, 0.5, 0.5));
-		verts.push_back(Vector3(0.5, -0.5, -0.5));
-		verts.push_back(Vector3(0.5, -0.5, 0.5));
-		verts.push_back(Vector3(0.5, 0.5, -0.5));
-		verts.push_back(Vector3(0.5, 0.5, 0.5));
+        norms.push_back(Vector3(-0.5, -0.5, -0.5));
+        
+        verts.push_back(Vector3(-0.5, -0.5, 0.5));
+        norms.push_back(Vector3(-0.5, -0.5, 0.5));
+        
+        verts.push_back(Vector3(-0.5, 0.5, -0.5));
+        norms.push_back(Vector3(-0.5, 0.5, -0.5));
+        
+        verts.push_back(Vector3(-0.5, 0.5, 0.5));
+        norms.push_back(Vector3(-0.5, 0.5, 0.5));
+        
+        verts.push_back(Vector3(0.5, -0.5, -0.5));
+        norms.push_back(Vector3(0.5, -0.5, -0.5));
+        
+        verts.push_back(Vector3(0.5, -0.5, 0.5));
+        norms.push_back(Vector3(0.5, -0.5, 0.5));
+        
+        verts.push_back(Vector3(0.5, 0.5, -0.5));
+        norms.push_back(Vector3(0.5, 0.5, -0.5));
+        
+        verts.push_back(Vector3(0.5, 0.5, 0.5));
+        norms.push_back(Vector3(0.5, 0.5, 0.5));
 
 		// left
 		faces.push_back(0);
@@ -246,6 +261,7 @@ namespace epsilon
 		
 		newCube->VertexData()
 			   ->SetVertices(verts)
+               ->SetNormals(norms)
 			   ->SetIndices(faces);
 		
 		return newCube;
@@ -331,6 +347,9 @@ namespace epsilon
 				y = std::cos(theta);
 				z = -std::sin(theta) * std::sin(phi);
 				verts.push_back( Vector3(x, y, z) );
+                
+                norms.push_back( Vector3(x, y, z) );
+                
 				colours.push_back( Vector4(1.0f) );
 
 				raverts.push_back( Vector3(x, y, z) );
@@ -370,7 +389,7 @@ namespace epsilon
 			vi += stacks;
 		}
 
-		norms = MeshFactory::GenerateNormals(raverts, faces);
+		//norms = MeshFactory::GenerateNormals(raverts, faces);
 
 		//newSphere->SetMeshData(verts, norms, texCoords, faces);
 		newSphere->VertexData()
@@ -393,8 +412,6 @@ namespace epsilon
 		int slices = 8;
 		int stacks = 8;
 		float theta, phi;
-		int v = 0;
-		int next = 0;
 
 		Vector3 last;
 		Vector3 now;
@@ -454,85 +471,6 @@ namespace epsilon
 				//->BuildBuffers();
 
 		return newPlane;
-
-		//// Create a triangle
-		//VerticesAttrib::List verts;
-		//NormalAttrib::List norms;
-		//ColourAttrib::List colours;
-		//TexCoordAttrib::List tc;
-		//VertexIndicesBuffer::List inds;
-
-		//float width = 1.0f;
-		//float height = 1.0f;
-
-		//float halfWidth = width/2.0f;
-		//float halfHeight = height/2.0f;
-
-		//float widthInc = width/widthSegments;
-		//float heightInc = height/heightSegments;
-		//float normalDir = 1.0f;
-		//
-		//for (float x = -halfWidth; x < halfWidth; x+=widthInc)
-		//{
-		//	float x2 = x + widthInc;
-
-		//	for (float y = -halfHeight; y < halfHeight; y+=heightInc)
-		//	{	
-		//		float y2 = y + heightInc;
-
-		//		// TL Triangle
-		//		verts.push_back(Vector3(x,y,0));
-		//		verts.push_back(Vector3(x,y2,0));
-		//		verts.push_back(Vector3(x2,y2,0));
-
-		//		// BR Triangle
-		//		verts.push_back(Vector3(x,y,0));
-		//		verts.push_back(Vector3(x2,y2,0));
-		//		verts.push_back(Vector3(x2,y,0));
-		//		
-		//		norms.push_back(Vector3(0,0,normalDir));
-		//		norms.push_back(Vector3(0,0,normalDir));
-		//		norms.push_back(Vector3(0,0,normalDir));
-
-		//		norms.push_back(Vector3(0,0,normalDir));
-		//		norms.push_back(Vector3(0,0,normalDir));
-		//		norms.push_back(Vector3(0,0,normalDir));
-		//		
-		//		colours.push_back(Vector4(1,0,0,1));
-		//		colours.push_back(Vector4(0,1,0,1));
-		//		colours.push_back(Vector4(0,0,1,1));
-		//		
-		//		colours.push_back(Vector4(1,0,0,1));
-		//		colours.push_back(Vector4(0,1,0,1));
-		//		colours.push_back(Vector4(0,0,1,1));
-
-		//		tc.push_back(Vector2(x/width,y/height));
-		//		tc.push_back(Vector2(x/width,y2/height));
-		//		tc.push_back(Vector2(x2/width,y2/height));
-
-		//		tc.push_back(Vector2(x/width,y/height));
-		//		tc.push_back(Vector2(x2/width,y2/height));
-		//		tc.push_back(Vector2(x2/width,y/height));
-
-		//		inds.push_back(inds.size());
-		//		inds.push_back(inds.size());
-		//		inds.push_back(inds.size());
-		//		
-		//		inds.push_back(inds.size());
-		//		inds.push_back(inds.size());
-		//		inds.push_back(inds.size());
-		//	}
-		//}
-
-		////newPlane->SetMeshData(verts, norms, colours, tc, inds);
-		//newPlane->VertexData()
-		//		 ->SetVertices(verts)
-		//		 .SetNormals(norms)
-		//		 .SetTexCoords(tc)
-		//		 .SetIndices(inds)
-		//		 .BuildBuffers();
-
-		//return newPlane;
 	}
 
 	Mesh::Ptr MeshFactory::GenerateTriangle()

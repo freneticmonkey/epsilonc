@@ -56,7 +56,11 @@ namespace epsilon
 		ShaderUniform::Ptr diffuseUniform;
 		ShaderUniform::Ptr specularUniform;
 		ShaderUniform::Ptr reflectanceUniform;
-
+        
+        ShaderUniform::Ptr modelUniform;
+        ShaderUniform::Ptr viewUniform;
+        ShaderUniform::Ptr projectionUniform;
+        
 		struct LightUniforms
 		{
 			ShaderUniform::Ptr position;
