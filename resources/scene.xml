@@ -2,7 +2,7 @@
 	
 	<!-- Predeclare objects! -->
 	<materials>
-		<material name="default_red" diffuse="1.0 0 0 1.0"/>
+		<material name="default_RED" diffuse="1.0 0 0 1.0"/>
 	</materials>
 
 	<node>
@@ -39,6 +39,9 @@
 				<material diffuse="1 0.5 0 1">
 					<shader name="phong.shader"/>
 				</material>
+				<scripts>
+					<!-- <script filename="resources/scripts/RotationTest.py"/> -->
+				</scripts>
 			</node>
 
 			<node name="child_node">

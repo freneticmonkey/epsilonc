@@ -89,7 +89,12 @@ void initScene()
 
 		.def("create_child", (SceneNode::Ptr(SceneNode::*)()) &SceneNode::ScriptCreateChild)
 		.def("create_child", (SceneNode::Ptr(SceneNode::*)(std::string)) &SceneNode::ScriptCreateChild)
-        
+    
+        .def("remove_child", (void(SceneNode::*)(std::string)) &SceneNode::RemoveChild)
+        .def("remove_child", (void(SceneNode::*)(SceneNode::Ptr)) &SceneNode::RemoveChild)
+    
+        .def("remove_all_children", &SceneNode::RemoveAllChildren)
+    
 		.def("create_light", (Light::Ptr(SceneNode::*)()) &SceneNode::ScriptCreateLight)
 		.def("create_light", (Light::Ptr(SceneNode::*)(std::string)) &SceneNode::ScriptCreateLight)
         

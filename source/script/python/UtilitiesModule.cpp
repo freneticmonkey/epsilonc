@@ -1,6 +1,7 @@
 #include "script/python/UtilitiesModule.h"
 #include "script/PythonLogListener.h"
 
+#include "utilities/HashedString.h"
 
 #ifdef _MSC_VER 
 #include <intrin.h>
@@ -50,4 +51,17 @@ void initUtilities()
 
 	def("debug_break", TriggerDebugBreak);
 	def("is_debug", IsDebug);
+    
+    class_<HashedString>("HashedString")
+        .def(init<std::string>())
+    
+        .def(self==std::string())
+//        .def(std::string() == self )
+    
+        .def_readonly("string", &HashedString::GetString)
+        .def_readonly("hash", &HashedString::GetHash)
+        
+        .def("hash", &HashedString::Hash)
+        .staticmethod("hash")
+	;
 }

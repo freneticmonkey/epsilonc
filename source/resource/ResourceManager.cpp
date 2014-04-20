@@ -67,7 +67,7 @@ namespace epsilon
         {
             // build the final path
             fullpath = filesystem::complete(bp / rPath).string();
-            Log("ResourceManager", "Resolved Resource Path: " + fullpath );
+//            Log("ResourceManager", "Resolved Resource Path: " + fullpath );
         }
         else
         {
@@ -119,7 +119,7 @@ namespace epsilon
 				// Replace existing resource with the new resource in the resource map
 				resources[newResource->GetResourceId()] = newResource;
 
-				Log("ResourceManager", "Registering Resource from Manager: " + newResource->GetFilepath().GetString());
+//				Log("ResourceManager", "Registering Resource from Manager: " + newResource->GetFilepath().GetString());
 			}
 		}
     }
@@ -153,7 +153,7 @@ namespace epsilon
 	ResourceList ResourceManager::FindResources(std::string searchExpression)
 	{
 		std::regex expression(searchExpression);
-
+        Log("Searching for: " + searchExpression);
 		ResourceList results;
 		
 		// Check the regular expression against each of the known resources
@@ -162,6 +162,7 @@ namespace epsilon
 			// If the resource path matches the regular expression
 			if (std::regex_match(resourcePair.second->GetFilepath().GetString(), expression))
 			{
+                Log("Found matching resource: " + resourcePair.second->GetFilepath().GetString() );
 				// Store it in the results
 				results.push_back(resourcePair.second);
 			}
@@ -212,7 +213,7 @@ namespace epsilon
 					AddResource(newResource);
 
 					// Display debug
-					Log("ResourceManager", "Found Resource: " + std::string(dir_itr->path().string()));
+//					Log("ResourceManager", "Found Resource: " + std::string(dir_itr->path().string()));
 				}
 			}
 			catch (const std::exception & ex)

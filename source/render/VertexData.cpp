@@ -49,7 +49,6 @@ namespace epsilon
             success = CheckOpenGLError("Deleting VAO");
             if ( success )
             {
-                Log("Deleted VAO Id: " + std::to_string(vaoId));
                 vaoId = 0;
             }
         }
@@ -111,7 +110,6 @@ namespace epsilon
         CheckOpenGLError("Before Generating VAO");
         glGenVertexArrays(1, &vaoId);
         CheckOpenGLError("Generated VAO");
-        Log("VAO Id: " + std::to_string(vaoId));
         
 		// Build the vertex buffer data
 		size_t stride = 0;

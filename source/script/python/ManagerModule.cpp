@@ -4,6 +4,7 @@
 #include "render/RenderManager.h"
 #include "render/material/MaterialManager.h"
 #include "render/gizmos/GizmoManager.h"
+#include "resource/ResourceManager.h"
 #include "scene/SceneManager.h"
 #include "script/ScriptManager.h"
 #include "script/Script.h"
@@ -278,4 +279,18 @@ void initManagers()
 	// Injecting Gizmo manager into the namespace
 	smGI = materialManager.attr("get_instance");
 	package.attr("MaterialManager") = smGI();
+    
+    
+    object resourceManager = class_<ResourceManager, boost::noncopyable>("ResourceManager", no_init)
+        .def("get_instance", &ResourceManager::GetInstance, return_value_policy<reference_existing_object>())
+        .staticmethod("get_instance")
+    
+        .def("find_resources", &ResourceManager::FindResources)
+    ;
+    
+	// Injecting Gizmo manager into the namespace
+	smGI = resourceManager.attr("get_instance");
+	package.attr("ResourceManager") = smGI();
+    
+    
 }

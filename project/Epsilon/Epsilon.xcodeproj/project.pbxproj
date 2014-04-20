@@ -15,6 +15,7 @@
 		10B94DAC18DE5421002A53C9 /* GizmoManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10B94DA318DE5421002A53C9 /* GizmoManager.cpp */; };
 		10B94DAD18DE5421002A53C9 /* GizmoSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10B94DA618DE5421002A53C9 /* GizmoSphere.cpp */; };
 		10B94DAE18DE5421002A53C9 /* GizmoType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10B94DA918DE5421002A53C9 /* GizmoType.cpp */; };
+		10C1EA4E1902790A002EF7F4 /* ResourceModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C1EA4D1902790A002EF7F4 /* ResourceModule.cpp */; };
 		10D3AFFE18B625790041DBC5 /* DebugStatsOverlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10D3AFF918B625790041DBC5 /* DebugStatsOverlay.cpp */; };
 		10D3AFFF18B625790041DBC5 /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10D3AFFB18B625790041DBC5 /* Graph.cpp */; };
 		10D3B00218B625900041DBC5 /* UIModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10D3B00018B625900041DBC5 /* UIModule.cpp */; };
@@ -96,6 +97,8 @@
 		10B94DA818DE5421002A53C9 /* GizmoType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GizmoType.h; path = gizmos/GizmoType.h; sourceTree = "<group>"; };
 		10B94DA918DE5421002A53C9 /* GizmoType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GizmoType.cpp; sourceTree = "<group>"; };
 		10B94DAA18DE5421002A53C9 /* RenderUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderUtilities.h; sourceTree = "<group>"; };
+		10C1EA4C190278F7002EF7F4 /* ResourceModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResourceModule.h; sourceTree = "<group>"; };
+		10C1EA4D1902790A002EF7F4 /* ResourceModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResourceModule.cpp; sourceTree = "<group>"; };
 		10D3AFF918B625790041DBC5 /* DebugStatsOverlay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DebugStatsOverlay.cpp; sourceTree = "<group>"; };
 		10D3AFFA18B625790041DBC5 /* DebugStatsOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugStatsOverlay.h; sourceTree = "<group>"; };
 		10D3AFFB18B625790041DBC5 /* Graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graph.cpp; sourceTree = "<group>"; };
@@ -468,6 +471,8 @@
 				10EC449E1878422700B48152 /* ScriptModule.h */,
 				10EC449F1878422700B48152 /* UtilitiesModule.cpp */,
 				10EC44A01878422700B48152 /* UtilitiesModule.h */,
+				10C1EA4C190278F7002EF7F4 /* ResourceModule.h */,
+				10C1EA4D1902790A002EF7F4 /* ResourceModule.cpp */,
 			);
 			path = python;
 			sourceTree = "<group>";
@@ -587,6 +592,7 @@
 				10EC44C41878422700B48152 /* MeshFactory.cpp in Sources */,
 				10EC44DF1878422700B48152 /* DebugWindow.cpp in Sources */,
 				10EC44DA1878422700B48152 /* ScriptBehaviour.cpp in Sources */,
+				10C1EA4E1902790A002EF7F4 /* ResourceModule.cpp in Sources */,
 				10EC44BD1878422700B48152 /* Matrix.cpp in Sources */,
 				10EC44DD1878422700B48152 /* pointerTests.cpp in Sources */,
 				10EC44B91878422700B48152 /* EventListener.cpp in Sources */,

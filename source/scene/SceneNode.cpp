@@ -58,6 +58,25 @@ namespace epsilon
 		AddChild(newChild);
 		return newChild;
 	}
+    
+    void SceneNode::RemoveChild(std::string name)
+    {
+        Transform::Ptr childTransform = transform->FindChildWithName(name);
+        if ( childTransform )
+        {
+            transform->RemoveChild(childTransform);
+        }
+    }
+    
+    void SceneNode::RemoveChild(SceneNode::Ptr child)
+    {
+        transform->RemoveChild(child->transform);
+    }
+    
+    void SceneNode::RemoveAllChildren()
+    {
+        transform->RemoveAllChildren();
+    }
 
 	// The following are the internal component functions.
 	Transform::Ptr SceneNode::CreateTransform()

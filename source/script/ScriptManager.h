@@ -60,9 +60,6 @@ namespace epsilon
 
 		void ProcessChangedResources();
 
-	private:
-		void StartBehaviours();
-
 		// Multi-threading Python GIL Handling
 		// Using a count rather than a boolean to prevent
 		// multiple mutex locks means that many functions 
@@ -90,9 +87,14 @@ namespace epsilon
 			// Decrement the GIL Lock
 			gilLockCount--;
 		}
+        
+    private:
+        
 		int gilLockCount;
 		PyThreadState * threadState;
 
+        void StartBehaviours();
+        
 		ScriptList scriptList;
 		BehaviourList behaviourList;
 

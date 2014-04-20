@@ -59,6 +59,12 @@ namespace epsilon
             SceneNode::Ptr			CreateChild(std::string name = "");
 			void					AddChild(SceneNode::Ptr newChild);
         
+            // Remove a child node
+            void                    RemoveChild(std::string name);
+            void                    RemoveChild(SceneNode::Ptr child);
+        
+            void                    RemoveAllChildren();
+        
             // Helper functions for creating components on the SceneNode!
         
             // The following function are only used internally by the C++

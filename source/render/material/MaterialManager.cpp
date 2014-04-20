@@ -69,8 +69,6 @@ namespace epsilon
 			// Set the default shader
 			newMaterial->SetShader(shaders["default.shader"]);
 			materials[name] = newMaterial;
-            
-            Log("Created new material: " + name);
 		}
 		return newMaterial;
 	}

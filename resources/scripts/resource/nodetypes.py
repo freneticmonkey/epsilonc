@@ -131,12 +131,27 @@ class BaseXMLNode(object):
 class SceneScene(BaseXMLNode):
 
 	def process_node(self, parse_globals, scene_node, xml_tag):
-		if "name" in xml_tag.attrib:
-			scene = Scene.create(xml_tag.attrib["name"])
-		else:
-			scene = Scene.create()
+		scene = None
 
-		parse_globals.current_scene = scene
+		# FIXME: This will totally break if there are nested scenes....
+
+		# If a scene already exists (i.e. this is a scene file refresh)
+		if not parse_globals.current_scene is None:
+			scene = parse_globals.current_scene
+
+			if "name" in xml_tag.attrib:
+				scene.name = xml_tag.attrib["name"]
+
+			# Clear the scene in preparation for loading the refreshed scene
+			scene.root.remove_all_children()
+			
+		else:
+			if "name" in xml_tag.attrib:
+				scene = Scene.create(xml_tag.attrib["name"])
+			else:
+				scene = Scene.create()
+
+			parse_globals.current_scene = scene
 
 		# Returning the root node of the scene so that other parsers can just
 		# use scene_node.add_child, rather than having checks if type == scene etc.

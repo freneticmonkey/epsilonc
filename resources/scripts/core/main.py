@@ -4,10 +4,7 @@ from epsilon import RenderManager, Input, UIManager, util
 
 from core.configurationmanager import ConfigurationManager
 
-# Resources
-from resource.resourcemanager import ResourceManager
-from resource.sceneresourcehandler import SceneResourceHandler
-
+from resource.sceneloader import SceneLoader
 
 # This is an awkward name and can change, when I'm rested enough to think of something better
 class ScriptCore(object):
@@ -50,14 +47,8 @@ class ScriptCore(object):
 		pass
 		
 	def _init_resources(self):
-		self._rm = ResourceManager()
-		# self._rm.add_handler(SceneResourceHandler())
-		# self._rm.init()
-
-		self._sr = SceneResourceHandler()
-		self._scene = self._sr.process_resource("scene.xml", True)
-		print "After scene init"
-		# self._rm.process_resource("scene.xml")
+		self._sm = SceneLoader()
+		self._sm.set_scene("scene.xml")
 
 # For Epsilon Access
 _instance = ScriptCore()
