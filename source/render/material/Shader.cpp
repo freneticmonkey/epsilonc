@@ -151,73 +151,99 @@ namespace epsilon
 			AddStage("resources/shaders/basic/default.frag", ShaderStageType::Type::FRAGMENT);
 		}
         
-        // Compile/Link Shader Program
-        programId = glCreateProgram();
-
-		compileError = false;
-
-        // For each stage
-        for (int i = 0; i < ShaderStageType::MAX_STAGES; i++ )
+        // To prevent recompile spamming
+        bool canRecompile = true;
+        
+        // If the last compile threw an error.
+        if ( compileError )
         {
-            // If the stage is defined
-            if (stages[i])
+            canRecompile = false;
+            
+            // Check if any of the stages have changed
+            // so a recompile could get a different result
+            
+            // For each stage
+            for (int i = 0; i < ShaderStageType::MAX_STAGES; i++ )
             {
-                // Compile it
-                if ( stages[i]->Compile() )
+                // If the stage is has changed
+                if (stages[i] && stages[i]->NeedReload())
                 {
-                    // If successful
-                    glAttachShader(programId, stages[i]->GetStageId());
-                }
-                else
-                {
-                    success = false;
-					compileError = true;
+                    canRecompile = true;
+                    break;
                 }
             }
         }
         
-        if (success)
+        if ( canRecompile )
         {
-        
-            glLinkProgram(programId);
-
-            success = CheckOpenGLError("Linking Shader");
-
-			if (!success)
-			{
-				DisplayCompileError(programId);
-				compileError = true;
-			}
-        }
-
-        if ( success )
-        {
-			// Extract the shader uniforms and build the ShaderValue Map
-			// courtesy: http://stackoverflow.com/a/4970703
-			int total = -1;
-			glGetProgramiv(programId, GL_ACTIVE_UNIFORMS, &total);
-			for (int i = 0; i < total; ++i)
-			{
-				int name_len = -1, num = -1;
-				GLenum type = GL_ZERO;
-				char name[100];
-				glGetActiveUniform(programId, GLuint(i), sizeof(name)-1,
-					&name_len, &num, &type, name);
-				name[name_len] = 0;
-				GLuint location = glGetUniformLocation(programId, name);
-
-				// Add to the uniform map
-				uniforms[std::string(name)] = ShaderUniform::Create(location, type);
-			}
-
-			// old code, but grab the modelView and proMatrix uniforms
-//            viewMatUnf = glGetUniformLocation(programId, "modelViewMatrix");
-//            projMatUnf = glGetUniformLocation(programId, "projMatrix");
+            // Compile/Link Shader Program
+            programId = glCreateProgram();
             
-            shaderCompiled = true;
-
-			// Increment the compile version
-			compileVersion++;
+            compileError = false;
+            
+            // For each stage
+            for (int i = 0; i < ShaderStageType::MAX_STAGES; i++ )
+            {
+                // If the stage is defined
+                if (stages[i])
+                {
+                    // Compile it
+                    if ( stages[i]->Compile() )
+                    {
+                        // If successful
+                        glAttachShader(programId, stages[i]->GetStageId());
+                    }
+                    else
+                    {
+                        success = false;
+                        compileError = true;
+                    }
+                }
+            }
+            
+            if (success)
+            {
+                
+                glLinkProgram(programId);
+                
+                success = CheckOpenGLError("Linking Shader");
+                
+                if (!success)
+                {
+                    DisplayCompileError(programId);
+                    compileError = true;
+                }
+            }
+            
+            if ( success )
+            {
+                // Extract the shader uniforms and build the ShaderValue Map
+                // courtesy: http://stackoverflow.com/a/4970703
+                int total = -1;
+                glGetProgramiv(programId, GL_ACTIVE_UNIFORMS, &total);
+                for (int i = 0; i < total; ++i)
+                {
+                    int name_len = -1, num = -1;
+                    GLenum type = GL_ZERO;
+                    char name[100];
+                    glGetActiveUniform(programId, GLuint(i), sizeof(name)-1,
+                                       &name_len, &num, &type, name);
+                    name[name_len] = 0;
+                    GLuint location = glGetUniformLocation(programId, name);
+                    
+                    // Add to the uniform map
+                    uniforms[std::string(name)] = ShaderUniform::Create(location, type);
+                }
+                
+                // old code, but grab the modelView and proMatrix uniforms
+                //            viewMatUnf = glGetUniformLocation(programId, "modelViewMatrix");
+                //            projMatUnf = glGetUniformLocation(programId, "projMatrix");
+                
+                shaderCompiled = true;
+                
+                // Increment the compile version
+                compileVersion++;
+            }
         }
 
 		return success;

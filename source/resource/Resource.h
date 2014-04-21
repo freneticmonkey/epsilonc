@@ -64,7 +64,7 @@ namespace epsilon
 		void SetModifiedTime(long newModifiedTime);
 
 		// Indicate that the in-memory resource is out of date
-		bool NeedReload() { return lastModified == modifiedTime; }
+		bool NeedReload() { return lastModified != modifiedTime; }
 
 		// Notify the resource that the in-memory copy is up to date.
 		void SetReloaded() { lastModified = modifiedTime; }

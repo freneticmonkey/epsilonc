@@ -242,7 +242,7 @@ namespace epsilon
 
 			// If the resource has been loaded, and it has changed since load, 
 			// mark it as reloaded
-			if ((resource->NeedReload()) && (resource->GetModifiedTime() != modifiedTime))
+			if ((!resource->NeedReload()) && (resource->GetModifiedTime() != modifiedTime))
 			{
 				// Set the new modified time
 				resource->SetModifiedTime(modifiedTime);
