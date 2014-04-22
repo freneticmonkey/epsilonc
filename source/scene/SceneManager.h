@@ -6,6 +6,10 @@
 #include "scene/Transform.h"
 #include "render/RenderState.h"
 
+#include "render/material/ShaderManager.h"
+#include "render/material/UniformBuffer.h"
+#include "render/Light.h"
+
 namespace epsilon
 {
 	class Renderer;
@@ -38,6 +42,9 @@ namespace epsilon
 
 		void Update(float el);
 		void Cull(void);
+        
+        void PreDraw();
+        
 		void Draw(RenderStateStack::Ptr stateStack);
 
 		Matrix4 GetCurrentViewMatrix();
@@ -53,6 +60,14 @@ namespace epsilon
 
 		Matrix4 viewMatrix;
 		Matrix4 projMatrix;
+        
+        ShaderUniform::Ptr viewMatrixUnf;
+        ShaderUniform::Ptr projMatrixUnf;
+        
+        UniformBuffer::Ptr globalMatrices;
+        UniformBuffer::Ptr lights;
+        ShaderUniform::Ptr numLights;
+        std::vector<LightUniforms> lightProperties;
 	};
 
 }

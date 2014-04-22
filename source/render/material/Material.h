@@ -58,20 +58,10 @@ namespace epsilon
 		ShaderUniform::Ptr reflectanceUniform;
         
         ShaderUniform::Ptr modelUniform;
-        ShaderUniform::Ptr viewUniform;
-        ShaderUniform::Ptr projectionUniform;
+//        ShaderUniform::Ptr viewUniform;
+//        ShaderUniform::Ptr projectionUniform;
         
-		struct LightUniforms
-		{
-			ShaderUniform::Ptr position;
-			ShaderUniform::Ptr direction;
-			ShaderUniform::Ptr diffuse;
-			ShaderUniform::Ptr attenuation;
-		};
-
-		const int MAX_LIGHTS = 4;
-
-		std::vector<LightUniforms> lightUniforms;
+//		std::vector<LightUniforms> lightUniforms;
 	};
 
 }

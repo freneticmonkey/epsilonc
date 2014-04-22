@@ -51,6 +51,9 @@ namespace epsilon
 
 		renderManager = &RenderManager::GetInstance();
 		renderManager->Setup();
+        
+        shaderManager = &ShaderManager::GetInstance();
+        shaderManager->Setup();
 
 		materialManager = &MaterialManager::GetInstance();
 		materialManager->Setup();
@@ -225,6 +228,12 @@ namespace epsilon
 					break;
 				}
 			}
+            
+            // If a close is triggered, exit the loop.
+            if (hasClosed)
+            {
+                break;
+            }
 			
 			float el = clock.getElapsedTime().asMilliseconds();
 			
@@ -237,11 +246,6 @@ namespace epsilon
 			clock.restart();
 
 			OnUpdate(el / 1000.0f);
-            
-            if (hasClosed)
-            {
-                break;
-            }
 		}
         
         OnClose();

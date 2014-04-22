@@ -104,6 +104,8 @@ namespace epsilon
 		// Get an instance of the GizmoManager for rendering
 		gizmoManager = &GizmoManager::GetInstance();
 		
+        // Get an instance of the ShaderManager for rendering
+        shaderManager = &ShaderManager::GetInstance();
 	}
 
 	//void RenderManager::Draw(sf::Time el)
@@ -124,7 +126,14 @@ namespace epsilon
         
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-		// Do OpenGL drawing here.
+        // Do OpenGL drawing here.
+        if (sceneManager)
+		{
+			sceneManager->PreDraw();
+		}
+        
+        shaderManager->ProcessUniformBuffers();
+        
 		if (sceneManager)
 		{
 			sceneManager->Draw(stateStack);
@@ -143,9 +152,9 @@ namespace epsilon
         
         // Draw the Gizmos
 		// Setup the Camera and Projection Matrix
-		stateStack->State()->view = sceneManager->CurrentScene()->GetActiveCamera()->GetViewMatrix();
-		stateStack->State()->projection = sceneManager->CurrentScene()->GetActiveCamera()->GetProjectionMatrix();
-		gizmoManager->Draw(stateStack);
+//		stateStack->State()->view = sceneManager->CurrentScene()->GetActiveCamera()->GetViewMatrix();
+//		stateStack->State()->projection = sceneManager->CurrentScene()->GetActiveCamera()->GetProjectionMatrix();
+		//gizmoManager->Draw(stateStack);
 		
         // Draw the GUI
 		if ( uiManager )

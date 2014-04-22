@@ -11,6 +11,7 @@
 #include "render/material/ShaderStage.h"
 #include "resource/ResourceOwner.h"
 
+
 namespace epsilon
 {
 	class Shader :

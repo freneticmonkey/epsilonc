@@ -65,8 +65,8 @@ namespace epsilon
                 
                 // Get the Shader's uniform values for the transform
                 modelUniform = shader->GetUniform("modelMatrix");
-                viewUniform = shader->GetUniform("viewMatrix");
-                projectionUniform = shader->GetUniform("projectionMatrix");
+//                viewUniform = shader->GetUniform("viewMatrix");
+//                projectionUniform = shader->GetUniform("projectionMatrix");
 
 				// If possible set the uniforms for the light struct
                 /*
@@ -87,17 +87,17 @@ namespace epsilon
 				}
                 */
                 // Try to get the first light uniform
-                LightUniforms uniforms;
-                uniforms.position = shader->GetUniform(boost::str(format("light.position")));
-                
-                // If successfull get the rest and keep track of it.
-                if (uniforms.position)
-                {
-                    uniforms.direction = shader->GetUniform(boost::str(format("light.direction") ));
-                    uniforms.diffuse = shader->GetUniform(boost::str(format("light.diffuse") ));
-                    uniforms.attenuation = shader->GetUniform(boost::str(format("light.attenuation") ));
-                    lightUniforms.push_back(uniforms);
-                }
+//                LightUniforms uniforms;
+//                uniforms.position = shader->GetUniform(boost::str(format("light.position")));
+//                
+//                // If successfull get the rest and keep track of it.
+//                if (uniforms.position)
+//                {
+//                    uniforms.direction = shader->GetUniform(boost::str(format("light.direction") ));
+//                    uniforms.diffuse = shader->GetUniform(boost::str(format("light.diffuse") ));
+//                    uniforms.attenuation = shader->GetUniform(boost::str(format("light.attenuation") ));
+//                    lightUniforms.push_back(uniforms);
+//                }
                 
 				shaderCompileVersion = shader->GetCompileVersion();
 				hasRefreshed = true;
@@ -151,32 +151,32 @@ namespace epsilon
                 if (modelUniform)
                     modelUniform->SetMatrix4(stateStack->State()->model);
             
-                if (viewUniform)
-                    viewUniform->SetMatrix4(stateStack->State()->view);
-                
-                if (projectionUniform)
-                    projectionUniform->SetMatrix4(stateStack->State()->projection);
+//                if (viewUniform)
+//                    viewUniform->SetMatrix4(stateStack->State()->view);
+//                
+//                if (projectionUniform)
+//                    projectionUniform->SetMatrix4(stateStack->State()->projection);
 
-				// Inject the lighting info into the shader
-				LightList lights = stateStack->State()->lights;
-
-				for (int i = 0; i < std::min((int)lights.size(), MAX_LIGHTS); i++)
-				{
-					if (i < (int)lightUniforms.size())
-					{
-						if (lightUniforms[i].position )
-							lightUniforms[i].position->SetVector3(lights[i]->GetPosition());
-
-						if (lightUniforms[i].direction)
-							lightUniforms[i].direction->SetVector3(lights[i]->GetDirection());
-
-						if (lightUniforms[i].diffuse)
-							lightUniforms[i].diffuse->SetVector4(lights[i]->diffuse.ToVector4());
-
-						if (lightUniforms[i].attenuation)
-							lightUniforms[i].attenuation->SetVector3(lights[i]->attenuation);
-					}
-				}
+//				// Inject the lighting info into the shader
+//				LightList lights = stateStack->State()->lights;
+//
+//				for (int i = 0; i < std::min((int)lights.size(), MAX_LIGHTS); i++)
+//				{
+//					if (i < (int)lightUniforms.size())
+//					{
+//						if (lightUniforms[i].position )
+//							lightUniforms[i].position->SetVector3(lights[i]->GetPosition());
+//
+//						if (lightUniforms[i].direction)
+//							lightUniforms[i].direction->SetVector3(lights[i]->GetDirection());
+//
+//						if (lightUniforms[i].diffuse)
+//							lightUniforms[i].diffuse->SetVector4(lights[i]->diffuse.ToVector4());
+//
+//						if (lightUniforms[i].attenuation)
+//							lightUniforms[i].attenuation->SetVector3(lights[i]->attenuation);
+//					}
+//				}
 
 				// Push the shader variables into the Shader on the GPU
 				shaderReady = shader->UseShader(stateStack);

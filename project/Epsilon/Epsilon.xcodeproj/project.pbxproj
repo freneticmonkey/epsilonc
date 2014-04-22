@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		104CC9AE18E0E84500E85F16 /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 104CC9AD18E0E84500E85F16 /* ResourceManager.cpp */; };
 		108D3517186E88C00002E4F4 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1059E704184AFBDA00416AD8 /* Python.framework */; };
+		109E109F1904E31600537262 /* ShaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 109E109B1904E31600537262 /* ShaderManager.cpp */; };
+		109E10A01904E31600537262 /* UniformBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 109E109D1904E31600537262 /* UniformBuffer.cpp */; };
 		10A88B0E18EAF178000D61AE /* MaterialManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10A88B0C18EAF178000D61AE /* MaterialManager.cpp */; };
 		10A88B0F18EAFB72000D61AE /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 109E8967186E6B3D00E95E3B /* OpenGL.framework */; };
 		10B94DAB18DE5421002A53C9 /* GizmoCube.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10B94DA118DE5421002A53C9 /* GizmoCube.cpp */; };
@@ -84,6 +86,10 @@
 		1059E704184AFBDA00416AD8 /* Python.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Python.framework; sourceTree = "<group>"; };
 		1059E70C184AFBDA00416AD8 /* sndfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sndfile.framework; sourceTree = "<group>"; };
 		109BAFBA18F19225000F9C52 /* ShaderUniform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderUniform.h; path = material/ShaderUniform.h; sourceTree = "<group>"; };
+		109E109B1904E31600537262 /* ShaderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderManager.cpp; path = material/ShaderManager.cpp; sourceTree = "<group>"; };
+		109E109C1904E31600537262 /* ShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderManager.h; path = material/ShaderManager.h; sourceTree = "<group>"; };
+		109E109D1904E31600537262 /* UniformBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UniformBuffer.cpp; path = material/UniformBuffer.cpp; sourceTree = "<group>"; };
+		109E109E1904E31600537262 /* UniformBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UniformBuffer.h; path = material/UniformBuffer.h; sourceTree = "<group>"; };
 		109E8967186E6B3D00E95E3B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		10A88B0C18EAF178000D61AE /* MaterialManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MaterialManager.cpp; path = material/MaterialManager.cpp; sourceTree = "<group>"; };
 		10A88B0D18EAF178000D61AE /* MaterialManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MaterialManager.h; path = material/MaterialManager.h; sourceTree = "<group>"; };
@@ -516,6 +522,10 @@
 		10FBE8F818E8CD3B00027082 /* material */ = {
 			isa = PBXGroup;
 			children = (
+				109E109B1904E31600537262 /* ShaderManager.cpp */,
+				109E109C1904E31600537262 /* ShaderManager.h */,
+				109E109D1904E31600537262 /* UniformBuffer.cpp */,
+				109E109E1904E31600537262 /* UniformBuffer.h */,
 				109BAFBA18F19225000F9C52 /* ShaderUniform.h */,
 				10A88B0C18EAF178000D61AE /* MaterialManager.cpp */,
 				10A88B0D18EAF178000D61AE /* MaterialManager.h */,
@@ -583,6 +593,7 @@
 				10E0274218EB71FF002FEA14 /* Light.cpp in Sources */,
 				10F5DC2818F7DFED00208941 /* VertexBuffer.cpp in Sources */,
 				10F5B1A118EBF1D900A2A9B9 /* SceneNode.cpp in Sources */,
+				109E10A01904E31600537262 /* UniformBuffer.cpp in Sources */,
 				10EC44C11878422700B48152 /* Colour.cpp in Sources */,
 				10EC44CD1878422700B48152 /* Scene.cpp in Sources */,
 				10EC44CE1878422700B48152 /* SceneManager.cpp in Sources */,
@@ -630,6 +641,7 @@
 				10EC44C91878422700B48152 /* VertexAttrib.cpp in Sources */,
 				10FBE90218E8CD5400027082 /* ShaderStage.cpp in Sources */,
 				10EC44CB1878422700B48152 /* Node.cpp in Sources */,
+				109E109F1904E31600537262 /* ShaderManager.cpp in Sources */,
 				10EC44CF1878422700B48152 /* Transform.cpp in Sources */,
 				10EC44BE1878422700B48152 /* Quaternion.cpp in Sources */,
 				10FBE90018E8CD5400027082 /* Material.cpp in Sources */,

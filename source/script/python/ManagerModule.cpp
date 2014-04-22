@@ -2,6 +2,7 @@
 #include "events/EventManager.h"
 #include "core/InputManager.h"
 #include "render/RenderManager.h"
+#include "render/material/ShaderManager.h"
 #include "render/material/MaterialManager.h"
 #include "render/gizmos/GizmoManager.h"
 #include "resource/ResourceManager.h"
@@ -273,12 +274,22 @@ void initManagers()
 		.def("create_material", CreateMaterialName)
 
 		.def("get_material_by_name", &MaterialManager::GetMaterialByName)
-		.def("get_shader_by_name", &MaterialManager::GetShaderByName)
 		;
 
-	// Injecting Gizmo manager into the namespace
+	// Injecting MaterialManager into the namespace
 	smGI = materialManager.attr("get_instance");
 	package.attr("MaterialManager") = smGI();
+    
+    object shaderManager = class_<ShaderManager, boost::noncopyable>("ShaderManager", no_init)
+    .def("get_instance", &ShaderManager::GetInstance, return_value_policy<reference_existing_object>())
+    .staticmethod("get_instance")
+   
+        .def("get_shader_by_name", &ShaderManager::GetShaderByName)
+    ;
+    
+	// Injecting ShaderManager into the namespace
+	smGI = shaderManager.attr("get_instance");
+	package.attr("ShaderManager") = smGI();
     
     
     object resourceManager = class_<ResourceManager, boost::noncopyable>("ResourceManager", no_init)

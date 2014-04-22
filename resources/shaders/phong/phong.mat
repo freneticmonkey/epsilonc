@@ -8,6 +8,11 @@ struct Material
 
 uniform Material material;
 
+layout (std140) uniform GlobalMatrices {
+	mat4 viewMatrix;
+	mat4 projectionMatrix;
+};
+
 struct Light
 {
 	vec3 position;
@@ -16,6 +21,7 @@ struct Light
 	vec4 attenuation;
 };
 
-
-uniform Light light;
-
+layout (std140) uniform Lights {
+	int numLights;
+	Light lights[4];
+};

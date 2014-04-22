@@ -3,7 +3,7 @@ import re
 from epsilon import util
 
 from epsilon import ScriptManager
-from epsilon import MaterialManager
+from epsilon import MaterialManager, ShaderManager
 
 from epsilon.math import Vector2, Vector3, Vector4, Quaternion
 
@@ -266,11 +266,15 @@ class SceneLight(BaseXMLNode):
 					light.diffuse = self.parse_colour(xml_tag, "diffuse")
 
 				if "attenuation" in xml_tag.attrib:
-					light.attenuation = self.parse_vector3(xml_tag, "attenuation")
+					light.attenuation = self.parse_vector4(xml_tag, "attenuation")
 
 				if "angle" in xml_tag.attrib:
 					default_angle = 0.0
 					light.angle = self.extract_float_attribute(xml_tag, "angle", default_angle)
+
+				if "strength" in xml_tag.attrib:
+					default_strength = 1.0
+					light.strength = self.extract_float_attribute(xml_tag, "strength", default_strength)
 
 class SceneMaterials(BaseXMLNode):
 	
@@ -460,7 +464,7 @@ class SceneShader(BaseXMLNode):
 
 			# The material is most likely being pre-declared. So create it
 			if "name" in xml_tag.attrib:
-				shader = MaterialManager.get_shader_by_name(xml_tag.attrib["name"])
+				shader = ShaderManager.get_shader_by_name(xml_tag.attrib["name"])
 
 				if not shader is None:
 					material.shader = shader

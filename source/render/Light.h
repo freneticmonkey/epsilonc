@@ -14,10 +14,39 @@
 #include "math/Matrix.h"
 #include "render/Colour.h"
 
+#include "render/material/ShaderUniform.h"
+
 namespace epsilon
 {
 	class Light;
 
+//#define MAX_LIGHTS 10
+    
+//    struct LightInfo
+//    {
+//        Vector3 position;
+//        Vector3 direction;
+//        Vector4 diffuse;
+//        Vector4 attentuation;
+//        float   padding[2];
+//    };
+//    
+//    struct LightBuffer
+//    {
+//        int         numLights;
+//        LightInfo   lights[MAX_LIGHTS];
+//    };
+    
+    struct LightUniforms
+    {
+        ShaderUniform::Ptr position;
+        ShaderUniform::Ptr direction;
+        ShaderUniform::Ptr diffuse;
+        ShaderUniform::Ptr attenuation;
+        ShaderUniform::Ptr strength;
+        
+    };
+    
 	typedef std::vector< std::shared_ptr<Light> > LightList;
 
 	class Light : public NodeComponent
@@ -26,6 +55,8 @@ namespace epsilon
 		struct private_struct {};
         
 	public:
+        static const int MAX_LIGHTS = 4;
+
 		typedef std::shared_ptr<Light> Ptr;
         
 		static Light::Ptr Create();
@@ -39,8 +70,9 @@ namespace epsilon
         void OnSetParent();
         
         Colour  diffuse;
-        Vector3 attenuation;
+        Vector4 attenuation;
         float   angle;
+        float   strength;
         
         Vector3 GetPosition();
         Vector3 GetDirection();

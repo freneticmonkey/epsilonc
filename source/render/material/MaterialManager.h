@@ -1,7 +1,8 @@
 #pragma once
 #include "render/material/Material.h"
 #include "render/material/Shader.h"
-#include "resource/ResourceManager.h"
+
+#include "render/material/ShaderManager.h"
 
 namespace epsilon
 {
@@ -12,7 +13,6 @@ namespace epsilon
 
 	public:
 		typedef std::map<std::string, Material::Ptr>MaterialList;
-		typedef std::map<std::string, Shader::Ptr>	ShaderList;
 
 		static MaterialManager & GetInstance()
 		{
@@ -27,13 +27,12 @@ namespace epsilon
 		Material::Ptr CreateMaterial(std::string name);
 
 		Material::Ptr GetMaterialByName(std::string name);
-		Shader::Ptr	  GetShaderByName(std::string name);
 
 		void OnFrameStart();
 
 	private:
-		MaterialList materials;
-		ShaderList   shaders;
+		MaterialList    materials;
+        Shader::Ptr     defaultShader;
 
 	};
 }

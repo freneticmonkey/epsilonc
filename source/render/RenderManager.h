@@ -7,7 +7,7 @@
 #include "render/RenderState.h"
 #include "render/Renderer.h"
 #include "render/gizmos/GizmoManager.h"
-
+#include "render/material/ShaderManager.h"
 #include "render/VertexData.h"
 
 namespace epsilon
@@ -68,6 +68,7 @@ namespace epsilon
 		float				fps;
 		SceneManager *		sceneManager;
 		UIManager *			uiManager;
+        ShaderManager *     shaderManager;
 
 		GizmoManager *		gizmoManager;
 

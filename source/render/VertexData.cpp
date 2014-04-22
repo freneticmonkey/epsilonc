@@ -34,13 +34,11 @@ namespace epsilon
         {        
             while( !buffers.empty() )
             {
-                delete buffers.back();
                 buffers.pop_back();
             }
             
             while( !attributes.empty() )
             {
-                delete attributes.back();
                 attributes.pop_back();
             }
         
@@ -119,8 +117,7 @@ namespace epsilon
 		if ( attributes.size() > 0 )
 		{
 			int attribLength = attributes[0]->DataLength();
-			int numUnits = -1;
-
+			
 			// For each vertex
 			int attribSize = attributes.size();
 		

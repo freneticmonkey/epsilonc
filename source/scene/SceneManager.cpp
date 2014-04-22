@@ -19,6 +19,43 @@ namespace epsilon
 		// Add a default scene
 		currentScene = Scene::Create("default");
 		scenes.push_back(currentScene);
+        
+        Log("Configuring the Uniform Buffer Objects");
+        
+        globalMatrices = ShaderManager::GetInstance().GetUniformBuffer("GlobalMatrices");
+        viewMatrixUnf = ShaderUniform::Create(0, GL_FLOAT_MAT4);
+        projMatrixUnf = ShaderUniform::Create(1, GL_FLOAT_MAT4);
+        globalMatrices->AddUniform(viewMatrixUnf)
+                      ->AddUniform(projMatrixUnf);
+        
+        // Process lights
+        lights = ShaderManager::GetInstance().GetUniformBuffer("Lights");
+        
+        // Create a control for the number of active lights
+        int index = 0;
+        numLights = ShaderUniform::Create(index++, GL_INT);
+        lights->AddUniform(numLights);
+        
+        for (int i = 0; i < Light::MAX_LIGHTS; i++ )
+        {
+            // Create Uniforms for the light
+            LightUniforms lightData;
+            lightData.position      = ShaderUniform::Create(index++, GL_FLOAT_VEC3);
+            lightData.direction     = ShaderUniform::Create(index++, GL_FLOAT_VEC3);
+            lightData.diffuse       = ShaderUniform::Create(index++, GL_FLOAT_VEC4);
+            lightData.attenuation   = ShaderUniform::Create(index++, GL_FLOAT_VEC4);
+            lightData.strength      = ShaderUniform::Create(index++, GL_FLOAT);
+            
+            lightProperties.push_back(lightData);
+            
+            // Push the uniforms
+            lights->AddUniform(lightData.position)
+                  ->AddUniform(lightData.direction)
+                  ->AddUniform(lightData.diffuse)
+                  ->AddUniform(lightData.attenuation)
+                  ->AddUniform(lightData.strength);
+        }
+        
 	}
 
 	void SceneManager::SetScene(Scene::Ptr newScene)
@@ -103,6 +140,28 @@ namespace epsilon
             }
         }
 	}
+    
+    void SceneManager::PreDraw()
+    {
+        // Push the matrices to the uniform buffer
+        viewMatrixUnf->SetMatrix4(currentScene->GetActiveCamera()->GetViewMatrix());
+        projMatrixUnf->SetMatrix4(currentScene->GetActiveCamera()->GetProjectionMatrix());
+        
+        // Push the lights to the uniform buffer
+        LightList sceneLights = currentScene->GetLights();
+        
+        numLights->SetInt(sceneLights.size());
+        
+        // TODO: An optimisation here would be to track light changes and only push changed data.
+        for ( int i = 0; i < sceneLights.size(); i++ )
+        {
+            lightProperties[i].position->SetVector3(sceneLights[i]->GetPosition());
+            lightProperties[i].direction->SetVector3(sceneLights[i]->GetDirection());
+            lightProperties[i].diffuse->SetVector4(sceneLights[i]->diffuse.ToVector4());
+            lightProperties[i].attenuation->SetVector4(sceneLights[i]->attenuation);
+            lightProperties[i].strength->SetFloat(sceneLights[i]->strength);
+        }
+    }
 
 	void SceneManager::Draw(RenderStateStack::Ptr stateStack)
 	{
@@ -115,10 +174,10 @@ namespace epsilon
 		// Push a new render state
 		stateStack->Push();
 		
-		// Update the matrices
-		stateStack->State()->view = currentScene->GetActiveCamera()->GetViewMatrix();
-		stateStack->State()->projection = currentScene->GetActiveCamera()->GetProjectionMatrix();
-		stateStack->State()->lights = currentScene->GetLights();
+        
+//		stateStack->State()->view = currentScene->GetActiveCamera()->GetViewMatrix();
+//		stateStack->State()->projection = currentScene->GetActiveCamera()->GetProjectionMatrix();
+//		stateStack->State()->lights = currentScene->GetLights();
 		
 		for ( RenderList::iterator renderer = renderList.begin(); renderer != renderList.end(); renderer++)
 		{

@@ -5,6 +5,9 @@
 #include <boost/filesystem.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
+#include "render/material/ShaderManager.h"
+#include "render/material/UniformBuffer.h"
+
 #include "utilities/Utilities.h"
 #include "render/RenderUtilities.h"
 
@@ -221,6 +224,8 @@ namespace epsilon
                 // courtesy: http://stackoverflow.com/a/4970703
                 int total = -1;
                 glGetProgramiv(programId, GL_ACTIVE_UNIFORMS, &total);
+                CheckOpenGLError("Getting # of Active Uniforms");
+                
                 for (int i = 0; i < total; ++i)
                 {
                     int name_len = -1, num = -1;
@@ -234,10 +239,32 @@ namespace epsilon
                     // Add to the uniform map
                     uniforms[std::string(name)] = ShaderUniform::Create(location, type);
                 }
+              
+                // Extract any Active Uniform Blocks
+                int numBlocks;
                 
-                // old code, but grab the modelView and proMatrix uniforms
-                //            viewMatUnf = glGetUniformLocation(programId, "modelViewMatrix");
-                //            projMatUnf = glGetUniformLocation(programId, "projMatrix");
+                glGetProgramiv(programId, GL_ACTIVE_UNIFORM_BLOCKS, &numBlocks);
+                CheckOpenGLError("Getting # of Active Uniform Blocks");
+                
+                for ( int i = 0; i < numBlocks; ++i )
+                {
+                    int nameLen = -1;
+                    char name[100];
+                    GLuint uniformBlockIndex;
+                    glGetActiveUniformBlockiv(programId, GLuint(i), GL_UNIFORM_BLOCK_NAME_LENGTH, &nameLen);
+                    glGetActiveUniformBlockName(programId, GLuint(i), nameLen, NULL, &name[0]);
+                    CheckOpenGLError("Extracting Uniform Block");
+                    
+                    uniformBlockIndex = glGetUniformBlockIndex(programId, name);
+                    CheckOpenGLError("Getting Uniform Block Index for: " + std::string(name) );
+                    
+                    // Get the Uniform Buffer from the ShaderManager
+                    UniformBuffer::Ptr buffer = ShaderManager::GetInstance().GetUniformBuffer(name);
+                    
+                    // Bind the shader uniform block to the uniform buffer
+                    glUniformBlockBinding(programId, uniformBlockIndex, buffer->GetBindingIndex());                    
+                    CheckOpenGLError("Binding to Uniform Block: " + std::string(name));
+                }
                 
                 shaderCompiled = true;
                 
@@ -339,6 +366,7 @@ namespace epsilon
 			if (currProg != programId)
 			{
 				glUseProgram(programId);
+                CheckOpenGLError("Enabling Shader");
 			}
 
 			shaderActive = true;
@@ -353,6 +381,7 @@ namespace epsilon
 					uniform.second->SetShaderValue();
 				}
 			});
+            CheckOpenGLError("Setting Shader Uniforms: " + name);
 
 			// Calculate the model view matrix
 //			Matrix4 modelViewMatrix = state->view * state->model;
