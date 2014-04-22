@@ -433,6 +433,8 @@ public:
 	Vector4(float v = 0.0f);
 	Vector4(const Vector4& vec);
 	Vector4(float ix, float iy, float iz, float iw);
+	Vector4(const Vector3& vec, float extra);
+	Vector4(float value, const Vector3& extra);
 
 	// To String
 	inline std::string ToString() 

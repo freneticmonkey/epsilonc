@@ -298,6 +298,22 @@ Vector4::Vector4(float ix, float iy, float iz, float iw)
     w = iw;
 }
 
+Vector4::Vector4(const Vector3& vec, float extra)
+{
+	x = vec.x;
+	y = vec.y;
+	z = vec.z;
+	w = extra;
+}
+
+Vector4::Vector4(float value, const Vector3& extra)
+{
+	x = value;
+	y = extra.x;
+	z = extra.y;
+	w = extra.z;
+}
+
 Vector4& Vector4::operator=(const Vector4& vec)
 {
 	x = vec.x;
