@@ -221,21 +221,27 @@
     <ClCompile Include="..\source\render\VertexBuffer.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\render\material\ShaderManager.cpp">
+      <Filter>Source Files\render\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\material\UniformBuffer.cpp">
+      <Filter>Source Files\render\material</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\ResourceModule.cpp">
+      <Filter>Source Files\script\python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\material\ShaderUniform.cpp">
+      <Filter>Source Files\render\material</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\EpsilonCore.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\ResourcePath.hpp">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\source\core\EpsilonManager.h">
       <Filter>Source Files\core</Filter>
     </ClInclude>
     <ClInclude Include="..\source\events\Event.h">
-      <Filter>Source Files\events</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\events\EventData.h">
       <Filter>Source Files\events</Filter>
     </ClInclude>
     <ClInclude Include="..\source\events\EventListener.h">
@@ -433,9 +439,6 @@
     <ClInclude Include="..\source\render\material\ShaderStage.h">
       <Filter>Source Files\render\material</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\render\material\ShaderUtilities.h">
-      <Filter>Source Files\render\material</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\render\material\MaterialManager.h">
       <Filter>Source Files\render\material</Filter>
     </ClInclude>
@@ -449,6 +452,18 @@
       <Filter>Source Files\scene</Filter>
     </ClInclude>
     <ClInclude Include="..\source\render\material\ShaderUniform.h">
+      <Filter>Source Files\render\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\material\ShaderManager.h">
+      <Filter>Source Files\render\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\material\UniformBuffer.h">
+      <Filter>Source Files\render\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\python\ResourceModule.h">
+      <Filter>Source Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\material\ShaderUtilities.h">
       <Filter>Source Files\render\material</Filter>
     </ClInclude>
   </ItemGroup>

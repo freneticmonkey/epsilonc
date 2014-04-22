@@ -154,12 +154,12 @@ namespace epsilon
 		// Setup the Camera and Projection Matrix
 //		stateStack->State()->view = sceneManager->CurrentScene()->GetActiveCamera()->GetViewMatrix();
 //		stateStack->State()->projection = sceneManager->CurrentScene()->GetActiveCamera()->GetProjectionMatrix();
-		//gizmoManager->Draw(stateStack);
+		gizmoManager->Draw(stateStack);
 		
         // Draw the GUI
 		if ( uiManager )
 		{
-			uiManager->Draw(window);
+		//	uiManager->Draw(window);
 		}
         
 		// Display the frame

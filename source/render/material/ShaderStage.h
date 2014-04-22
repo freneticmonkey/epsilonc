@@ -4,7 +4,6 @@
 
 // Rendering Helpers
 #include "render/RenderUtilities.h"
-#include "render/material/ShaderUtilities.h"
 
 namespace epsilon
 {

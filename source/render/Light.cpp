@@ -22,11 +22,11 @@ namespace epsilon
 		return newLight;
 	}
     
-	Light::Light(const private_struct &) : NodeComponent("Light")
+	Light::Light(const private_struct &) : NodeComponent("Light"), angle(0), strength(10)
 	{
 	}
     
-	Light::Light(const private_struct &, std::string name) : NodeComponent(name, "Light")
+	Light::Light(const private_struct &, std::string name) : NodeComponent(name, "Light"), angle(0), strength(10)
 	{
 	}
     

@@ -16,7 +16,7 @@ namespace epsilon
 {
 	class Shader :
         public ResourceOwner
-	{
+	{ 
 	private:
 		struct private_struct {} ;
 

@@ -21,39 +21,30 @@ namespace epsilon
 		scenes.push_back(currentScene);
         
         Log("Configuring the Uniform Buffer Objects");
+		ShaderManager * shaderManager = &ShaderManager::GetInstance();
         
-        globalMatrices = ShaderManager::GetInstance().GetUniformBuffer("GlobalMatrices");
-        viewMatrixUnf = ShaderUniform::Create(0, GL_FLOAT_MAT4);
-        projMatrixUnf = ShaderUniform::Create(1, GL_FLOAT_MAT4);
-        globalMatrices->AddUniform(viewMatrixUnf)
-                      ->AddUniform(projMatrixUnf);
+        globalMatrices = shaderManager->GetUniformBuffer("GlobalMatrices");
+		viewMatrixUnf = globalMatrices->GetUniform("viewMatrix");
+		projMatrixUnf = globalMatrices->GetUniform("projectionMatrix");
         
         // Process lights
-        lights = ShaderManager::GetInstance().GetUniformBuffer("Lights");
+		lights = shaderManager->GetUniformBuffer("Lights");
         
-        // Create a control for the number of active lights
+        // Get the control for the number of active lights
         int index = 0;
-        numLights = ShaderUniform::Create(index++, GL_INT);
-        lights->AddUniform(numLights);
+		numLights = lights->GetUniform("numLights");
         
         for (int i = 0; i < Light::MAX_LIGHTS; i++ )
         {
-            // Create Uniforms for the light
+            // Get the Uniforms for the lights
             LightUniforms lightData;
-            lightData.position      = ShaderUniform::Create(index++, GL_FLOAT_VEC3);
-            lightData.direction     = ShaderUniform::Create(index++, GL_FLOAT_VEC3);
-            lightData.diffuse       = ShaderUniform::Create(index++, GL_FLOAT_VEC4);
-            lightData.attenuation   = ShaderUniform::Create(index++, GL_FLOAT_VEC4);
-            lightData.strength      = ShaderUniform::Create(index++, GL_FLOAT);
-            
+			lightData.position		= lights->GetUniform("lights[" + std::to_string(i) + "].position");
+			lightData.direction		= lights->GetUniform("lights[" + std::to_string(i) + "].direction");
+			lightData.diffuse		= lights->GetUniform("lights[" + std::to_string(i) + "].diffuse");
+			lightData.attenuation	= lights->GetUniform("lights[" + std::to_string(i) + "].attenuation");
+			lightData.strength		= lights->GetUniform("lights[" + std::to_string(i) + "].strength");
+
             lightProperties.push_back(lightData);
-            
-            // Push the uniforms
-            lights->AddUniform(lightData.position)
-                  ->AddUniform(lightData.direction)
-                  ->AddUniform(lightData.diffuse)
-                  ->AddUniform(lightData.attenuation)
-                  ->AddUniform(lightData.strength);
         }
         
 	}
@@ -150,12 +141,15 @@ namespace epsilon
         // Push the lights to the uniform buffer
         LightList sceneLights = currentScene->GetLights();
         
-        numLights->SetInt(sceneLights.size());
+		if (numLights)
+		{
+			numLights->SetInt(sceneLights.size());
+		}
         
         // TODO: An optimisation here would be to track light changes and only push changed data.
-        for ( int i = 0; i < sceneLights.size(); i++ )
+		for ( int i = 0; i < sceneLights.size(); i++ )
         {
-            lightProperties[i].position->SetVector3(sceneLights[i]->GetPosition());
+			lightProperties[i].position->SetVector3(sceneLights[i]->GetPosition());
             lightProperties[i].direction->SetVector3(sceneLights[i]->GetDirection());
             lightProperties[i].diffuse->SetVector4(sceneLights[i]->diffuse.ToVector4());
             lightProperties[i].attenuation->SetVector4(sceneLights[i]->attenuation);

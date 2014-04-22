@@ -19,9 +19,11 @@ struct Light
 	vec3 direction;
 	vec4 diffuse;
 	vec4 attenuation;
+	float strength;
 };
 
 layout (std140) uniform Lights {
-	int numLights;
 	Light lights[4];
+	int numLights;
+	vec3 padding;
 };

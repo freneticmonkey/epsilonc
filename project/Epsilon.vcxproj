@@ -30,7 +30,10 @@
     <ClCompile Include="..\source\render\material\Material.cpp" />
     <ClCompile Include="..\source\render\material\MaterialManager.cpp" />
     <ClCompile Include="..\source\render\material\Shader.cpp" />
+    <ClCompile Include="..\source\render\material\ShaderManager.cpp" />
     <ClCompile Include="..\source\render\material\ShaderStage.cpp" />
+    <ClCompile Include="..\source\render\material\ShaderUniform.cpp" />
+    <ClCompile Include="..\source\render\material\UniformBuffer.cpp" />
     <ClCompile Include="..\source\render\Mesh.cpp" />
     <ClCompile Include="..\source\render\MeshFactory.cpp" />
     <ClCompile Include="..\source\render\Renderer.cpp" />
@@ -53,6 +56,7 @@
     <ClCompile Include="..\source\script\python\MathModule.cpp" />
     <ClCompile Include="..\source\script\python\MainModule.cpp" />
     <ClCompile Include="..\source\script\python\RenderModule.cpp" />
+    <ClCompile Include="..\source\script\python\ResourceModule.cpp" />
     <ClCompile Include="..\source\script\python\SceneModule.cpp" />
     <ClCompile Include="..\source\script\python\ScriptModule.cpp" />
     <ClCompile Include="..\source\script\python\UIModule.cpp" />
@@ -73,7 +77,6 @@
     <ClInclude Include="..\source\core\InputManager.h" />
     <ClInclude Include="..\source\EpsilonCore.h" />
     <ClInclude Include="..\source\events\Event.h" />
-    <ClInclude Include="..\source\events\EventData.h" />
     <ClInclude Include="..\source\events\EventListener.h" />
     <ClInclude Include="..\source\events\EventManager.h" />
     <ClInclude Include="..\source\logging\Logging.h" />
@@ -93,9 +96,11 @@
     <ClInclude Include="..\source\render\material\Material.h" />
     <ClInclude Include="..\source\render\material\MaterialManager.h" />
     <ClInclude Include="..\source\render\material\Shader.h" />
+    <ClInclude Include="..\source\render\material\ShaderManager.h" />
     <ClInclude Include="..\source\render\material\ShaderStage.h" />
     <ClInclude Include="..\source\render\material\ShaderUniform.h" />
     <ClInclude Include="..\source\render\material\ShaderUtilities.h" />
+    <ClInclude Include="..\source\render\material\UniformBuffer.h" />
     <ClInclude Include="..\source\render\Mesh.h" />
     <ClInclude Include="..\source\render\MeshFactory.h" />
     <ClInclude Include="..\source\render\Renderer.h" />
@@ -105,7 +110,6 @@
     <ClInclude Include="..\source\render\VertexAttrib.h" />
     <ClInclude Include="..\source\render\VertexBuffer.h" />
     <ClInclude Include="..\source\render\VertexData.h" />
-    <ClInclude Include="..\source\ResourcePath.hpp" />
     <ClInclude Include="..\source\resource\Resource.h" />
     <ClInclude Include="..\source\resource\ResourceDependency.h" />
     <ClInclude Include="..\source\resource\ResourceManager.h" />
@@ -127,6 +131,7 @@
     <ClInclude Include="..\source\script\python\ManagerModule.h" />
     <ClInclude Include="..\source\script\python\MathModule.h" />
     <ClInclude Include="..\source\script\python\RenderModule.h" />
+    <ClInclude Include="..\source\script\python\ResourceModule.h" />
     <ClInclude Include="..\source\script\python\SceneModule.h" />
     <ClInclude Include="..\source\script\python\ScriptModule.h" />
     <ClInclude Include="..\source\script\python\UIModule.h" />

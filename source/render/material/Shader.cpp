@@ -7,6 +7,7 @@
 
 #include "render/material/ShaderManager.h"
 #include "render/material/UniformBuffer.h"
+#include "render/material/ShaderUtilities.h"
 
 #include "utilities/Utilities.h"
 #include "render/RenderUtilities.h"
@@ -226,18 +227,12 @@ namespace epsilon
                 glGetProgramiv(programId, GL_ACTIVE_UNIFORMS, &total);
                 CheckOpenGLError("Getting # of Active Uniforms");
                 
-                for (int i = 0; i < total; ++i)
+				for (int uniformIndex = 0; uniformIndex < total; ++uniformIndex)
                 {
-                    int name_len = -1, num = -1;
-                    GLenum type = GL_ZERO;
-                    char name[100];
-                    glGetActiveUniform(programId, GLuint(i), sizeof(name)-1,
-                                       &name_len, &num, &type, name);
-                    name[name_len] = 0;
-                    GLuint location = glGetUniformLocation(programId, name);
+					ShaderUniform::Ptr shaderUniform = ShaderUniform::CreateFromShader(programId, uniformIndex);
                     
                     // Add to the uniform map
-                    uniforms[std::string(name)] = ShaderUniform::Create(location, type);
+					uniforms[shaderUniform->GetName()] = shaderUniform;
                 }
               
                 // Extract any Active Uniform Blocks
@@ -246,24 +241,23 @@ namespace epsilon
                 glGetProgramiv(programId, GL_ACTIVE_UNIFORM_BLOCKS, &numBlocks);
                 CheckOpenGLError("Getting # of Active Uniform Blocks");
                 
-                for ( int i = 0; i < numBlocks; ++i )
+				for (int blockId = 0; blockId < numBlocks; ++blockId)
                 {
                     int nameLen = -1;
                     char name[100];
                     GLuint uniformBlockIndex;
-                    glGetActiveUniformBlockiv(programId, GLuint(i), GL_UNIFORM_BLOCK_NAME_LENGTH, &nameLen);
-                    glGetActiveUniformBlockName(programId, GLuint(i), nameLen, NULL, &name[0]);
+					glGetActiveUniformBlockiv(programId, GLuint(blockId), GL_UNIFORM_BLOCK_NAME_LENGTH, &nameLen);
+					glGetActiveUniformBlockName(programId, GLuint(blockId), nameLen, NULL, &name[0]);
                     CheckOpenGLError("Extracting Uniform Block");
                     
-                    uniformBlockIndex = glGetUniformBlockIndex(programId, name);
-                    CheckOpenGLError("Getting Uniform Block Index for: " + std::string(name) );
-                    
-                    // Get the Uniform Buffer from the ShaderManager
-                    UniformBuffer::Ptr buffer = ShaderManager::GetInstance().GetUniformBuffer(name);
-                    
-                    // Bind the shader uniform block to the uniform buffer
-                    glUniformBlockBinding(programId, uniformBlockIndex, buffer->GetBindingIndex());                    
-                    CheckOpenGLError("Binding to Uniform Block: " + std::string(name));
+					// Get the Uniform Buffer from the ShaderManager
+					UniformBuffer::Ptr buffer = ShaderManager::GetInstance().GetUniformBuffer(name);
+	
+					// If this is the first time the block has been bound, set it up.
+					if (!buffer->IsBound())
+					{
+						buffer->Bind(programId, blockId);
+					}
                 }
                 
                 shaderCompiled = true;

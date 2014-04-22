@@ -19,8 +19,12 @@ namespace epsilon
     private:
         struct private_struct {};
     public:
+
+		// Max # of Block Indices
+		static const int MAX_BLOCK_INDICIES = 128;
+
         typedef std::shared_ptr<UniformBuffer> Ptr;
-        typedef std::vector<ShaderUniform::Ptr> Uniforms;
+		typedef std::map<std::string, ShaderUniform::Ptr> UniformMap;
         
         static UniformBuffer::Ptr Create(std::string name, GLuint index)
 		{
@@ -30,7 +34,7 @@ namespace epsilon
         explicit UniformBuffer(const private_struct &, std::string name, GLuint index);
         ~UniformBuffer();
         
-        void Bind();
+        void Bind(GLuint shaderId, GLuint blockId);
         void Update();
         void Destroy();
         
@@ -39,8 +43,6 @@ namespace epsilon
         bool        IsBound() { return bound; }
         
         GLuint      GetBindingIndex() { return bindingIndex; }
-        
-        Uniforms GetUniforms() { return uniforms; }
         
         // Access to shader uniforms from script
 		ShaderUniform::Ptr GetUniform(std::string name);
@@ -51,12 +53,13 @@ namespace epsilon
     private:
         UniformBuffer::Ptr ThisPtr() { return shared_from_this(); }
         
+		std::string name;
+
         GLuint      bufferId;
         GLsizei     bufferSize;
         GLuint      bindingIndex;
-        std::string name;
         bool        bound;
         
-        Uniforms uniforms;
+        UniformMap	uniforms;
     };
 }

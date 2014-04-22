@@ -87,11 +87,7 @@ namespace epsilon {
     void ShaderManager::ProcessUniformBuffers()
     {
         std::for_each(uniformBuffers.begin(), uniformBuffers.end(), [](std::pair<std::string, UniformBuffer::Ptr> buffer){
-			if ( !buffer.second->IsBound() )
-            {
-                buffer.second->Bind();
-            }
-            buffer.second->Update();
+			buffer.second->Update();
 		});
     }
 }

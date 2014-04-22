@@ -1,7 +1,9 @@
 #include "render/material/ShaderStage.h"
+#include "render/material/ShaderUtilities.h"
 #include "utilities/Utilities.h"
 
 #include <string>
+#include <regex>
 #include <boost/format.hpp>
 
 using namespace boost;
@@ -101,9 +103,35 @@ namespace epsilon
                 
                 if (!stageCompiled)
                 {
-                    DisplayCompileError(stageId);
-                    
-                    Log(str(format("Shader: %s\n") % filename ),source);
+					// Display an error message and get the shader code line in error
+					int lineError = DisplayCompileError(stageId);
+
+					// Insert line numbers and line error message into the shader source
+					int lineNum = 1;
+					source.insert(0, std::to_string(lineNum++) + ": ");
+					
+					std::size_t found = source.find("\n");
+					bool showError = false;
+					while (found != std::string::npos)
+					{
+						if (showError)
+						{
+							// Insert an error message before the next newline
+							source.insert(--found, "\t<<========== ERROR");
+							found+=20;
+							showError = false;
+						}
+						std::string strLineNum = std::to_string(lineNum++) + ": ";
+						source.insert(++found, strLineNum);
+						found += strLineNum.length();
+						found = source.find("\n", found);
+
+						if (lineNum == (lineError+1))
+						{
+							showError = true;
+						}
+					}
+                    Log(str(format("Shader: %s\n") % filename ),"\n" + source);
                 }
             }
             else
@@ -121,7 +149,5 @@ namespace epsilon
         }
 
 		return stageCompiled;
-	}
-
-	
+	}	
 }
