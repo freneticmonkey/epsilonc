@@ -1,13 +1,11 @@
 #include "render/gizmos/GizmoSphere.h"
 #include "render/MeshFactory.h"
-#include "render/material/MaterialManager.h"
 
 namespace epsilon
 {
 	GizmoSphere::GizmoSphere()
 	{
 		mesh = MeshFactory::GenerateWireSphere();
-		material = MaterialManager::GetInstance().GetMaterialByName("gizmo");
 	}
 
 	GizmoSphere::~GizmoSphere()

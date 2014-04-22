@@ -2,11 +2,13 @@
 
 #include "render/gizmos/GizmoType.h"
 #include "render/Mesh.h"
+#include "render/material/MaterialManager.h"
 
 namespace epsilon
 {
 	GizmoType::GizmoType(void) : currentOperations(0)
 	{
+		material = MaterialManager::GetInstance().GetMaterialByName("gizmo");
 	}
 
 	GizmoType::~GizmoType(void)

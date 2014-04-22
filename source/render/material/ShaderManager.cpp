@@ -8,6 +8,7 @@
 
 #include "render/material/ShaderManager.h"
 #include "resource/ResourceManager.h"
+#include "render/material/MaterialManager.h"
 
 namespace epsilon {
 
@@ -43,6 +44,13 @@ namespace epsilon {
                 {
                     defaultShader = newShader;
                 }
+
+				// Create new materials for each of the shaders found. 
+				// Materials will be named using the shader without the '.shader' extension
+				std::string materialName = newShader->GetName();
+				materialName = materialName.substr(0, materialName.find("."));
+				Material::Ptr shaderMaterial = MaterialManager::GetInstance().CreateMaterial(materialName);
+				shaderMaterial->SetShader(newShader);
 			}
 		});
     }
