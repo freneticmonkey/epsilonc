@@ -163,6 +163,7 @@ namespace epsilon
 			sceneManager->Update(el);
 			sceneManager->Cull();
 		}
+		resourceManager->Update(el);
 		// The following managers currently don't support running in parallel due to OpenGL or whatever.
         gizmoManager->Update(el);
 		sceneManager->Update(el);
