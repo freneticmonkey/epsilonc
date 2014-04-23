@@ -39,8 +39,8 @@ namespace epsilon
 		newUniform->arrayStride		= arrayStride;
 		newUniform->matrixStride	= matrixStride;
 		newUniform->matrixIsRowMajor = matrixIsRowMajor;
-
-		Log("ShaderUniform", "Extracted Uniform from Shader: " + std::string(name) );
+		
+		//Log("ShaderUniform", "Extracted Uniform from Shader: " + std::string(name) );
 
 		return newUniform;
 	}

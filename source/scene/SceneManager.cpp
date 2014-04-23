@@ -46,7 +46,6 @@ namespace epsilon
 
             lightProperties.push_back(lightData);
         }
-        
 	}
 
 	void SceneManager::SetScene(Scene::Ptr newScene)
@@ -134,27 +133,27 @@ namespace epsilon
     
     void SceneManager::PreDraw()
     {
-        // Push the matrices to the uniform buffer
-        viewMatrixUnf->SetMatrix4(currentScene->GetActiveCamera()->GetViewMatrix());
-        projMatrixUnf->SetMatrix4(currentScene->GetActiveCamera()->GetProjectionMatrix());
-        
-        // Push the lights to the uniform buffer
-        LightList sceneLights = currentScene->GetLights();
-        
+		// If numLights is null, then the shader didn't compile so don't access
 		if (numLights)
 		{
+			// Push the matrices to the uniform buffer
+			viewMatrixUnf->SetMatrix4(currentScene->GetActiveCamera()->GetViewMatrix());
+			projMatrixUnf->SetMatrix4(currentScene->GetActiveCamera()->GetProjectionMatrix());
+			
+			// Push the lights to the uniform buffer
+			LightList sceneLights = currentScene->GetLights();
 			numLights->SetInt(sceneLights.size());
+
+			// TODO: An optimisation here would be to track light changes and only push changed data.
+			for (int i = 0; i < sceneLights.size(); i++)
+			{
+				lightProperties[i].position->SetVector3(sceneLights[i]->GetPosition());
+				lightProperties[i].direction->SetVector3(sceneLights[i]->GetDirection());
+				lightProperties[i].diffuse->SetVector4(sceneLights[i]->diffuse.ToVector4());
+				lightProperties[i].attenuation->SetVector4(sceneLights[i]->attenuation);
+				lightProperties[i].strength->SetFloat(sceneLights[i]->strength);
+			}
 		}
-        
-        // TODO: An optimisation here would be to track light changes and only push changed data.
-		for ( int i = 0; i < sceneLights.size(); i++ )
-        {
-			lightProperties[i].position->SetVector3(sceneLights[i]->GetPosition());
-            lightProperties[i].direction->SetVector3(sceneLights[i]->GetDirection());
-            lightProperties[i].diffuse->SetVector4(sceneLights[i]->diffuse.ToVector4());
-            lightProperties[i].attenuation->SetVector4(sceneLights[i]->attenuation);
-            lightProperties[i].strength->SetFloat(sceneLights[i]->strength);
-        }
     }
 
 	void SceneManager::Draw(RenderStateStack::Ptr stateStack)

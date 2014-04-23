@@ -191,6 +191,13 @@ namespace epsilon
                 // If the stage is defined
                 if (stages[i])
                 {
+					// Ensure that the Material Definition is set for the Fragment
+					// Shader, in case it was found on disk after the fragment shader
+					if (i == ShaderStageType::Type::FRAGMENT)
+					{
+						stages[i]->SetMaterialDefinition(materialStruct);
+					}
+
                     // Compile it
                     if ( stages[i]->Compile() )
                     {
@@ -254,10 +261,7 @@ namespace epsilon
 					UniformBuffer::Ptr buffer = ShaderManager::GetInstance().GetUniformBuffer(name);
 	
 					// If this is the first time the block has been bound, set it up.
-					if (!buffer->IsBound())
-					{
-						buffer->Bind(programId, blockId);
-					}
+					buffer->Bind(programId, blockId);
                 }
                 
                 shaderCompiled = true;

@@ -72,7 +72,7 @@
 
 	
 	<node name="camera_pos">
-		<transform position="0 -2 -10"/>
+		<transform position="0 -2 -16"/>
 		<children>
 			<node name="camera_node">
 				<camera name="scene_cam" active="True"/>
@@ -85,18 +85,28 @@
 
 	<node>
 		<scripts>
-			<!-- <script filename="resources/scripts/RotationTest.py"/> -->
+			<script filename="resources/scripts/RotationTest.py"/>
 		</scripts>
 		
 		<children>
-			<node name="scene_light">
-				<light name="a_light" diffuse="1.0 1.0 1.0 1.0" attenuation="0 0 0 0.002"/>
-				<transform position="0 3 0"/>
+			<node name="light_red">
+				<light name="a_light" diffuse="1.0 0.0 0.0 1.0" attenuation="0 0 0 0.002"/>
+				<transform position="2 2 0"/>
+				<scripts>
+					<script filename="resources/scripts/PositionGizmo.py"/>
+					<script filename="resources/scripts/KeyboardControl.py"/>
+				</scripts>
+			</node>
+
+			<node name="light_blue">
+				<light name="a_light" diffuse="0.0 0.0 1.0 1.0" attenuation="0 0 0 0.002"/>
+				<transform position="-2 -2 0"/>
 				<scripts>
 					<script filename="resources/scripts/PositionGizmo.py"/>
 					<script filename="resources/scripts/KeyboardControl.py"/>
 				</scripts>
 			</node>		
+
 		</children>
 	</node>
 

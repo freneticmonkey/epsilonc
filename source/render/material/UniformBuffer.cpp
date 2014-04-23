@@ -50,19 +50,18 @@ namespace epsilon
 
 			int dataSize = 0;
 			glGetActiveUniformBlockiv(shaderId, blockId, GL_UNIFORM_BLOCK_DATA_SIZE, &dataSize);
-			Log("Size Required: " + std::to_string(dataSize));
-
+			
 			int activeBlockUniforms = 0;
 			glGetActiveUniformBlockiv(shaderId, blockId, GL_UNIFORM_BLOCK_ACTIVE_UNIFORMS, &activeBlockUniforms);
-			Log("# active uniforms: " + std::to_string(activeBlockUniforms));
-
+			
 			GLint blockUniformIndices[UniformBuffer::MAX_BLOCK_INDICIES];
 			glGetActiveUniformBlockiv(shaderId, blockId, GL_UNIFORM_BLOCK_ACTIVE_UNIFORM_INDICES, blockUniformIndices);
 
 			// Query the uniforms and build the uniforms for the buffer.
 			for (int i = 0; i < activeBlockUniforms; i++)
 			{
-				AddUniform(ShaderUniform::CreateFromShader(shaderId, blockUniformIndices[i]));
+				ShaderUniform::Ptr newUniform = ShaderUniform::CreateFromShader(shaderId, blockUniformIndices[i]);
+				AddUniform(newUniform);
 			}
 
 			// If there are uniforms assigned to this buffer
@@ -79,22 +78,10 @@ namespace epsilon
 				int alignSize = 0;
 
 				glGetIntegerv(GL_UNIFORM_BUFFER_OFFSET_ALIGNMENT, &alignSize);
-				Log("Uniform Buffer Alignment Size: " + std::to_string(alignSize));
-
+				
 				int maxblockSize = 0;
-
 				glGetIntegerv(GL_MAX_UNIFORM_BLOCK_SIZE, &maxblockSize);
-				Log("Uniform Buffer Max Block Size: " + std::to_string(maxblockSize));
-
-				/*
-				// Determine the size of the uniform buffer from it's uniforms
-				for_each(uniforms.begin(), uniforms.end(), [&](std::pair<std::string, ShaderUniform::Ptr> uniform){
-
-					// move the offset for the next uniform
-					bufferSize += uniform.second->GetSize();
-				});
-				*/
-
+				
 				// Use the data size extracted from the Uniform Buffer info
 				bufferSize = dataSize;
 

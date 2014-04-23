@@ -25,5 +25,4 @@ struct Light
 layout (std140) uniform Lights {
 	Light lights[4];
 	int numLights;
-	vec3 padding;
 };
