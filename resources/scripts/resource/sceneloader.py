@@ -81,6 +81,7 @@ class SceneLoader(ResourceOwner):
 				self.register_resource(scene)
 
 				print "register complete"
+				break
 
 	def refresh_resources(self, change_list):
 		print "Scene file change detected."
@@ -89,7 +90,6 @@ class SceneLoader(ResourceOwner):
 		self._scene_resource.set_reloaded()
 
 	def process_resource(self):
-
 		new_scene = None
 		is_loaded = False
 		parse_ok = False
@@ -100,6 +100,7 @@ class SceneLoader(ResourceOwner):
 			parse_ok = True
 		except ET.ParseError, e:
 			self._log("Invalid Scene Format Detected.  Unable to load scene file: %s" % filename)
+
 
 		if parse_ok:
 			xml_root = xml_dom.getroot()
