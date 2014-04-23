@@ -1,5 +1,10 @@
 #include "logging/Logging.h"
 
+#ifdef _MSC_VER 
+	#include <intrin.h>
+	#include <Windows.h>
+#endif
+
 namespace epsilon
 {
 	LogListener::LogListener()
@@ -22,6 +27,16 @@ namespace epsilon
 		content = this->name + ": " + content + "\n";
 		printf("%s",content.c_str());
 		fflush(stdout);
+
+#ifdef _DEBUG
+#ifdef _MSC_VER
+		// If using Visual Studio in Debug mode. also print to the Visual Studio Window.
+		if (IsDebuggerPresent())
+		{
+			OutputDebugStringA(content.c_str());
+		}
+#endif
+#endif
 
         std::for_each(listeners.begin(), listeners.end(), [&](LogListener::Ptr listener){
             listener->Log(content);
