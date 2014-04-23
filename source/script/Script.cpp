@@ -214,7 +214,7 @@ namespace epsilon
 			
 			try
 			{
-				if (behaviourClass.attr(funcName.c_str()))
+				if (PyObject_HasAttrString(behaviourClass.ptr(), funcName.c_str()))
 				{
 					targetFunction = behaviourClass.attr(funcName.c_str());
 				}

@@ -48,11 +48,13 @@ void initResource()
     // And the Resource List for ResourceManager::FindResources results
     class_<ResourceList>("ResourceList")
         .def("__iter__", python::iterator<ResourceList>())
+		.def("__len__", &ResourceList::size)
     ;
     
     // ResourceIdList for parameter to RefreshResources override
     class_<ResourceIdVector>("ResourceIdVector")
         .def("__iter__", python::iterator<ResourceIdVector>())
+		.def("__len__", &ResourceIdVector::size)
     ;
     
     // Class to handle overriding the virtual RefreshResources function
