@@ -462,19 +462,19 @@ namespace epsilon
     //-----------------------------------------------------------------------
     Transform::Ptr Transform::Roll(const float& angle, TransformSpace relativeTo)
     {
-        Rotate(Vector3::UNIT_Z, angle, relativeTo);
+        Rotate(Forward(), angle, relativeTo);
 		return ThisPtr();
     }
     //-----------------------------------------------------------------------
     Transform::Ptr Transform::Pitch(const float& angle, TransformSpace relativeTo)
     {
-        Rotate(Vector3::UNIT_X, angle, relativeTo);
+        Rotate(Right(), angle, relativeTo);
 		return ThisPtr();
     }
     //-----------------------------------------------------------------------
     Transform::Ptr Transform::Yaw(const float& angle, TransformSpace relativeTo)
     {
-        Rotate(Vector3::UNIT_Y, angle, relativeTo);
+        Rotate(Up(), angle, relativeTo);
 		return ThisPtr();
 
     }
@@ -537,6 +537,8 @@ namespace epsilon
 		SetLocalOrientation(cachedTransform.GetRotation());
 
 		SetPosition(from);
+
+		needUpdate(true);
 	}
 
 	void Transform::FPS(Vector3 pos, float pitch, float yaw)
@@ -558,6 +560,8 @@ namespace epsilon
 		
 		SetPosition(cachedTransform.GetTranslation());
 		SetLocalOrientation(cachedTransform.GetRotation());
+
+		needUpdate(true);
 	}
 
 	const Matrix4& Transform::_getFullTransform(void)
@@ -567,6 +571,11 @@ namespace epsilon
 		{
 			Matrix4 rot, scaleM, pos, res;
 
+			cachedTransform = Matrix4::CreateTranslation(derivedPosition.x, derivedPosition.y, derivedPosition.z);
+			cachedTransform *= orientation.GetMatrix();
+			cachedTransform *= Matrix4::CreateScale(derivedScale.x, derivedScale.y, derivedScale.z);
+
+			/*
 			// Rotation & Scale
 			//rot = Quaternion::IDENTITY.GetMatrix();// derivedOrientation.GetMatrix();
 			rot = orientation.GetMatrix();
@@ -587,6 +596,7 @@ namespace epsilon
 			cachedTransform[3] = derivedPosition.x;
 			cachedTransform[7] = derivedPosition.y;
 			cachedTransform[11] = derivedPosition.z;
+			*/
 
 			cachedTransformOutOfDate = false;
 		}
