@@ -230,7 +230,6 @@ void initRender()
 
 		.def_readwrite("diffuse", &Light::diffuse)
 		.def_readwrite("attenuation", &Light::attenuation)
-		.def_readwrite("angle", &Light::angle)
 	;
 
 	object renderConstModule(handle<>(borrowed(PyImport_AddModule("epsilon.render.const"))));

@@ -59,44 +59,62 @@ namespace epsilon
 	
 	void ShaderUniform::SetInt(const int & newInt)
 	{
-		iVal = newInt;
-		size = sizeof(GLint);
-		changed = true;
+		if (iVal != newInt)
+		{
+			iVal = newInt;
+			size = sizeof(GLint);
+			changed = true;
+		}
 	}
 
 	void ShaderUniform::SetFloat(const float & newFloat)
 	{
-		fVal = newFloat;
-		size = sizeof(GLfloat);
-		changed = true;
+		if (fVal != newFloat)
+		{
+			fVal = newFloat;
+			size = sizeof(GLfloat);
+			changed = true;
+		}
 	}
 
 	void ShaderUniform::SetVector2(const Vector2 & vec)
 	{
-		vec2 = vec;
-		size = sizeof(GLfloat) * 2;
-		changed = true;
+		if (vec2 != vec)
+		{
+			vec2 = vec;
+			size = sizeof(GLfloat)* 2;
+			changed = true;
+		}
 	}
 
 	void ShaderUniform::SetVector3(const Vector3 & vec)
 	{
-		vec3 = vec;
-		size = sizeof(GLfloat)* 3;
-		changed = true;
+		if (vec3 != vec)
+		{
+			vec3 = vec;
+			size = sizeof(GLfloat)* 3;
+			changed = true;
+		}
 	}
 
 	void ShaderUniform::SetVector4(const Vector4 & vec)
 	{
-		vec4 = vec;
-		size = sizeof(GLfloat)* 4;
-		changed = true;
+		if (vec != vec4)
+		{
+			vec4 = vec;
+			size = sizeof(GLfloat)* 4;
+			changed = true;
+		}
 	}
 
 	void ShaderUniform::SetMatrix4(const Matrix4 & mat)
 	{
-		mat4 = mat;
-		size = sizeof(GLfloat)* 16;
-		changed = true;
+		if (mat4 != mat)
+		{
+			mat4 = mat;
+			size = sizeof(GLfloat)* 16;
+			changed = true;
+		}
 	}
 
 	// This should only be called from the Shader class

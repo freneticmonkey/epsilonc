@@ -20,33 +20,6 @@
 namespace epsilon
 {
 	class Light;
-
-//#define MAX_LIGHTS 10
-    
-//    struct LightInfo
-//    {
-//        Vector3 position;
-//        Vector3 direction;
-//        Vector4 diffuse;
-//        Vector4 attentuation;
-//        float   padding[2];
-//    };
-//    
-//    struct LightBuffer
-//    {
-//        int         numLights;
-//        LightInfo   lights[MAX_LIGHTS];
-//    };
-    
-    struct LightUniforms
-    {
-        ShaderUniform::Ptr position;
-        ShaderUniform::Ptr direction;
-        ShaderUniform::Ptr diffuse;
-        ShaderUniform::Ptr attenuation;
-        ShaderUniform::Ptr strength;
-        
-    };
     
 	typedef std::vector< std::shared_ptr<Light> > LightList;
 
@@ -56,6 +29,15 @@ namespace epsilon
 		struct private_struct {};
         
 	public:
+
+		enum Type
+		{
+			POINT = 0,
+			SPOT,
+			DIRECTIONAL,
+			SUN
+		};
+
         static const int MAX_LIGHTS = 4;
 
 		typedef std::shared_ptr<Light> Ptr;
@@ -78,10 +60,13 @@ namespace epsilon
 		Colour  ambient;
         Colour  diffuse;
 		Colour  specular;
-        Vector4 attenuation;
+        Vector3 attenuation;
 
-        float   angle;
         float   strength;
+		float	spotCutoff;
+		float	spotExponent;
+
+		int		type;
         
 		void	Update();
         
@@ -102,5 +87,9 @@ namespace epsilon
 		ShaderUniform::Ptr attenuationUnf;
 		
 		ShaderUniform::Ptr strengthUnf;
+		ShaderUniform::Ptr spotCutoffUnf;
+		ShaderUniform::Ptr spotExponentUnf;
+
+		ShaderUniform::Ptr typeUnf;
 	};
 }

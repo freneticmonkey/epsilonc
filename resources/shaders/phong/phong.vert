@@ -5,13 +5,13 @@ layout(location=3) in vec2 texCoord;
 
 uniform mat4 modelMatrix;
 
-out vec3 vNormal;
-smooth out vec4 worldPosition;
+smooth out vec3 vNormal;
+smooth out vec4 vPosition;
 // out vec3 lightDir[4];
 
 void main()
 {
-	worldPosition = transpose(modelMatrix) * vec4(position,1.0);
+	vPosition = transpose(modelMatrix) * vec4(position,1.0);
 	
 	// for (int i = 0; i < numLights; i++ )
 	// {

@@ -266,7 +266,7 @@ class SceneLight(BaseXMLNode):
 					light.diffuse = self.parse_colour(xml_tag, "diffuse")
 
 				if "attenuation" in xml_tag.attrib:
-					light.attenuation = self.parse_vector4(xml_tag, "attenuation")
+					light.attenuation = self.parse_vector3(xml_tag, "attenuation")
 
 				if "angle" in xml_tag.attrib:
 					default_angle = 0.0

@@ -22,8 +22,13 @@ struct Light
 	vec4 diffuse;
 	vec4 specular;
 	
-	vec4 attenuation;
+	vec3 attenuation;
 	float strength;
+
+	float spotCutoff;
+	float spotExponent;
+
+	int type;
 };
 
 layout (std140) uniform Lights {

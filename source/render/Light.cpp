@@ -25,12 +25,20 @@ namespace epsilon
 		return newLight;
 	}
     
-	Light::Light(const private_struct &, int newID) : NodeComponent("Light"), angle(0), strength(10), id(newID)
+	Light::Light(const private_struct &, int newID) : NodeComponent("Light"), strength(10), 
+																			  id(newID),
+																			  type(0),
+																			  spotCutoff(10),
+																			  spotExponent(2)
 	{
 		Setup();
 	}
     
-	Light::Light(const private_struct &, int newID, std::string name) : NodeComponent(name, "Light"), angle(0), strength(10), id(newID)
+	Light::Light(const private_struct &, int newID, std::string name) : NodeComponent(name, "Light"), strength(10), 
+																									  id(newID),
+																									  type(0),
+																									  spotCutoff(10),
+																									  spotExponent(2)
 	{
 		Setup();
 	}
@@ -50,6 +58,10 @@ namespace epsilon
 		attenuationUnf	= lights->GetUniform(str(format("lights[%d].attenuation") % id));
 		
 		strengthUnf		= lights->GetUniform(str(format("lights[%d].strength") % id));
+		spotCutoffUnf	= lights->GetUniform(str(format("lights[%d].spotCutoff") % id));
+		spotExponentUnf = lights->GetUniform(str(format("lights[%d].spotExponent") % id));
+
+		typeUnf			= lights->GetUniform(str(format("lights[%d].type") % id));
 	}
     
     void Light::OnSetParent()
@@ -98,12 +110,27 @@ namespace epsilon
 
 		if (attenuationUnf)
 		{
-			attenuationUnf->SetVector4(attenuation);
+			attenuationUnf->SetVector3(attenuation);
 		}
 
 		if (strengthUnf)
 		{
 			strengthUnf->SetFloat(strength);
+		}
+
+		if (spotCutoffUnf)
+		{
+			spotCutoffUnf->SetFloat(spotCutoff);
+		}
+
+		if (spotExponentUnf)
+		{
+			spotExponentUnf->SetFloat(spotExponent);
+		}
+
+		if (typeUnf)
+		{
+			typeUnf->SetInt(type);
 		}
 	}
 }
