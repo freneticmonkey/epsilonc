@@ -1,6 +1,5 @@
 #pragma once
 #include "EpsilonCore.h"
-#include "render/RenderState.h"
 #include "render/material/Material.h"
 #include "render/Mesh.h"
 #include "render/gizmos/GizmoOperation.h"
@@ -21,7 +20,7 @@ namespace epsilon
 		
 		virtual Matrix4 ExtractTransform(GizmoOperation::Ptr op) { return Matrix4();  };
 
-		void Draw(RenderStateStack::Ptr stateStack);
+		void Draw();
         
         void Destroy();
 

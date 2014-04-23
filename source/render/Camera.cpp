@@ -3,6 +3,8 @@
 #include "math/Matrix.h"
 #include "scene/Transform.h"
 
+#include "render/material/ShaderManager.h"
+
 namespace epsilon
 {
 	Camera::Ptr Camera::Create()
@@ -42,6 +44,13 @@ namespace epsilon
 		ratio = (float)((1.0f * width) / height);
 
 		BuildProjectionMatrix(fov, ratio, nearDist, farDist);
+
+		ShaderManager * sm = &ShaderManager::GetInstance();
+
+		UniformBuffer::Ptr globalMatUnf = sm->GetUniformBuffer("GlobalMatrices");
+
+		viewMatrixUnf = globalMatUnf->GetUniform("viewMatrix");
+		projMatrixUnf = globalMatUnf->GetUniform("projectionMatrix");
 	}
 	
 	Matrix4 Camera::GetProjectionMatrix()
@@ -52,7 +61,30 @@ namespace epsilon
 	Matrix4 Camera::GetViewMatrix()
 	{ 
 		// Just return the transform of the parent node
-		return GetParent()->GetComponent<Transform>()->_getFullTransform();
+		Transform::Ptr t = GetParent()->GetComponent<Transform>();// ->_getFullTransform();
+
+		Matrix4 mat = GetParent()->GetComponent<Transform>()->_getFullTransform();
+		/*
+		Matrix4 mat(Vector4(t->Right().x,	 t->Right().y,	t->Right().z,	t->GetPosition().x),
+					Vector4(t->Up().x,		 t->Up().y,		t->Up().z,		t->GetPosition().y),
+					Vector4(t->Forward().x,	 t->Forward().y,t->Forward().z, t->GetPosition().z),
+					Vector4(0, 0, 0, 1));
+		*/
+		/*
+		Matrix4 mat(Vector4(t->Right().x, t->Right().y, t->Right().z, 0),
+		Vector4(t->Up().x, t->Up().y, t->Up().z, 0),
+		Vector4(t->Forward().x, t->Forward().y, t->Forward().z, 0),
+		Vector4(t->GetPosition().x, t->GetPosition().y, t->GetPosition().z, 1));
+		*/
+
+		Matrix4 mat2(Vector4(1, 0, 0, 0),
+					 Vector4(0, 1, 0, 0),
+					 Vector4(0, 0, 1, 0),
+					 Vector4(0, 1, -18, 1));
+
+		mat2.RotateX(0.5f);
+
+		return mat;// .Transposed();
 	}
 
 	Vector3 Camera::ScreenToWorldCoordinate(Vector2 screenPos)
@@ -92,7 +124,21 @@ namespace epsilon
 		/*Matrix4 invertY;
 		invertY[5] = -1;
 		projMatrix *= invertY;*/
-		projMatrix.Scale(1.0f, -1.f, 1.0f);
+		//projMatrix.Scale(1.0f, 1.f, 1.0f);
+	}
+
+	void Camera::Update()
+	{
+		// Push matrices to the Uniform buffer
+		if (viewMatrixUnf)
+		{
+			viewMatrixUnf->SetMatrix4(GetViewMatrix());
+		}
+
+		if (projMatrixUnf)
+		{
+			projMatrixUnf->SetMatrix4(projMatrix);
+		}
 	}
 
 }

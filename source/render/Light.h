@@ -14,6 +14,7 @@
 #include "math/Matrix.h"
 #include "render/Colour.h"
 
+#include "render/material/ShaderManager.h"
 #include "render/material/ShaderUniform.h"
 
 namespace epsilon
@@ -59,27 +60,47 @@ namespace epsilon
 
 		typedef std::shared_ptr<Light> Ptr;
         
-		static Light::Ptr Create();
-		static Light::Ptr Create(std::string name);
+		static Light::Ptr Create(int id);
+		static Light::Ptr Create(int id, std::string name);
         
-		explicit Light(const private_struct &);
-		Light(const private_struct &, std::string name);
+		explicit Light(const private_struct &, int id);
+		Light(const private_struct &, int id, std::string name);
 		~Light(void) {}
+
+		int GetId() { return id; }
         
         // Listen to parent changes
         void OnSetParent();
-        
+
+		Vector3 GetPosition();
+		Vector3 GetDirection();
+
+		Colour  ambient;
         Colour  diffuse;
+		Colour  specular;
         Vector4 attenuation;
+
         float   angle;
         float   strength;
         
-        Vector3 GetPosition();
-        Vector3 GetDirection();
+		void	Update();
         
 	private:
-		void Setup();
+		void	Setup();
         
+		int		id;
         Transform::Ptr transform;
+
+		// Uniforms
+		ShaderUniform::Ptr positionUnf;
+		ShaderUniform::Ptr directionUnf;
+
+		ShaderUniform::Ptr ambientUnf;
+		ShaderUniform::Ptr diffuseUnf;
+		ShaderUniform::Ptr specularUnf;
+		
+		ShaderUniform::Ptr attenuationUnf;
+		
+		ShaderUniform::Ptr strengthUnf;
 	};
 }

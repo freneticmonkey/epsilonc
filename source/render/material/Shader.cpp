@@ -333,31 +333,6 @@ namespace epsilon
 		{
 			// Check if the shader is already bound, if I ever write batching, 
 			// this will be result in a easy performance boost?
-			/*
-			GLuint currProg;
-			glGetIntegerv(GL_CURRENT_PROGRAM, (GLint*) &currProg);
-
-			if (currProg != programId)
-			{
-				glUseProgram(programId);
-			}
-			*/
-
-			glUseProgram(programId);
-
-			shaderActive = true;
-		}
-		return shaderActive;
-	}
-
-	bool Shader::UseShader(RenderStateStack::Ptr stateStack)
-	{
-		RenderState::Ptr state = stateStack->State();
-
-		if ( shaderCompiled )
-		{
-			// Check if the shader is already bound, if I ever write batching, 
-			// this will be result in a easy performance boost?
 			GLuint currProg;
 			glGetIntegerv(GL_CURRENT_PROGRAM, (GLint*)&currProg);
 
@@ -380,14 +355,6 @@ namespace epsilon
 				}
 			});
             CheckOpenGLError("Setting Shader Uniforms: " + name);
-
-			// Calculate the model view matrix
-//			Matrix4 modelViewMatrix = state->view * state->model;
-//			modelViewMatrix.Transpose();
-//
-//			// Send it to the shader
-//			glUniformMatrix4fv(viewMatUnf, 1, GL_FALSE, &modelViewMatrix[0]);
-//			glUniformMatrix4fv(projMatUnf, 1, GL_FALSE, &state->projection[0]);
 		}
 		return shaderActive;
 	}

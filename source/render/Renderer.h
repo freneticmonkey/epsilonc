@@ -5,7 +5,6 @@
 #include "scene/Transform.h"
 #include "render/material/Material.h"
 #include "render/Mesh.h"
-#include "render/RenderState.h"
 
 namespace epsilon
 {
@@ -27,7 +26,7 @@ namespace epsilon
 		explicit Renderer(const private_struct &, Mesh::Ptr newMesh, Material::Ptr newMaterial);
 		~Renderer(void);
 
-		void Draw(RenderStateStack::Ptr stateStack);//Matrix4 viewMatrix, Matrix4 projMatrix);
+		void Draw();
         void Destroy();
         
 		void SetMesh(Mesh::Ptr newMesh);

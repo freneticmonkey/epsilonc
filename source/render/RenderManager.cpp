@@ -14,9 +14,6 @@ namespace epsilon
 		{
 			fpsSamples[i] = 0.0f;
 		}
-
-		// Create the Render State Stack
-		stateStack = RenderStateStack::Create();
 	}
 
 	RenderManager::~RenderManager(void)
@@ -108,7 +105,6 @@ namespace epsilon
         shaderManager = &ShaderManager::GetInstance();
 	}
 
-	//void RenderManager::Draw(sf::Time el)
 	void RenderManager::Draw(float el)
 	{
         // Make this window active
@@ -117,26 +113,24 @@ namespace epsilon
 		// Clear the window
 		window->clear(sf::Color(50,50,50,255));
 
-        // Reset any render states
-		stateStack->Reset();
-        
 		glEnable(GL_DEPTH_TEST);
 		glDepthMask(GL_TRUE);
 		glClearDepth(1.f);
         
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
-        // Do OpenGL drawing here.
-        if (sceneManager)
-		{
-			sceneManager->PreDraw();
-		}
+        //Sync Camera Data with the Uniform Buffer Objects
+		ProcessCameras();
+		//Sync Light Data with the Uniform Buffer Objects
+		ProcessLights();
         
+		// Perform the Uniform Buffer Copy
         shaderManager->ProcessUniformBuffers();
         
+		// Do OpenGL drawing here.
 		if (sceneManager)
 		{
-			sceneManager->Draw(stateStack);
+			sceneManager->Draw();
 		}
         
         std::string output = boost::str(format("Epsilon - FPS: %f") % GetFPS(el) );
@@ -151,10 +145,7 @@ namespace epsilon
 		}
         
         // Draw the Gizmos
-		// Setup the Camera and Projection Matrix
-//		stateStack->State()->view = sceneManager->CurrentScene()->GetActiveCamera()->GetViewMatrix();
-//		stateStack->State()->projection = sceneManager->CurrentScene()->GetActiveCamera()->GetProjectionMatrix();
-		gizmoManager->Draw(stateStack);
+		gizmoManager->Draw();
 		
         // Draw the GUI
 		if ( uiManager )
@@ -178,13 +169,6 @@ namespace epsilon
         std::for_each(renderers.begin(), renderers.end(), [](Renderer::Ptr renderer){
             renderer->Destroy();
         });
-    }
-    
-    Renderer::Ptr RenderManager::CreateRenderer()
-    {
-        Renderer::Ptr newRenderer = Renderer::Create();
-        renderers.push_back(newRenderer);
-        return newRenderer;
     }
 
 	bool RenderManager::WindowOpen(void)
@@ -256,4 +240,61 @@ namespace epsilon
 		fps /= NUM_FPS_SAMPLES;
 		return fps;
 	}
+
+	Renderer::Ptr RenderManager::CreateRenderer()
+	{
+		Renderer::Ptr newRenderer = Renderer::Create();
+		renderers.push_back(newRenderer);
+		return newRenderer;
+	}
+
+	Light::Ptr RenderManager::CreateLight(std::string name)
+	{
+		Light::Ptr newLight = Light::Create(lights.size(), name);
+		lights.push_back(newLight);
+		return newLight;
+	}
+
+	Camera::Ptr RenderManager::CreateCamera(std::string name)
+	{
+		Camera::Ptr newCamera = Camera::Create(name);
+		cameras.push_back(newCamera);
+		return newCamera;
+	}
+
+	void RenderManager::ProcessCameras()
+	{
+		std::for_each(cameras.begin(), cameras.end(), [](Camera::Ptr camera){
+			if (camera->IsActive())
+			{
+				camera->Update();
+			}
+		});
+	}
+
+	void RenderManager::ProcessLights()
+	{
+		// Process shadows ?
+
+		// For each light, push info into the uniform buffer.
+		if (numLights)
+		{
+			numLights->SetInt(lights.size());
+
+			std::for_each(lights.begin(), lights.end(), [](Light::Ptr light){
+				light->Update();
+			});
+		}	
+		else
+		{
+			// Get a pointer to the numLights property in the Lights Uniform Buffer
+			UniformBuffer::Ptr lights = shaderManager->GetUniformBuffer("Lights");
+			if (lights)
+			{
+				numLights = lights->GetUniform("numLights");
+			}
+		}
+	}
+
+
 }

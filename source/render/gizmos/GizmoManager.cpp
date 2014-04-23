@@ -28,13 +28,13 @@ namespace epsilon
 		return *this;
 	}
 
-	void GizmoManager::Draw(RenderStateStack::Ptr stateStack)
+	void GizmoManager::Draw()
 	{
 		// All Gizmos are drawn on top
 		glDisable(GL_DEPTH_TEST);
 
-		std::for_each(gizmos.begin(), gizmos.end(), [stateStack](GizmoType * gizmo){
-			gizmo->Draw(stateStack);
+		std::for_each(gizmos.begin(), gizmos.end(), [](GizmoType * gizmo){
+			gizmo->Draw();
 		});
 	}
     

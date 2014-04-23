@@ -53,7 +53,7 @@ namespace epsilon
         mesh->Destroy();
     }
 
-	void Renderer::Draw(RenderStateStack::Ptr stateStack)//Matrix4 viewMatrix, Matrix4 projMatrix)
+	void Renderer::Draw()
 	{
         // if a Material and a Mesh have been set. i.e. there is something to render and we know how to render it.
 		if ( material && mesh)
@@ -65,12 +65,8 @@ namespace epsilon
 			// This paves the way for a Material Manager in which the renderer requests a material
 			// rather than creating it directly itself.
 
-			// Make this only update if the transform has changed
-            Matrix4 m = GetParent()->GetComponent<Transform>()->_getFullTransform();
-			stateStack->State()->model = m;
-
 			// Enable the Material by sending the state to the applied material
-            if ( material->Enable(stateStack) )
+			if (material->Enable(GetParent()->GetComponent<Transform>()->_getFullTransform()))
             {
                 mesh->Draw();
             }

@@ -2,7 +2,6 @@
 
 #include "EpsilonCore.h"
 
-#include "render/RenderState.h"
 #include "render/gizmos/GizmoType.h"
 #include "render/gizmos/GizmoCube.h"
 #include "render/gizmos/GizmoSphere.h"
@@ -25,7 +24,7 @@ namespace epsilon
 		~GizmoManager(void);
 
 		void Setup(void);
-		void Draw(RenderStateStack::Ptr stateStack);
+		void Draw();
 		void Update(float el);
         void Destroy();
 		GizmoManager & AddGizmo(GizmoType * newGizmo);
@@ -37,9 +36,6 @@ namespace epsilon
 		static void DrawSphere(Vector3 position, float radius);
 
 	private:
-		
-		RenderStateStack::Ptr stateStack;
-		
 		Colour			gizmoColour;
 		float			gizmoLife;
 

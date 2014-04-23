@@ -4,7 +4,6 @@
 #include "scene/Scene.h"
 #include "scene/SceneNode.h"
 #include "scene/Transform.h"
-#include "render/RenderState.h"
 
 #include "render/material/ShaderManager.h"
 #include "render/material/UniformBuffer.h"
@@ -43,12 +42,7 @@ namespace epsilon
 		void Update(float el);
 		void Cull(void);
         
-        void PreDraw();
-        
-		void Draw(RenderStateStack::Ptr stateStack);
-
-		Matrix4 GetCurrentViewMatrix();
-		Matrix4 GetCurrentProjMatrix();
+		void Draw();
 
 	private:
 
@@ -57,17 +51,6 @@ namespace epsilon
 		SceneList scenes;
 		Scene::Ptr currentScene;
 		RenderList renderList;
-
-		Matrix4 viewMatrix;
-		Matrix4 projMatrix;
-        
-        ShaderUniform::Ptr viewMatrixUnf;
-        ShaderUniform::Ptr projMatrixUnf;
-        
-        UniformBuffer::Ptr globalMatrices;
-        UniformBuffer::Ptr lights;
-        ShaderUniform::Ptr numLights;
-        std::vector<LightUniforms> lightProperties;
 	};
 
 }

@@ -6,7 +6,6 @@
 #include "render/Colour.h"
 #include "render/material/Shader.h"
 #include "render/material/ShaderUniform.h"
-#include "render/RenderState.h"
 
 namespace epsilon
 {
@@ -38,7 +37,7 @@ namespace epsilon
 
 		void SetupShader();
 
-		bool Enable(RenderStateStack::Ptr stateStack);
+		bool Enable(const Matrix4 &modelMatrix);
 		void Disable();
 
 		bool HasRefreshed() { return hasRefreshed; }

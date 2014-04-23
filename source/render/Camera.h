@@ -4,6 +4,8 @@
 #include "scene/NodeComponent.h"
 #include "math/Matrix.h"
 
+#include "render/material/ShaderUniform.h"
+
 namespace epsilon
 {
 	class Camera : public NodeComponent
@@ -20,12 +22,17 @@ namespace epsilon
 		explicit Camera(const private_struct &);
 		Camera(const private_struct &, std::string name);
 		~Camera(void) {}
-				
+		
+		bool IsActive() { return active; }
+		void SetActive(bool isActive) { active = isActive; }
+
 		Matrix4 GetProjectionMatrix();
 		Matrix4 GetViewMatrix();
 
 		Vector3 ScreenToWorldCoordinate(Vector2 screenPos);
 		Vector2 WorldToScreenCoordinate(Vector3 worldPos);
+
+		void	Update();
 
 	private:
 		void Setup();
@@ -38,5 +45,10 @@ namespace epsilon
 		float	ratio;
 		int		width;
 		int		height;
+
+		bool	active;
+
+		ShaderUniform::Ptr viewMatrixUnf;
+		ShaderUniform::Ptr projMatrixUnf;
 	};
 }

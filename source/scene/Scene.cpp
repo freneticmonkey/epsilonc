@@ -67,6 +67,12 @@ namespace epsilon
 		
 		// Set it as the active camera
 		activeCamera = camera;
+
+		std::for_each(sceneCameras.begin(), sceneCameras.end(), [](Camera::Ptr camera){
+			camera->SetActive(false);
+		});
+
+		camera->SetActive(true);
 	}
 
 	void Scene::SetActiveCamera(std::string name)
@@ -74,21 +80,19 @@ namespace epsilon
 		// Find the camera
 		bool found = false;
 
-		for ( CameraList::iterator cam = sceneCameras.begin(); cam != sceneCameras.end(); cam++ )
-		{
-			if ( (*cam)->GetName() == name )
-			{
-				// Set it as the active camera
-				activeCamera = (*cam);
-				found = true;
-				break;
-			}
-		}
+		CameraList::iterator cam = std::find_if(sceneCameras.begin(), sceneCameras.end(), [name](Camera::Ptr camera) {
+			return camera->GetName() == name;
+		});
 
-		// if a new camera
-		if (!found)
+		// if a camera with name 'name' wasn't found
+		if (cam == sceneCameras.end())
 		{
 			Log("Error setting active camera.  Unknown camera: " + name);
+		}
+		else
+		{
+			// Set the found camera as the active camera
+			SetActiveCamera(*cam);
 		}
 	}
 

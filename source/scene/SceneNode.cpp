@@ -94,7 +94,9 @@ namespace epsilon
             name = boost::str(format("Light_%d") % GetId() );
 		}
 
-		light = Light::Create(name);
+		RenderManager * rm = &RenderManager::GetInstance();
+		light = rm->CreateLight(name);
+
 		AddComponent(light);
 		sceneOwner->AddLight(light);
 		return light;
@@ -108,7 +110,9 @@ namespace epsilon
             name = boost::str(format("Camera_%d") % GetId() );
 		}
 
-		camera = Camera::Create(name);
+		RenderManager * rm = &RenderManager::GetInstance();
+		camera = rm->CreateCamera(name);
+
 		AddComponent(camera);
 		sceneOwner->AddCamera(camera);
 		return camera;

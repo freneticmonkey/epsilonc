@@ -4,7 +4,6 @@
 
 #include "logging/Logging.h"
 #include "scene/Transform.h"
-#include "render/RenderState.h"
 #include "render/Colour.h"
 #include "render/material/ShaderUniform.h"
 
@@ -50,7 +49,6 @@ namespace epsilon
 		ShaderUniform::Ptr GetUniform(std::string name);
 
 		bool UseShader();
-		bool UseShader(RenderStateStack::Ptr stateStack);
 		bool DisableShader();
 
 		bool Active() { return shaderActive; }

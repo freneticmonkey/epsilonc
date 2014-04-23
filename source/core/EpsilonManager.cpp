@@ -48,11 +48,11 @@ namespace epsilon
 
 		scriptManager = &ScriptManager::GetInstance();
 		scriptManager->Setup();
-
+		
 		renderManager = &RenderManager::GetInstance();
 		renderManager->Setup();
-        
-        shaderManager = &ShaderManager::GetInstance();
+
+		shaderManager = &ShaderManager::GetInstance();
         shaderManager->Setup();
 
 		materialManager = &MaterialManager::GetInstance();
