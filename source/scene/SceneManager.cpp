@@ -70,7 +70,7 @@ namespace epsilon
 	void SceneManager::Cull(void)
 	{
 		// Just get the root for now
-		renderList.clear();
+		renderItems.clear();
 
 		// Add Root's children
 		CullNodeChildren(currentScene->Root());
@@ -92,7 +92,7 @@ namespace epsilon
 
 					if (childNode->GetRenderer())
 					{
-						renderList.push_back(childNode->GetRenderer());
+						renderItems.push_back(childNode->GetRenderer());
 					}
 
 					if (transform->HasChildren())
@@ -103,14 +103,4 @@ namespace epsilon
             }
         }
 	}
-    
-	void SceneManager::Draw()
-	{
-		for ( RenderList::iterator renderer = renderList.begin(); renderer != renderList.end(); renderer++)
-		{
-			// Render
-			(*renderer)->Draw();
-		}
-	}
-
 }

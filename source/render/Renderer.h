@@ -26,7 +26,11 @@ namespace epsilon
 		explicit Renderer(const private_struct &, Mesh::Ptr newMesh, Material::Ptr newMaterial);
 		~Renderer(void);
 
+		// Standard Draw Function
 		void Draw();
+
+		// Draw Function with material override.
+		void Draw(Material::Ptr drawMaterial);
         void Destroy();
         
 		void SetMesh(Mesh::Ptr newMesh);
@@ -39,5 +43,7 @@ namespace epsilon
 		Material::Ptr material;
 		Mesh::Ptr mesh;
 	};
-
+	
+	// Declaring container
+	typedef std::vector<Renderer::Ptr> Renderers;
 }

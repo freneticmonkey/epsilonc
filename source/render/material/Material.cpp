@@ -1,6 +1,7 @@
 #include "render/material/Material.h"
-#include <algorithm>
+#include "render/texture/TextureManager.h"
 
+#include <algorithm>
 #include <boost/format.hpp>
 
 using namespace boost;
@@ -68,6 +69,9 @@ namespace epsilon
                 
 				shaderCompileVersion = shader->GetCompileVersion();
 				hasRefreshed = true;
+
+				// Get any texture uniforms for the shader
+				textureUniforms = shader->GetUniformsByType(GL_SAMPLER_2D);
 			}
 		}
 	}
@@ -116,6 +120,29 @@ namespace epsilon
             if (modelUniform)
 				modelUniform->SetMatrix4(modelMatrix);
 
+			// Bind the textures to the shader sampler uniforms
+			if (textures.size() > 0)
+			{
+				Textures::iterator texture = textures.begin();
+				GLint textureLocation = 0;
+
+				std::for_each(textureUniforms.begin(), textureUniforms.end(), [&](ShaderUniform::Ptr textureUniform){
+					// If there is a current texture
+					if (texture != textures.end())
+					{
+						// Bind the texture to the location
+						(*texture)->SetBindLocation(textureLocation)
+							->Bind();
+						// Set the bind point in the shader
+						textureUniform->SetInt(textureLocation);
+
+						// Move to the next texture
+						textureLocation++;
+						texture++;
+					}
+				});
+			}
+
 			// Push the shader variables into the Shader on the GPU
 			shaderReady = shader->UseShader();
 		}
@@ -129,11 +156,31 @@ namespace epsilon
 		{
 			shader->DisableShader();
 		}
+
+		// Unbind any textures
+		std::for_each(textures.begin(), textures.end(), [&](Texture::Ptr texture){
+			texture->Disable();
+		});
+
 	}
 
 	void Material::OnFrameStart()
 	{
 		hasRefreshed = false;
+	}
+
+	void Material::AddTexture(Texture::Ptr newTexture)
+	{
+		textures.push_back(newTexture);
+	}
+
+	void Material::AddTextureByName(std::string textureName)
+	{
+		Texture::Ptr newTexture = TextureManager::GetInstance().GetTextureByName(textureName);
+		if (newTexture)
+		{
+			textures.push_back(newTexture);
+		}
 	}
 
 }

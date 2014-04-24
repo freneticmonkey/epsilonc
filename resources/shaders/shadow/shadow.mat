@@ -1,0 +1,5 @@
+
+layout (std140) uniform ShadowMatrices {
+	mat4 depthModelViewProjection;
+	mat4 depthBias;
+};

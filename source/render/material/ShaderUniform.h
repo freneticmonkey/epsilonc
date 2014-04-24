@@ -24,7 +24,9 @@ namespace epsilon
 			VECTOR2 = GL_FLOAT_VEC2,
 			VECTOR3 = GL_FLOAT_VEC3,
 			VECTOR4 = GL_FLOAT_VEC4,
-			MATRIX	= GL_FLOAT_MAT4
+			MATRIX	= GL_FLOAT_MAT4,
+			TEXTURE = GL_SAMPLER_2D,
+			TEXTURE_SHADOW = GL_SAMPLER_2D_SHADOW
 		};
 
 		typedef std::shared_ptr<ShaderUniform> Ptr;
@@ -90,4 +92,6 @@ namespace epsilon
         int			size;
 
 	};
+
+	typedef std::vector<ShaderUniform::Ptr> ShaderUniforms;
 }

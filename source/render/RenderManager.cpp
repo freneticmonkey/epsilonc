@@ -103,6 +103,10 @@ namespace epsilon
 		
         // Get an instance of the ShaderManager for rendering
         shaderManager = &ShaderManager::GetInstance();
+
+		// Get an instance of the TextureManager
+		textureManager = &TextureManager::GetInstance();
+
 	}
 
 	void RenderManager::Draw(float el)
@@ -119,20 +123,31 @@ namespace epsilon
         
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
+		// Obtain the list of items to be drawn
+		renderItems = sceneManager->GetRenderList();
+
+		// Push any texture changes to the GPU
+		// On the first frame this will take some time.
+		textureManager->ProcessTextures();
+
         //Sync Camera Data with the Uniform Buffer Objects
 		ProcessCameras();
-		//Sync Light Data with the Uniform Buffer Objects
-		ProcessLights();
+
+		// Sync Light Data with the Uniform Buffer Objects and
+		// render shadow depth maps
+		SetupLights();
         
 		// Perform the Uniform Buffer Copy
         shaderManager->ProcessUniformBuffers();
         
 		// Do OpenGL drawing here.
-		if (sceneManager)
-		{
-			sceneManager->Draw();
-		}
+		std::for_each(renderItems.begin(), renderItems.end(), [](Renderer::Ptr renderer){
+			renderer->Draw();
+		});
         
+		// Perform post render light cleanup
+		TeardownLights();
+
         std::string output = boost::str(format("Epsilon - FPS: %f") % GetFPS(el) );
         window->setTitle(output);
         
@@ -272,17 +287,15 @@ namespace epsilon
 		});
 	}
 
-	void RenderManager::ProcessLights()
+	void RenderManager::SetupLights()
 	{
-		// Process shadows ?
-
 		// For each light, push info into the uniform buffer.
 		if (numLights)
 		{
 			numLights->SetInt(lights.size());
 
-			std::for_each(lights.begin(), lights.end(), [](Light::Ptr light){
-				light->Update();
+			std::for_each(lights.begin(), lights.end(), [&](Light::Ptr light){
+				light->PreRender(renderItems);
 			});
 		}	
 		else
@@ -294,6 +307,13 @@ namespace epsilon
 				numLights = lights->GetUniform("numLights");
 			}
 		}
+	}
+
+	void RenderManager::TeardownLights()
+	{
+		std::for_each(lights.begin(), lights.end(), [](Light::Ptr light){
+			light->PostRender();
+		});
 	}
 
 

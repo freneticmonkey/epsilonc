@@ -50,7 +50,8 @@ namespace epsilon
 															fVal(0.f),
 															vec2(0.f),
 															vec3(0.f),
-															vec4(0.f)
+															vec4(0.f),
+															mat4()
 	{
 		mat4 = Matrix4();
 	}

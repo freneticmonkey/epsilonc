@@ -38,7 +38,10 @@
     <ClCompile Include="..\source\render\MeshFactory.cpp" />
     <ClCompile Include="..\source\render\Renderer.cpp" />
     <ClCompile Include="..\source\render\RenderManager.cpp" />
-    <ClCompile Include="..\source\render\RenderState.cpp" />
+    <ClCompile Include="..\source\render\texture\Texture.cpp" />
+    <ClCompile Include="..\source\render\texture\TextureData.cpp" />
+    <ClCompile Include="..\source\render\texture\TextureLoaderBMP.cpp" />
+    <ClCompile Include="..\source\render\texture\TextureManager.cpp" />
     <ClCompile Include="..\source\render\VertexAttrib.cpp" />
     <ClCompile Include="..\source\render\VertexBuffer.cpp" />
     <ClCompile Include="..\source\render\VertexData.cpp" />
@@ -105,8 +108,12 @@
     <ClInclude Include="..\source\render\MeshFactory.h" />
     <ClInclude Include="..\source\render\Renderer.h" />
     <ClInclude Include="..\source\render\RenderManager.h" />
-    <ClInclude Include="..\source\render\RenderState.h" />
     <ClInclude Include="..\source\render\RenderUtilities.h" />
+    <ClInclude Include="..\source\render\texture\Texture.h" />
+    <ClInclude Include="..\source\render\texture\TextureData.h" />
+    <ClInclude Include="..\source\render\texture\TextureLoaderBMP.h" />
+    <ClInclude Include="..\source\render\texture\TextureLoaderInterface.h" />
+    <ClInclude Include="..\source\render\texture\TextureManager.h" />
     <ClInclude Include="..\source\render\VertexAttrib.h" />
     <ClInclude Include="..\source\render\VertexBuffer.h" />
     <ClInclude Include="..\source\render\VertexData.h" />

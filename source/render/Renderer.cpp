@@ -73,7 +73,17 @@ namespace epsilon
             
             material->Disable();
 		}
-		
+	}
+
+	void Renderer::Draw(Material::Ptr drawMaterial)
+	{
+		if (drawMaterial && mesh)
+		{
+			if (drawMaterial->Enable(GetParent()->GetComponent<Transform>()->_getFullTransform()))
+			{
+				mesh->Draw();
+			}
+		}
 	}
 
 	void Renderer::SetMesh(Mesh::Ptr newMesh)

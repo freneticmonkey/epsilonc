@@ -7,6 +7,7 @@
 //
 
 #include "render/Light.h"
+
 #include <boost/format.hpp>
 
 namespace epsilon
@@ -28,8 +29,13 @@ namespace epsilon
 	Light::Light(const private_struct &, int newID) : NodeComponent("Light"), strength(10), 
 																			  id(newID),
 																			  type(0),
-																			  spotCutoff(10),
-																			  spotExponent(2)
+																			  spotCutoff(0.1f),
+																			  spotExponent(2),
+																			  shadowType(ShadowType::NONE),
+																			  shadowsSetup(false),
+																			  shadowsFailed(false),
+																			  FramebufferName(0),
+																			  depthTexture(0)
 	{
 		Setup();
 	}
@@ -37,8 +43,13 @@ namespace epsilon
 	Light::Light(const private_struct &, int newID, std::string name) : NodeComponent(name, "Light"), strength(10), 
 																									  id(newID),
 																									  type(0),
-																									  spotCutoff(10),
-																									  spotExponent(2)
+																									  spotCutoff(0.1f),
+																									  spotExponent(2),
+																									  shadowType(ShadowType::NONE),
+																									  shadowsSetup(false),
+																									  shadowsFailed(false),
+																									  FramebufferName(0),
+																									  depthTexture(0)
 	{
 		Setup();
 	}
@@ -48,20 +59,72 @@ namespace epsilon
 		UniformBuffer::Ptr lights = ShaderManager::GetInstance().GetUniformBuffer("Lights");
 
 		// Grab this light's uniforms from the Uniform Buffer.
-		positionUnf		= lights->GetUniform(str(format("lights[%d].position") % id));
-		directionUnf	= lights->GetUniform(str(format("lights[%d].direction") % id));
+		positionUnf		= lights->GetUniform(boost::str(format("lights[%d].position") % id));
+		directionUnf = lights->GetUniform(boost::str(format("lights[%d].direction") % id));
 
-		ambientUnf		= lights->GetUniform(str(format("lights[%d].ambient") % id));
-		diffuseUnf		= lights->GetUniform(str(format("lights[%d].diffuse") % id));
-		specularUnf		= lights->GetUniform(str(format("lights[%d].specular") % id));
+		ambientUnf = lights->GetUniform(boost::str(format("lights[%d].ambient") % id));
+		diffuseUnf = lights->GetUniform(boost::str(format("lights[%d].diffuse") % id));
+		specularUnf = lights->GetUniform(boost::str(format("lights[%d].specular") % id));
 		
-		attenuationUnf	= lights->GetUniform(str(format("lights[%d].attenuation") % id));
+		attenuationUnf = lights->GetUniform(boost::str(format("lights[%d].attenuation") % id));
 		
-		strengthUnf		= lights->GetUniform(str(format("lights[%d].strength") % id));
-		spotCutoffUnf	= lights->GetUniform(str(format("lights[%d].spotCutoff") % id));
-		spotExponentUnf = lights->GetUniform(str(format("lights[%d].spotExponent") % id));
+		strengthUnf = lights->GetUniform(boost::str(format("lights[%d].strength") % id));
+		spotCutoffUnf = lights->GetUniform(boost::str(format("lights[%d].spotCutoff") % id));
+		spotExponentUnf = lights->GetUniform(boost::str(format("lights[%d].spotExponent") % id));
 
-		typeUnf			= lights->GetUniform(str(format("lights[%d].type") % id));
+		typeUnf = lights->GetUniform(boost::str(format("lights[%d].type") % id));
+
+		// Get the depth matrix from the ShadowMatrix UniformBuffer
+		UniformBuffer::Ptr shadowMatrix = ShaderManager::GetInstance().GetUniformBuffer("ShadowMatrices");
+		shadowMatrixUnf = shadowMatrix->GetUniform("depthModelViewProjection");
+		shadowDepthBiasUnf = shadowMatrix->GetUniform("depthBias");
+
+		// Hacky as fuuuuccckkkk
+		Shader::Ptr phong = ShaderManager::GetInstance().GetShaderByName("phong");
+		if (phong)
+		{
+			shadowDepthTexture = phong->GetUniform("shadowMap");
+		}
+	}
+
+	void Light::SetupShadows()
+	{
+		// Ensure that this is only called once.
+		if (!shadowsSetup && !shadowsFailed)
+		{
+			materialManager = &MaterialManager::GetInstance();
+
+			// Get the shadow material
+			shadowMaterial = materialManager->GetMaterialByName("shadow");
+
+			// Get a frame buffer
+			glGenFramebuffers(1, &FramebufferName);
+
+			// Bind the shadow depth texture
+			glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
+			
+			// Get a Depth texture. Slower than a depth buffer, but you can sample it later in your shader
+			glGenTextures(1, &depthTexture);
+
+			glBindTexture(GL_TEXTURE_2D, depthTexture);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT16, 1024, 1024, 0, GL_DEPTH_COMPONENT, GL_FLOAT, 0);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+			glFramebufferTexture(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, depthTexture, 0);
+
+			if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
+			{
+				Log("There was a problem setting up the shadow framebuffer for Light: " + GetName());
+				shadowsFailed = true;
+			}
+
+			glDrawBuffer(GL_NONE); // No color buffer is drawn to.
+
+			shadowsSetup = true;
+		}
 	}
     
     void Light::OnSetParent()
@@ -79,8 +142,68 @@ namespace epsilon
         return transform->Forward();
     }
     
-	void Light::Update()
-	{
+	void Light::PreRender(Renderers renderItems)
+	{	
+		// Process Shadow
+		if (shadowType != ShadowType::NONE)
+		{
+			// Point lights can't cast shadows.
+			if (type != Type::POINT)
+			{
+				// Just one type of shadow for now.
+
+				if (!shadowsSetup)
+				{
+					SetupShadows();
+				}
+
+				if (!shadowsFailed)
+				{
+					// Bind the shadow depth texture
+					glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
+
+					// Build Depth Matrix
+					Matrix4 projMatrix = Matrix4::CreateOrthographic(-10, 10, -10, 10, -10, 20);
+					Vector3 target = GetPosition() - GetDirection();
+					Matrix4 viewMatrix = Matrix4::CreateLookAt(GetPosition(), target, Vector3::UP);
+					Matrix4 model;
+					Matrix4 depthMatrix = projMatrix * viewMatrix * model;
+
+					Matrix4 depthBias(0.5f, 0.0f, 0.0f, 0.5f, 
+									  0.0f, 0.5f, 0.0f, 0.5f,
+									  0.0f, 0.0f, 0.5f, 0.5f,
+									  0.0f, 0.0f, 0.0f, 1.0f);
+
+					Matrix4 result = depthBias * depthMatrix;
+
+					if (shadowMatrixUnf)
+						shadowMatrixUnf->SetMatrix4(depthMatrix);
+					
+					if (shadowDepthBiasUnf)
+						shadowDepthBiasUnf->SetMatrix4(result);
+
+					// Flush the matrix to the GPU
+					ShaderManager::GetInstance().ProcessUniformBuffers();
+
+					// Draw each of visible items with the shadow material.
+					std::for_each(renderItems.begin(), renderItems.end(), [&](Renderer::Ptr renderer){
+						renderer->Draw(shadowMaterial);
+					});
+				}
+
+				// Unbind shadow framebuffer
+				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+				// Bind the Shadow Texture to Texture 0
+				glActiveTexture(GL_TEXTURE0);
+				glBindTexture(GL_TEXTURE_2D, depthTexture);
+
+				// Totally hardcoding the shadow map to the first texture for all shaders. suck it.
+				if (shadowDepthTexture )
+					shadowDepthTexture->SetInt(0);
+			}
+		}
+
 		// Push Data to Uniform Buffer if uniforms were successfully found.
 
 		if (positionUnf)
@@ -131,6 +254,22 @@ namespace epsilon
 		if (typeUnf)
 		{
 			typeUnf->SetInt(type);
+		}
+	}
+
+	void Light::PostRender()
+	{
+		// Process Shadow
+		if (shadowType != ShadowType::NONE)
+		{
+			if (!shadowsFailed)
+			{
+				// Unbind shadow depth texture
+				glBindTexture(GL_TEXTURE_2D, 0);
+
+				
+
+			}
 		}
 	}
 }

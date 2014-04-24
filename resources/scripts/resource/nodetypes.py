@@ -17,7 +17,7 @@ from epsilon.scene import Scene
 #from Render.ShaderManager import ShaderManager
 #from epsilon.render.texturemanager import TextureManager
 
-from epsilon.render import Camera
+from epsilon.render import Camera, Light, LightType, LightShadowType
 # NYI
 #from epsilon.render import Light 
 from epsilon.render import Colour
@@ -262,6 +262,29 @@ class SceneLight(BaseXMLNode):
 				light = scene_node.create_light()
 
 			if not light is None:
+
+				if "type" in xml_tag.attrib:
+					type_string = xml_tag.attrib["type"]
+
+					if type_string == "POINT":
+						light.type = LightType.POINT
+					elif type_string == "SPOT":
+						light.type = LightType.SPOT
+					elif type_string == "DIRECTIONAL":
+						light.type = LightType.DIRECTIONAL
+					elif type_string == "SUN":
+						light.type = LightType.SUN
+
+				if "shadow_type" in xml_tag.attrib:
+					shadow_type_string = xml_tag.attrib["shadow_type"]
+
+					if shadow_type_string == "NONE":
+						light.shadow_type = LightShadowType.NONE
+					elif shadow_type_string == "HARD":
+						light.shadow_type = LightShadowType.HARD
+					elif shadow_type_string == "SOFT":
+						light.shadow_type = LightShadowType.SOFT
+
 				if "diffuse" in xml_tag.attrib:
 					light.diffuse = self.parse_colour(xml_tag, "diffuse")
 
@@ -475,4 +498,18 @@ class SceneShader(BaseXMLNode):
 
 class SceneTexture(BaseXMLNode):
 	def process_node(self, parse_globals, scene_node, xml_tag):
-		pass
+		material = None
+
+		# find the material for this node
+		if not scene_node is None:
+			# ensure that the node has a renderer
+			if scene_node.renderer is None:
+				scene_node.create_renderer()
+
+			if not scene_node.renderer.material is None:
+				material = scene_node.renderer.material
+		
+		if not material is None:
+
+			if "filename" in xml_tag.attrib:
+				material.add_texture(xml_tag.attrib["filename"])

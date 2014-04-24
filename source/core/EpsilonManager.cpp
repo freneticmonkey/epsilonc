@@ -55,6 +55,9 @@ namespace epsilon
 		shaderManager = &ShaderManager::GetInstance();
         shaderManager->Setup();
 
+		textureManager = &TextureManager::GetInstance();
+		textureManager->Setup();
+
 		materialManager = &MaterialManager::GetInstance();
 		materialManager->Setup();
 

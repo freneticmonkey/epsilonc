@@ -6,6 +6,7 @@
 #include "render/Colour.h"
 #include "render/material/Shader.h"
 #include "render/material/ShaderUniform.h"
+#include "render/texture/Texture.h"
 
 namespace epsilon
 {
@@ -44,6 +45,11 @@ namespace epsilon
 
 		void OnFrameStart();
 
+		void AddTexture(Texture::Ptr newTexture);
+		void AddTextureByName(std::string textureName);
+
+		Textures GetTextures() { return textures; }
+
 	private:
 		std::string name;
 		Shader::Ptr shader;
@@ -51,16 +57,18 @@ namespace epsilon
 		bool		hasRefreshed;
 		int			shaderCompileVersion;
 
+		// Textures
+		Textures			textures;
+		ShaderUniforms		textureUniforms;
+
+		// Material properties
 		ShaderUniform::Ptr ambientUniform;
 		ShaderUniform::Ptr diffuseUniform;
 		ShaderUniform::Ptr specularUniform;
 		ShaderUniform::Ptr reflectanceUniform;
         
         ShaderUniform::Ptr modelUniform;
-//        ShaderUniform::Ptr viewUniform;
-//        ShaderUniform::Ptr projectionUniform;
-        
-//		std::vector<LightUniforms> lightUniforms;
+		
 	};
 
 }

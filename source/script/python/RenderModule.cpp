@@ -14,6 +14,7 @@
 #include "render/material/Material.h"
 #include "render/material/Shader.h"
 #include "render/material/ShaderUniform.h"
+#include "render/texture/Texture.h"
 #include "render/Mesh.h"
 #include "render/MeshFactory.h"
 #include "render/VertexData.h"
@@ -80,7 +81,7 @@ void initRender()
 		.def("create",RendererCreateMeshMaterial)
 		.staticmethod("create")
 
-		.def("draw", &Renderer::Draw)
+		//.def("draw", &Renderer::Draw)
 		.add_property("mesh", &Renderer::GetMesh, &Renderer::SetMesh)
 		.add_property("material", &Renderer::GetMaterial, &Renderer::SetMaterial)
 
@@ -185,6 +186,12 @@ void initRender()
 		.def_readwrite("ambient", &Material::ambient)
 		.def_readwrite("diffuse", &Material::diffuse)
 		.def_readwrite("specular", &Material::specular)
+		.def_readwrite("reflectance", &Material::reflectance)
+
+		// Texture Access
+		.def("add_texture", &Material::AddTexture)
+		.def("add_texture", &Material::AddTextureByName)
+		.add_property("textures", &Material::GetTextures)
 
 		// Shader Access
 		.add_property("shader", &Material::GetShader, &Material::SetShader)
@@ -192,6 +199,7 @@ void initRender()
 
 	// Shader and Shader Uniform access
 	enum_<ShaderUniform::OpenGLTypes>("ShaderUniformType")
+		.value("INT",		ShaderUniform::OpenGLTypes::INT)
 		.value("FLOAT",		ShaderUniform::OpenGLTypes::FLOAT)
 		.value("VECTOR2",	ShaderUniform::OpenGLTypes::VECTOR2)
 		.value("VECTOR3",	ShaderUniform::OpenGLTypes::VECTOR3)
@@ -224,13 +232,50 @@ void initRender()
 	;
 	implicitly_convertible<Camera::Ptr, NodeComponent::Ptr>();
 
+	// Lighting
+	enum_<Light::Type>("LightType")
+		.value("POINT", Light::Type::POINT)
+		.value("SPOT", Light::Type::SPOT)
+		.value("DIRECTIONAL", Light::Type::DIRECTIONAL)
+		.value("SUN", Light::Type::SUN)
+		;
+
+	enum_<Light::ShadowType>("LightShadowType")
+		.value("NONE", Light::ShadowType::NONE)
+		.value("HARD", Light::ShadowType::HARD)
+		.value("SOFT", Light::ShadowType::SOFT)
+		;
+
 	class_<Light, bases<NodeComponent>, Light::Ptr, boost::noncopyable>("Light", no_init)
 		.def("position", &Light::GetPosition)
 		.def("direction", &Light::GetDirection)
 
+		.def_readwrite("ambient", &Light::ambient)
 		.def_readwrite("diffuse", &Light::diffuse)
+		.def_readwrite("specular", &Light::specular)
+
 		.def_readwrite("attenuation", &Light::attenuation)
+
+		.def_readwrite("stength", &Light::strength)
+		.def_readwrite("spot_cutoff", &Light::spotCutoff)
+		.def_readwrite("spot_exponent", &Light::spotExponent)
+
+		.def_readwrite("type", &Light::type)
+		.def_readwrite("shadow_type", &Light::shadowType)
 	;
+
+	class_<Texture, Texture::Ptr, boost::noncopyable>("Texture", no_init)
+		.add_property("name", &Texture::GetName)
+		.add_property("width", &Texture::GetWidth)
+		.add_property("height", &Texture::GetHeight)
+		.add_property("size", &Texture::GetSize)
+		.add_property("on_gpu", &Texture::OnGPU)
+		;
+
+	class_<Textures>("Textures")
+		.def("__iter__", python::iterator<Textures>())
+		.def("__len__", &Textures::size)
+		;
 
 	object renderConstModule(handle<>(borrowed(PyImport_AddModule("epsilon.render.const"))));
 	renderScope.attr("const") = renderConstModule;

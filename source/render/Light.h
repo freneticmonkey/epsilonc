@@ -14,6 +14,9 @@
 #include "math/Matrix.h"
 #include "render/Colour.h"
 
+#include "render/Renderer.h"
+#include "render/material/MaterialManager.h"
+
 #include "render/material/ShaderManager.h"
 #include "render/material/ShaderUniform.h"
 
@@ -36,6 +39,13 @@ namespace epsilon
 			SPOT,
 			DIRECTIONAL,
 			SUN
+		};
+
+		enum ShadowType
+		{
+			NONE = 0,
+			HARD,
+			SOFT
 		};
 
         static const int MAX_LIGHTS = 4;
@@ -67,11 +77,15 @@ namespace epsilon
 		float	spotExponent;
 
 		int		type;
+		int		shadowType;
         
-		void	Update();
-        
+		void	PreRender(Renderers renderItems);
+
+		void	PostRender();
+
 	private:
 		void	Setup();
+		void	SetupShadows();
         
 		int		id;
         Transform::Ptr transform;
@@ -91,5 +105,21 @@ namespace epsilon
 		ShaderUniform::Ptr spotExponentUnf;
 
 		ShaderUniform::Ptr typeUnf;
+
+		// Shadow members
+		ShaderUniform::Ptr	shadowMatrixUnf;
+		ShaderUniform::Ptr	shadowDepthBiasUnf;
+
+		ShaderUniform::Ptr  shadowDepthTexture;
+
+		Material::Ptr		shadowMaterial;
+
+		bool				shadowsSetup;
+		bool				shadowsFailed;
+
+		MaterialManager *	materialManager;
+
+		GLuint FramebufferName;
+		GLuint depthTexture;
 	};
 }

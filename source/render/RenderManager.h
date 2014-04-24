@@ -7,6 +7,7 @@
 #include "render/Renderer.h"
 #include "render/gizmos/GizmoManager.h"
 #include "render/material/ShaderManager.h"
+#include "render/texture/TextureManager.h"
 #include "render/VertexData.h"
 #include "render/Light.h"
 #include "render/Camera.h"
@@ -59,7 +60,8 @@ namespace epsilon
         
 	private:
 		void	ProcessCameras();
-		void	ProcessLights();
+		void	SetupLights();
+		void	TeardownLights();
 
 		sf::RenderWindow *	window;
 		sf::Text *			fpsText;
@@ -72,6 +74,7 @@ namespace epsilon
 		SceneManager *		sceneManager;
 		UIManager *			uiManager;
         ShaderManager *     shaderManager;
+		TextureManager *	textureManager;
 
 		GizmoManager *		gizmoManager;
 
@@ -79,6 +82,8 @@ namespace epsilon
 		float				fpsSamples[NUM_FPS_SAMPLES];
 		int					currFPSSample;
         
+		Renderers			renderItems;
+
         Renderers           renderers;
 
 		ShaderUniform::Ptr	numLights;

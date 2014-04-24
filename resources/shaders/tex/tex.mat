@@ -1,0 +1,14 @@
+struct Material
+{
+	vec4 ambient;
+	vec4 diffuse;
+	vec4 specular;
+	float reflectance;
+};
+
+uniform Material material;
+
+layout (std140) uniform GlobalMatrices {
+	mat4 viewMatrix;
+	mat4 projectionMatrix;
+};

@@ -7,14 +7,12 @@
 
 #include "render/material/ShaderManager.h"
 #include "render/material/UniformBuffer.h"
-#include "render/Light.h"
 
 namespace epsilon
 {
 	class Renderer;
 
 	typedef std::list<Scene::Ptr> SceneList;
-	typedef std::list<Renderer::Ptr> RenderList;
 
 	// Making this a Singleton
 	class SceneManager
@@ -42,15 +40,15 @@ namespace epsilon
 		void Update(float el);
 		void Cull(void);
         
-		void Draw();
+		Renderers GetRenderList() { return renderItems; }
 
 	private:
 
 		void CullNodeChildren(SceneNode::Ptr node);
 
-		SceneList scenes;
-		Scene::Ptr currentScene;
-		RenderList renderList;
+		SceneList	scenes;
+		Scene::Ptr	currentScene;
+		Renderers	renderItems;
 	};
 
 }

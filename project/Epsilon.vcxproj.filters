@@ -51,6 +51,9 @@
     <Filter Include="Source Files\render\material">
       <UniqueIdentifier>{6e7511de-4b1d-447b-afe3-a6c04c8d05fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\render\texture">
+      <UniqueIdentifier>{ad7bb82a-ae09-442e-bc8d-3451369cebad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp">
@@ -149,9 +152,6 @@
     <ClCompile Include="..\source\render\Colour.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\render\RenderState.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\script\python\UtilitiesModule.cpp">
       <Filter>Source Files\script\python</Filter>
     </ClCompile>
@@ -233,6 +233,18 @@
     <ClCompile Include="..\source\render\material\ShaderUniform.cpp">
       <Filter>Source Files\render\material</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\render\texture\Texture.cpp">
+      <Filter>Source Files\render\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\texture\TextureManager.cpp">
+      <Filter>Source Files\render\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\texture\TextureLoaderBMP.cpp">
+      <Filter>Source Files\render\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\texture\TextureData.cpp">
+      <Filter>Source Files\render\texture</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\EpsilonCore.h">
@@ -284,9 +296,6 @@
       <Filter>Source Files\render</Filter>
     </ClInclude>
     <ClInclude Include="..\source\render\RenderManager.h">
-      <Filter>Source Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\render\RenderState.h">
       <Filter>Source Files\render</Filter>
     </ClInclude>
     <ClInclude Include="..\source\render\VertexAttrib.h">
@@ -465,6 +474,21 @@
     </ClInclude>
     <ClInclude Include="..\source\render\material\ShaderUtilities.h">
       <Filter>Source Files\render\material</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\texture\Texture.h">
+      <Filter>Source Files\render\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\texture\TextureManager.h">
+      <Filter>Source Files\render\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\texture\TextureLoaderInterface.h">
+      <Filter>Source Files\render\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\texture\TextureLoaderBMP.h">
+      <Filter>Source Files\render\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\texture\TextureData.h">
+      <Filter>Source Files\render\texture</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

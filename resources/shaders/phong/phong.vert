@@ -7,6 +7,9 @@ uniform mat4 modelMatrix;
 
 smooth out vec3 vNormal;
 smooth out vec4 vPosition;
+
+smooth out vec4 vShadowCoord;
+smooth out vec2 vTexCoord;
 // out vec3 lightDir[4];
 
 void main()
@@ -20,8 +23,11 @@ void main()
 
 	// passthrough the normal
 	vNormal = normal;
+
+	vTexCoord = texCoord;
 	
 	gl_Position = projectionMatrix * transpose(viewMatrix) * transpose(modelMatrix) * vec4(position, 1.0);
 
 	
+	vShadowCoord = depthBias * vec4(position,1.0);
 }
