@@ -45,8 +45,9 @@ namespace epsilon
 		bool SetColourUniform(GLuint uId, const Colour &colour);
 		bool SetFloatUniform(GLuint uId, const float &value);
 
-		// Access to shader uniforms from script
-		ShaderUniform::Ptr GetUniform(std::string name);
+		// Access to shader uniforms
+		ShaderUniform::Ptr	GetUniform(std::string name);
+		ShaderUniforms		GetUniformsByType(GLenum type);
 
 		bool UseShader();
 		bool DisableShader();

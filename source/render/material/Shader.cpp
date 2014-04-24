@@ -252,8 +252,7 @@ namespace epsilon
                 {
                     int nameLen = -1;
                     char name[100];
-                    GLuint uniformBlockIndex;
-					glGetActiveUniformBlockiv(programId, GLuint(blockId), GL_UNIFORM_BLOCK_NAME_LENGTH, &nameLen);
+                    glGetActiveUniformBlockiv(programId, GLuint(blockId), GL_UNIFORM_BLOCK_NAME_LENGTH, &nameLen);
 					glGetActiveUniformBlockName(programId, GLuint(blockId), nameLen, NULL, &name[0]);
                     CheckOpenGLError("Extracting Uniform Block");
                     
@@ -325,6 +324,19 @@ namespace epsilon
 			uniform = uniforms[name];
 		}
 		return uniform;
+	}
+
+	ShaderUniforms Shader::GetUniformsByType(GLenum type)
+	{
+		ShaderUniforms results;
+
+		std::for_each(uniforms.begin(), uniforms.end(), [&](std::pair<std::string, ShaderUniform::Ptr> shaderUniform){
+			if (shaderUniform.second->GetType() == type)
+			{
+				results.push_back(shaderUniform.second);
+			}
+		});
+		return results;
 	}
 
 	bool Shader::UseShader()
