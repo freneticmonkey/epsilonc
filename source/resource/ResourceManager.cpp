@@ -23,7 +23,7 @@ namespace epsilon
 											// hardcoded to resources for now.
 											basepath("")
     {
-        basepath = filesystem::initial_path().string() + "/resources";
+		basepath = filesystem::initial_path().generic_string() + "/resources";
     }
     
     ResourceManager::~ResourceManager(void)
@@ -38,7 +38,7 @@ namespace epsilon
         {
             bp = filesystem::canonical(bp);
         }
-		basepath = bp.string();
+		basepath = bp.generic_string();
         Log("ResourceManager", "Basepath: " + basepath);
 	}
     
@@ -49,8 +49,9 @@ namespace epsilon
         filesystem::path bp(basepath);
         filesystem::path rPath(resourceRelativePath);
         
-        // If the path includes the resources folder, remove the resources folder from the path.
-        if ( (*rPath.begin()).string() == "resources" )
+        // If the path is relative and includes the resources folder, 
+		// remove the resources folder from the path.
+		if ((*rPath.begin()).generic_string() == "resources")
         {
             filesystem::path temp;
             
@@ -61,20 +62,30 @@ namespace epsilon
             rPath = temp;
         }
         
-        // Check if the path is a sub path under the resource folder.
-        filesystem::path rFolder = bp / (*rPath.begin());
-        if ( filesystem::exists(rFolder) )
-        {
-            // build the final path
-            fullpath = filesystem::complete(bp / rPath).string();
-//            Log("ResourceManager", "Resolved Resource Path: " + fullpath );
-        }
-        else
-        {
-            rPath = filesystem::complete(bp / rPath);
-            Log("ResourceManager", "Error Resolving Resource Path. Path doesn't exist: " + rPath.string() );
-            fullpath = "error";
-        }
+		// Check if the path is a sub path under the resource folder.
+		filesystem::path rFolder = bp / (*rPath.begin());
+		if (filesystem::exists(rFolder))
+		{
+			// build the final path
+			fullpath = filesystem::complete(bp / rPath).generic_string();
+			//            Log("ResourceManager", "Resolved Resource Path: " + fullpath );
+		}
+		else
+		{
+			// Check if the path is already absolute
+			if (rPath.has_root_directory())
+			{
+				// incase there is some relative wackiness going on.
+				fullpath = filesystem::canonical(rPath).generic_string();
+			}
+			else
+			{
+				rPath = filesystem::complete(bp / rPath);
+				Log("ResourceManager", "Error Resolving Resource Path. Path doesn't exist: " + rPath.generic_string());
+				fullpath = "error";
+			}
+		}
+        
         return fullpath;
         
     }
@@ -115,11 +126,11 @@ namespace epsilon
 				// Set the new resources modified time to the correct time
 				Resource::Ptr existingResource = resources[newResource->GetResourceId()];
 				newResource->SetModifiedTime(existingResource->GetModifiedTime());
-
+				newResource->SetFileSize(existingResource->GetFileSize());
 				// Replace existing resource with the new resource in the resource map
 				resources[newResource->GetResourceId()] = newResource;
 
-//				Log("ResourceManager", "Registering Resource from Manager: " + newResource->GetFilepath().GetString());
+				//Log("ResourceManager", "Registering Resource from Manager: " + newResource->GetFilepath().GetString());
 			}
 		}
     }
@@ -153,7 +164,6 @@ namespace epsilon
 	ResourceList ResourceManager::FindResources(std::string searchExpression)
 	{
 		std::regex expression(searchExpression);
-        Log("Searching for: " + searchExpression);
 		ResourceList results;
 		
 		// Check the regular expression against each of the known resources
@@ -162,7 +172,7 @@ namespace epsilon
 			// If the resource path matches the regular expression
 			if (std::regex_match(resourcePair.second->GetFilepath().GetString(), expression))
 			{
-                Log("Found matching resource: " + resourcePair.second->GetFilepath().GetString() );
+                //Log("Found matching resource: " + resourcePair.second->GetFilepath().GetString() );
 				// Store it in the results
 				results.push_back(resourcePair.second);
 			}
@@ -191,6 +201,8 @@ namespace epsilon
 		filesystem::directory_iterator dir_itr(dir);
 		for (dir_itr; dir_itr != dir_end; ++dir_itr)
 		{
+			std::string resourcePath = dir_itr->path().generic_string();
+
 			try
 			{
 				if (filesystem::is_directory(dir_itr->status()))
@@ -203,22 +215,25 @@ namespace epsilon
 					// Add to known resources
 
 					// Get the type of Resource from its file extension
-					ResourceType::Type type = resourceTypes.GetResourceTypeByExt(dir_itr->path().extension().string());
+					ResourceType::Type type = resourceTypes.GetResourceTypeByExt(dir_itr->path().extension().generic_string());
 
 					// Create a new resource
-					Resource::Ptr newResource = Resource::Create(dir_itr->path().string(), type);
+					Resource::Ptr newResource = Resource::Create(resourcePath, type);
 					// Set the file's modified time
 					newResource->SetModifiedTime(filesystem::last_write_time(dir_itr->path()));
+					// Set the file's size
+					newResource->SetFileSize(filesystem::file_size(dir_itr->path()));
+					
 					// Add it to the manager
 					AddResource(newResource);
 
 					// Display debug
-//					Log("ResourceManager", "Found Resource: " + std::string(dir_itr->path().string()));
+					//Log("ResourceManager", "Found Resource: " + resourcePath);
 				}
 			}
 			catch (const std::exception & ex)
 			{
-				Log("ResourceManager", "Error: Parsing filesystem: " + std::string(dir_itr->path().string()) + ": " + ex.what());
+				Log("ResourceManager", "Error: Parsing filesystem: " + resourcePath + ": " + ex.what());
 			}
 		}
 	}
@@ -240,12 +255,20 @@ namespace epsilon
 			// Get the file's modification time
 			std::time_t modifiedTime = filesystem::last_write_time(p);
 
+			// Get the file's size
+			uintmax_t fileSize = filesystem::file_size(p);
+
 			// If the resource has been loaded, and it has changed since load, 
 			// mark it as reloaded
-			if ((!resource->NeedReload()) && (resource->GetModifiedTime() != modifiedTime))
+			if ((!resource->NeedReload()) && 
+				(resource->GetModifiedTime() != modifiedTime) || 
+				(resource->GetFileSize() != fileSize) )
 			{
 				// Set the new modified time
 				resource->SetModifiedTime(modifiedTime);
+
+				// Set the new filesize
+				resource->SetFileSize(fileSize);
 
 				// Add the resource to the changed resources list along with any resource 
 				// dependencies
@@ -264,7 +287,7 @@ namespace epsilon
 		// If the Resource is not already in the CycleCheck vector
 		if (std::find(cycleCheck.begin(), cycleCheck.end(), resourceId) == cycleCheck.end())
 		{
-			Log("ResourceManager", "Change detected for resource: " + resources[resourceId]->GetFilepath().GetString());
+			//Log("ResourceManager", "Change detected for resource: " + resources[resourceId]->GetFilepath().GetString());
 
 			// Add the current Resource to the cycle check list.
 			cycleCheck.push_back(resourceId);

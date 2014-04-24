@@ -13,7 +13,7 @@ namespace epsilon
 	Resource::Resource(std::string theFilepath, ResourceType::Type iType)
 	{
 		// Ensure that the path is in the native format so that resources will hash to the same id
-		filepath = HashedString(filesystem::path(theFilepath).make_preferred().string());
+		filepath = HashedString(filesystem::path(theFilepath).make_preferred().generic_string());
 		type = iType;
 	}
 
@@ -24,7 +24,7 @@ namespace epsilon
     
     void Resource::UpdateResourceFilename(std::string updatedFilename)
     {
-        filepath = HashedString(filesystem::path(updatedFilename).make_preferred().string());
+		filepath = HashedString(filesystem::path(updatedFilename).make_preferred().generic_string());
     }
 	
 	void Resource::AddOwner(long owner)
@@ -41,9 +41,4 @@ namespace epsilon
     {
         return std::find(ownerIds.begin(), ownerIds.end(), owner) != ownerIds.end();
     }
-
-	void Resource::SetModifiedTime(long newModifiedTime)
-	{
-		modifiedTime = newModifiedTime;
-	}
 }

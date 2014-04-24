@@ -61,13 +61,35 @@ namespace epsilon
 		long GetModifiedTime() { return modifiedTime; }
 
 		// Set the modified time of the resource - Intended for use by the Resource Manager
-		void SetModifiedTime(long newModifiedTime);
+		void SetModifiedTime(long newModifiedTime)
+		{
+			modifiedTime = newModifiedTime;
+		}
+
+		// Get the modified time of the resource when it was last reloaded
+		uintmax_t GetLastFileSize(){ return lastFileSize; }
+
+		// Get the current modified time of the resource
+		uintmax_t GetFileSize() { return fileSize; }
+
+		// Set the modified time of the resource - Intended for use by the Resource Manager
+		void SetFileSize(uintmax_t newFileSize)
+		{
+			fileSize = newFileSize;
+		}
 
 		// Indicate that the in-memory resource is out of date
-		bool NeedReload() { return lastModified != modifiedTime; }
+		bool NeedReload() 
+		{ 
+			return (lastModified != modifiedTime) || (lastFileSize != fileSize); 
+		}
 
 		// Notify the resource that the in-memory copy is up to date.
-		void SetReloaded() { lastModified = modifiedTime; }
+		void SetReloaded() 
+		{ 
+			lastModified = modifiedTime;
+			lastFileSize = fileSize;
+		}
         
 		// TODO!: Add file reading writing functionality in here. :)
     protected:
@@ -85,6 +107,11 @@ namespace epsilon
 		long			lastModified;
 		// The modified time of the resource
 		long			modifiedTime;
+
+		// The filesize on last resource load.
+		uintmax_t		lastFileSize;
+		// The current filesize of the resource
+		uintmax_t		fileSize;
         
     };
 }
