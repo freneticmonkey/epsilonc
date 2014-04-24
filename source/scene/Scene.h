@@ -2,8 +2,6 @@
 
 #include "scene/SceneBase.h"
 #include "scene/SceneNode.h"
-#include "render/Camera.h"
-#include "render/Light.h"
 
 namespace epsilon
 {
