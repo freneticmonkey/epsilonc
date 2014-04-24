@@ -46,7 +46,6 @@ namespace epsilon
 			name = std::string(tempName);
 
 			CheckOpenGLError("Getting Uniform Block Index for: " + name);
-			Log("Found Uniform Block Index for: " + name);
 
 			int dataSize = 0;
 			glGetActiveUniformBlockiv(shaderId, blockId, GL_UNIFORM_BLOCK_DATA_SIZE, &dataSize);
@@ -118,8 +117,6 @@ namespace epsilon
 		// Bind the current shader uniform block to the uniform buffer
 		glUniformBlockBinding(shaderId, uniformBlockIndex, bindingIndex);
 		CheckOpenGLError("Binding to Uniform Block: " + std::string(name));
-
-		Log("Found Uniform Block Index for: " + name);
 
     }
     
