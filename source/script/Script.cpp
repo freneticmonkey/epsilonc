@@ -179,7 +179,7 @@ namespace epsilon
 			HandlePythonError();
 		}
 
-		// Indicated that the Script Resource has been refreshed
+		// Indicate that the Script Resource has been refreshed
 		SetReloaded();
 
 		return initialised;
