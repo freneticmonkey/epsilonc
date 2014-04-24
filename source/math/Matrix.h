@@ -242,7 +242,8 @@ public:
     static Matrix4 CreateRotateQuaternion(Quaternion quat);
     
     static Matrix4 CreateLookAt(Vector3 eye, Vector3 at, Vector3 up);
-    static Matrix4 CreatePerspective(float fovY, float aspect, float near, float far);
+	static Matrix4 CreatePerspective(float fovY, float aspect, float nearDist, float farDist);
+	static Matrix4 CreateOrthographic(float left, float right, float top, float bottom, float nearDist, float farDist);
 
     float Determinant();
     Matrix4 Inverse();

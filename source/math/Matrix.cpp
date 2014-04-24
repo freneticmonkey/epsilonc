@@ -588,6 +588,33 @@ Matrix4 Matrix4::CreatePerspective(float fovY, float aspect, float nearDist, flo
     return newmat;
 }
 
+Matrix4 Matrix4::CreateOrthographic(float left, float right, float top, float bottom, float nearDist, float farDist)
+{
+	Matrix4 newMat;
+
+	newMat.data[0] = 2 / (right - left);
+	newMat.data[1] = 0;
+	newMat.data[2] = 0;
+	newMat.data[3] = 0;
+
+	newMat.data[4] = 0;
+	newMat.data[5] = 2 / (top - bottom);
+	newMat.data[6] = 0;
+	newMat.data[7] = 0;
+
+	newMat.data[8] = 0;
+	newMat.data[9] = 0;
+	newMat.data[10] = -1 / (farDist - nearDist);
+	newMat.data[11] = 0;
+
+	newMat.data[12] = -(right + left) / (right - left);
+	newMat.data[13] = -(top + bottom) / (top - bottom);
+	newMat.data[14] = -nearDist / (farDist - nearDist);
+	newMat.data[15] = 1;
+
+	return newMat;
+}
+
 
 float Matrix4::Determinant()
 {
