@@ -62,29 +62,31 @@ namespace epsilon
             rPath = temp;
         }
         
-		// Check if the path is a sub path under the resource folder.
-		filesystem::path rFolder = bp / (*rPath.begin());
-		if (filesystem::exists(rFolder))
-		{
-			// build the final path
-			fullpath = filesystem::complete(bp / rPath).generic_string();
-			//            Log("ResourceManager", "Resolved Resource Path: " + fullpath );
-		}
-		else
-		{
-			// Check if the path is already absolute
-			if (rPath.has_root_directory())
-			{
-				// incase there is some relative wackiness going on.
-				fullpath = filesystem::canonical(rPath).generic_string();
-			}
-			else
-			{
-				rPath = filesystem::complete(bp / rPath);
-				Log("ResourceManager", "Error Resolving Resource Path. Path doesn't exist: " + rPath.generic_string());
-				fullpath = "error";
-			}
-		}
+        // Check if the path is already absolute
+        if (rPath.has_root_directory())
+        {
+            // incase there is some relative wackiness going on.
+            fullpath = filesystem::canonical(rPath).generic_string();
+        }
+        else
+        {
+        
+            // Check if the path is a sub path under the resource folder.
+            filesystem::path rFolder = bp / (*rPath.begin());
+            if (filesystem::exists(rFolder))
+            {
+                // build the final path
+                fullpath = filesystem::complete(bp / rPath).generic_string();
+                Log("ResourceManager", "Resolved Resource Path: " + fullpath );
+            }
+            else
+            {
+                
+                rPath = filesystem::complete(bp / rPath);
+                Log("ResourceManager", "Error Resolving Resource Path. Path doesn't exist: " + rPath.generic_string());
+                fullpath = "error";
+            }
+        }
         
         return fullpath;
         

@@ -42,8 +42,7 @@ namespace epsilon
 		// Actual RGB data
 		unsigned char * data;
 
-		FILE * file;
-		errno_t error = fopen_s(&file, filename.c_str(), "rb");
+		FILE * file = fopen(filename.c_str(), "rb");
 		// Could add some error handling business here.
 
 		if (!file)
