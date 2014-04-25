@@ -7,8 +7,9 @@
 #include "render/Renderer.h"
 #include "render/gizmos/GizmoManager.h"
 #include "render/material/ShaderManager.h"
+#include "render/mesh/MeshManager.h"
 #include "render/texture/TextureManager.h"
-#include "render/VertexData.h"
+#include "render/mesh/VertexData.h"
 #include "render/Light.h"
 #include "render/Camera.h"
 
@@ -75,6 +76,7 @@ namespace epsilon
 		UIManager *			uiManager;
         ShaderManager *     shaderManager;
 		TextureManager *	textureManager;
+		MeshManager *		meshManager;
 
 		GizmoManager *		gizmoManager;
 

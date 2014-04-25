@@ -9,6 +9,7 @@
 #include "render/RenderManager.h"
 #include "render/material/ShaderManager.h"
 #include "render/material/MaterialManager.h"
+#include "render/mesh/MeshManager.h"
 #include "render/texture/TextureManager.h"
 #include "render/gizmos/GizmoManager.h"
 #include "scene/SceneManager.h"
@@ -49,6 +50,7 @@ namespace epsilon
 		RenderManager * renderManager;
         ShaderManager * shaderManager;
 		MaterialManager * materialManager;
+		MeshManager * meshManager;
 		TextureManager * textureManager;
 		UIManager * uiManager;
 		SceneManager * sceneManager;

@@ -7,9 +7,6 @@
 #include <tbb/tbb.h>
 
 #include "core/EpsilonManager.h"
-
-
-#include "render/MeshFactory.h"
 #include "math/Defines.h"
 
 namespace epsilon
@@ -60,6 +57,9 @@ namespace epsilon
 
 		materialManager = &MaterialManager::GetInstance();
 		materialManager->Setup();
+
+		meshManager = &MeshManager::GetInstance();
+		meshManager->Setup();
 
 		inputManager = &InputManager::GetInstance();
 

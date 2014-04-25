@@ -107,6 +107,8 @@ namespace epsilon
 		// Get an instance of the TextureManager
 		textureManager = &TextureManager::GetInstance();
 
+		// Get an instance of the MeshManager
+		meshManager = &MeshManager::GetInstance();
 	}
 
 	void RenderManager::Draw(float el)
@@ -129,6 +131,10 @@ namespace epsilon
 		// Push any texture changes to the GPU
 		// On the first frame this will take some time.
 		textureManager->ProcessTextures();
+
+		// Push any mesh changes to the GPU
+		// On the first frame this will take some time.
+		meshManager->ProcessMeshs();
 
         //Sync Camera Data with the Uniform Buffer Objects
 		ProcessCameras();

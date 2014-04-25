@@ -1,7 +1,7 @@
 #pragma once
 #include "EpsilonCore.h"
 #include "render/material/Material.h"
-#include "render/Mesh.h"
+#include "render/mesh/Mesh.h"
 #include "render/gizmos/GizmoOperation.h"
 #include <atomic>
 

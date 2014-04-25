@@ -1,5 +1,6 @@
 #include "render/Renderer.h"
 #include "render/material/MaterialManager.h"
+#include "render/mesh/MeshManager.h"
 
 #include <boost/format.hpp>
 
@@ -89,6 +90,15 @@ namespace epsilon
 	void Renderer::SetMesh(Mesh::Ptr newMesh)
 	{
 		mesh = newMesh;
+	}
+
+	void Renderer::SetMeshByName(std::string meshName)
+	{
+		Mesh::Ptr newMesh = MeshManager::GetInstance().GetMeshByName(meshName);
+		if (newMesh)
+		{
+			mesh = newMesh;
+		}
 	}
 
 	Mesh::Ptr Renderer::GetMesh()

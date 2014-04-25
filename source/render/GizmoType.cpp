@@ -1,7 +1,7 @@
 #include <algorithm>
 
 #include "render/gizmos/GizmoType.h"
-#include "render/Mesh.h"
+#include "render/mesh/Mesh.h"
 #include "render/material/MaterialManager.h"
 
 namespace epsilon

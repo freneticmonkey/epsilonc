@@ -29,13 +29,13 @@ class CameraBehaviour(object):
 		
 		n = self.node
 		while not n is None:
-			print n.name
-			print n.transform.position
+			# print n.name
+			# print n.transform.position
 			if not n.transform.parent_transform is None:
 				n = n.transform.parent_transform.parent
 			else:
 				break
-		print self.node.transform.parent_transform.position
+		# print self.node.transform.parent_transform.position
 		self.node.transform.fps(self.node.transform.parent_transform.position, self._v, self._h)
 
 		# Convert to radians

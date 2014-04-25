@@ -1,0 +1,29 @@
+<scene name="basic_scene">
+	
+	
+	<!-- <node name="grid">
+		<transform position="0 0 0"/>
+		<mesh preset="GRID" size="10" resolution="1"/>
+	</node> -->
+
+	<node name="from_file">
+		<transform position="0 0 0"/>
+		<material diffuse="1 1 1 1">
+			<shader name="default.shader"/>
+		</material>
+		<mesh filename="shape.obj"/>
+	</node>
+	
+	<node name="camera_pos">
+		<transform position="0 2 -10"/>
+		<children>
+			<node name="camera_node">
+				<camera name="scene_cam" active="True"/>
+				<scripts>
+					<script filename="resources/scripts/CameraBehaviour.py"/>
+				</scripts>
+			</node>
+		</children>
+	</node>
+
+</scene>

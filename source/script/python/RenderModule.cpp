@@ -2,6 +2,8 @@
 
 #include "script/ScriptCommon.h"
 
+#include "scene/Object.h"
+
 #include "math/Vector.h"
 #include "scene/NodeComponent.h"
 
@@ -15,9 +17,9 @@
 #include "render/material/Shader.h"
 #include "render/material/ShaderUniform.h"
 #include "render/texture/Texture.h"
-#include "render/Mesh.h"
-#include "render/MeshFactory.h"
-#include "render/VertexData.h"
+#include "render/mesh/Mesh.h"
+#include "render/mesh/MeshFactory.h"
+#include "render/mesh/VertexData.h"
 
 #include "render/gizmos/GizmoCube.h"
 
@@ -64,7 +66,7 @@ void initRender()
 
 	Mesh::Ptr (*MeshCreateStandard)() = &Mesh::Create;
 
-	class_<Mesh, Mesh::Ptr, boost::noncopyable>("Mesh", no_init)
+	class_<Mesh, bases<Object>, Mesh::Ptr, boost::noncopyable>("Mesh", no_init)
 		.def("create",MeshCreateStandard)
 		.staticmethod("create")
 
@@ -86,6 +88,7 @@ void initRender()
 		.add_property("material", &Renderer::GetMaterial, &Renderer::SetMaterial)
 
 		.def("set_mesh", &Renderer::SetMesh)
+		.def("set_mesh", &Renderer::SetMeshByName)
 		.def("get_mesh", &Renderer::GetMesh)
 	;
 

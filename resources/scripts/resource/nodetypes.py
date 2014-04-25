@@ -381,9 +381,10 @@ class SceneMesh(BaseXMLNode):
 	def process_node(self, parse_globals, scene_node, xml_tag):
 		if not scene_node is None:
 			
-			mesh = None
-
+			# If using a generated mesh
 			if "preset" in xml_tag.attrib:
+				mesh = None
+
 				preset = xml_tag.attrib["preset"]
 				if preset in self._mesh_factory_types:
 					if preset == "GRID":
@@ -423,12 +424,18 @@ class SceneMesh(BaseXMLNode):
 					elif preset == "OCTOHEDRON":
 						mesh = MeshFactory.generate_octohedron()
 
-			# ensure that the node has a renderer and that a mesh was generated
-			if mesh is not None:
-				if scene_node.renderer is None:
-					scene_node.create_renderer()
+				# ensure that the node has a renderer and that a mesh was generated
+				if mesh is not None:
+					if scene_node.renderer is None:
+						scene_node.create_renderer()
 
-				scene_node.renderer.mesh = mesh
+					scene_node.renderer.mesh = mesh
+
+			# If using a mesh on disk
+			elif "filename" in xml_tag.attrib:
+				print "Found filename: " + xml_tag.attrib["filename"]
+				if not scene_node.renderer is None:
+					scene_node.renderer.set_mesh(xml_tag.attrib["filename"])
 
 			# if scene_node.renderer is None and mesh is not None:
 			# 	scene_node.add_component(Renderer.create(mesh))

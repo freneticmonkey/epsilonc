@@ -6,7 +6,7 @@
 #include "scene/NodeComponent.h"
 #include "scene/Transform.h"
 
-#include "render/Mesh.h"
+#include "render/mesh/Mesh.h"
 #include "render/material/Shader.h"
 
 #include "resource/Resource.h"

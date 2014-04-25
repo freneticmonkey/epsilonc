@@ -1,5 +1,5 @@
 #include "render/gizmos/GizmoSphere.h"
-#include "render/MeshFactory.h"
+#include "render/mesh/MeshFactory.h"
 
 namespace epsilon
 {

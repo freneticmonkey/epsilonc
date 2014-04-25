@@ -68,8 +68,10 @@ vec4 spotLight(int lightID)
     vec4 diffuse    = material.diffuse  * lights[lightID].diffuse  * nDotVP * attenuation;
     vec4 specular   = material.specular * lights[lightID].specular * pf * attenuation;
     
-    vec4 lightColour = ambient + (visibility * diffuse) + ( visibility * specular) + (texture(theTexture, vTexCoord) * 0.5);
+    vec4 lightColour = ambient + (visibility * diffuse) + ( visibility * specular);
     
+    lightColour = mix(lightColour, texture(theTexture, vTexCoord), 0.5);
+
     return lightColour;
 }
 

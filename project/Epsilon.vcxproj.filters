@@ -54,6 +54,9 @@
     <Filter Include="Source Files\render\texture">
       <UniqueIdentifier>{ad7bb82a-ae09-442e-bc8d-3451369cebad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\render\mesh">
+      <UniqueIdentifier>{1d0eda2c-4f5b-4c24-a542-1c520cc9a238}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp">
@@ -78,12 +81,6 @@
       <Filter>Source Files\math</Filter>
     </ClCompile>
     <ClCompile Include="..\source\render\Camera.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\render\Mesh.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\render\MeshFactory.cpp">
       <Filter>Source Files\render</Filter>
     </ClCompile>
     <ClCompile Include="..\source\render\Renderer.cpp">
@@ -118,9 +115,6 @@
     </ClCompile>
     <ClCompile Include="..\source\main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\render\VertexData.cpp">
-      <Filter>Source Files\render</Filter>
     </ClCompile>
     <ClCompile Include="..\source\script\ScriptManager.cpp">
       <Filter>Source Files\script</Filter>
@@ -215,12 +209,6 @@
     <ClCompile Include="..\source\scene\SceneNode.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\render\VertexAttrib.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\render\VertexBuffer.cpp">
-      <Filter>Source Files\render</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\render\material\ShaderManager.cpp">
       <Filter>Source Files\render\material</Filter>
     </ClCompile>
@@ -244,6 +232,27 @@
     </ClCompile>
     <ClCompile Include="..\source\render\texture\TextureData.cpp">
       <Filter>Source Files\render\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\mesh\Mesh.cpp">
+      <Filter>Source Files\render\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\mesh\MeshFactory.cpp">
+      <Filter>Source Files\render\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\mesh\VertexAttrib.cpp">
+      <Filter>Source Files\render\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\mesh\VertexBuffer.cpp">
+      <Filter>Source Files\render\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\mesh\VertexData.cpp">
+      <Filter>Source Files\render\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\mesh\MeshManager.cpp">
+      <Filter>Source Files\render\mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\mesh\MeshLoaderOBJ.cpp">
+      <Filter>Source Files\render\mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -286,25 +295,10 @@
     <ClInclude Include="..\source\render\Colour.h">
       <Filter>Source Files\render</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\render\Mesh.h">
-      <Filter>Source Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\render\MeshFactory.h">
-      <Filter>Source Files\render</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\render\Renderer.h">
       <Filter>Source Files\render</Filter>
     </ClInclude>
     <ClInclude Include="..\source\render\RenderManager.h">
-      <Filter>Source Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\render\VertexAttrib.h">
-      <Filter>Source Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\render\VertexBuffer.h">
-      <Filter>Source Files\render</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\render\VertexData.h">
       <Filter>Source Files\render</Filter>
     </ClInclude>
     <ClInclude Include="..\source\scene\Node.h">
@@ -489,6 +483,30 @@
     </ClInclude>
     <ClInclude Include="..\source\render\texture\TextureData.h">
       <Filter>Source Files\render\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\mesh\Mesh.h">
+      <Filter>Source Files\render\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\mesh\MeshFactory.h">
+      <Filter>Source Files\render\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\mesh\VertexAttrib.h">
+      <Filter>Source Files\render\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\mesh\VertexBuffer.h">
+      <Filter>Source Files\render\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\mesh\VertexData.h">
+      <Filter>Source Files\render\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\mesh\MeshManager.h">
+      <Filter>Source Files\render\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\mesh\MeshLoaderInterface.h">
+      <Filter>Source Files\render\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\render\mesh\MeshLoaderOBJ.h">
+      <Filter>Source Files\render\mesh</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

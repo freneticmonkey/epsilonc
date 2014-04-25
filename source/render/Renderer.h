@@ -4,7 +4,7 @@
 #include "scene/NodeComponent.h"
 #include "scene/Transform.h"
 #include "render/material/Material.h"
-#include "render/Mesh.h"
+#include "render/mesh/Mesh.h"
 
 namespace epsilon
 {
@@ -34,10 +34,13 @@ namespace epsilon
         void Destroy();
         
 		void SetMesh(Mesh::Ptr newMesh);
+		void SetMeshByName(std::string meshName);
+
 		Mesh::Ptr GetMesh();
 
 		void SetMaterial(Material::Ptr newMaterial);
 		Material::Ptr GetMaterial();
+
 
 	private:
 		Material::Ptr material;

@@ -36,22 +36,16 @@ namespace epsilon
 
 		Object() : enabled(true)
 		{
-			std::stringstream ss;
-
 			id = Object::GenId();
-			ss << id;
 			className = "Object";
-			objectName = className + std::string("_") + ss.str();
+			objectName = className + std::string("_") + std::to_string(id);
 		}
 
 		Object( std::string newClassName ) : enabled(true)
 		{
-			std::stringstream ss;
-
 			id = Object::GenId();
-			ss << id;
 			className = newClassName;
-			objectName = className + std::string("_") + ss.str();
+			objectName = className + std::string("_") + std::to_string(id);
 		}
 
 		Object(std::string name, std::string newClassName ) : enabled(true)
