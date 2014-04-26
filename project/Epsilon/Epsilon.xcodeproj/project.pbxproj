@@ -8,6 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		104CC9AE18E0E84500E85F16 /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 104CC9AD18E0E84500E85F16 /* ResourceManager.cpp */; };
+		10783FE0190C09CD00F0A88C /* PhysicsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10783FDC190C09CD00F0A88C /* PhysicsManager.cpp */; };
+		10783FE1190C09CD00F0A88C /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10783FDE190C09CD00F0A88C /* RigidBody.cpp */; };
+		10783FE4190C09DB00F0A88C /* PhysicsModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10783FE2190C09DB00F0A88C /* PhysicsModule.cpp */; };
+		10783FE9190C0A8100F0A88C /* GizmoAxis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10783FE5190C0A8100F0A88C /* GizmoAxis.cpp */; };
+		10783FEA190C0A8100F0A88C /* GizmoLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10783FE7190C0A8100F0A88C /* GizmoLine.cpp */; };
+		10877F4A190C055F008F9076 /* libBulletCollision.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10877F46190C055F008F9076 /* libBulletCollision.a */; };
+		10877F4B190C055F008F9076 /* libBulletDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10877F47190C055F008F9076 /* libBulletDynamics.a */; };
+		10877F4C190C0560008F9076 /* libBulletSoftBody.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10877F48190C055F008F9076 /* libBulletSoftBody.a */; };
+		10877F4D190C0560008F9076 /* libLinearMath.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10877F49190C055F008F9076 /* libLinearMath.a */; };
 		108D3517186E88C00002E4F4 /* Python.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1059E704184AFBDA00416AD8 /* Python.framework */; };
 		109E109F1904E31600537262 /* ShaderManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 109E109B1904E31600537262 /* ShaderManager.cpp */; };
 		109E10A01904E31600537262 /* UniformBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 109E109D1904E31600537262 /* UniformBuffer.cpp */; };
@@ -91,6 +100,20 @@
 		1059E703184AFBDA00416AD8 /* PluginManager.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = PluginManager.framework; sourceTree = "<group>"; };
 		1059E704184AFBDA00416AD8 /* Python.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Python.framework; sourceTree = "<group>"; };
 		1059E70C184AFBDA00416AD8 /* sndfile.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = sndfile.framework; sourceTree = "<group>"; };
+		10783FDC190C09CD00F0A88C /* PhysicsManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PhysicsManager.cpp; path = physics/PhysicsManager.cpp; sourceTree = "<group>"; };
+		10783FDD190C09CD00F0A88C /* PhysicsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhysicsManager.h; path = physics/PhysicsManager.h; sourceTree = "<group>"; };
+		10783FDE190C09CD00F0A88C /* RigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RigidBody.cpp; path = physics/RigidBody.cpp; sourceTree = "<group>"; };
+		10783FDF190C09CD00F0A88C /* RigidBody.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RigidBody.h; path = physics/RigidBody.h; sourceTree = "<group>"; };
+		10783FE2190C09DB00F0A88C /* PhysicsModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsModule.cpp; sourceTree = "<group>"; };
+		10783FE3190C09DB00F0A88C /* PhysicsModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhysicsModule.h; sourceTree = "<group>"; };
+		10783FE5190C0A8100F0A88C /* GizmoAxis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GizmoAxis.cpp; path = gizmos/GizmoAxis.cpp; sourceTree = "<group>"; };
+		10783FE6190C0A8100F0A88C /* GizmoAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GizmoAxis.h; path = gizmos/GizmoAxis.h; sourceTree = "<group>"; };
+		10783FE7190C0A8100F0A88C /* GizmoLine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GizmoLine.cpp; path = gizmos/GizmoLine.cpp; sourceTree = "<group>"; };
+		10783FE8190C0A8100F0A88C /* GizmoLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GizmoLine.h; path = gizmos/GizmoLine.h; sourceTree = "<group>"; };
+		10877F46190C055F008F9076 /* libBulletCollision.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBulletCollision.a; path = "../../../../../Resources/c_libs/C++/bullet-2.82-r2704/src/BulletCollision/Debug/libBulletCollision.a"; sourceTree = "<group>"; };
+		10877F47190C055F008F9076 /* libBulletDynamics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBulletDynamics.a; path = "../../../../../Resources/c_libs/C++/bullet-2.82-r2704/src/BulletDynamics/Debug/libBulletDynamics.a"; sourceTree = "<group>"; };
+		10877F48190C055F008F9076 /* libBulletSoftBody.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBulletSoftBody.a; path = "../../../../../Resources/c_libs/C++/bullet-2.82-r2704/src/BulletSoftBody/Debug/libBulletSoftBody.a"; sourceTree = "<group>"; };
+		10877F49190C055F008F9076 /* libLinearMath.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libLinearMath.a; path = "../../../../../Resources/c_libs/C++/bullet-2.82-r2704/src/LinearMath/Debug/libLinearMath.a"; sourceTree = "<group>"; };
 		109BAFBA18F19225000F9C52 /* ShaderUniform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderUniform.h; path = material/ShaderUniform.h; sourceTree = "<group>"; };
 		109E109B1904E31600537262 /* ShaderManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ShaderManager.cpp; path = material/ShaderManager.cpp; sourceTree = "<group>"; };
 		109E109C1904E31600537262 /* ShaderManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ShaderManager.h; path = material/ShaderManager.h; sourceTree = "<group>"; };
@@ -244,8 +267,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				10877F4D190C0560008F9076 /* libLinearMath.a in Frameworks */,
 				10A88B0F18EAFB72000D61AE /* OpenGL.framework in Frameworks */,
+				10877F4B190C055F008F9076 /* libBulletDynamics.a in Frameworks */,
 				108D3517186E88C00002E4F4 /* Python.framework in Frameworks */,
+				10877F4A190C055F008F9076 /* libBulletCollision.a in Frameworks */,
+				10877F4C190C0560008F9076 /* libBulletSoftBody.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,6 +282,10 @@
 		101B1B661829E5990094A53D = {
 			isa = PBXGroup;
 			children = (
+				10877F46190C055F008F9076 /* libBulletCollision.a */,
+				10877F47190C055F008F9076 /* libBulletDynamics.a */,
+				10877F48190C055F008F9076 /* libBulletSoftBody.a */,
+				10877F49190C055F008F9076 /* libLinearMath.a */,
 				1059E6FB184AFBDA00416AD8 /* Frameworks */,
 				101B1B701829E5990094A53D /* Epsilon */,
 				101B1B6F1829E5990094A53D /* Products */,
@@ -311,9 +342,24 @@
 			path = ../../../../../../../../Library/Frameworks;
 			sourceTree = "<group>";
 		};
+		10783FDB190C09A900F0A88C /* physics */ = {
+			isa = PBXGroup;
+			children = (
+				10783FDC190C09CD00F0A88C /* PhysicsManager.cpp */,
+				10783FDD190C09CD00F0A88C /* PhysicsManager.h */,
+				10783FDE190C09CD00F0A88C /* RigidBody.cpp */,
+				10783FDF190C09CD00F0A88C /* RigidBody.h */,
+			);
+			name = physics;
+			sourceTree = "<group>";
+		};
 		10B94DA018DE5403002A53C9 /* gizmos */ = {
 			isa = PBXGroup;
 			children = (
+				10783FE5190C0A8100F0A88C /* GizmoAxis.cpp */,
+				10783FE6190C0A8100F0A88C /* GizmoAxis.h */,
+				10783FE7190C0A8100F0A88C /* GizmoLine.cpp */,
+				10783FE8190C0A8100F0A88C /* GizmoLine.h */,
 				10B94DA118DE5421002A53C9 /* GizmoCube.cpp */,
 				10B94DA218DE5421002A53C9 /* GizmoCube.h */,
 				10B94DA318DE5421002A53C9 /* GizmoManager.cpp */,
@@ -375,12 +421,13 @@
 				10EC445C1878422700B48152 /* logging */,
 				10EC445F1878422700B48152 /* main.cpp */,
 				10EC44601878422700B48152 /* math */,
+				10783FDB190C09A900F0A88C /* physics */,
 				10EC44691878422700B48152 /* render */,
+				104CC9AB18E0E73C00E85F16 /* resource */,
 				10EC44811878422700B48152 /* scene */,
 				10EC448D1878422700B48152 /* script */,
 				10EC44AB1878422700B48152 /* tests */,
 				10EC44AD1878422700B48152 /* ui */,
-				104CC9AB18E0E73C00E85F16 /* resource */,
 				10EC44B51878422700B48152 /* utilities */,
 			);
 			name = source;
@@ -504,8 +551,6 @@
 		10EC448E1878422700B48152 /* python */ = {
 			isa = PBXGroup;
 			children = (
-				10D3B00018B625900041DBC5 /* UIModule.cpp */,
-				10D3B00118B625900041DBC5 /* UIModule.h */,
 				10EC448F1878422700B48152 /* EventsModule.cpp */,
 				10EC44901878422700B48152 /* EventsModule.h */,
 				10EC44911878422700B48152 /* LoggingModule.cpp */,
@@ -516,16 +561,20 @@
 				10EC44961878422700B48152 /* ManagerModule.h */,
 				10EC44971878422700B48152 /* MathModule.cpp */,
 				10EC44981878422700B48152 /* MathModule.h */,
+				10783FE2190C09DB00F0A88C /* PhysicsModule.cpp */,
+				10783FE3190C09DB00F0A88C /* PhysicsModule.h */,
 				10EC44991878422700B48152 /* RenderModule.cpp */,
 				10EC449A1878422700B48152 /* RenderModule.h */,
+				10C1EA4D1902790A002EF7F4 /* ResourceModule.cpp */,
+				10C1EA4C190278F7002EF7F4 /* ResourceModule.h */,
 				10EC449B1878422700B48152 /* SceneModule.cpp */,
 				10EC449C1878422700B48152 /* SceneModule.h */,
 				10EC449D1878422700B48152 /* ScriptModule.cpp */,
 				10EC449E1878422700B48152 /* ScriptModule.h */,
+				10D3B00018B625900041DBC5 /* UIModule.cpp */,
+				10D3B00118B625900041DBC5 /* UIModule.h */,
 				10EC449F1878422700B48152 /* UtilitiesModule.cpp */,
 				10EC44A01878422700B48152 /* UtilitiesModule.h */,
-				10C1EA4C190278F7002EF7F4 /* ResourceModule.h */,
-				10C1EA4D1902790A002EF7F4 /* ResourceModule.cpp */,
 			);
 			path = python;
 			sourceTree = "<group>";
@@ -645,8 +694,10 @@
 				10EC44C11878422700B48152 /* Colour.cpp in Sources */,
 				10EC44CD1878422700B48152 /* Scene.cpp in Sources */,
 				10EC44CE1878422700B48152 /* SceneManager.cpp in Sources */,
+				10783FE4190C09DB00F0A88C /* PhysicsModule.cpp in Sources */,
 				10A88B0E18EAF178000D61AE /* MaterialManager.cpp in Sources */,
 				10B94DAD18DE5421002A53C9 /* GizmoSphere.cpp in Sources */,
+				10783FE0190C09CD00F0A88C /* PhysicsManager.cpp in Sources */,
 				10EC44DF1878422700B48152 /* DebugWindow.cpp in Sources */,
 				10EC44DA1878422700B48152 /* ScriptBehaviour.cpp in Sources */,
 				10C1EA4E1902790A002EF7F4 /* ResourceModule.cpp in Sources */,
@@ -664,9 +715,11 @@
 				10C2B86C1909EA240032EDDA /* Mesh.cpp in Sources */,
 				10EC44DB1878422700B48152 /* ScriptEngineCore.cpp in Sources */,
 				10C2B8711909EA240032EDDA /* VertexBuffer.cpp in Sources */,
+				10783FEA190C0A8100F0A88C /* GizmoLine.cpp in Sources */,
 				10B94DAE18DE5421002A53C9 /* GizmoType.cpp in Sources */,
 				10FBE90918E8CD6A00027082 /* ResourceType.cpp in Sources */,
 				10D3AFFF18B625790041DBC5 /* Graph.cpp in Sources */,
+				10783FE1190C09CD00F0A88C /* RigidBody.cpp in Sources */,
 				10EC44E01878422700B48152 /* UIManager.cpp in Sources */,
 				10EC44BC1878422700B48152 /* main.cpp in Sources */,
 				10EC44D71878422700B48152 /* ScriptModule.cpp in Sources */,
@@ -682,6 +735,7 @@
 				10C35F3B19092BD800BC19B2 /* TextureManager.cpp in Sources */,
 				10EC44D31878422700B48152 /* ManagerModule.cpp in Sources */,
 				10FBE90818E8CD6A00027082 /* Resource.cpp in Sources */,
+				10783FE9190C0A8100F0A88C /* GizmoAxis.cpp in Sources */,
 				10EC44D21878422700B48152 /* MainModule.cpp in Sources */,
 				10D3AFFE18B625790041DBC5 /* DebugStatsOverlay.cpp in Sources */,
 				10C2B8701909EA240032EDDA /* VertexAttrib.cpp in Sources */,
@@ -739,6 +793,7 @@
 					"/Users/scottporter/Development/Resources/c_libs/C++/SFGUI-0.1.1-source/include/",
 					"/Users/scottporter/Development/Resources/c_libs/C++/tbb/include",
 					"/Users/scottporter/Development/Resources/c_libs/C++/glew-1.10.0/include",
+					"/Users/scottporter/Development/Resources/c_libs/C++/bullet-2.82-r2704/src",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/scottporter/Development/Resources/c_libs/C++/tbb/lib",
@@ -810,6 +865,7 @@
 					"/Users/scottporter/Development/Resources/c_libs/C++/SFGUI-0.1.1-source/include/",
 					"/Users/scottporter/Development/Resources/c_libs/C++/tbb/include",
 					"/Users/scottporter/Development/Resources/c_libs/C++/glew-1.10.0/include",
+					"/Users/scottporter/Development/Resources/c_libs/C++/bullet-2.82-r2704/src",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/scottporter/Development/Resources/c_libs/C++/tbb/lib",
@@ -862,6 +918,13 @@
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/scottporter/Development/Resources/c_libs/C++/bullet-2.82-r2704/src/BulletCollision/Debug",
+					"/Users/scottporter/Development/Resources/c_libs/C++/bullet-2.82-r2704/src/BulletDynamics/Debug",
+					"/Users/scottporter/Development/Resources/c_libs/C++/bullet-2.82-r2704/src/BulletSoftBody/Debug",
+					"/Users/scottporter/Development/Resources/c_libs/C++/bullet-2.82-r2704/src/LinearMath/Debug",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -872,6 +935,13 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/scottporter/Development/Resources/c_libs/C++/bullet-2.82-r2704/src/BulletCollision/Debug",
+					"/Users/scottporter/Development/Resources/c_libs/C++/bullet-2.82-r2704/src/BulletDynamics/Debug",
+					"/Users/scottporter/Development/Resources/c_libs/C++/bullet-2.82-r2704/src/BulletSoftBody/Debug",
+					"/Users/scottporter/Development/Resources/c_libs/C++/bullet-2.82-r2704/src/LinearMath/Debug",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
