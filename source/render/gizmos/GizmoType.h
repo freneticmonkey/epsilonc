@@ -20,7 +20,7 @@ namespace epsilon
 		
 		virtual Matrix4 ExtractTransform(GizmoOperation::Ptr op) { return Matrix4();  };
 
-		void Draw();
+		virtual void Draw();
         
         void Destroy();
 

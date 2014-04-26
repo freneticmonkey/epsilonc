@@ -1,3 +1,5 @@
+#pragma warning(disable: 4996)
+
 #include "render/texture/TextureLoaderBMP.h"
 #include "EpsilonCore.h"
 

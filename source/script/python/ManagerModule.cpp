@@ -258,6 +258,16 @@ void initManagers()
 
 		.def("draw_sphere", &GizmoManager::DrawSphere)
 		.staticmethod("draw_sphere")
+
+		.def("draw_line", &GizmoManager::DrawLine)
+		.staticmethod("draw_line")
+
+		.def("draw_axis", &GizmoManager::DrawAxisMatrix)
+		.staticmethod("draw_axis")
+
+		.def("draw_axis_vectors", &GizmoManager::DrawAxisVectors)
+		.staticmethod("draw_axis_vectors")
+
 		;
 	// Injecting Gizmo manager into the namespace
 	smGI = gizmoManager.attr("get_instance");

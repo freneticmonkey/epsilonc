@@ -3,30 +3,30 @@
 
 namespace epsilon
 {
-	Mesh::Ptr Mesh::Create()
+	Mesh::Ptr Mesh::Create(GLenum type)
 	{
-		return std::make_shared<Mesh>(private_struct());
+		return std::make_shared<Mesh>(private_struct(), type);
 	}
 
-	Mesh::Ptr Mesh::CreateFromFile(std::string filename)
+	Mesh::Ptr Mesh::CreateFromFile(std::string filename, GLenum type)
 	{
-		return std::make_shared<Mesh>(private_struct(), filename);
+		return std::make_shared<Mesh>(private_struct(), type, filename);
 	}
 
-	Mesh::Mesh(const private_struct &) : Resource("", ResourceType::Type::MESH), 
+	Mesh::Mesh(const private_struct &, GLenum type) : Resource("", ResourceType::Type::MESH),
 										 Object("Mesh"), 
 										 drawOk(true), 
 										 needGPUCopy(true)
 	{
-		vd = VertexData::Create();
+		vd = VertexData::Create(type);
 	}
 
-	Mesh::Mesh(const private_struct &, std::string filename) : Resource(filename, ResourceType::Type::MESH), 
+	Mesh::Mesh(const private_struct &, GLenum type, std::string filename) : Resource(filename, ResourceType::Type::MESH),
 															   Object("Mesh"), 
 															   drawOk(true), 
 															   needGPUCopy(true)
 	{
-		vd = VertexData::Create();
+		vd = VertexData::Create(type);
 
 		// Name the Mesh - This should really be done by the MeshManager because of duplicate filenames
 		objectName = filename;

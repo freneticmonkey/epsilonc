@@ -38,7 +38,7 @@ namespace epsilon
 		bool	HasRendered() { return hasRendered; }
 
 		// Operation parameters, usage determined by Gizmo Type
-		Vector3 vector[3];
+		Vector3 vector[4];
 		float	value[3];
 		
 		// White by default

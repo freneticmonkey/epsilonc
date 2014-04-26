@@ -5,6 +5,8 @@
 #include "render/gizmos/GizmoType.h"
 #include "render/gizmos/GizmoCube.h"
 #include "render/gizmos/GizmoSphere.h"
+#include "render/gizmos/GizmoLine.h"
+#include "render/gizmos/GizmoAxis.h"
 
 namespace epsilon
 {
@@ -34,14 +36,19 @@ namespace epsilon
 		static void SetLife(float newLife);
 		static void DrawCube(Vector3 position, Vector3 size);
 		static void DrawSphere(Vector3 position, float radius);
+		static void DrawLine(Vector3 from, Vector3 to);
+		static void DrawAxisMatrix(Matrix4 mat);
+		static void DrawAxisVectors(Vector3 pos, Vector3 right, Vector3 up, Vector3 forward);
 
 	private:
 		Colour			gizmoColour;
 		float			gizmoLife;
 
 		GizmoTypes		gizmos;
-		GizmoCube  *	gizmoCube;
-		GizmoSphere  *	gizmoSphere;
+		GizmoCube	*	gizmoCube;
+		GizmoSphere *	gizmoSphere;
+		GizmoLine	*	gizmoLine;
+		GizmoAxis	*	gizmoAxis;
 	};
 }
 

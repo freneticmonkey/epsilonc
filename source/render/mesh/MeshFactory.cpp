@@ -121,7 +121,7 @@ namespace epsilon
 	}
 	Mesh::Ptr MeshFactory::GenerateGrid(int size, int resolution)
 	{
-		Mesh::Ptr newGrid = Mesh::Create();
+		Mesh::Ptr newGrid = Mesh::Create(GL_LINES);
 
 		VerticesAttrib::List verts;
 		//ColourAttrib::List
@@ -269,7 +269,7 @@ namespace epsilon
 
 	Mesh::Ptr MeshFactory::GenerateWireCube()
 	{
-		Mesh::Ptr newCube = Mesh::Create();
+		Mesh::Ptr newCube = Mesh::Create(GL_LINES);
 
 		VerticesAttrib::List verts;
 
@@ -405,7 +405,7 @@ namespace epsilon
 
 	Mesh::Ptr MeshFactory::GenerateWireSphere()
 	{
-		Mesh::Ptr newSphere = Mesh::Create();
+		Mesh::Ptr newSphere = Mesh::Create(GL_LINES);
 		VerticesAttrib::List verts;
 
 		ParametricData data;

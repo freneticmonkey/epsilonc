@@ -22,7 +22,9 @@
     <ClCompile Include="..\source\math\Vector.cpp" />
     <ClCompile Include="..\source\render\Camera.cpp" />
     <ClCompile Include="..\source\render\Colour.cpp" />
+    <ClCompile Include="..\source\render\gizmos\GizmoAxis.cpp" />
     <ClCompile Include="..\source\render\gizmos\GizmoCube.cpp" />
+    <ClCompile Include="..\source\render\gizmos\GizmoLine.cpp" />
     <ClCompile Include="..\source\render\gizmos\GizmoManager.cpp" />
     <ClCompile Include="..\source\render\gizmos\GizmoSphere.cpp" />
     <ClCompile Include="..\source\render\GizmoType.cpp" />
@@ -92,7 +94,9 @@
     <ClInclude Include="..\source\math\Vector.h" />
     <ClInclude Include="..\source\render\Camera.h" />
     <ClInclude Include="..\source\render\Colour.h" />
+    <ClInclude Include="..\source\render\gizmos\GizmoAxis.h" />
     <ClInclude Include="..\source\render\gizmos\GizmoCube.h" />
+    <ClInclude Include="..\source\render\gizmos\GizmoLine.h" />
     <ClInclude Include="..\source\render\gizmos\GizmoSphere.h" />
     <ClInclude Include="..\source\render\gizmos\GizmoType.h" />
     <ClInclude Include="..\source\render\gizmos\GizmoManager.h" />

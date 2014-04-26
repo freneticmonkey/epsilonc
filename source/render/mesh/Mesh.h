@@ -19,12 +19,12 @@ namespace epsilon
 	public:
 		typedef std::shared_ptr<Mesh> Ptr;
 
-		static Mesh::Ptr Create();
+		static Mesh::Ptr Create(GLenum type = GL_TRIANGLES);
 
-		static Mesh::Ptr CreateFromFile(std::string filename);
+		static Mesh::Ptr CreateFromFile(std::string filename, GLenum type = GL_TRIANGLES);
 
-		explicit Mesh(const private_struct &);
-		explicit Mesh(const private_struct &, std::string filename);
+		explicit Mesh(const private_struct &, GLenum type);
+		explicit Mesh(const private_struct &, GLenum type, std::string filename);
 
 		~Mesh(void);
 

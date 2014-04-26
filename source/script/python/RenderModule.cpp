@@ -54,6 +54,25 @@ float colour_getitem(Colour&v, int index)
 	return returnVal;
 }
 
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(
+	MeshCreate, Mesh::Create, 0, 1
+)
+
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(
+	VertexDataCreate, VertexData::Create, 0, 1
+)
+
+enum OpenGLDrawTypes
+{
+	TRIANGLES		= GL_TRIANGLES,
+	LINES			= GL_LINES,
+	POINTS_			= GL_POINTS,
+	LINE_STRIP		= GL_LINE_STRIP,
+	LINE_LOOP		= GL_LINE_LOOP,
+	TRIANGLE_STRIP	= GL_TRIANGLE_STRIP,
+	TRIANGLE_FAN	= GL_TRIANGLE_FAN
+};
+
 void initRender()
 {
 	// make Render package
@@ -62,12 +81,19 @@ void initRender()
 
 	scope renderScope = renderModule;
 
-	//register_ptr_to_python<Mesh::Ptr>();
-
-	Mesh::Ptr (*MeshCreateStandard)() = &Mesh::Create;
+	enum_<OpenGLDrawTypes>("DrawTypes")
+		.value("TRIANGLES", OpenGLDrawTypes::TRIANGLES)
+		.value("LINES", OpenGLDrawTypes::LINES)
+		.value("POINTS", OpenGLDrawTypes::POINTS_)
+		.value("LINE_STRIP", OpenGLDrawTypes::LINE_STRIP)
+		.value("LINE_LOOP", OpenGLDrawTypes::LINE_LOOP)
+		.value("TRIANGLE_STRIP", OpenGLDrawTypes::TRIANGLE_STRIP)
+		.value("TRIANGLE_FAN", OpenGLDrawTypes::TRIANGLE_FAN)
+		;
 
 	class_<Mesh, bases<Object>, Mesh::Ptr, boost::noncopyable>("Mesh", no_init)
-		.def("create",MeshCreateStandard)
+		//.def("create", &Mesh::Create, MeshCreate() )
+		.def("create", &Mesh::Create, (python::arg("type") = (GLenum)(GL_TRIANGLES) ))
 		.staticmethod("create")
 
 		.def("get_vertexdata", &Mesh::VertexData)
@@ -93,13 +119,10 @@ void initRender()
 	;
 
 	implicitly_convertible<Renderer::Ptr, NodeComponent::Ptr>();
-	//implicitly_convertible<NodeComponent::Ptr, Renderer::Ptr>();
-
-	VertexData::Ptr (*VertexDataCreateStandard)() = &VertexData::Create;
-
+	
 	class_<VertexData, VertexData::Ptr, boost::noncopyable>("VertexData", no_init)
-		.def("create",VertexDataCreateStandard)
-		.staticmethod("create")
+		//.def("create", &VertexData::Create)
+		//.staticmethod("create")
 
 		.def("set_vertices", &VertexData::SetVertices)
 		.def("set_normals", &VertexData::SetNormals)

@@ -3,12 +3,12 @@
 namespace epsilon
 {
     VertexData::Ptr VertexData::currentlyBound = VertexData::Ptr();
-    VertexData::Ptr VertexData::Create()
+	VertexData::Ptr VertexData::Create(GLenum drawType)
 	{
-		return std::make_shared<VertexData>(private_struct());
+		return std::make_shared<VertexData>(private_struct(), drawType);
 	}
 
-	VertexData::VertexData(const private_struct &)
+	VertexData::VertexData(const private_struct &, GLenum type)
 	{
         vaoId = 0;
         bound = false;
@@ -21,6 +21,7 @@ namespace epsilon
 
 		hasIndices = false;
 		buffersBuilt = false;
+		drawType = type;
 	}
 
 	VertexData::~VertexData()
@@ -97,6 +98,36 @@ namespace epsilon
 		return ThisPtr();
 	}
 
+	void VertexData::GenIndicesBuffer()
+	{
+		// Naively Generate an index buffer using the mesh's draw type
+		// This assumes because an index buffer hasn't been provided
+		// duplicate vertices and therefore attributes are in use.
+
+		VertexIndicesBuffer::List indicesData;
+		//int primitiveVerts = 0;
+		//switch (drawType)
+		//{
+		//	case GL_TRIANGLES:
+		//		primitiveVerts = 3;
+		//		break;
+		//	case GL_LINES:
+		//		primitiveVerts = 2;
+		//		break;
+		//	// Add quad etc etc here later
+		//	default:
+		//		break;
+		//}
+
+		// For each vertex
+		GLushort count = 0;
+		for (int i = 0; i < attributes[vertexIndex]->DataLength(); i++)
+		{
+			indicesData.push_back(count++);
+		}
+		SetIndices(indicesData);
+	}
+
 	void VertexData::BuildBuffers()
 	{
         if ( currentlyBound )
@@ -109,6 +140,12 @@ namespace epsilon
         glGenVertexArrays(1, &vaoId);
         CheckOpenGLError("Generated VAO");
         
+		// If an index buffer doesn't exist, build an index buffer
+		if (!hasIndices)
+		{
+			GenIndicesBuffer();
+		}
+
 		// Build the vertex buffer data
 		size_t stride = 0;
 		VertexDataBuffer::List vertexData;
@@ -250,18 +287,8 @@ namespace epsilon
 		bool success = Enable();
 		if (success)
 		{
-			// If drawing surfaces
-			if (hasIndices)
-			{
-				glDrawElements(GL_TRIANGLES, numIndices, GL_UNSIGNED_SHORT, 0);
-				CheckOpenGLError("DrawElements");
-			}
-			else
-			{
-				// Drawing Lines - this is a temporary hack for grids until Materials or some such are implemented.
-				glDrawArrays(GL_LINES, 0, numVertices);
-				CheckOpenGLError("DrawArrays");
-			}
+			glDrawElements(drawType, numIndices, GL_UNSIGNED_SHORT, 0);
+			CheckOpenGLError("DrawElements");
 		}
         
         //Disable();

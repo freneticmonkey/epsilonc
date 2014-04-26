@@ -32,9 +32,9 @@ namespace epsilon
 	public:
 		typedef std::shared_ptr<VertexData> Ptr;
 
-		static VertexData::Ptr Create();
+		static VertexData::Ptr Create(GLenum drawType = GL_TRIANGLES);
 
-		explicit VertexData(const private_struct &);
+		explicit VertexData(const private_struct &, GLenum type);
 		~VertexData();
 		
 		VertexData::Ptr SetVertices(VerticesAttrib::List vertexData);
@@ -51,6 +51,8 @@ namespace epsilon
 		int GetColourIndex() { return colourIndex; }
 		int GetTexCoordIndex() { return texCoordIndex; }
 
+		GLenum GetDrawType() { return drawType;  }
+
 		bool Enable();
 		bool Draw();
 		void Disable();
@@ -59,6 +61,7 @@ namespace epsilon
 
 	private:
 		VertexData::Ptr ThisPtr() { return shared_from_this(); }
+		void GenIndicesBuffer();
 
         GLuint vaoId;
         
@@ -76,6 +79,8 @@ namespace epsilon
 		bool hasIndices;
 
 		bool buffersBuilt;
+
+		GLenum drawType;
         
     public:
         // Tracking for the currently bound VAO - Temporary
