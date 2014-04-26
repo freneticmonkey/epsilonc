@@ -20,6 +20,8 @@
     <ClCompile Include="..\source\math\Matrix.cpp" />
     <ClCompile Include="..\source\math\Quaternion.cpp" />
     <ClCompile Include="..\source\math\Vector.cpp" />
+    <ClCompile Include="..\source\physics\PhysicsManager.cpp" />
+    <ClCompile Include="..\source\physics\RigidBody.cpp" />
     <ClCompile Include="..\source\render\Camera.cpp" />
     <ClCompile Include="..\source\render\Colour.cpp" />
     <ClCompile Include="..\source\render\gizmos\GizmoAxis.cpp" />
@@ -62,6 +64,7 @@
     <ClCompile Include="..\source\script\python\ManagerModule.cpp" />
     <ClCompile Include="..\source\script\python\MathModule.cpp" />
     <ClCompile Include="..\source\script\python\MainModule.cpp" />
+    <ClCompile Include="..\source\script\python\PhysicsModule.cpp" />
     <ClCompile Include="..\source\script\python\RenderModule.cpp" />
     <ClCompile Include="..\source\script\python\ResourceModule.cpp" />
     <ClCompile Include="..\source\script\python\SceneModule.cpp" />
@@ -92,6 +95,8 @@
     <ClInclude Include="..\source\math\Quaternion.h" />
     <ClInclude Include="..\source\math\Rotation.h" />
     <ClInclude Include="..\source\math\Vector.h" />
+    <ClInclude Include="..\source\physics\PhysicsManager.h" />
+    <ClInclude Include="..\source\physics\RigidBody.h" />
     <ClInclude Include="..\source\render\Camera.h" />
     <ClInclude Include="..\source\render\Colour.h" />
     <ClInclude Include="..\source\render\gizmos\GizmoAxis.h" />
@@ -146,6 +151,7 @@
     <ClInclude Include="..\source\script\python\MainModule.h" />
     <ClInclude Include="..\source\script\python\ManagerModule.h" />
     <ClInclude Include="..\source\script\python\MathModule.h" />
+    <ClInclude Include="..\source\script\python\PhysicsModule.h" />
     <ClInclude Include="..\source\script\python\RenderModule.h" />
     <ClInclude Include="..\source\script\python\ResourceModule.h" />
     <ClInclude Include="..\source\script\python\SceneModule.h" />
@@ -198,15 +204,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files (x86)\SFML\include;C:\Program Files (x86)\SFGUI\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files (x86)\SFGUI\lib;C:\Program Files (x86)\SFML\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files (x86)\SFML\include;C:\Program Files (x86)\SFGUI\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include;C:\Dev\Resources\C++\bullet-2.82-r2704\src;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files (x86)\SFGUI\lib;C:\Program Files (x86)\SFML\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\bullet-2.82-r2704\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Program Files (x86)\SFML\include;C:\Program Files (x86)\SFGUI\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files (x86)\SFGUI\lib;C:\Program Files (x86)\SFML\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Program Files (x86)\SFML\include;C:\Program Files (x86)\SFGUI\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include;C:\Dev\Resources\C++\bullet-2.82-r2704\src;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Program Files (x86)\SFGUI\lib;C:\Program Files (x86)\SFML\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\bullet-2.82-r2704\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -222,7 +228,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>sfml-main-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfgui-d.lib;glew32.lib;opengl32.lib;glu32.lib;boost_python-vc120-mt-gd-1_55.lib;tbb_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfgui-d.lib;glew32.lib;opengl32.lib;glu32.lib;boost_python-vc120-mt-gd-1_55.lib;tbb_debug.lib;BulletCollision_vs2010_debug.lib;BulletDynamics_vs2010_debug.lib;LinearMath_vs2010_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -241,7 +247,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-main.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfgui.lib;glew32.lib;opengl32.lib;glu32.lib;tbb.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfgui.lib;glew32.lib;opengl32.lib;glu32.lib;tbb.lib;BulletCollision_vs2010.lib;BulletDynamics_vs2010.lib;LinearMath_vs2010.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

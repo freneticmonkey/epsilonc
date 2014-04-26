@@ -120,6 +120,23 @@ Vector3 Quaternion::Rotate(const Vector3& vec) const
     return GetMatrix() * vec;
 }
 
+void Quaternion::ToAxes(Vector3& xaxis, Vector3& yaxis, Vector3& zaxis) const
+{
+	Matrix3 kRot(Quaternion(x,y,z,w));
+
+	xaxis.x = kRot[0];
+	xaxis.y = kRot[1];
+	xaxis.z = kRot[2];
+
+	yaxis.x = kRot[3];
+	yaxis.y = kRot[4];
+	yaxis.z = kRot[5];
+
+	zaxis.x = kRot[6];
+	zaxis.y = kRot[7];
+	zaxis.z = kRot[8];
+}
+
 AxisAngle Quaternion::GetAngleAxis()
 {
     float angle, s;

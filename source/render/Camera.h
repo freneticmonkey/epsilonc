@@ -2,6 +2,7 @@
 #include "EpsilonCore.h"
 
 #include "scene/NodeComponent.h"
+#include "scene/Transform.h"
 #include "math/Matrix.h"
 
 #include "render/material/ShaderUniform.h"
@@ -22,6 +23,8 @@ namespace epsilon
 		explicit Camera(const private_struct &);
 		Camera(const private_struct &, std::string name);
 		~Camera(void) {}
+
+		void OnSetParent();
 		
 		bool IsActive() { return active; }
 		void SetActive(bool isActive) { active = isActive; }
@@ -47,6 +50,8 @@ namespace epsilon
 		int		height;
 
 		bool	active;
+
+		Transform::Ptr transform;
 
 		ShaderUniform::Ptr viewMatrixUnf;
 		ShaderUniform::Ptr projMatrixUnf;

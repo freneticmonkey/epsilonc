@@ -56,7 +56,8 @@ class SceneLoader(ResourceOwner):
 					   SceneShader,
 					   SceneScripts,
 					   SceneScript,
-					   SceneTexture]:
+					   SceneTexture,
+					   SceneRigidBody]:
 			self._parsers[parser.node_type()] = parser(self._log)
 
 	def set_scene(self, scene_file):
@@ -73,20 +74,15 @@ class SceneLoader(ResourceOwner):
 		scenes = ResourceManager.find_resources(".*" + self._scene_file)
 		
 		for scene in scenes:
-			print "Found scene: " + scene.filepath.string
 			if scene.filepath.string.endswith(self._scene_file):
 				self._scene_resource = scene
 
 				#Register listening for file changes
 				self.register_resource(scene)
-
-				print "register complete"
 				break
 
 	def refresh_resources(self, change_list):
-		print "Scene file change detected."
 		self.process_resource()
-		print "Scene file reloaded"
 		self._scene_resource.set_reloaded()
 
 	def process_resource(self):

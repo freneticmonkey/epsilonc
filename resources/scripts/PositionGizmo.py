@@ -16,6 +16,8 @@ class PositionGizmo(object):
 
 		self.node.transform.lookat(Vector3.ZERO);
 
+		Gizmos.draw_line(self.node.transform.position, Vector3.ZERO)
+
 	def on_destroy(self):
 		pass
 

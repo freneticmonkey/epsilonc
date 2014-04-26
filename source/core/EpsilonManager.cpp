@@ -63,6 +63,9 @@ namespace epsilon
 
 		inputManager = &InputManager::GetInstance();
 
+		physicsManager = &PhysicsManager::GetInstance();
+		physicsManager->Setup();
+
 		uiManager = &UIManager::GetInstance();
 		uiManager->Setup();
 
@@ -169,6 +172,10 @@ namespace epsilon
 		resourceManager->Update(el);
 		// The following managers currently don't support running in parallel due to OpenGL or whatever.
         gizmoManager->Update(el);
+
+		// Tick the physics sim
+		physicsManager->Update(el);
+
 		sceneManager->Update(el);
 		sceneManager->Cull();
 
@@ -192,6 +199,8 @@ namespace epsilon
         
         // Stop UI
         uiManager->Destroy();
+
+		physicsManager->Destroy();
         
         renderManager->CloseWindow();
     }

@@ -10,6 +10,7 @@
 #include "resource/ResourceManager.h"
 #include "script/ScriptManager.h"
 #include "render/RenderManager.h"
+#include "physics/PhysicsManager.h"
 #include <boost/format.hpp>
 
 using namespace boost;
@@ -138,8 +139,16 @@ namespace epsilon
 		return newScript;
 	}
 
+	RigidBody::Ptr	SceneNode::CreateRigidBody(float mass, Vector3 inertia)
+	{
+		rigidBody = PhysicsManager::GetInstance().CreateRigidBody(mass, inertia);
+		AddComponent(rigidBody);
+		return rigidBody;
+	}	
+
 	// The following functions are exposed to Python and will result in the active script being
-	// set as the owner of the resulting object
+	// set as the owner of the resulting object (this assumes that python is single-threaded and
+	// so there is only ever going to be a single script active at a time).
 
 	void SceneNode::HandleScriptOwner(NodeComponent::Ptr newComponent)
 	{
@@ -230,6 +239,12 @@ namespace epsilon
 		return newScript;
 	}
 
+	RigidBody::Ptr SceneNode::ScriptCreateRigidBody(float mass, Vector3 inertia)
+	{
+		RigidBody::Ptr newRB = CreateRigidBody(mass, inertia);
+		HandleScriptOwner(newRB);
+		return newRB;
+	}
 
 	// Script Accessor functions
 	ScriptBehaviour::Ptr SceneNode::GetScriptByClassname(std::string classname)

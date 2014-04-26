@@ -7,6 +7,7 @@
 #include "scene/SceneManager.h"
 #include "scene/Transform.h"
 #include "script/Script.h"
+#include "physics/RigidBody.h"
 
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(
 	TranslateVector, Transform::Translate, 1, 2
@@ -104,7 +105,10 @@ void initScene()
 		.def("create_renderer", (Renderer::Ptr(SceneNode::*)()) &SceneNode::ScriptCreateRenderer)
 
 		.def("create_behaviour", (ScriptBehaviour::Ptr(SceneNode::*)(std::string)) &SceneNode::ScriptCreateBehaviour)
-        
+		.def("create_rigidbody", (RigidBody::Ptr(SceneNode::*)(float, Vector3))&SceneNode::ScriptCreateRigidBody, 
+								 (python::arg("mass") = (float)(0.f)), 
+								 (python::arg("inertia") = (Vector3)(Vector3::ZERO)))
+
 		.add_property("transform", &SceneNode::GetTransform)
 		.add_property("camera", &SceneNode::GetCamera)
 		.add_property("light", &SceneNode::GetLight)

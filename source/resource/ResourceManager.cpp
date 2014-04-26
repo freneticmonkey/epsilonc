@@ -7,12 +7,10 @@
 //
 #include <regex>
 
-#include "ResourceManager.h"
+#include "resource/ResourceManager.h"
 #include "utilities/Utilities.h"
 
 #include <boost/format.hpp>
-
-using namespace epsilon;
 
 namespace epsilon
 {

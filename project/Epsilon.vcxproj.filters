@@ -57,6 +57,9 @@
     <Filter Include="Source Files\render\mesh">
       <UniqueIdentifier>{1d0eda2c-4f5b-4c24-a542-1c520cc9a238}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\physics">
+      <UniqueIdentifier>{83b46d3b-f9be-4960-9c5d-7afdfc29196d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp">
@@ -259,6 +262,15 @@
     </ClCompile>
     <ClCompile Include="..\source\render\gizmos\GizmoAxis.cpp">
       <Filter>Source Files\render\gizmos</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\physics\PhysicsManager.cpp">
+      <Filter>Source Files\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\physics\RigidBody.cpp">
+      <Filter>Source Files\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\PhysicsModule.cpp">
+      <Filter>Source Files\script\python</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -519,6 +531,15 @@
     </ClInclude>
     <ClInclude Include="..\source\render\gizmos\GizmoAxis.h">
       <Filter>Source Files\render\gizmos</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\physics\PhysicsManager.h">
+      <Filter>Source Files\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\physics\RigidBody.h">
+      <Filter>Source Files\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\python\PhysicsModule.h">
+      <Filter>Source Files\script\python</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

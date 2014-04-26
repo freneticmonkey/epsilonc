@@ -14,6 +14,7 @@
 #include "render/gizmos/GizmoManager.h"
 #include "scene/SceneManager.h"
 #include "script/ScriptManager.h"
+#include "physics/PhysicsManager.h"
 #include "ui/UIManager.h"
 #include "ui/ConsoleWindow.h"
 #include "ui/DebugStatsOverlay.h"
@@ -55,7 +56,7 @@ namespace epsilon
 		UIManager * uiManager;
 		SceneManager * sceneManager;
 		GizmoManager * gizmoManager;
-
+		PhysicsManager * physicsManager;
 		CycleValue cycle;
 		Transform::Ptr triangleTrans;
 		Camera::Ptr camera;

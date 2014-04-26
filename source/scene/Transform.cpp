@@ -543,6 +543,7 @@ namespace epsilon
 
 	void Transform::FPS(Vector3 pos, float pitch, float yaw)
 	{
+		/*
 		float cosPitch = cos(pitch);
 		float sinPitch = sin(pitch);
 		float cosYaw = cos(yaw);
@@ -557,9 +558,32 @@ namespace epsilon
 			yaxis.x, yaxis.y, yaxis.z, -yaxis.Dot(pos),
 			zaxis.x, zaxis.y, zaxis.z, -zaxis.Dot(pos),
 			0,		 0,		  0,		1);
-		
+
 		SetPosition(cachedTransform.GetTranslation());
 		SetLocalOrientation(cachedTransform.GetRotation());
+		*/
+
+		Quaternion currentRot = derivedOrientation;
+
+		Vector3 xAxis, yAxis, zAxis;
+		currentRot.ToAxes(xAxis, yAxis, zAxis);
+
+		Quaternion yawQ = Quaternion(yAxis, yaw);
+		Quaternion pitchQ = Quaternion(xAxis, pitch);
+		Quaternion finalRot = pitchQ * yawQ;
+
+		//finalRot.Normalise();
+
+		//SetPosition(pos);
+		//SetLocalOrientation(finalRot);
+
+		finalRot = finalRot * currentRot;
+		finalRot.Normalise();
+
+		SetPosition(pos);
+		SetLocalOrientation(finalRot);
+
+		//derivedOrientation = finalRot;
 
 		needUpdate(true);
 	}
@@ -571,11 +595,11 @@ namespace epsilon
 		{
 			Matrix4 rot, scaleM, pos, res;
 
-			cachedTransform = Matrix4::CreateTranslation(derivedPosition.x, derivedPosition.y, derivedPosition.z);
-			cachedTransform *= orientation.GetMatrix();
-			cachedTransform *= Matrix4::CreateScale(derivedScale.x, derivedScale.y, derivedScale.z);
+			//cachedTransform = Matrix4::CreateTranslation(derivedPosition.x, derivedPosition.y, derivedPosition.z);
+			//cachedTransform *= orientation.GetMatrix();
+			//cachedTransform *= Matrix4::CreateScale(derivedScale.x, derivedScale.y, derivedScale.z);
 
-			/*
+			
 			// Rotation & Scale
 			//rot = Quaternion::IDENTITY.GetMatrix();// derivedOrientation.GetMatrix();
 			rot = orientation.GetMatrix();
@@ -596,7 +620,7 @@ namespace epsilon
 			cachedTransform[3] = derivedPosition.x;
 			cachedTransform[7] = derivedPosition.y;
 			cachedTransform[11] = derivedPosition.z;
-			*/
+			
 
 			cachedTransformOutOfDate = false;
 		}

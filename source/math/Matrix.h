@@ -21,6 +21,7 @@ public:
     Matrix3( float a, float b, float c,
              float e, float f, float g,
              float i, float j, float k );
+	Matrix3(const Quaternion& rot);
 
 	// To String
 	inline std::string ToString() 
@@ -107,6 +108,8 @@ public:
     
     float Determinant();
     Matrix3 Inverse();
+
+
     
 };
 

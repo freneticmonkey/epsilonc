@@ -39,6 +39,18 @@ namespace epsilon
 		Setup();
 	}
 
+	void Camera::OnSetParent()
+	{
+		if (this->componentParent)
+		{
+			transform = this->componentParent->GetComponent<Transform>();
+		}
+		else
+		{
+			transform = nullptr;
+		}
+	}
+
 	void Camera::Setup()
 	{
 		ratio = (float)((1.0f * width) / height);
@@ -60,31 +72,14 @@ namespace epsilon
 
 	Matrix4 Camera::GetViewMatrix()
 	{ 
-		// Just return the transform of the parent node
-		Transform::Ptr t = GetParent()->GetComponent<Transform>();// ->_getFullTransform();
-
-		Matrix4 mat = GetParent()->GetComponent<Transform>()->_getFullTransform();
-		/*
-		Matrix4 mat(Vector4(t->Right().x,	 t->Right().y,	t->Right().z,	t->GetPosition().x),
-					Vector4(t->Up().x,		 t->Up().y,		t->Up().z,		t->GetPosition().y),
-					Vector4(t->Forward().x,	 t->Forward().y,t->Forward().z, t->GetPosition().z),
-					Vector4(0, 0, 0, 1));
-		*/
-		/*
-		Matrix4 mat(Vector4(t->Right().x, t->Right().y, t->Right().z, 0),
-		Vector4(t->Up().x, t->Up().y, t->Up().z, 0),
-		Vector4(t->Forward().x, t->Forward().y, t->Forward().z, 0),
-		Vector4(t->GetPosition().x, t->GetPosition().y, t->GetPosition().z, 1));
-		*/
-
-		Matrix4 mat2(Vector4(1, 0, 0, 0),
-					 Vector4(0, 1, 0, 0),
-					 Vector4(0, 0, 1, 0),
-					 Vector4(0, 1, -18, 1));
-
-		mat2.RotateX(0.5f);
-
-		return mat;// .Transposed();
+		if (transform)
+		{
+			return transform->_getFullTransform();
+		}
+		else
+		{
+			return Matrix4();
+		}
 	}
 
 	Vector3 Camera::ScreenToWorldCoordinate(Vector2 screenPos)
@@ -121,9 +116,11 @@ namespace epsilon
 		projMatrix[3 * 4 + 3] = 0.0f;
 
 		// Inverting the Y-axis cause OpenGL :/
-		/*Matrix4 invertY;
+		/*
+		Matrix4 invertY;
 		invertY[5] = -1;
-		projMatrix *= invertY;*/
+		projMatrix *= invertY;
+		*/
 		//projMatrix.Scale(1.0f, 1.f, 1.0f);
 	}
 

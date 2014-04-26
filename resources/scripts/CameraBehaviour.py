@@ -36,7 +36,7 @@ class CameraBehaviour(object):
 			else:
 				break
 		# print self.node.transform.parent_transform.position
-		self.node.transform.fps(self.node.transform.parent_transform.position, self._v, self._h)
+		self.node.transform.fps(self.node.transform.position, 0,0)#self._v, self._h)
 
 		# Convert to radians
 		self._angle_speed *= (math.pi / 180.0)
@@ -82,10 +82,10 @@ class CameraBehaviour(object):
 		# convert the mouse input into rotation
 		mouse_pos = Input.mouse_position_relative()
 
-		self._h += (mouse_pos.x / WIDTH) * angle * self._mouse_speed_x
-		self._v += (mouse_pos.y / HEIGHT) * angle * self._mouse_speed_y
+		self._h += (mouse_pos.x / WIDTH) * angle * -self._mouse_speed_x
+		self._v += (mouse_pos.y / HEIGHT) * angle * -self._mouse_speed_y
 
-		self.node.transform.fps(self.node.transform.parent_transform.position, self._v, self._h)
+		self.node.transform.fps(self.node.transform.position, self._v, self._h)
 	
 	def movement(self, dt):
 		applied_speed = self._speed
@@ -95,7 +95,7 @@ class CameraBehaviour(object):
 		forward = self.node.transform.forward
 		up = self.node.transform.up
 
-		self.node.transform.parent_transform.orientation = viewMat.get_rotation()
+		self.node.transform.orientation = viewMat.get_rotation()
 
 		if Input.key_down(Input.Key.I):
 
@@ -103,28 +103,28 @@ class CameraBehaviour(object):
 			print "right: " + str(right)
 			print "up: " + str(up)
 			print "forward: " + str(forward)
-			print "pos: " + str(self.node.transform.parent_transform.position)
+			print "pos: " + str(self.node.transform.position)
 
 		if Input.key(Input.Key.LShift):
 				applied_speed *= 10.0
 
 		if Input.key(Input.Key.A):
-			self.node.transform.parent_transform.translate(-Vector3.RIGHT * applied_speed * dt)
+			self.node.transform.translate(Vector3.RIGHT * applied_speed * dt)
 			
 		if Input.key(Input.Key.D):
-			self.node.transform.parent_transform.translate(Vector3.RIGHT * applied_speed * dt )
+			self.node.transform.translate(-Vector3.RIGHT * applied_speed * dt )
 			
 		if Input.key(Input.Key.W):
-			self.node.transform.parent_transform.translate(Vector3.FORWARD * applied_speed * dt )
+			self.node.transform.translate(Vector3.FORWARD * applied_speed * dt )
 
 		if Input.key(Input.Key.S):
-			self.node.transform.parent_transform.translate(-Vector3.FORWARD * applied_speed * dt )
+			self.node.transform.translate(-Vector3.FORWARD * applied_speed * dt )
 
 		if Input.key(Input.Key.E):
-			self.node.transform.parent_transform.translate(Vector3.UP * applied_speed * dt )
+			self.node.transform.translate(-Vector3.UP * applied_speed * dt )
 
 		if Input.key(Input.Key.C):
-			self.node.transform.parent_transform.translate(-Vector3.UP * applied_speed * dt )
+			self.node.transform.translate(Vector3.UP * applied_speed * dt )
 
 	def on_destroy(self):
 		pass

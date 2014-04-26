@@ -62,6 +62,32 @@ Matrix3::Matrix3( float a, float b, float c,
     data[8] = k;
 }
 
+Matrix3::Matrix3(const Quaternion& rot)
+{
+	float fTx = rot.x + rot.x;
+	float fTy = rot.y + rot.y;
+	float fTz = rot.z + rot.z;
+	float fTwx = fTx*rot.w;
+	float fTwy = fTy*rot.w;
+	float fTwz = fTz*rot.w;
+	float fTxx = fTx*rot.x;
+	float fTxy = fTy*rot.x;
+	float fTxz = fTz*rot.x;
+	float fTyy = fTy*rot.y;
+	float fTyz = fTz*rot.y;
+	float fTzz = fTz*rot.z;
+
+	data[0] = 1.0f - (fTyy + fTzz);
+	data[1] = fTxy - fTwz;
+	data[2] = fTxz + fTwy;
+	data[3] = fTxy + fTwz;
+	data[4] = 1.0f - (fTxx + fTzz);
+	data[5] = fTyz - fTwx;
+	data[6] = fTxz - fTwy;
+	data[7] = fTyz + fTwx;
+	data[8] = 1.0f - (fTxx + fTyy);
+}
+
 // Array Access
 float &Matrix3::operator[](int i)
 {

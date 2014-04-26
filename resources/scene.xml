@@ -40,6 +40,20 @@
 					<texture filename="UVmapLarge.bmp"/>
 					<shader name="phong.shader"/>
 				</material>
+				<rigidbody mass="1.0"/>
+				<scripts>
+					<!-- <script filename="resources/scripts/RotationTest.py"/> -->
+				</scripts>
+			</node>
+
+			<node name="child_node_cube">
+				<transform position="-1.5 -2 0"/>
+				<mesh preset="CUBE"/>
+				<material diffuse="1 0.5 0 1">
+					<texture filename="UVmapLarge.bmp"/>
+					<shader name="phong.shader"/>
+				</material>
+				<rigidbody mass="0.0"/>
 				<scripts>
 					<!-- <script filename="resources/scripts/RotationTest.py"/> -->
 				</scripts>
@@ -82,17 +96,17 @@
 		<script filename="resources/scripts/CircleRotation.py"/>
 	</node>
 	
-	<node name="camera_pos">
-		<transform position="0 -2 -16"/>
-		<children>
+	<!-- <node name="camera_pos">
+		<children> -->
 			<node name="camera_node">
+				<transform position="0 -2 -16"/>
 				<camera name="scene_cam" active="True"/>
 				<scripts>
 					<script filename="resources/scripts/CameraBehaviour.py"/>
 				</scripts>
 			</node>
-		</children>
-	</node>
+	<!-- 	</children>
+	</node> -->
 
 	<node>
 		<scripts>

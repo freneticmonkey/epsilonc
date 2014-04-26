@@ -206,6 +206,8 @@ public:
     
     Vector3 Rotate(const Vector3& vec) const;
 
+	void ToAxes(Vector3& xaxis, Vector3& yaxis, Vector3& zaxis) const;
+
     AxisAngle GetAngleAxis();
     Euler GetEuler();
     Matrix4 GetMatrix() const;
