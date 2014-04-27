@@ -71,13 +71,14 @@ namespace epsilon
 			elSinceCheck += dt;
 			if (elSinceCheck >= updateFrequency)
 			{
-				// Update simualation
-				dynamicsWorld->stepSimulation(dt, 10);
-
-				// Update the SceneNode's with RigidBodies attached.
-				std::for_each(rigidBodies.begin(), rigidBodies.end(), [](std::pair<long, RigidBody::Ptr> rigidbody){
-					rigidbody.second->Update();
-				});
+				// Update bullet with the current state of the world
+                UpdateToBullet();
+                
+                // Update simualation
+                dynamicsWorld->stepSimulation(dt, 10);
+                
+                // Update the world state post physics step
+                UpdateFromBullet();
 
 				// Reset the wait period :)
 				elSinceCheck = 0.f;
@@ -85,15 +86,32 @@ namespace epsilon
 		}
 		else
 		{
+            // Update bullet with the current state of the world
+            UpdateToBullet();
+            
 			// Update simualation
 			dynamicsWorld->stepSimulation(dt, 10);
-
-			// Update the SceneNode's with RigidBodies attached.
-			std::for_each(rigidBodies.begin(), rigidBodies.end(), [](std::pair<long, RigidBody::Ptr> rigidbody){
-				rigidbody.second->Update();
-			});
+            
+            // Update the world state post physics step
+            UpdateFromBullet();
 		}
 	}
+    
+    void PhysicsManager::UpdateFromBullet()
+    {
+        // Update the SceneNode's with RigidBodies attached.
+        std::for_each(rigidBodies.begin(), rigidBodies.end(), [](std::pair<long, RigidBody::Ptr> rigidbody){
+            rigidbody.second->UpdateFromBullet();
+        });
+    }
+    
+    void PhysicsManager::UpdateToBullet()
+    {
+        // Update the SceneNode's with RigidBodies attached.
+        std::for_each(rigidBodies.begin(), rigidBodies.end(), [](std::pair<long, RigidBody::Ptr> rigidbody){
+            rigidbody.second->UpdateToBullet();
+        });
+    }
 
 	RigidBody::Ptr PhysicsManager::CreateRigidBody(float mass, Vector3 inertia)
 	{

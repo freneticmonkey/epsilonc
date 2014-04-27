@@ -53,6 +53,12 @@ namespace epsilon
 
 		// Updates the Physics simulation
 		void Update(float dt);
+        
+        // Push bullet updates back to epsilon Transforms
+        void UpdateFromBullet();
+        
+        // Push updates from scripts to bullet
+        void UpdateToBullet();
 
 		// Stop and delete the physics sim
 		void Destroy();
@@ -67,6 +73,9 @@ namespace epsilon
 
 		// Read Only for now.
 		const Vector3& GetGravity() { return gravity;  }
+        
+        // Physics functions
+        
 	private:
 		
 		RigidBodies			 rigidBodies;

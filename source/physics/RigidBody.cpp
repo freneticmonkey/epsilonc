@@ -45,7 +45,7 @@ namespace epsilon
 		if (!hasSetup && snTransform)
 		{
 			//create a dynamic rigidbody
-
+            
 			//btCollisionShape* colShape = new btBoxShape(btVector3(1,1,1));
 			colShape = new btBoxShape(btVector3(0.5f, 0.5f, 0.5f));
 
@@ -76,17 +76,36 @@ namespace epsilon
 		}
 	}
 
-	void RigidBody::Update()
+	void RigidBody::UpdateFromBullet()
 	{
-		// Get the position and rotation from bullet
-		myMotionState->getWorldTransform(transform);
-
-		btVector3 p = transform.getOrigin();
-		btQuaternion r = transform.getRotation();
-
-		// Update our transform with the latest physics info.
-		snTransform->SetPosition(p.x(), p.y(), p.z());
-		snTransform->SetOrientation(r.x(), r.y(), r.z(), r.w());
+        if ( hasSetup )
+        {
+            // Get the position and rotation from bullet
+            myMotionState->getWorldTransform(transform);
+            
+            btVector3 p = transform.getOrigin();
+            btQuaternion r = transform.getRotation();
+            
+            // Update our transform with the latest physics info.
+            snTransform->SetPosition(p.x(), p.y(), p.z());
+            snTransform->SetOrientation(r.x(), r.y(), r.z(), r.w());
+        }
+	}
+    
+    void RigidBody::UpdateToBullet()
+	{
+        if ( hasSetup )
+        {
+            Vector3 pos = snTransform->GetPosition();
+            Quaternion rot = snTransform->GetOrientation();
+            btVector3 p(pos.x, pos.y, pos.z);
+            btQuaternion r(rot.x, rot.y, rot.z, rot.w);
+            transform.setOrigin(p);
+            transform.setRotation(r);
+            
+            // Update the rigidbodies' position and rotation
+            myMotionState->setWorldTransform(transform);
+        }
 	}
 
 	Vector3	RigidBody::GetLinearVelocity()

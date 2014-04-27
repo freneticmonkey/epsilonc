@@ -40,7 +40,10 @@ namespace epsilon
 		void OnDeleteRegister(const RigidBodyDeletedCallback& callback);
 
 		// Push Physics updates back to the Transform
-		void Update();
+		void UpdateFromBullet();
+        
+        // Push Transform updates back to bullet.
+        void UpdateToBullet();
 
 		// Accessors
 		void	SetMass(float newMass);
@@ -63,9 +66,6 @@ namespace epsilon
 
 		Vector3	GetTotalTorque();
 		Vector3	GetTotalForce();
-
-		// Exposing this is bad design.
-		//btRigidBody GetRigidBody() { return rigidBody; }
 
 	private:
 		bool	hasSetup;
