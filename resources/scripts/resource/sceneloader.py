@@ -74,7 +74,7 @@ class SceneLoader(ResourceOwner):
 		scenes = ResourceManager.find_resources(".*" + self._scene_file)
 		
 		for scene in scenes:
-			if scene.filepath.string.endswith(self._scene_file):
+			if scene.filepath.string().endswith(self._scene_file):
 				self._scene_resource = scene
 
 				#Register listening for file changes

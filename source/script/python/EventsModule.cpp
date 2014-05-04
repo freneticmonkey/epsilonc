@@ -12,7 +12,7 @@ void initEvents()
 	scope().attr("events") = eventsModule;
 
 	scope eventsScope = eventsModule;
-
+	/*
 	class_<EventType, EventType::Ptr, boost::noncopyable>("EventType", no_init)
 		.def("create", &EventType::Create)
 		.staticmethod("create")
@@ -36,4 +36,5 @@ void initEvents()
 		.def_readonly("is_handled", &Event::IsHandled)
 		.def("set_handled", &Event::SetHandled)
 	;
+	*/
 }

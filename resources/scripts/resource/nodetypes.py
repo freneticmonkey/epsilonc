@@ -172,7 +172,6 @@ class SceneNode(BaseXMLNode):
 
 			# create a node from the current parent node
 			node = scene_node.create_child(node_name)
-			print "Creating child: " + node_name
 				
 		# otherwise it's a floating node, not sure what this means...
 		else:
@@ -529,6 +528,7 @@ class SceneRigidBody(BaseXMLNode):
 
 			mass = 0
 			inertia = Vector3.ZERO
+			kinematic = False
 
 			if "mass" in xml_tag.attrib:
 				mass = self.extract_float_attribute(xml_tag, "mass", mass)
@@ -536,4 +536,7 @@ class SceneRigidBody(BaseXMLNode):
 			if "inertia" in xml_tag.attrib:
 				inertia = self.parse_vector3(xml_tag, "inertia")
 
-			scene_node.create_rigidbody(mass, inertia)
+			if "kinematic" in xml_tag.attrib:
+				kinematic = self.extract_bool_attribute(xml_tag,"kinematic",kinematic)
+
+			scene_node.create_rigidbody(mass, inertia, kinematic)

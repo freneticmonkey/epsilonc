@@ -2,6 +2,7 @@
 
 #include "EpsilonCore.h"
 #include "script/Script.h"
+#include "events/Event.h"
 
 namespace epsilon
 {
@@ -13,6 +14,7 @@ namespace epsilon
 
 	public:
 		typedef std::shared_ptr<ScriptBehaviour> Ptr;
+		typedef std::map<std::size_t, object>	 EventFunctions;
 
 		static ScriptBehaviour::Ptr Create();
 		static ScriptBehaviour::Ptr Create(std::string scriptString, ScriptSource source = ScriptSource::TEXT);
@@ -30,6 +32,8 @@ namespace epsilon
 		void OnDestroy();
 		void OnDrawGizmos();
 
+		void HandleEvent(EventDataBase::Ptr event);
+
 	protected:
 		void RegisterScriptFunctions();
 	private:
@@ -38,6 +42,11 @@ namespace epsilon
 		object updateFunction;
 		object destroyFunction;
 		object drawGizmosFunction;
+
+		// Event Functions
+		EventFunctions eventFunctions;
+
+		object collFunction;
 	};
 
 	// List define.

@@ -12,23 +12,33 @@ namespace epsilon
 		typedef std::hash<std::string> StringHash;
 
 		HashedString() {}
-		HashedString(std::string s)
+		HashedString(const std::string& s)
 		{
 			strVal = s;
 			hashVal = hasher(strVal);
 		}
 
+		operator std::size_t()
+		{
+			return hashVal;
+		}
+
 		// Assignment from string
-		void operator=(std::string newString)
+		void operator=(const std::string& newString)
 		{
 			strVal = newString;
 			hashVal = hasher(strVal);
 		}
 
 		// Comparison uses the hash
-		bool operator==(const HashedString & other) const
+		bool operator==(const HashedString& other) const
 		{
 			return hashVal == other.hashVal;
+		}
+
+		bool operator==(const std::size_t& hash) const
+		{
+			return hashVal == hash;
 		}
 
 		// Comparison to a standard string is slower
@@ -37,8 +47,8 @@ namespace epsilon
 			return hashVal == hasher(other);
 		}
 
-		std::string GetString() { return strVal; }
-		std::size_t GetHash() { return hashVal; }
+		const std::string& GetString() { return strVal; }
+		const std::size_t& GetHash() { return hashVal; }
 
 		// Utility function to generate a hash from a string
 		static std::size_t Hash(std::string str)

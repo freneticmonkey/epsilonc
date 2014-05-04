@@ -139,9 +139,9 @@ namespace epsilon
 		return newScript;
 	}
 
-	RigidBody::Ptr	SceneNode::CreateRigidBody(float mass, Vector3 inertia)
+	RigidBody::Ptr	SceneNode::CreateRigidBody(float mass, Vector3 inertia, bool kinematic)
 	{
-		rigidBody = PhysicsManager::GetInstance().CreateRigidBody(mass, inertia);
+		rigidBody = PhysicsManager::GetInstance().CreateRigidBody(mass, inertia, kinematic);
 		AddComponent(rigidBody);
 		return rigidBody;
 	}	
@@ -239,9 +239,9 @@ namespace epsilon
 		return newScript;
 	}
 
-	RigidBody::Ptr SceneNode::ScriptCreateRigidBody(float mass, Vector3 inertia)
+	RigidBody::Ptr SceneNode::ScriptCreateRigidBody(float mass, Vector3 inertia, bool kinematic)
 	{
-		RigidBody::Ptr newRB = CreateRigidBody(mass, inertia);
+		RigidBody::Ptr newRB = CreateRigidBody(mass, inertia, kinematic);
 		HandleScriptOwner(newRB);
 		return newRB;
 	}

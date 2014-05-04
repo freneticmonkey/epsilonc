@@ -74,7 +74,7 @@ namespace epsilon
 				return newTexture->SetTextureLoader(texLoader) == true;
 			});
 
-			Log("TextureManager", str(format("Registered Texture: %s") % newTexture->GetName()));
+			//Log("TextureManager", str(format("Registered Texture: %s") % newTexture->GetName()));
 		});
 
 		// For now we'll just immediately load textures

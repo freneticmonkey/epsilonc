@@ -6,14 +6,15 @@ using namespace boost;
 
 namespace epsilon
 {
-	RigidBody::Ptr RigidBody::Create(float mass, Vector3 inertia)
+	RigidBody::Ptr RigidBody::Create(float mass, Vector3 inertia, bool kinematic)
 	{
-		return std::make_shared<RigidBody>(private_struct(), mass, inertia);
+		return std::make_shared<RigidBody>(private_struct(), mass, inertia, kinematic);
 	}
 
-	RigidBody::RigidBody(const private_struct &, float mass, Vector3 inertia) : NodeComponent("RigidBody"), 
+	RigidBody::RigidBody(const private_struct &, float mass, Vector3 inertia, bool kinematic) : NodeComponent("RigidBody"),
 																				mass(mass), 
 																				inertia(inertia),
+																				kinematic(kinematic),
 																				hasSetup(false)
 	{
 	}
@@ -69,6 +70,24 @@ namespace epsilon
 			btRigidBody::btRigidBodyConstructionInfo rbInfo(mass, myMotionState, colShape, localInertia);
 
 			rigidBody = new btRigidBody(rbInfo);
+
+			// Configure the Collision options for the object
+
+			int collisionFlags = rigidBody->getCollisionFlags();
+
+			// Indicate that the rigidbody will fire a callback on collision
+			collisionFlags |= btCollisionObject::CF_CUSTOM_MATERIAL_CALLBACK;
+
+			// if kinematic
+			if (kinematic)
+			{
+				collisionFlags |= btCollisionObject::CF_KINEMATIC_OBJECT;
+			}
+
+			rigidBody->setCollisionFlags( collisionFlags );
+
+			// Attach a handle to this object to the rigidbody
+			rigidBody->setUserPointer(ThisPtr().get());
 
 			createdCallback(GetId(), rigidBody);
 

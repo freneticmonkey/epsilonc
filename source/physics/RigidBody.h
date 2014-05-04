@@ -12,7 +12,8 @@
 namespace epsilon
 {
 	class RigidBody :
-		public NodeComponent
+		public NodeComponent,
+		public std::enable_shared_from_this<RigidBody>
 	{
 		friend class PhysicsManager;
 
@@ -26,9 +27,9 @@ namespace epsilon
 
 		// RigidBodies can only be created by the PhysicsManager
 		// to ensure that they are added to the simulation
-		static RigidBody::Ptr Create(float mass = 0.f, Vector3 inertia = Vector3::ZERO);
+		static RigidBody::Ptr Create(float mass = 0.f, Vector3 inertia = Vector3::ZERO, bool kinematic = false);
 
-		explicit RigidBody(const private_struct &, float mass, Vector3 inertia);
+		explicit RigidBody(const private_struct &, float mass, Vector3 inertia, bool kinematic);
 		~RigidBody(void);
 
 		void OnSetParent();
@@ -68,9 +69,12 @@ namespace epsilon
 		Vector3	GetTotalForce();
 
 	private:
+		RigidBody::Ptr ThisPtr() { return shared_from_this(); }
+
 		bool	hasSetup;
 		float	mass;
 		Vector3 inertia;
+		bool	kinematic;
 
 		Vector3 linearVelocity;
 		Vector3 linearDamping;

@@ -55,11 +55,12 @@ void initUtilities()
     class_<HashedString>("HashedString")
         .def(init<std::string>())
     
+		.def(self == self)
         .def(self==std::string())
-//        .def(std::string() == self )
+        //.def(std::string() == self )
     
-        .def_readonly("string", &HashedString::GetString)
-        .def_readonly("hash", &HashedString::GetHash)
+        .def("string", &HashedString::GetString, return_value_policy<copy_const_reference>() )
+        .def("hash", &HashedString::GetHash, return_value_policy<copy_const_reference>() )
         
         .def("hash", &HashedString::Hash)
         .staticmethod("hash")

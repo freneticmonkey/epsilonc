@@ -105,9 +105,10 @@ void initScene()
 		.def("create_renderer", (Renderer::Ptr(SceneNode::*)()) &SceneNode::ScriptCreateRenderer)
 
 		.def("create_behaviour", (ScriptBehaviour::Ptr(SceneNode::*)(std::string)) &SceneNode::ScriptCreateBehaviour)
-		.def("create_rigidbody", (RigidBody::Ptr(SceneNode::*)(float, Vector3))&SceneNode::ScriptCreateRigidBody, 
+		.def("create_rigidbody", (RigidBody::Ptr(SceneNode::*)(float, Vector3, bool))&SceneNode::ScriptCreateRigidBody, 
 								 (python::arg("mass") = (float)(0.f)), 
-								 (python::arg("inertia") = (Vector3)(Vector3::ZERO)))
+								 (python::arg("inertia") = (Vector3)(Vector3::ZERO)),
+								 (python::arg("kinematic") = (bool)(false)) )
 
 		.add_property("transform", &SceneNode::GetTransform)
 		.add_property("camera", &SceneNode::GetCamera)

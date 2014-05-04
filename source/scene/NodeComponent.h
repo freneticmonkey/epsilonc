@@ -5,6 +5,8 @@
 #include "scene/Object.h"
 //#include "scene/Node.h"
 
+#include "events/Event.h"
+
 //#define USE_NODE 1
 
 namespace epsilon
@@ -38,6 +40,35 @@ namespace epsilon
         
         // Listen to Destroy
         virtual void OnDestroy() {}
+
+		// Event Handling
+
+		// Node Components will override this to handle events
+		virtual void HandleEvent(EventDataBase::Ptr event) {}
+
+		// Process event in child components
+		void OnEvent(EventDataBase::Ptr event)
+		{
+			// Firstly send to myself
+			HandleEvent(event);
+
+			// Then send to my children (if I have any)
+			if (components)
+			{
+				std::for_each(components->begin(), components->end(), [event](NodeComponent::Ptr component){
+					component->OnEvent(event);
+				});
+			}
+		}
+
+		// Helper function for children to send events to other child NodeComponents.
+		void AddParentEvent(EventDataBase::Ptr event)
+		{
+			if (this->componentParent != nullptr)
+			{
+				this->componentParent->OnEvent(event);
+			}
+		}
 
 		template<class C>
 		std::shared_ptr<C> GetComponent()

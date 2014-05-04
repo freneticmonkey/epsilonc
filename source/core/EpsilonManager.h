@@ -45,7 +45,7 @@ namespace epsilon
 	private:
         Logger * logger;
 		ResourceManager * resourceManager;
-		EventManager * eventManager;
+		//EventManager * eventManager;
 		InputManager * inputManager;
 		ScriptManager * scriptManager;
 		RenderManager * renderManager;

@@ -12,14 +12,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp" />
-    <ClCompile Include="..\source\events\Event.cpp" />
-    <ClCompile Include="..\source\events\EventListener.cpp" />
     <ClCompile Include="..\source\events\EventManager.cpp" />
     <ClCompile Include="..\source\logging\Logging.cpp" />
     <ClCompile Include="..\source\main.cpp" />
     <ClCompile Include="..\source\math\Matrix.cpp" />
     <ClCompile Include="..\source\math\Quaternion.cpp" />
     <ClCompile Include="..\source\math\Vector.cpp" />
+    <ClCompile Include="..\source\physics\Collider.cpp" />
     <ClCompile Include="..\source\physics\PhysicsManager.cpp" />
     <ClCompile Include="..\source\physics\RigidBody.cpp" />
     <ClCompile Include="..\source\render\Camera.cpp" />
@@ -95,7 +94,10 @@
     <ClInclude Include="..\source\math\Quaternion.h" />
     <ClInclude Include="..\source\math\Rotation.h" />
     <ClInclude Include="..\source\math\Vector.h" />
+    <ClInclude Include="..\source\physics\Collider.h" />
+    <ClInclude Include="..\source\physics\PhysicsEvents.h" />
     <ClInclude Include="..\source\physics\PhysicsManager.h" />
+    <ClInclude Include="..\source\physics\PhysicsParameter.h" />
     <ClInclude Include="..\source\physics\RigidBody.h" />
     <ClInclude Include="..\source\render\Camera.h" />
     <ClInclude Include="..\source\render\Colour.h" />
@@ -170,6 +172,7 @@
     <ClInclude Include="..\source\ui\UIManager.h" />
     <ClInclude Include="..\source\ui\UIOverlay.h" />
     <ClInclude Include="..\source\ui\UIWindow.h" />
+    <ClInclude Include="..\source\utilities\EmptyDeleter.h" />
     <ClInclude Include="..\source\utilities\HashedString.h" />
     <ClInclude Include="..\source\utilities\Utilities.h" />
   </ItemGroup>

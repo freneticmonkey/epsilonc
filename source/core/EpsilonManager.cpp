@@ -41,7 +41,7 @@ namespace epsilon
         }
 		resourceManager->BuildResourceInfo();
 
-		eventManager = &EventManager::GetInstance();
+		//eventManager = &EventManager::GetInstance();
 
 		scriptManager = &ScriptManager::GetInstance();
 		scriptManager->Setup();
@@ -125,11 +125,11 @@ namespace epsilon
 		{
 			tbb::task_group taskGroup;
 
-			eventsClock.restart();
+			/*eventsClock.restart();
 			taskGroup.run([&]() {
 				EventManager::ProcessEvents(0.f);
 				eventsGraph->AddValue(eventsClock.getElapsedTime().asMilliseconds());
-			});
+			});*/
 
 			scriptClock.restart();
 			taskGroup.run([&]() {
@@ -163,7 +163,7 @@ namespace epsilon
 		}
 		else
 		{
-			EventManager::ProcessEvents(0.f);
+			//EventManager::ProcessEvents(0.f);
             resourceManager->Update(el);
 			scriptManager->Update(el);
 			sceneManager->Update(el);

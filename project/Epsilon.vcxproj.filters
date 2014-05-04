@@ -65,9 +65,6 @@
     <ClCompile Include="..\source\core\EpsilonManager.cpp">
       <Filter>Source Files\core</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\events\Event.cpp">
-      <Filter>Source Files\events</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\events\EventManager.cpp">
       <Filter>Source Files\events</Filter>
     </ClCompile>
@@ -151,9 +148,6 @@
     </ClCompile>
     <ClCompile Include="..\source\script\python\UtilitiesModule.cpp">
       <Filter>Source Files\script\python</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\events\EventListener.cpp">
-      <Filter>Source Files\events</Filter>
     </ClCompile>
     <ClCompile Include="..\source\script\python\EventsModule.cpp">
       <Filter>Source Files\script\python</Filter>
@@ -271,6 +265,9 @@
     </ClCompile>
     <ClCompile Include="..\source\script\python\PhysicsModule.cpp">
       <Filter>Source Files\script\python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\physics\Collider.cpp">
+      <Filter>Source Files\physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -540,6 +537,18 @@
     </ClInclude>
     <ClInclude Include="..\source\script\python\PhysicsModule.h">
       <Filter>Source Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\physics\PhysicsEvents.h">
+      <Filter>Source Files\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\physics\Collider.h">
+      <Filter>Source Files\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\physics\PhysicsParameter.h">
+      <Filter>Source Files\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\utilities\EmptyDeleter.h">
+      <Filter>Source Files\utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

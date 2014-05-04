@@ -20,19 +20,10 @@ void initManagers()
 
 	object package = scope();
 	
-	class_<EventManager, boost::noncopyable>("EventManager", no_init)
-		.def("get_instance", &EventManager::GetInstance, return_value_policy<reference_existing_object>())
-		.staticmethod("get_instance")
-
-		.def("add_listener", &EventManager::AddListener)
-		.staticmethod("add_listener")
-
-		.def("remove_listener", &EventManager::RemoveListener)
-		.staticmethod("remove_listener")
-
-		.def("fire_event", &EventManager::FireEvent)
-		.staticmethod("fire_event")
-	;
+	//class_<EventManager, boost::noncopyable>("EventManager", no_init)
+	//	.def("get_instance", &EventManager::GetInstance, return_value_policy<reference_existing_object>())
+	//	.staticmethod("get_instance")
+	//;
 	
 	object sceneManager = class_<SceneManager, boost::noncopyable>("SceneManager", no_init)
 		.def("get_instance", &SceneManager::GetInstance, return_value_policy<reference_existing_object>())

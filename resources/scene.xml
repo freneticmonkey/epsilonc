@@ -33,7 +33,7 @@
 		</scripts>
 		<children>
 			
-			<node name="child_node_cube">
+			<node name="child_node_cube_falling">
 				<transform position="-2 2 0"/>
 				<mesh preset="CUBE"/>
 				<material diffuse="1 0.5 0 1">
@@ -53,9 +53,10 @@
 					<texture filename="UVmapLarge.bmp"/>
 					<shader name="phong.shader"/>
 				</material>
-				<rigidbody mass="0.0"/>
+				<rigidbody mass="0.0" kinematic="true"/>
 				<scripts>
 					<!-- <script filename="resources/scripts/RotationTest.py"/> -->
+					<script filename="resources/scripts/CollisionBehaviour.py"/>
 				</scripts>
 			</node>
 

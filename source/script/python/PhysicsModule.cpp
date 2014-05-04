@@ -3,6 +3,8 @@
 
 #include "physics/PhysicsManager.h"
 #include "physics/RigidBody.h"
+#include "physics/Collider.h"
+#include "physics/PhysicsEvents.h"
 
 void initPhysics()
 {
@@ -25,8 +27,22 @@ void initPhysics()
 		.def_readonly("force", &RigidBody::GetTotalForce)
 */
 		;
-
 	implicitly_convertible<RigidBody::Ptr, NodeComponent::Ptr>();
+
+	class_<Collider, bases<NodeComponent>, Collider::Ptr, boost::noncopyable>("Collider", no_init)
+		;
+	implicitly_convertible<Collider::Ptr, NodeComponent::Ptr>();
+
+	class_<EventDataBase, EventDataBase::Ptr, boost::noncopyable>("EventDataBase", no_init)
+		;
+
+	class_<Collision, bases<EventDataBase>, Collision::Ptr, boost::noncopyable>("Collision", no_init)
+		.add_property("position", &Collision::position)
+		.add_property("normal", &Collision::normal)
+		.add_property("collider", &Collision::collider)
+		.add_property("rigidbody", &Collision::rigidBody)
+		;
+	implicitly_convertible<Collision::Ptr, EventDataBase::Ptr>();
 
 	object physicsConstModule(handle<>(borrowed(PyImport_AddModule("epsilon.physics.const"))));
 	physicsScope.attr("const") = physicsConstModule;

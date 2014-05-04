@@ -22,42 +22,14 @@ class CameraBehaviour(object):
 		self._was_down = False
 		self._middle = Vector2(WIDTH/2,HEIGHT/2)
 
-		self._v = 0
+		self._v = -math.pi
 		self._h = -math.pi
 		
 	def on_start(self):
-		
-		n = self.node
-		while not n is None:
-			# print n.name
-			# print n.transform.position
-			if not n.transform.parent_transform is None:
-				n = n.transform.parent_transform.parent
-			else:
-				break
-		# print self.node.transform.parent_transform.position
-		self.node.transform.fps(self.node.transform.position, 0,0)#self._v, self._h)
-
 		# Convert to radians
 		self._angle_speed *= (math.pi / 180.0)
 
 	def on_update(self, dt):
-
-		# Gizmos.colour(Colour.BLUE)
-		# for x in range(10):
-		# 	for y in range(10):
-		# 		# x = randint(0, x)
-		# 		# y = randint(0, y)
-		# 		# z = randint(0, 10)
-		# 		Gizmos.draw_cube(Vector3(x,y,y), Vector3.ONE)
-
-		# Gizmos.colour(Colour.CYAN)
-		# Gizmos.draw_sphere(Vector3(0,-1,0), 1)
-
-		# Gizmos.colour(Colour.GREEN)
-		# mp = Input.mouse_position()
-		# pos = self.node.screen_to_world(mp)
-		# Gizmos.draw_sphere(pos, 0.1)
 
 		# if the right mouse button is down, active cam controls
 		if Input.mouse_button(Input.Button.Right):

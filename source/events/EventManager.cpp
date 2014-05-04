@@ -9,79 +9,75 @@ namespace epsilon
 
 	EventManager::~EventManager(void)
 	{
+		// Clean up any remaining registered events
+		std::for_each(events.begin(), events.end(), [&](std::pair<std::size_t, EventBase *> event){
+			DeregisterEvent(event.first);
+		});
 	}
-
-	void EventManager::AddListener(EventListener::Ptr newListener)
-	{
-		EventManager::GetInstance().AttachListener(newListener);
-	}
-
-	void EventManager::RemoveListener(EventListener::Ptr rmListener)
-	{
-		EventManager::GetInstance().DetachListener(rmListener);
-	}
-
-	void EventManager::AttachListener(EventListener::Ptr newListener)
-	{
-		listeners.push_back(newListener);
-		
-		// DEBUG INFO
-		//string types;
-		//EventTypes ets = newListener->getTypes();
-		//for ( EventTypes::iterator t = ets.begin(); t != ets.end(); t++ )
-		//{
-		//	types += string(",") + (*t)->getPlainName();
-		//}
-		//printf("Adding listener for: (%s)\n", types.c_str());
-	}
-
-	void EventManager::DetachListener(EventListener::Ptr rmListener)
-	{
-		listeners.remove(rmListener);
-	}
-
-	void EventManager::FireEvent(Event::Ptr event)
-	{
-		EventManager::GetInstance().QueueEvent(event);
-	}
-
+	
 	void EventManager::ProcessEvents(float maxTime)
 	{
 		EventManager::GetInstance().DispatchEvents(maxTime);
 	}
-	
-	void EventManager::QueueEvent(Event::Ptr event)
+
+	void EventManager::RegisterEvent(EventBase * newEvent)
 	{
-		events.push_back(event);
+		EventBase * found = FindEvent(newEvent->GetType());
+
+		if (found == nullptr)
+		{
+			events[newEvent->GetType()] = newEvent;
+		}
 	}
 
+	void EventManager::DeregisterEvent(const std::size_t& eventId)
+	{
+		EventBase * foundEvent = FindEvent(eventId);
+
+		if (foundEvent != nullptr)
+		{
+			// Notifiy the event that it's going to die
+			// which will prevent any further actions and wait 
+			// until any active processing is complete
+			foundEvent->Dying();
+
+			// Remove it from the map
+			events.erase(eventId);
+
+			// Delete it.
+			delete foundEvent;
+		}
+	}
+
+	EventBase * EventManager::FindEvent(const std::size_t& eventId)
+	{
+		EventBase * foundEvent = nullptr;
+
+		EventMap::iterator found = events.find(eventId);
+
+		if (found != events.end())
+		{
+			foundEvent = events[eventId];
+		}
+		
+		return foundEvent;
+	}
+	
 	void EventManager::DispatchEvents(float maxTime)
 	{
 		// Implement time limiter here using maxTime
-		EventListener::Ptr listener;
-		Event::Ptr event;
+		clock.restart();
 
-		for (EventList::iterator e = events.begin(); e != events.end(); e++ )
+		for (EventMap::iterator e = events.begin(); e != events.end(); e++)
 		{
-			event = (*e);
-			for (EventListenerList::iterator l = listeners.begin(); l != listeners.end(); l++ )
+			// Process the queue events for this event type.
+			(*e).second->ProcessEvents();
+
+			// If our time is up.
+			if (clock.getElapsedTime().asMilliseconds() >= maxTime)
 			{
-				listener = (*l);
-
-				if ( listener->ListeningToType( event->GetType() ) )
-				{
-					listener->Notify(event);
-
-					if ( event->IsHandled() )
-					{
-						break;
-					}
-				}
+				break;
 			}
 		}
-
-		// Clear all events
-		events.clear();
-
 	}
 }

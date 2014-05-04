@@ -572,11 +572,6 @@ namespace epsilon
 		Quaternion pitchQ = Quaternion(xAxis, pitch);
 		Quaternion finalRot = pitchQ * yawQ;
 
-		//finalRot.Normalise();
-
-		//SetPosition(pos);
-		//SetLocalOrientation(finalRot);
-
 		finalRot = finalRot * currentRot;
 		finalRot.Normalise();
 

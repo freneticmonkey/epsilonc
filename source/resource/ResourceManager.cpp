@@ -75,7 +75,7 @@ namespace epsilon
             {
                 // build the final path
                 fullpath = filesystem::complete(bp / rPath).generic_string();
-                Log("ResourceManager", "Resolved Resource Path: " + fullpath );
+                //Log("ResourceManager", "Resolved Resource Path: " + fullpath );
             }
             else
             {

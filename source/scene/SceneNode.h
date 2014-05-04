@@ -75,7 +75,7 @@ namespace epsilon
             Camera::Ptr				CreateCamera(std::string name = "");
             Renderer::Ptr			CreateRenderer();
 			ScriptBehaviour::Ptr	CreateBehaviour(std::string filename);
-			RigidBody::Ptr			CreateRigidBody(float mass = 0.f, Vector3 inertia = Vector3::ZERO);
+			RigidBody::Ptr			CreateRigidBody(float mass = 0.f, Vector3 inertia = Vector3::ZERO, bool kinematic = false);
 
 			// The following functions are exposed to Python and will result in the active script being
             // set as the owner of the resulting object
@@ -89,7 +89,7 @@ namespace epsilon
             Camera::Ptr				ScriptCreateCamera(std::string name = "");
             Renderer::Ptr			ScriptCreateRenderer();
 			ScriptBehaviour::Ptr	ScriptCreateBehaviour(std::string filename);
-			RigidBody::Ptr			ScriptCreateRigidBody(float mass = 0.f, Vector3 inertia = Vector3::ZERO);
+			RigidBody::Ptr			ScriptCreateRigidBody(float mass = 0.f, Vector3 inertia = Vector3::ZERO, bool kinematic = false);
 			
 			// Find an attached script by class name
 			ScriptBehaviour::Ptr	GetScriptByClassname(std::string classname);

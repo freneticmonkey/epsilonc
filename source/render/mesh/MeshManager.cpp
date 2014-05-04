@@ -76,7 +76,7 @@ namespace epsilon
 				return newMesh->SetMeshLoader(texLoader) == true;
 			});
 
-			Log("MeshManager", str(format("Registered Mesh: %s") % newMesh->GetName()));
+			//Log("MeshManager", str(format("Registered Mesh: %s") % newMesh->GetName()));
 		});
 
 		// For now we'll just immediately load Meshs

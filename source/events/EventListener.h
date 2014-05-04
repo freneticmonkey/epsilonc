@@ -4,28 +4,32 @@
 
 namespace epsilon
 {
-typedef std::list<EventType::Ptr> EventTypes;
-
+	template<typename EventData>
 	class EventListener
 	{
 	public:
-		typedef std::shared_ptr<EventListener> Ptr;
-			
-		static Ptr Create(EventTypes listenTypes);
-		
-		EventTypes GetTypes();
-		bool ListeningToType(EventType::Ptr type);
+		typedef std::function<int(EventData)> Callback;
 
-		// This should be virtual. So until I think of a better design here.
-		// Re-implement this in derived classes
-		void Notify(Event::Ptr event);
+		EventListener(const HashedString& eventName, const Callback& cb)
+		{
+			name = eventName;
+			callback = cb;
+		}
+		virtual ~EventListener() {}
+
+		bool operator== (const Event& event) const
+		{
+			return name.GetHash() == event.GetType();
+		}
+
+		int OnEvent(const EventData& newEvent)
+		{
+			return callback(newEvent);
+		}
 
 	private:
-		EventListener(EventTypes listenTypes);
+		HashedString name;
 
-		EventTypes types;
+		Callback callback;
 	};
-
-	typedef std::list<EventListener::Ptr> EventListenerList;
-
 }
