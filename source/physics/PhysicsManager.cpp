@@ -140,6 +140,9 @@ namespace epsilon
 
 	void PhysicsManager::ProcessCollisions()
 	{
+		// This interdependency is not good.  Maybe queuing events which can be triggered by the ScriptManager?
+		ScriptManager::GetInstance().LockGIL();
+
 		int numManifolds = dynamicsWorld->getDispatcher()->getNumManifolds();
 		for (int i = 0; i<numManifolds; i++)
 		{
@@ -181,8 +184,6 @@ namespace epsilon
 						newCollision->collider = dynamic_pointer_cast<Collider>(compB);
 					}
 
-					ScriptManager::GetInstance().LockGIL();
-
 					// Immediately send the event to be processed
 					componentA->AddParentEvent(newCollision);
 
@@ -202,11 +203,12 @@ namespace epsilon
 					}
 
 					componentB->AddParentEvent(newCollision);
-
-					ScriptManager::GetInstance().ReleaseGIL();
 				}
 			}
 		}
+
+		// Release the GIL
+		ScriptManager::GetInstance().ReleaseGIL();
 	}
 
 	bool PhysicsManager::ContactAdded(btManifoldPoint& cp, const btCollisionObjectWrapper* colObj0Wrap, int partId0, int index0, const btCollisionObjectWrapper* colObj1Wrap, int partId1, int index1)

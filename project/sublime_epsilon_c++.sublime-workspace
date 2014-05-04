@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"extra",
+				"extract_bool_attribute"
+			],
+			[
 				"sm",
 				"sampler2D"
 			],
@@ -111,7 +115,7 @@
 			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/nodetypes.py",
 			"settings":
 			{
-				"buffer_size": 16696,
+				"buffer_size": 16801,
 				"line_ending": "Windows"
 			}
 		},
@@ -119,7 +123,7 @@
 			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/sceneloader.py",
 			"settings":
 			{
-				"buffer_size": 4119,
+				"buffer_size": 4121,
 				"line_ending": "Windows"
 			}
 		},
@@ -127,7 +131,15 @@
 			"file": "/C/Dev/Projects/C++/Epsilon/resources/scene.xml",
 			"settings":
 			{
-				"buffer_size": 5545,
+				"buffer_size": 5636,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/CollisionBehaviour.py",
+			"settings":
+			{
+				"buffer_size": 479,
 				"line_ending": "Windows"
 			}
 		},
@@ -135,7 +147,7 @@
 			"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/CameraBehaviour.py",
 			"settings":
 			{
-				"buffer_size": 3566,
+				"buffer_size": 2809,
 				"line_ending": "Windows"
 			}
 		},
@@ -167,9 +179,21 @@
 	"build_system": "run-debug",
 	"command_palette":
 	{
-		"height": 310.0,
+		"height": 375.0,
 		"selected_items":
 		[
+			[
+				"up",
+				"Convert Case: Upper Case"
+			],
+			[
+				"syn c++",
+				"Set Syntax: C++"
+			],
+			[
+				"syn c+",
+				"Set Syntax: C++"
+			],
 			[
 				"low",
 				"Convert Case: Lower Case"
@@ -306,6 +330,7 @@
 	},
 	"file_history":
 	[
+		"/C/Dev/Resources/C++/simplesignal.cc",
 		"/C/Dev/Projects/C++/Epsilon/resources/scene.xml",
 		"/C/Dev/Projects/C++/Epsilon/resources/model.xml",
 		"/C/Dev/Projects/C++/Epsilon/resources/scripts/resource/sceneloader.py",
@@ -432,8 +457,7 @@
 		"/C/Dev/Projects/Reboot/simple/core/log.py",
 		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/SilverCity/LanguageInfo.py",
 		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/tree_python.py",
-		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/tree_php.py",
-		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/tree_javascript.py"
+		"/C/Users/Scott/AppData/Roaming/Sublime Text 3/Packages/SublimeCodeIntel-master/libs/codeintel2/tree_php.py"
 	],
 	"find":
 	{
@@ -454,6 +478,14 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			",",
+			"type",
+			"Collider(",
+			"ColliderType::",
+			"Collider::Create",
+			"Collider::Ptr",
+			"Create()",
+			"Create",
 			"parent_transform",
 			"parse_vector3",
 			"extract_float_attribute",
@@ -573,11 +605,7 @@
 			"except (.*), ([e|ex])\\:$",
 			"except .*, .*:$",
 			"\\wexcept .*, .*\\:$",
-			"\\wexcept .*, .*:$",
-			"except .*, ",
-			", err",
-			"print ",
-			"self"
+			"\\wexcept .*, .*:$"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -603,7 +631,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -632,7 +660,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -641,15 +669,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 16696,
+						"buffer_size": 16801,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								4923,
-								4923
+								16800,
+								16800
 							]
 						],
 						"settings":
@@ -658,10 +686,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2194.0,
+						"translation.y": 6867.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -670,15 +698,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 4119,
+						"buffer_size": 4121,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2077,
-								2077
+								1646,
+								1646
 							]
 						],
 						"settings":
@@ -686,17 +714,17 @@
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 1596.0,
+						"translation.x": 50.0,
+						"translation.y": 602.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 4,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -705,15 +733,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 5545,
+						"buffer_size": 5636,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2555,
-								2555
+								1546,
+								1546
 							]
 						],
 						"settings":
@@ -723,27 +751,27 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1050.0,
+						"translation.y": 182.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/CameraBehaviour.py",
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/CollisionBehaviour.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3566,
+						"buffer_size": 479,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3366,
-								3366
+								341,
+								341
 							]
 						],
 						"settings":
@@ -752,14 +780,43 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 924.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 5,
+					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/CameraBehaviour.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2809,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								411,
+								411
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
 					"file": "/C/Dev/Projects/C++/Epsilon/resources/scripts/PositionGizmo.py",
 					"semi_transient": false,
 					"settings":
@@ -784,11 +841,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 7,
 					"file": "/C/Dev/Projects/C++/Epsilon/resources/shaders/phong/phong.frag",
 					"semi_transient": false,
 					"settings":
@@ -814,11 +871,11 @@
 						"translation.y": 252.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "/C/Dev/Projects/C++/Epsilon/resources/shaders/phong/phong.mat",
 					"semi_transient": false,
 					"settings":
@@ -844,7 +901,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 8,
 					"type": "text"
 				}
 			]
@@ -878,7 +935,7 @@
 		"cols":
 		[
 			0.0,
-			0.34674556213,
+			0.434319526627,
 			1.0
 		],
 		"rows":
@@ -993,7 +1050,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 230.0,
+	"side_bar_width": 340.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
