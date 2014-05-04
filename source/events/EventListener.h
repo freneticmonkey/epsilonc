@@ -17,9 +17,9 @@ namespace epsilon
 		}
 		virtual ~EventListener() {}
 
-		bool operator== (const Event& event) const
+		bool operator== (const std::size_t& eventId) const
 		{
-			return name.GetHash() == event.GetType();
+			return name.GetHash() == eventId;
 		}
 
 		int OnEvent(const EventData& newEvent)

@@ -115,9 +115,12 @@ namespace epsilon
 	{
         // Make this window active
 		window->setActive(true);
-
+        
+        // Clear errors before drawing gizmos to be sure we get real errors
+        glGetError();
+        
 		// Clear the window
-		window->clear(sf::Color(50,50,50,255));
+		//window->clear(sf::Color(50,50,50,255));
 
 		glEnable(GL_DEPTH_TEST);
 		glDepthMask(GL_TRUE);

@@ -75,7 +75,7 @@ namespace epsilon
 	{
 	public:
 
-		Event(const HashedString& eventName) : EventBase(eventName), alive(true)
+		Event(const HashedString& eventName) : EventBase(eventName), alive(true) {}
 		virtual ~Event() {}
 		
 		void Fire(EventData newEvent)
@@ -85,7 +85,7 @@ namespace epsilon
 
 			if (alive)
 			{
-				std::for_each(listeners.begin(), listeners.end(), [&](EventVisitor& listener){
+				std::for_each(listeners.begin(), listeners.end(), [&](EventListener& listener){
 					listener.OnEvent(newEvent);
 				});
 			}

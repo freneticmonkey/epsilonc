@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		101A40A7191692B40087A1DB /* Collider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 101A40A3191692B40087A1DB /* Collider.cpp */; };
 		104CC9AE18E0E84500E85F16 /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 104CC9AD18E0E84500E85F16 /* ResourceManager.cpp */; };
 		10783FE0190C09CD00F0A88C /* PhysicsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10783FDC190C09CD00F0A88C /* PhysicsManager.cpp */; };
 		10783FE1190C09CD00F0A88C /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10783FDE190C09CD00F0A88C /* RigidBody.cpp */; };
@@ -44,8 +45,6 @@
 		10E0274218EB71FF002FEA14 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10E0274118EB71FF002FEA14 /* Light.cpp */; };
 		10EA6EAB1908A696001BFF5F /* ShaderUniform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EA6EAA1908A696001BFF5F /* ShaderUniform.cpp */; };
 		10EC44B71878422700B48152 /* EpsilonManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44501878422700B48152 /* EpsilonManager.cpp */; };
-		10EC44B81878422700B48152 /* Event.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44561878422700B48152 /* Event.cpp */; };
-		10EC44B91878422700B48152 /* EventListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44581878422700B48152 /* EventListener.cpp */; };
 		10EC44BA1878422700B48152 /* EventManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC445A1878422700B48152 /* EventManager.cpp */; };
 		10EC44BB1878422700B48152 /* Logging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC445D1878422700B48152 /* Logging.cpp */; };
 		10EC44BC1878422700B48152 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC445F1878422700B48152 /* main.cpp */; };
@@ -87,6 +86,10 @@
 
 /* Begin PBXFileReference section */
 		100594761872701100F5AB92 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		101A40A3191692B40087A1DB /* Collider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Collider.cpp; path = physics/Collider.cpp; sourceTree = "<group>"; };
+		101A40A4191692B40087A1DB /* Collider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Collider.h; path = physics/Collider.h; sourceTree = "<group>"; };
+		101A40A5191692B40087A1DB /* PhysicsEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhysicsEvents.h; path = physics/PhysicsEvents.h; sourceTree = "<group>"; };
+		101A40A6191692B40087A1DB /* PhysicsParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhysicsParameter.h; path = physics/PhysicsParameter.h; sourceTree = "<group>"; };
 		101B1B6E1829E5990094A53D /* Epsilon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Epsilon; sourceTree = BUILT_PRODUCTS_DIR; };
 		104CC9AC18E0E7B000E85F16 /* ResourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ResourceManager.h; path = resource/ResourceManager.h; sourceTree = "<group>"; };
 		104CC9AD18E0E84500E85F16 /* ResourceManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ResourceManager.cpp; path = resource/ResourceManager.cpp; sourceTree = "<group>"; };
@@ -173,9 +176,7 @@
 		10EC44511878422700B48152 /* EpsilonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpsilonManager.h; sourceTree = "<group>"; };
 		10EC44521878422700B48152 /* EpsilonCore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EpsilonCore.h; sourceTree = "<group>"; };
 		10EC44541878422700B48152 /* Exception.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exception.h; sourceTree = "<group>"; };
-		10EC44561878422700B48152 /* Event.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Event.cpp; sourceTree = "<group>"; };
 		10EC44571878422700B48152 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
-		10EC44581878422700B48152 /* EventListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventListener.cpp; sourceTree = "<group>"; };
 		10EC44591878422700B48152 /* EventListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventListener.h; sourceTree = "<group>"; };
 		10EC445A1878422700B48152 /* EventManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EventManager.cpp; sourceTree = "<group>"; };
 		10EC445B1878422700B48152 /* EventManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventManager.h; sourceTree = "<group>"; };
@@ -282,10 +283,7 @@
 		101B1B661829E5990094A53D = {
 			isa = PBXGroup;
 			children = (
-				10877F46190C055F008F9076 /* libBulletCollision.a */,
-				10877F47190C055F008F9076 /* libBulletDynamics.a */,
-				10877F48190C055F008F9076 /* libBulletSoftBody.a */,
-				10877F49190C055F008F9076 /* libLinearMath.a */,
+				1080219C190CDC3500152A62 /* Bulletlibs */,
 				1059E6FB184AFBDA00416AD8 /* Frameworks */,
 				101B1B701829E5990094A53D /* Epsilon */,
 				101B1B6F1829E5990094A53D /* Products */,
@@ -345,12 +343,27 @@
 		10783FDB190C09A900F0A88C /* physics */ = {
 			isa = PBXGroup;
 			children = (
+				101A40A3191692B40087A1DB /* Collider.cpp */,
+				101A40A4191692B40087A1DB /* Collider.h */,
+				101A40A5191692B40087A1DB /* PhysicsEvents.h */,
+				101A40A6191692B40087A1DB /* PhysicsParameter.h */,
 				10783FDC190C09CD00F0A88C /* PhysicsManager.cpp */,
 				10783FDD190C09CD00F0A88C /* PhysicsManager.h */,
 				10783FDE190C09CD00F0A88C /* RigidBody.cpp */,
 				10783FDF190C09CD00F0A88C /* RigidBody.h */,
 			);
 			name = physics;
+			sourceTree = "<group>";
+		};
+		1080219C190CDC3500152A62 /* Bulletlibs */ = {
+			isa = PBXGroup;
+			children = (
+				10877F46190C055F008F9076 /* libBulletCollision.a */,
+				10877F47190C055F008F9076 /* libBulletDynamics.a */,
+				10877F48190C055F008F9076 /* libBulletSoftBody.a */,
+				10877F49190C055F008F9076 /* libLinearMath.a */,
+			);
+			name = Bulletlibs;
 			sourceTree = "<group>";
 		};
 		10B94DA018DE5403002A53C9 /* gizmos */ = {
@@ -455,12 +468,10 @@
 		10EC44551878422700B48152 /* events */ = {
 			isa = PBXGroup;
 			children = (
-				10EC44561878422700B48152 /* Event.cpp */,
 				10EC44571878422700B48152 /* Event.h */,
-				10EC44581878422700B48152 /* EventListener.cpp */,
 				10EC44591878422700B48152 /* EventListener.h */,
-				10EC445A1878422700B48152 /* EventManager.cpp */,
 				10EC445B1878422700B48152 /* EventManager.h */,
+				10EC445A1878422700B48152 /* EventManager.cpp */,
 			);
 			path = events;
 			sourceTree = "<group>";
@@ -703,13 +714,11 @@
 				10C1EA4E1902790A002EF7F4 /* ResourceModule.cpp in Sources */,
 				10EC44BD1878422700B48152 /* Matrix.cpp in Sources */,
 				10EC44DD1878422700B48152 /* pointerTests.cpp in Sources */,
-				10EC44B91878422700B48152 /* EventListener.cpp in Sources */,
 				10EC44C01878422700B48152 /* Camera.cpp in Sources */,
 				10EC44D11878422700B48152 /* LoggingModule.cpp in Sources */,
 				10EC44D81878422700B48152 /* UtilitiesModule.cpp in Sources */,
 				10EC44DE1878422700B48152 /* ConsoleWindow.cpp in Sources */,
 				10EC44C51878422700B48152 /* Renderer.cpp in Sources */,
-				10EC44B81878422700B48152 /* Event.cpp in Sources */,
 				10B94DAC18DE5421002A53C9 /* GizmoManager.cpp in Sources */,
 				10EC44D51878422700B48152 /* RenderModule.cpp in Sources */,
 				10C2B86C1909EA240032EDDA /* Mesh.cpp in Sources */,
@@ -744,6 +753,7 @@
 				10C2B86E1909EA240032EDDA /* MeshLoaderOBJ.cpp in Sources */,
 				10C35F3A19092BD800BC19B2 /* TextureLoaderBMP.cpp in Sources */,
 				10C35F3819092BD800BC19B2 /* Texture.cpp in Sources */,
+				101A40A7191692B40087A1DB /* Collider.cpp in Sources */,
 				10EC44DC1878422700B48152 /* ScriptManager.cpp in Sources */,
 				10EC44BF1878422700B48152 /* Vector.cpp in Sources */,
 				10FBE90218E8CD5400027082 /* ShaderStage.cpp in Sources */,
