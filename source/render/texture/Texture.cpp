@@ -22,7 +22,8 @@ namespace epsilon
 											   active(false),
 											   textureId(0),
 											   bindLocation(-1),
-											   genBuffer(false)
+											   genBuffer(false),
+											   loaded(false)
 	{
 			
 	}
@@ -31,7 +32,8 @@ namespace epsilon
 																	active(false),
 																	textureId(0),
 																	bindLocation(-1),
-																	genBuffer(false)
+																	genBuffer(false),
+																	loaded(false)
 	{
 		// Name the Texture - This should really be done by the texture manager because of duplicates
 		name = filename;
@@ -50,7 +52,7 @@ namespace epsilon
 	Texture::~Texture(void)
 	{
 		// Ensure we cleanup one of the only raw pointers we have.
-		if (textureData)
+		if (loaded && textureData)
 		{
 			delete textureData;
 		}
@@ -81,6 +83,11 @@ namespace epsilon
 		{
 			// Read the file from disk
 			textureData = textureLoader->LoadTexture(GetFilepath().GetString());
+
+			if (textureData != NULL)
+			{
+				loaded = true;
+			}
 
 			// mark the file as reloaded regardless of whether the texture was loaded or not.
 			SetReloaded();
@@ -160,7 +167,7 @@ namespace epsilon
 	void Texture::RefreshBuffers()
 	{
 		// If the texture needs to be refresh continue.
-		if (textureData && textureData->HasChanged())
+		if (loaded && textureData->HasChanged())
 		{
 			// Push the new texture data to OpenGL
 			BindTextureData();

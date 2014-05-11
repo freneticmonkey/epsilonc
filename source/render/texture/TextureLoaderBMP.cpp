@@ -13,6 +13,8 @@ namespace epsilon
 	TextureLoaderBMP::TextureLoaderBMP(const private_struct &) : 
 							TextureLoaderInterface(TextureLoaderInterface::private_struct())
 	{
+		// Extensions must have the period prefix otherwise the CanLoad function 
+		// will not match file extensions against the return of boost::filesystem::path::extension()
 		extensions.push_back(".bmp");
 		extensions.push_back(".BMP");
 	}

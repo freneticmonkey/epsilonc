@@ -55,7 +55,7 @@ namespace epsilon
 			}
 		}
 
-		meshRegex = str(format(".*[%s]") % meshRegex);
+		meshRegex = str(format(".*(%s)$") % meshRegex);
 
 		// Search the ResourceManager for all files with supported Mesh extensions
 		ResourceList results = ResourceManager::GetInstance().FindResources(meshRegex);

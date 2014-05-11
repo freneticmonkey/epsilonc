@@ -55,7 +55,7 @@ namespace epsilon
 			}
 		}
 
-		textureRegex = str(format(".*[%s]") % textureRegex);
+		textureRegex = str(format(".*(%s)$") % textureRegex);
 
 		// Search the ResourceManager for all files with supported texture extensions
 		ResourceList results = ResourceManager::GetInstance().FindResources(textureRegex);

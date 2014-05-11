@@ -27,6 +27,8 @@ namespace epsilon
     void VertexAttrib<Type>::Destroy()
     {
         // Don't have to clean up attrib arrays?
+		// Nope because the data is stored in buffers
+		// which is managed by VertexBuffer::Destroy().
     }
     
     template<class Type>
@@ -47,7 +49,7 @@ namespace epsilon
     {
         attributeIndex = attribIndex;
     }
-    
+	
     template<class Type>
     bool VertexAttrib<Type>::Enable()
     {

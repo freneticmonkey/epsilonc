@@ -65,6 +65,8 @@ namespace epsilon
 		unsigned int	GetSize();
 		bool			OnGPU();
 
+		bool			IsLoaded() { return loaded; }
+
 	private:
 
 		// Copy the texture data to the GPU
@@ -79,6 +81,8 @@ namespace epsilon
 		GLuint	textureId;
 		GLint	bindLocation;
 		bool	genBuffer;
+
+		bool	loaded;
 	};
 
 	typedef std::vector<Texture::Ptr> Textures;

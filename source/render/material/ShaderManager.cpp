@@ -25,7 +25,7 @@ namespace epsilon {
     void ShaderManager::Setup()
     {
         // Search the ResourceManager for all files with the extension "shader"
-		ResourceList results = ResourceManager::GetInstance().FindResources(".*\.shader");
+		ResourceList results = ResourceManager::GetInstance().FindResources(".*(shader)$");
 		
 		// For each result returned
 		std::for_each(results.begin(), results.end(), [&](Resource::Ptr resource){

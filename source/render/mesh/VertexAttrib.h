@@ -52,7 +52,7 @@ namespace epsilon
 		int DataLength() { return data.size(); }
 
 		float GetUnitValue(int i, int u) { return data[i][u]; }
-
+		
 		bool Enable();
 		void Disable();
         void Destroy();
