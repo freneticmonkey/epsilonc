@@ -3,6 +3,7 @@
 #include "math/Matrix.h"
 #include "math/Quaternion.h"
 #include "math/Rotation.h"
+#include "math/Bounds.h"
 
 
 // Vector2 Python Helper Functions
@@ -415,6 +416,8 @@ void initMath()
 		.def(init<float, float, float>())
 		.def(init<Matrix4>())
 
+		.def("__str__", &Quaternion::ToString)
+
 		.def_readwrite("x", &Quaternion::x)
 		.def_readwrite("y", &Quaternion::y)
 		.def_readwrite("z", &Quaternion::z)
@@ -452,4 +455,34 @@ void initMath()
 		.def_readonly("IDENTITY", &Quaternion::IDENTITY)
 		.def_readonly("ZERO", &Quaternion::ZERO)
 	;
+
+	void(Bounds::*ExtendFloat)(const float&) = &Bounds::Extend;
+	void(Bounds::*ExtendVector)(const Vector3&) = &Bounds::Extend;
+
+	class_<Bounds>("Bounds")
+		.def(init<Vector3, Vector3>())
+
+		.def_readwrite("centre", &Bounds::centre)
+		.def_readwrite("size", &Bounds::size)
+
+		.def("__str__", &Bounds::ToString)
+
+		.def(self + self)
+		.def(self + Vector3())
+		.def(self += self)
+
+		.def_readonly("min", &Bounds::GetMin)
+		.def_readonly("max", &Bounds::GetMax)
+
+		.def("null", &Bounds::IsNull)
+		.def("nullify", &Bounds::Nullify)
+
+		.def("overlap", &Bounds::Overlap)
+
+		.def("extend", ExtendFloat)
+		.def("extend", ExtendVector)
+
+		.def("intersect", &Bounds::Intersect)
+
+		;
 }

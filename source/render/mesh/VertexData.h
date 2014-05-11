@@ -4,6 +4,7 @@
 
 #include "logging/Logging.h"
 #include "math/Vector.h"
+#include "math/Bounds.h"
 
 #include "render/mesh/VertexAttrib.h"
 #include "render/mesh/VertexBuffer.h"
@@ -45,6 +46,9 @@ namespace epsilon
 
 		void BuildBuffers();
 		bool HasBuiltBuffers() { return buffersBuilt; }
+		
+		// Get the Bounds of the Vertex Data using the vertices loaded in SetVertices.
+		const Bounds& GetBounds() { return vertexBounds; }
 
 		int GetVertexIndex() { return vertexIndex; }
 		int GetNormalIndex() { return normalIndex; }
@@ -81,6 +85,8 @@ namespace epsilon
 		bool buffersBuilt;
 
 		GLenum drawType;
+
+		Bounds vertexBounds;
         
     public:
         // Tracking for the currently bound VAO - Temporary

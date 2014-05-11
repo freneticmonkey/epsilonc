@@ -60,6 +60,35 @@ namespace epsilon
 		vertices->SetAttribIndex(vertexIndex);
 		numVertices = vertices->DataLength();
 		attributes.push_back( vertices );
+
+		// Calculate Bounds
+		Vector3 min;
+		Vector3 max;
+
+		if (vertexData.size() > 0)
+		{
+			min = vertexData[0];
+			max = vertexData[0];
+
+			std::for_each(vertexData.begin(), vertexData.end(), [&](Vector3 value){
+				if (value.x < min.x)
+					min.x = value.x;
+				if (value.y < min.y)
+					min.y = value.y;
+				if (value.z < min.z)
+					min.z = value.z;
+
+				if (value.x > max.x)
+					max.x = value.x;
+				if (value.y > max.y)
+					max.y = value.y;
+				if (value.z > max.z)
+					max.z = value.z;
+			});
+		}
+
+		vertexBounds = Bounds(min, max);
+
 		return ThisPtr();
 	}
 

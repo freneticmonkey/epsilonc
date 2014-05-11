@@ -285,6 +285,20 @@ public:
 			y / other.y,
 			z / other.z);
 	}
+
+	inline bool operator< (const Vector3& other) const
+	{
+		return x < other.x &&
+			   y < other.y &&
+			   z < other.z;
+	}
+
+	inline bool operator> (const Vector3& other) const
+	{
+		return x > other.x &&
+			   y > other.y &&
+			   z > other.z;
+	}
     
 	// Arithmetic updates.
     inline Vector3& operator+= (const Vector3& other)
@@ -301,6 +315,14 @@ public:
         z -= other.z;
         return *this;
     }
+
+	inline Vector3& operator*= (const Vector3& other)
+	{
+		x *= other.x;
+		y *= other.y;
+		z *= other.z;
+		return *this;
+	}
     
     inline Vector3& operator*= (float scalar)
     {

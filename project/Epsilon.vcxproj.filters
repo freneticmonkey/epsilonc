@@ -60,6 +60,12 @@
     <Filter Include="Source Files\physics">
       <UniqueIdentifier>{83b46d3b-f9be-4960-9c5d-7afdfc29196d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\tools">
+      <UniqueIdentifier>{c60031bd-f8a4-426b-b3c3-f742c7b2d886}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tools\procedural">
+      <UniqueIdentifier>{3452fdcb-e404-4977-ad00-4caeafa45240}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp">
@@ -268,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="..\source\physics\Collider.cpp">
       <Filter>Source Files\physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\tools\procedural\SimplexNoise.cpp">
+      <Filter>Source Files\tools\procedural</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -549,6 +558,12 @@
     </ClInclude>
     <ClInclude Include="..\source\utilities\EmptyDeleter.h">
       <Filter>Source Files\utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tools\procedural\SimplexNoise.h">
+      <Filter>Source Files\tools\procedural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\math\Bounds.h">
+      <Filter>Source Files\math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

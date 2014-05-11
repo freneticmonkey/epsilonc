@@ -2,6 +2,8 @@
 #include "render/material/MaterialManager.h"
 #include "render/mesh/MeshManager.h"
 
+#include "scene/Transform.h"
+
 #include <boost/format.hpp>
 
 using namespace boost;
@@ -33,7 +35,7 @@ namespace epsilon
 
 	Renderer::Renderer(const private_struct &, Mesh::Ptr newMesh) : NodeComponent("Renderer")
 	{
-		mesh = newMesh;
+		SetMesh(newMesh);
 		//material = MaterialManager::GetInstance().GetMaterialByName("default");
 		std::string materialName = boost::str(format("Material_%d") % GetId());
 		material = MaterialManager::GetInstance().CreateMaterial(materialName);
@@ -41,7 +43,7 @@ namespace epsilon
 
 	Renderer::Renderer(const private_struct &, Mesh::Ptr newMesh, Material::Ptr newMaterial) : NodeComponent("Renderer")
 	{
-		mesh = newMesh;
+		SetMesh(newMesh);
 		material = newMaterial;
 	}
 
@@ -90,6 +92,7 @@ namespace epsilon
 	void Renderer::SetMesh(Mesh::Ptr newMesh)
 	{
 		mesh = newMesh;
+		UpdateBounds();
 	}
 
 	void Renderer::SetMeshByName(std::string meshName)
@@ -97,7 +100,7 @@ namespace epsilon
 		Mesh::Ptr newMesh = MeshManager::GetInstance().GetMeshByName(meshName);
 		if (newMesh)
 		{
-			mesh = newMesh;
+			SetMesh(newMesh);
 		}
 	}
 
@@ -114,5 +117,13 @@ namespace epsilon
 	Material::Ptr Renderer::GetMaterial()
 	{
 		return material;
+	}
+
+	void Renderer::UpdateBounds()
+	{
+		// Update the Mesh Bounds of a Transform attached to the SceneNode parent
+		Transform::Ptr trans = GetParent()->GetComponent<Transform>();
+		if ( trans )
+			trans->SetMeshBounds(mesh->GetBounds());
 	}
 }

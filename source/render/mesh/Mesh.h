@@ -43,6 +43,9 @@ namespace epsilon
 		void RefreshBuffers();
 		void ProcessMesh();
 
+		// Return the bounds of the mesh
+		const Bounds& GetBounds() { return vd->GetBounds(); }
+
 	private:
 		VertexData::Ptr vd;
 		VertexData::Ptr reloadVd;

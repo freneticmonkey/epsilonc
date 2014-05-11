@@ -30,6 +30,12 @@ public:
     // From Matrix4
     Quaternion(Matrix4 rotation);
 
+	// To String
+	inline std::string ToString()
+	{
+		return boost::str(format("Quaternion(x: %5.5f y: %5.5f z: %5.5f w: %5.5f)") % x % y % z % w);
+	}
+
     // Comparison
     inline bool operator==(const Quaternion& other) const
 	{

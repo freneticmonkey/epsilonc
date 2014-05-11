@@ -162,6 +162,10 @@ void initScene()
 
 		.add_property("matrix", make_function(&Transform::_getFullTransform, return_value_policy<reference_existing_object>()) )
 
+		.add_property("bounds", make_function(&Transform::GetOuterBounds, return_value_policy<reference_existing_object>()))
+		
+		.add_property("meshbounds", make_function(&Transform::GetMeshBounds, return_value_policy<reference_existing_object>()))
+
 		.add_property("parent_transform", &Transform::GetParentTransform, &Transform::SetParentTransform)
 
 		.def("add_child", &Transform::AddChild)

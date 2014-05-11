@@ -40,7 +40,9 @@ namespace epsilon
 
 		void SetMaterial(Material::Ptr newMaterial);
 		Material::Ptr GetMaterial();
-
+	
+	protected:
+		void UpdateBounds();
 
 	private:
 		Material::Ptr material;

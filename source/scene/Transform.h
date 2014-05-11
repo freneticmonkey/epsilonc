@@ -4,6 +4,8 @@
 
 #include "math/Matrix.h"
 #include "math/Quaternion.h"
+#include "math/Bounds.h"
+
 #include "scene/NodeComponent.h"
 
 
@@ -193,6 +195,18 @@ namespace epsilon
         /** Called by children to notify their parent that they no longer need an update. */
         virtual void cancelUpdate(Transform::Ptr child);
 
+		/**  Set the Bounds contained by a mesh attached to the Transform's SceneNode
+		*/
+		void SetMeshBounds(const Bounds& imeshBounds) { meshBounds = imeshBounds; }
+
+		/**  Get the Bounds contained by the Transform and all of it's children.
+		*/
+		const Bounds& GetOuterBounds() { return childrenBounds; }
+
+		/**  Get the Bounds contained only by the Mesh of SceneNode the transform is attached to.
+		*/
+		const Bounds& GetMeshBounds() { return myBounds; }
+
 	protected:
 
 		void _updateFromParent(void);
@@ -205,7 +219,9 @@ namespace epsilon
 		*/
 		virtual void updateFromParentImpl(void);
 
-		
+
+		void UpdateBounds(void);
+
 	private:
 		TransformListPtr children;
 		Transform::Ptr parent;
@@ -236,6 +252,11 @@ namespace epsilon
 	    mutable bool parentNotified ;
         
 		TransformListPtr childrenToUpdate;
+
+		// Bounds
+		Bounds childrenBounds;
+		Bounds myBounds;
+		Bounds meshBounds;
 	};
 
 }

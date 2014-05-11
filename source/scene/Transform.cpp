@@ -98,6 +98,7 @@ namespace epsilon
 			childNode->SetParentTransform(ThisPtr());
 			children->push_back(childNode);
 		}
+		needUpdate();
 		return ThisPtr();
 	}
 
@@ -112,6 +113,7 @@ namespace epsilon
 			children->remove(childNode);
 			childNode->parent = nullptr;
 		}
+		needUpdate();
 		return ThisPtr();
 	}
 
@@ -123,6 +125,7 @@ namespace epsilon
 			(*childNode)->parent = nullptr;
 		}
 		children->clear();
+		needUpdate();
 		return ThisPtr();
 	}
 
@@ -774,8 +777,10 @@ namespace epsilon
 			}
 			childrenToUpdate->clear();
 			needChildUpdate = false;
+
+			// Now that the children have been updated, update the this transforms bounds
+			UpdateBounds();
             //}
-            
         }
 
 	}
@@ -849,6 +854,37 @@ namespace epsilon
 		cachedTransformOutOfDate = true;
 		needParentUpdate = false;
 
+	}
+
+	void Transform::UpdateBounds()
+	{
+		// Calculate the bounds encompassed by the SceneNode parent
+		myBounds = meshBounds;
+
+		// Adjust the centre to match the transforms position.
+		myBounds.centre += derivedPosition;
+
+		myBounds.Scale(derivedScale);
+
+		// Calculate the Bounds including child transforms
+		childrenBounds = meshBounds;
+
+		// Adjust the centre to match the transforms position.
+		childrenBounds.centre += derivedPosition;
+
+		// Expand to encompass each child's bounds.
+		std::for_each(children->begin(), children->end(), [&](Transform::Ptr child){
+			childrenBounds += child->childrenBounds;
+		});
+
+		// if the Transform doesn't have any children
+		if (!children->size())
+		{
+			// Apply scale.
+			childrenBounds.Scale(derivedScale);
+		}
+		// Scale will automatically be factored into the bounding box of Transforms with children
+		// when using the children's bounding boxes. ;)
 	}
 
 }

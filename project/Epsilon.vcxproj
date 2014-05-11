@@ -75,6 +75,9 @@
     <ClCompile Include="..\source\script\ScriptEngineCore.cpp" />
     <ClCompile Include="..\source\script\ScriptManager.cpp" />
     <ClCompile Include="..\source\tests\pointerTests.cpp" />
+    <ClCompile Include="..\source\tools\procedural\SimplexNoise.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\source\ui\ConsoleWindow.cpp" />
     <ClCompile Include="..\source\ui\DebugStatsOverlay.cpp" />
     <ClCompile Include="..\source\ui\DebugWindow.cpp" />
@@ -89,6 +92,7 @@
     <ClInclude Include="..\source\events\EventListener.h" />
     <ClInclude Include="..\source\events\EventManager.h" />
     <ClInclude Include="..\source\logging\Logging.h" />
+    <ClInclude Include="..\source\math\Bounds.h" />
     <ClInclude Include="..\source\math\Defines.h" />
     <ClInclude Include="..\source\math\Matrix.h" />
     <ClInclude Include="..\source\math\Quaternion.h" />
@@ -165,6 +169,9 @@
     <ClInclude Include="..\source\script\ScriptCommon.h" />
     <ClInclude Include="..\source\script\ScriptEngineCore.h" />
     <ClInclude Include="..\source\script\ScriptManager.h" />
+    <ClInclude Include="..\source\tools\procedural\SimplexNoise.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\source\ui\ConsoleWindow.h" />
     <ClInclude Include="..\source\ui\DebugStatsOverlay.h" />
     <ClInclude Include="..\source\ui\DebugWindow.h" />
