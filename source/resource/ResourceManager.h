@@ -28,16 +28,27 @@ namespace epsilon
         UNKNOWN_RESOURCE = 1,
         // So on and so forth
     };
-
+    
+    /** \addtogroup Epsilon
+	*  @{
+	*/
+	/** \addtogroup Resource
+	*  @{
+	*/
+    
 	/**
-	 * ResourceManager
-	 * 
-	 * This class maintains a list of resources available to be used by
-	 * the engine.  It scans the defined resource folders for files and tracks
-	 * their state.  Resource Owners register the resources they are interested
-	 * in and Resource Manager notifies them when the resource changes on disk.
-	 */
-    class ResourceManager
+	 This class maintains a list of resources available to be used by
+	 the engine.
+     
+	@remarks
+        The ResourceManager scans the defined resource folders for files and monitors
+        chages in their state.  ResourceOwner objects register the resources they are 
+        wish to be notified about and Resource Manager calls a callback function with 
+        the ids of the Resources that have have changed on disk that have been registered 
+        by the ResourceOwner
+	*/
+
+	class ResourceManager
     {
 		typedef std::map<long, ResourceOwnerInterface *>	ResourceOwners;
         typedef std::map<std::size_t, Resource::Ptr>		Resources;

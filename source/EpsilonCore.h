@@ -1,9 +1,5 @@
 #pragma once
 
-// Visual Leak Detector
-// TODO: Add if win def here
-//#include <vld.h>
-
 // Epsilon wide includes
 
 // OpenGL / GLEW

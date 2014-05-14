@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		101A40A7191692B40087A1DB /* Collider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 101A40A3191692B40087A1DB /* Collider.cpp */; };
 		104CC9AE18E0E84500E85F16 /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 104CC9AD18E0E84500E85F16 /* ResourceManager.cpp */; };
+		1054238F1922D22100BD2D55 /* AudioListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 105423891922D22100BD2D55 /* AudioListener.cpp */; };
+		105423901922D22100BD2D55 /* AudioManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1054238B1922D22100BD2D55 /* AudioManager.cpp */; };
+		105423911922D22100BD2D55 /* AudioSource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1054238D1922D22100BD2D55 /* AudioSource.cpp */; };
+		105423941922D74700BD2D55 /* AudioBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 105423931922D74700BD2D55 /* AudioBuffer.cpp */; };
 		10783FE0190C09CD00F0A88C /* PhysicsManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10783FDC190C09CD00F0A88C /* PhysicsManager.cpp */; };
 		10783FE1190C09CD00F0A88C /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10783FDE190C09CD00F0A88C /* RigidBody.cpp */; };
 		10783FE4190C09DB00F0A88C /* PhysicsModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10783FE2190C09DB00F0A88C /* PhysicsModule.cpp */; };
@@ -95,6 +99,14 @@
 		104CC9AD18E0E84500E85F16 /* ResourceManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ResourceManager.cpp; path = resource/ResourceManager.cpp; sourceTree = "<group>"; };
 		104CC9AF18E0E8B100E85F16 /* Resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resource.h; path = resource/Resource.h; sourceTree = "<group>"; };
 		104CC9B018E0E96900E85F16 /* ResourceOwner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ResourceOwner.h; path = resource/ResourceOwner.h; sourceTree = "<group>"; };
+		105423891922D22100BD2D55 /* AudioListener.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AudioListener.cpp; path = audio/AudioListener.cpp; sourceTree = "<group>"; };
+		1054238A1922D22100BD2D55 /* AudioListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioListener.h; path = audio/AudioListener.h; sourceTree = "<group>"; };
+		1054238B1922D22100BD2D55 /* AudioManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AudioManager.cpp; path = audio/AudioManager.cpp; sourceTree = "<group>"; };
+		1054238C1922D22100BD2D55 /* AudioManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioManager.h; path = audio/AudioManager.h; sourceTree = "<group>"; };
+		1054238D1922D22100BD2D55 /* AudioSource.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AudioSource.cpp; path = audio/AudioSource.cpp; sourceTree = "<group>"; };
+		1054238E1922D22100BD2D55 /* AudioSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AudioSource.h; path = audio/AudioSource.h; sourceTree = "<group>"; };
+		105423921922D5E600BD2D55 /* AudioBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AudioBuffer.h; path = audio/AudioBuffer.h; sourceTree = "<group>"; };
+		105423931922D74700BD2D55 /* AudioBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AudioBuffer.cpp; path = audio/AudioBuffer.cpp; sourceTree = "<group>"; };
 		1059E6FC184AFBDA00416AD8 /* AEProfiling.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AEProfiling.framework; sourceTree = "<group>"; };
 		1059E6FD184AFBDA00416AD8 /* AERegistration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AERegistration.framework; sourceTree = "<group>"; };
 		1059E6FE184AFBDA00416AD8 /* AudioMixEngine.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AudioMixEngine.framework; sourceTree = "<group>"; };
@@ -322,6 +334,21 @@
 			name = resource;
 			sourceTree = "<group>";
 		};
+		105423881922D21100BD2D55 /* audio */ = {
+			isa = PBXGroup;
+			children = (
+				105423891922D22100BD2D55 /* AudioListener.cpp */,
+				1054238A1922D22100BD2D55 /* AudioListener.h */,
+				1054238B1922D22100BD2D55 /* AudioManager.cpp */,
+				1054238C1922D22100BD2D55 /* AudioManager.h */,
+				1054238D1922D22100BD2D55 /* AudioSource.cpp */,
+				1054238E1922D22100BD2D55 /* AudioSource.h */,
+				105423921922D5E600BD2D55 /* AudioBuffer.h */,
+				105423931922D74700BD2D55 /* AudioBuffer.cpp */,
+			);
+			name = audio;
+			sourceTree = "<group>";
+		};
 		1059E6FB184AFBDA00416AD8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,6 +454,7 @@
 		10EC444E1878422700B48152 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				105423881922D21100BD2D55 /* audio */,
 				10EC444F1878422700B48152 /* core */,
 				10EC44521878422700B48152 /* EpsilonCore.h */,
 				10EC44531878422700B48152 /* error */,
@@ -700,6 +728,7 @@
 			files = (
 				10C35F3919092BD800BC19B2 /* TextureData.cpp in Sources */,
 				10E0274218EB71FF002FEA14 /* Light.cpp in Sources */,
+				105423901922D22100BD2D55 /* AudioManager.cpp in Sources */,
 				10F5B1A118EBF1D900A2A9B9 /* SceneNode.cpp in Sources */,
 				109E10A01904E31600537262 /* UniformBuffer.cpp in Sources */,
 				10EC44C11878422700B48152 /* Colour.cpp in Sources */,
@@ -716,6 +745,7 @@
 				10EC44DD1878422700B48152 /* pointerTests.cpp in Sources */,
 				10EC44C01878422700B48152 /* Camera.cpp in Sources */,
 				10EC44D11878422700B48152 /* LoggingModule.cpp in Sources */,
+				105423911922D22100BD2D55 /* AudioSource.cpp in Sources */,
 				10EC44D81878422700B48152 /* UtilitiesModule.cpp in Sources */,
 				10EC44DE1878422700B48152 /* ConsoleWindow.cpp in Sources */,
 				10EC44C51878422700B48152 /* Renderer.cpp in Sources */,
@@ -748,6 +778,7 @@
 				10EC44D21878422700B48152 /* MainModule.cpp in Sources */,
 				10D3AFFE18B625790041DBC5 /* DebugStatsOverlay.cpp in Sources */,
 				10C2B8701909EA240032EDDA /* VertexAttrib.cpp in Sources */,
+				105423941922D74700BD2D55 /* AudioBuffer.cpp in Sources */,
 				10C2B8721909EA240032EDDA /* VertexData.cpp in Sources */,
 				10EC44D91878422700B48152 /* Script.cpp in Sources */,
 				10C2B86E1909EA240032EDDA /* MeshLoaderOBJ.cpp in Sources */,
@@ -758,6 +789,7 @@
 				10EC44BF1878422700B48152 /* Vector.cpp in Sources */,
 				10FBE90218E8CD5400027082 /* ShaderStage.cpp in Sources */,
 				10EC44CB1878422700B48152 /* Node.cpp in Sources */,
+				1054238F1922D22100BD2D55 /* AudioListener.cpp in Sources */,
 				109E109F1904E31600537262 /* ShaderManager.cpp in Sources */,
 				10EC44CF1878422700B48152 /* Transform.cpp in Sources */,
 				10EC44BE1878422700B48152 /* Quaternion.cpp in Sources */,
