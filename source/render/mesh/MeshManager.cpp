@@ -79,6 +79,8 @@ namespace epsilon
 			//Log("MeshManager", str(format("Registered Mesh: %s") % newMesh->GetName()));
 		});
 
+		Log("MeshManager", boost::str(format("Registered %d meshes.") % results.size()));
+
 		// For now we'll just immediately load Meshs
 		// TODO: Add update function which loads necessary Meshs
 		LoadMeshs();
@@ -104,9 +106,18 @@ namespace epsilon
 
 	void MeshManager::RefreshResources(ResourceIdVector resources)
 	{
-		// Reload any changed files from disk.  This will not push them to the GPU.
-		std::for_each(meshs.begin(), meshs.end(), [](std::pair < std::string, Mesh::Ptr> mesh){
-			mesh.second->RefreshFromFile();
+		std::for_each(resources.begin(), resources.end(), [&](std::size_t resourceId){
+
+			// Check if this mesh is one of the changed meshes.
+
+			// Reload any changed files from disk.  This will not push them to the GPU.
+			std::for_each(meshs.begin(), meshs.end(), [&](std::pair < std::string, Mesh::Ptr> mesh){
+				if (mesh.second->GetResourceId() == resourceId)
+				{
+					mesh.second->RefreshFromFile();
+				}
+			});
+
 		});
 	}
 

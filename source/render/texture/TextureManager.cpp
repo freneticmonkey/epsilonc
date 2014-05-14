@@ -77,6 +77,8 @@ namespace epsilon
 			//Log("TextureManager", str(format("Registered Texture: %s") % newTexture->GetName()));
 		});
 
+		Log("TextureManager", boost::str(format("Registered %d textures.") % results.size()));
+
 		// For now we'll just immediately load textures
 		// TODO: Add update function which loads necessary textures
 		LoadTextures();
@@ -103,8 +105,15 @@ namespace epsilon
 	void TextureManager::RefreshResources(ResourceIdVector resources)
 	{
 		// Reload any changed files from disk.  This will not push them to the GPU.
-		std::for_each(textures.begin(), textures.end(), [](std::pair < std::string, Texture::Ptr> texture){
-			texture.second->RefreshFromFile();
+		std::for_each(resources.begin(), resources.end(), [&](std::size_t resourceId){
+
+			// Check if this texture is one of the changed textures.
+			std::for_each(textures.begin(), textures.end(), [&](std::pair < std::string, Texture::Ptr> texture){
+				if (texture.second->GetResourceId() == resourceId)
+				{
+					texture.second->RefreshFromFile();
+				}
+			});
 		});
 	}
 
