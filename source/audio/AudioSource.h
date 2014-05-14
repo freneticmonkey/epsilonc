@@ -4,6 +4,8 @@
 #include "scene/NodeComponent.h"
 #include "scene/Transform.h"
 
+#include "audio/AudioBuffer.h"
+
 #include <SFML/Audio/Sound.hpp>
 
 namespace epsilon
@@ -29,45 +31,65 @@ namespace epsilon
 		void SetActive(bool isActive) { active = isActive; }
 
 		void	Update();
-        void 	play ();
-        void 	pause ();
-        void 	stop ();
+
+		void 	Play();
+		void 	Pause();
+		void 	Stop();
+
+		sf::Sound::Status GetStatus() const;
+
+		// Only for Sounds?
+		void 	SetLoop(bool loop);
+		bool 	GetLoop() const;
+
+		void 	SetPlayingOffset(int timeOffset);
+		int 	GetPlayingOffset() const;
+
+		void 	SetPitch(float pitch);
+		float 	GetPitch() const;
+
+		void 	SetVolume(float volume);
+		float 	GetVolume() const;
+
+		void 	SetPosition(float x, float y, float z);
+		void 	SetPosition(const Vector3 &position);
+		Vector3 GetPosition() const;
+
+		void 	SetMinDistance(float distance);
+		float 	GetMinDistance() const;
+
+		void 	SetAttenuation(float attenuation);
+		float 	GetAttenuation() const;
+
+		void 	SetRelativeToListener(bool relative);
+		bool 	IsRelativeToListener() const;
         
-        sf::Sound::Status 	getStatus () const;
-        
-        // Only for Sounds?
-        void 	setLoop (bool loop);
-        bool 	getLoop () const;
-        
-        void 	setPlayingOffset (float timeOffset);
-        float 	getPlayingOffset () const;
-        
-        void 	setPitch (float pitch);
-        float 	getPitch () const;
-        
-        void 	setVolume (float volume);
-        float 	getVolume () const;
-        
-        void 	setPosition (float x, float y, float z);
-        void 	setPosition (const Vector3 &position);
-        Vector3 getPosition () const;
-        
-        void 	setMinDistance (float distance);
-        float 	getMinDistance () const;
-        
-        void 	setAttenuation (float attenuation);
-        float 	getAttenuation () const;
-        
-        void 	setRelativeToListener (bool relative);
-        bool 	isRelativeToListener () const;
-        
-        
+		void	SetBuffer(AudioBuffer::Ptr buffer);
+		void	SetBuffer(std::string bufferPath);
+
+		AudioBuffer::Ptr GetBuffer() { return audioBuffer; }
+
+		// These functions are not a standard pause, they are used
+		// to handle buffers changing while the sound is active.
+		void SuspendPlayback();
+		void ResumePlayback();
+
+		bool IsSuspended() { return suspended; }
 
 	private:
 		void Setup();
 		
-		bool	active;
+		bool				active;
 
-		Transform::Ptr transform;
+		// Suspend members
+		bool				suspended;
+		int					suspendTime;
+		sf::Sound::Status	suspendStatus;
+
+		// The SFML Sound object.
+		sf::Sound			sound;
+		AudioBuffer::Ptr	audioBuffer;
+
+		Transform::Ptr		transform;
 	};
 }

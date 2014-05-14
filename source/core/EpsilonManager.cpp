@@ -72,6 +72,9 @@ namespace epsilon
 		// Create and Register Gizmos
 		gizmoManager = &GizmoManager::GetInstance();
 		gizmoManager->Setup();
+
+		audioManager = &AudioManager::GetInstance();
+		audioManager->Setup();
         
 #ifndef __APPLE__
         // No graphs on OSX due to the UI being OpenGL 2 and everything being sad :'(
@@ -170,6 +173,10 @@ namespace epsilon
 			sceneManager->Cull();
 		}
 		resourceManager->Update(el);
+
+		// Running the AudioManager after the ResourceManager until I can assess thread safety
+		audioManager->Update(el);
+
 		// The following managers currently don't support running in parallel due to OpenGL or whatever.
         gizmoManager->Update(el);
 

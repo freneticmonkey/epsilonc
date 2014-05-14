@@ -2,20 +2,23 @@
 
 #include "EpsilonCore.h"
 
+#include "resource/ResourceOwner.h"
+
+#include "audio/AudioBuffer.h"
 #include "audio/AudioSource.h"
 #include "audio/AudioListener.h"
 
+
 namespace epsilon
 {
-	class AudioManager
+	class AudioManager :
+		public ResourceOwner
 	{
 		AudioManager(void);
 
 	public:
-		typedef std::vector<AudioSource::Ptr>	Sources;
-		typedef std::vector<AudioListener::Ptr>	Listeners;
-		//typedef std::vector<SoundBuffer::Ptr>	SoundBuffers;
-		//typedef std::vector<Music::Ptr>			Music;
+		typedef std::vector<AudioSource::Ptr>			Sources;
+		typedef std::map<std::string, AudioBuffer::Ptr> Buffers;
 
 		static AudioManager & GetInstance()
 		{
@@ -28,15 +31,21 @@ namespace epsilon
 		void	Update(float el);
 		void	Destroy();
 
+		void RefreshResources(ResourceIdVector resources);
+
+		AudioBuffer::Ptr GetBuffer(std::string path);
+
 		// Create Managed Items
+		AudioListener::Ptr	GetListener() { return listener; }
 		AudioSource::Ptr	CreateAudioSource();
-		//SoundBuffer::Ptr	CreateBuffer(std::string name);
 		//Music::Ptr			CreateMusic(std::string name);
 
 	private:
-		Sources          sources;
-		Listeners        listeners;
-		//SoundBuffers    soundBuffer;
+		Sources				sources;
+		Buffers				buffers;
+
+		AudioListener::Ptr  listener;
+		
 		//Music			music;
 	};
 }

@@ -4,8 +4,9 @@
 
 #include "logging/Logging.h"
 #include "resource/ResourceManager.h"
-#include "events/EventManager.h"
+#include "audio/AudioManager.h"
 #include "core/InputManager.h"
+#include "events/EventManager.h"
 #include "render/RenderManager.h"
 #include "render/material/ShaderManager.h"
 #include "render/material/MaterialManager.h"
@@ -47,6 +48,7 @@ namespace epsilon
 		ResourceManager * resourceManager;
 		//EventManager * eventManager;
 		InputManager * inputManager;
+		AudioManager * audioManager;
 		ScriptManager * scriptManager;
 		RenderManager * renderManager;
         ShaderManager * shaderManager;

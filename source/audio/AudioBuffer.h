@@ -11,6 +11,7 @@
 #include "EpsilonCore.h"
 
 #include "resource/Resource.h"
+
 #include <SFML/Audio/SoundBuffer.hpp>
 
 namespace epsilon
@@ -42,29 +43,28 @@ namespace epsilon
         
 		std::string GetName() { return name; }
         
-		AudioBuffer::Ptr ThisPtr() { return shared_from_this(); }
-        
-		// Do initial load of AudioBuffer
-		void LoadAudioBuffer();
-        
-		void RefreshFromFile();
-        
-		bool IsActive() { return active; }
-        
+		void RefreshFromFile();        
+
+		const sf::SoundBuffer & GetBuffer() { return soundBuffer; }
+		
 		// Python Info Getters
-        float   GetDuration() const;
-        
-		bool    IsLoaded() { return loaded; }
-        
-	private:
-        
-		std::string					name;
-		AudioBufferData				  * AudioBufferData;
-		AudioBufferLoaderInterface::Ptr AudioBufferLoader;
+        float GetDuration() const;
+
+		bool IsActive() { return active; }
+		bool IsLoaded() { return loaded; }
+		
+		AudioBuffer::Ptr ThisPtr() { return shared_from_this(); }
+
+	private:        
+		// Load the AudioBuffer
+		void LoadAudioBuffer();
+
+		std::string		name;
+
+		sf::SoundBuffer	soundBuffer;
         
 		// 
-		bool	active;
-		
+		bool	active;		
 		bool	loaded;
 	};
     

@@ -11,6 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\audio\AudioBuffer.cpp" />
+    <ClCompile Include="..\source\audio\AudioListener.cpp" />
     <ClCompile Include="..\source\audio\AudioManager.cpp" />
     <ClCompile Include="..\source\audio\AudioSource.cpp" />
     <ClCompile Include="..\source\core\EpsilonManager.cpp" />
@@ -79,6 +81,7 @@
     <ClCompile Include="..\source\tests\pointerTests.cpp" />
     <ClCompile Include="..\source\tools\procedural\SimplexNoise.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\source\ui\ConsoleWindow.cpp" />
     <ClCompile Include="..\source\ui\DebugStatsOverlay.cpp" />
@@ -87,6 +90,8 @@
     <ClCompile Include="..\source\ui\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\source\audio\AudioBuffer.h" />
+    <ClInclude Include="..\source\audio\AudioListener.h" />
     <ClInclude Include="..\source\audio\AudioManager.h" />
     <ClInclude Include="..\source\audio\AudioSource.h" />
     <ClInclude Include="..\source\core\EpsilonManager.h" />
@@ -175,6 +180,7 @@
     <ClInclude Include="..\source\script\ScriptManager.h" />
     <ClInclude Include="..\source\tools\procedural\SimplexNoise.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\source\ui\ConsoleWindow.h" />
     <ClInclude Include="..\source\ui\DebugStatsOverlay.h" />

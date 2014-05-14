@@ -24,7 +24,9 @@ namespace epsilon
 		std::string audioRegex;
 		std::vector<std::string> exts;
         
-        exts.push_back("");
+        exts.push_back("ogg");
+		exts.push_back("wav");
+		exts.push_back("flac");
         
 		// Pre-allocate the regex assuming a maximum extension length of 5
 		audioRegex.reserve(exts.size() * 5);
@@ -49,31 +51,90 @@ namespace epsilon
 		std::for_each(results.begin(), results.end(), [&](Resource::Ptr resource){
             
 			// Create a new texture
-			Texture::Ptr newTexture = Texture::CreateFromFile(resource->GetFilepath().GetString());
+			AudioBuffer::Ptr newAudioBuffer = AudioBuffer::CreateFromFile(resource->GetFilepath().GetString());
 			// Add it to the managed textures
-			textures[newTexture->GetName()] = newTexture;
+			buffers[newAudioBuffer->GetName()] = newAudioBuffer;
 			
             // Register it for change events
-			RegisterResource(newTexture);
+			RegisterResource(newAudioBuffer);
             
-			// Assign it a texture loader
-			std::find_if(textureLoaders.begin(), textureLoaders.end(), [&](TextureLoaderInterface::Ptr texLoader){
-				return newTexture->SetTextureLoader(texLoader) == true;
-			});
-            
-			//Log("TextureManager", str(format("Registered Texture: %s") % newTexture->GetName()));
 		});
 
+		Log("AudioManager", boost::str(format("Registered %d audio files.") % results.size()));
+
+		// Create the single listener for the scene
+		listener = AudioListener::Create();
 	}
 
 	void AudioManager::Update(float el)
 	{
-		
+		// Cycle through any sound sources
+		std::for_each(sources.begin(), sources.end(), [&](AudioSource::Ptr audioSource){
+
+			// Only update playing active and playing sounds
+			if (audioSource->IsActive() && (audioSource->GetStatus() != sf::Sound::Status::Stopped) )
+			{
+				audioSource->Update();
+			}
+		});
 	}
 
 	void AudioManager::Destroy()
 	{
 		
+	}
+
+	void AudioManager::RefreshResources(ResourceIdVector resources)
+	{
+		std::for_each(resources.begin(), resources.end(), [&](std::size_t resourceId){
+
+			// Cycle through any active sounds
+			std::for_each(sources.begin(), sources.end(), [&](AudioSource::Ptr audioSource){
+				if (audioSource->GetStatus() != sf::Sound::Status::Stopped &&
+					audioSource->GetBuffer()->GetResourceId() == resourceId)
+				{
+					audioSource->SuspendPlayback();
+				}
+			});
+		});
+
+		// Now reload changed AudioBuffers on disk
+		std::for_each(buffers.begin(), buffers.end(), [&](std::pair < std::string, AudioBuffer::Ptr> buffer){
+
+			if (std::find(resources.begin(), resources.end(), buffer.second->GetResourceId()) != resources.end())
+			{
+				buffer.second->RefreshFromFile();
+			}
+		});
+
+		// Now reactivate any suspended audio files.
+
+		std::for_each(resources.begin(), resources.end(), [&](std::size_t resourceId){
+
+			// Cycle through any suspended sounds
+			std::for_each(sources.begin(), sources.end(), [&](AudioSource::Ptr audioSource){
+				if (audioSource->IsSuspended() &&
+					audioSource->GetBuffer()->GetResourceId() == resourceId)
+				{
+					audioSource->ResumePlayback();
+				}
+			});
+		});
+		
+	}
+
+	AudioBuffer::Ptr AudioManager::GetBuffer(std::string path)
+	{
+		AudioBuffer::Ptr found;
+
+		Buffers::iterator foundBuffer = buffers.find(path);
+
+		if ( foundBuffer != buffers.end())
+		{
+			found = foundBuffer->second;
+		}
+
+		return found;
 	}
 
 	AudioSource::Ptr AudioManager::CreateAudioSource()

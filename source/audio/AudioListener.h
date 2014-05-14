@@ -4,18 +4,18 @@
 #include "scene/NodeComponent.h"
 #include "scene/Transform.h"
 
+#include <SFML/Audio/Listener.hpp>
+
 namespace epsilon
 {
 	class AudioListener : public NodeComponent
 	{
 	protected:
 		struct private_struct {};
-
 	public:
 		typedef std::shared_ptr<AudioListener> Ptr;
 
 		static AudioListener::Ptr Create();
-		static AudioListener::Ptr Create(std::string name);
 
 		explicit AudioListener(const private_struct &);
 		AudioListener(const private_struct &, std::string name);
@@ -28,10 +28,15 @@ namespace epsilon
 
 		void	Update();
 
+		void	SetGlobalVolume(float volume);
+		float	GetGlobalVolume();
+		
 	private:
 		void Setup();
 
 		bool	active;
+
+		sf::Listener	listener;
 
 		Transform::Ptr transform;
 	};
