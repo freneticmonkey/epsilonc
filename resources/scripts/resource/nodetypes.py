@@ -540,3 +540,46 @@ class SceneRigidBody(BaseXMLNode):
 				kinematic = self.extract_bool_attribute(xml_tag,"kinematic",kinematic)
 
 			scene_node.create_rigidbody(mass, inertia, kinematic)
+
+class SceneAudioListener(BaseXMLNode):
+	def process_node(self, parse_globals, scene_node, xml_tag):
+		# set this node as the audio listener
+		if not scene_node is None:
+			scene_node.set_audiolistener()
+
+class SceneAudioSource(BaseXMLNode):
+
+	def process_node(self, parse_globals, scene_node, xml_tag):
+		
+		# attach a new audio source to this node.
+		if not scene_node is None:
+			filename = ""
+			
+			if "filename" in xml_tag.attrib:
+				filename = xml_tag.attrib["filename"]
+
+			audiosource = scene_node.create_audiosource(filename)
+
+			if audiosource:
+				# if the audiosource was successfully created, assign any settings
+				volume = 50.0
+				loop = False
+				play = False
+
+				if "volume" in xml_tag.attrib:
+					audiosource.volume = self.extract_float_attribute(xml_tag,"volume", volume)
+
+				if "loop" in xml_tag.attrib:
+					audiosource.loop = self.extract_bool_attribute(xml_tag,"loop",loop)
+
+				if "play" in xml_tag.attrib:
+					play = self.extract_bool_attribute(xml_tag,"play",play)
+					if play:
+						audiosource.play()
+
+				audiosource.min_distance = 8.0
+				audiosource.relative_to_listener = False
+
+
+
+

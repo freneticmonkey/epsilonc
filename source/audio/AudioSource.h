@@ -10,7 +10,8 @@
 
 namespace epsilon
 {
-	class AudioSource : public NodeComponent
+	class AudioSource :
+        public NodeComponent
 	{
 	protected:
 		struct private_struct {};
@@ -22,12 +23,12 @@ namespace epsilon
 		static AudioSource::Ptr Create(std::string name);
 
 		explicit AudioSource(const private_struct &);
-		AudioSource(const private_struct &, std::string name);
+		explicit AudioSource(const private_struct &, std::string name);
 		~AudioSource(void) {}
 
 		void OnSetParent();
-
-		bool IsActive() { return active; }
+        
+        bool IsActive() { return active; }
 		void SetActive(bool isActive) { active = isActive; }
 
 		void	Update();
@@ -51,9 +52,9 @@ namespace epsilon
 		void 	SetVolume(float volume);
 		float 	GetVolume() const;
 
-		void 	SetPosition(float x, float y, float z);
-		void 	SetPosition(const Vector3 &position);
-		Vector3 GetPosition() const;
+		//void 	SetPosition(float x, float y, float z);
+		//void 	SetPosition(const Vector3 &position);
+		//Vector3 GetPosition() const;
 
 		void 	SetMinDistance(float distance);
 		float 	GetMinDistance() const;
@@ -79,7 +80,7 @@ namespace epsilon
 	private:
 		void Setup();
 		
-		bool				active;
+        bool				active;
 
 		// Suspend members
 		bool				suspended;
@@ -92,4 +93,6 @@ namespace epsilon
 
 		Transform::Ptr		transform;
 	};
+    
+    typedef std::vector<AudioSource::Ptr> AudioSources;
 }

@@ -32,7 +32,7 @@ class CameraBehaviour(object):
 	def on_update(self, dt):
 
 		# if the right mouse button is down, active cam controls
-		if Input.mouse_button(Input.Button.Right):
+		if Input.mouse_button(Input.Button.Right) or Input.key(Input.Key.Space):
 			Input.mouse_visible(False)
 			self._was_down = True
 

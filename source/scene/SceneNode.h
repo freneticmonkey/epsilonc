@@ -22,6 +22,9 @@
 #include "script/ScriptBehaviour.h"
 #include "physics/RigidBody.h"
 
+#include "audio/AudioSource.h"
+#include "audio/AudioListener.h"
+
 namespace epsilon
 {
 	class SceneNode;
@@ -56,6 +59,11 @@ namespace epsilon
             Renderer::Ptr			GetRenderer() { return renderer; }
 			ScriptBehaviourList		GetScripts() { return scripts; }
 			RigidBody::Ptr			GetRigidBody() { return rigidBody; }
+            AudioSources            GetAudioSources() { return audioSources; }
+        
+            AudioSource::Ptr        GetAudioSource(std::string path);
+            AudioListener::Ptr      GetAudioListener() { return audioListener; }
+        
 
             // Create a child node.
             SceneNode::Ptr			CreateChild(std::string name = "");
@@ -76,6 +84,9 @@ namespace epsilon
             Renderer::Ptr			CreateRenderer();
 			ScriptBehaviour::Ptr	CreateBehaviour(std::string filename);
 			RigidBody::Ptr			CreateRigidBody(float mass = 0.f, Vector3 inertia = Vector3::ZERO, bool kinematic = false);
+        
+            AudioSource::Ptr        CreateAudioSource(std::string path = "");
+            AudioListener::Ptr      SetAudioListener();
 
 			// The following functions are exposed to Python and will result in the active script being
             // set as the owner of the resulting object
@@ -90,10 +101,16 @@ namespace epsilon
             Renderer::Ptr			ScriptCreateRenderer();
 			ScriptBehaviour::Ptr	ScriptCreateBehaviour(std::string filename);
 			RigidBody::Ptr			ScriptCreateRigidBody(float mass = 0.f, Vector3 inertia = Vector3::ZERO, bool kinematic = false);
+        
+            AudioSource::Ptr        ScriptCreateAudioSource(std::string path = "");
+            AudioListener::Ptr      ScriptSetAudioListener();
 			
 			// Find an attached script by class name
 			ScriptBehaviour::Ptr	GetScriptByClassname(std::string classname);
 			ScriptBehaviourList		GetScriptsByClassname(std::string classname);
+        
+            // Find an attached AudioSource by name
+            AudioSource::Ptr        GetAudioSourceByName(std::string name); 
 
         protected:
             void SetScene(SceneBase::Ptr newScene) { sceneOwner = newScene; }
@@ -108,5 +125,9 @@ namespace epsilon
             Renderer::Ptr		renderer;
 			ScriptBehaviourList scripts;
 			RigidBody::Ptr		rigidBody;
+        
+            AudioListener::Ptr  audioListener;
+        
+            AudioSources        audioSources;
     };
 }

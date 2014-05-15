@@ -44,15 +44,15 @@ namespace epsilon
         
 		audioRegex = str(format(".*(%s)$") % audioRegex);
         
-		// Search the ResourceManager for all files with supported texture extensions
+		// Search the ResourceManager for all files with supported audio extensions
 		ResourceList results = ResourceManager::GetInstance().FindResources(audioRegex);
         
 		// For each of the results
 		std::for_each(results.begin(), results.end(), [&](Resource::Ptr resource){
             
-			// Create a new texture
+			// Create a new audio buffer
 			AudioBuffer::Ptr newAudioBuffer = AudioBuffer::CreateFromFile(resource->GetFilepath().GetString());
-			// Add it to the managed textures
+			// Add it to the managed buffers
 			buffers[newAudioBuffer->GetName()] = newAudioBuffer;
 			
             // Register it for change events
@@ -77,6 +77,9 @@ namespace epsilon
 				audioSource->Update();
 			}
 		});
+        
+        // Finally update the audio listener
+        listener->Update();
 	}
 
 	void AudioManager::Destroy()
@@ -137,10 +140,19 @@ namespace epsilon
 		return found;
 	}
 
-	AudioSource::Ptr AudioManager::CreateAudioSource()
+	AudioSource::Ptr AudioManager::CreateAudioSource(std::string path)
 	{
 		AudioSource::Ptr newAudioSource = AudioSource::Create();
-		sources.push_back(newAudioSource);
+		
+        sources.push_back(newAudioSource);
+        
+        // Assign a buffer if a path is provided
+        AudioBuffer::Ptr buffer = GetBuffer(path);
+        if ( buffer )
+        {
+            newAudioSource->SetBuffer(buffer);
+        }
+        
 		return newAudioSource;
 	}
 }

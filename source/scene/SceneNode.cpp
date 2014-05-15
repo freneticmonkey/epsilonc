@@ -11,6 +11,8 @@
 #include "script/ScriptManager.h"
 #include "render/RenderManager.h"
 #include "physics/PhysicsManager.h"
+#include "audio/AudioManager.h"
+
 #include <boost/format.hpp>
 
 using namespace boost;
@@ -144,7 +146,22 @@ namespace epsilon
 		rigidBody = PhysicsManager::GetInstance().CreateRigidBody(mass, inertia, kinematic);
 		AddComponent(rigidBody);
 		return rigidBody;
-	}	
+	}
+    
+    AudioSource::Ptr SceneNode::CreateAudioSource(std::string path)
+    {
+        AudioSource::Ptr audioSource = AudioManager::GetInstance().CreateAudioSource(path);
+        AddComponent(audioSource);
+        audioSources.push_back(audioSource);
+        return audioSource;
+    }
+    
+    AudioListener::Ptr SceneNode::SetAudioListener()
+    {
+        AudioListener::Ptr audioListener = AudioManager::GetInstance().GetListener();
+        AddComponent(audioListener);
+        return audioListener;
+    }
 
 	// The following functions are exposed to Python and will result in the active script being
 	// set as the owner of the resulting object (this assumes that python is single-threaded and
@@ -277,6 +294,33 @@ namespace epsilon
 
 		return theScripts;
 	}
+    
+    AudioSource::Ptr  SceneNode::ScriptCreateAudioSource(std::string path)
+    {
+        return CreateAudioSource(path);
+    }
+    
+    AudioListener::Ptr SceneNode::ScriptSetAudioListener()
+    {
+        return SetAudioListener();
+    }
+    
+    AudioSource::Ptr SceneNode::GetAudioSourceByName(std::string name)
+    {
+        AudioSource::Ptr audioSource;
+        
+        AudioSources::iterator foundAS;
+        foundAS = std::find_if(audioSources.begin(), audioSources.end(), [&](AudioSource::Ptr source){
+            return source->GetName() == name;
+        });
+        
+        if ( foundAS != audioSources.end() )
+        {
+            audioSource = *foundAS;
+        }
+        
+        return audioSource;
+    }
 }
 
 

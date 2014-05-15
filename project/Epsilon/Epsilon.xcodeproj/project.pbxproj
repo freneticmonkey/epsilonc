@@ -31,6 +31,7 @@
 		10B94DAC18DE5421002A53C9 /* GizmoManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10B94DA318DE5421002A53C9 /* GizmoManager.cpp */; };
 		10B94DAD18DE5421002A53C9 /* GizmoSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10B94DA618DE5421002A53C9 /* GizmoSphere.cpp */; };
 		10B94DAE18DE5421002A53C9 /* GizmoType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10B94DA918DE5421002A53C9 /* GizmoType.cpp */; };
+		10BCF19519242B900062F421 /* AudioModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10BCF19419242B900062F421 /* AudioModule.cpp */; };
 		10C1EA4E1902790A002EF7F4 /* ResourceModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C1EA4D1902790A002EF7F4 /* ResourceModule.cpp */; };
 		10C2B86C1909EA240032EDDA /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C2B85D1909EA240032EDDA /* Mesh.cpp */; };
 		10C2B86D1909EA240032EDDA /* MeshFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C2B85F1909EA240032EDDA /* MeshFactory.cpp */; };
@@ -147,6 +148,8 @@
 		10B94DA818DE5421002A53C9 /* GizmoType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GizmoType.h; path = gizmos/GizmoType.h; sourceTree = "<group>"; };
 		10B94DA918DE5421002A53C9 /* GizmoType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GizmoType.cpp; sourceTree = "<group>"; };
 		10B94DAA18DE5421002A53C9 /* RenderUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderUtilities.h; sourceTree = "<group>"; };
+		10BCF19319242B810062F421 /* AudioModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioModule.h; sourceTree = "<group>"; };
+		10BCF19419242B900062F421 /* AudioModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioModule.cpp; sourceTree = "<group>"; };
 		10C1EA4C190278F7002EF7F4 /* ResourceModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResourceModule.h; sourceTree = "<group>"; };
 		10C1EA4D1902790A002EF7F4 /* ResourceModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResourceModule.cpp; sourceTree = "<group>"; };
 		10C2B85D1909EA240032EDDA /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mesh.cpp; path = mesh/Mesh.cpp; sourceTree = "<group>"; };
@@ -614,6 +617,8 @@
 				10D3B00118B625900041DBC5 /* UIModule.h */,
 				10EC449F1878422700B48152 /* UtilitiesModule.cpp */,
 				10EC44A01878422700B48152 /* UtilitiesModule.h */,
+				10BCF19319242B810062F421 /* AudioModule.h */,
+				10BCF19419242B900062F421 /* AudioModule.cpp */,
 			);
 			path = python;
 			sourceTree = "<group>";
@@ -756,6 +761,7 @@
 				10C2B8711909EA240032EDDA /* VertexBuffer.cpp in Sources */,
 				10783FEA190C0A8100F0A88C /* GizmoLine.cpp in Sources */,
 				10B94DAE18DE5421002A53C9 /* GizmoType.cpp in Sources */,
+				10BCF19519242B900062F421 /* AudioModule.cpp in Sources */,
 				10FBE90918E8CD6A00027082 /* ResourceType.cpp in Sources */,
 				10D3AFFF18B625790041DBC5 /* Graph.cpp in Sources */,
 				10783FE1190C09CD00F0A88C /* RigidBody.cpp in Sources */,

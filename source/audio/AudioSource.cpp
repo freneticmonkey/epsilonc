@@ -16,7 +16,7 @@ namespace epsilon
 	}
 
 	AudioSource::AudioSource(const private_struct &) : 
-		active(false), 
+		active(true),
 		suspended(false),
 		suspendTime(0),
 		suspendStatus(sf::Sound::Status::Stopped),
@@ -26,7 +26,7 @@ namespace epsilon
 	}
 
 	AudioSource::AudioSource(const private_struct &, std::string name) : 
-		active(false), 
+		active(true),
 		suspended(false),
 		suspendTime(0),
 		suspendStatus(sf::Sound::Status::Stopped),
@@ -138,13 +138,13 @@ namespace epsilon
 	{
 		sound.setPosition(position.x, position.y, position.z);
 	}
-	*/
 
 	Vector3 AudioSource::GetPosition() const
 	{
 		const sf::Vector3f p = sound.getPosition();
 		return Vector3(p.x, p.y, p.z);
-	}
+     }
+     */
 
 	void AudioSource::SetMinDistance(float distance)
 	{

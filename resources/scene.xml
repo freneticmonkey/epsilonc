@@ -21,6 +21,22 @@
 		</children>
 	</node>
 
+	<!-- Test Audio -->
+	<node name="audio_root">
+		<scripts>
+			<script filename="resources/scripts/RotationTest.py"/>
+		</scripts>
+		<children>
+			<node name="audio_source">
+				<transform position="5 0 0"/>
+				<audiosource filename="blip.wav" loop="True" play="True"/>
+				<scripts>
+					<script filename="resources/scripts/PositionGizmo.py"/>
+				</scripts>
+			</node>
+		</children>
+	</node>
+
 	<node name="main_node">
 		<transform position="2 1 0"/>
 		<mesh preset="SPHERE"/>
@@ -105,6 +121,7 @@
 				<scripts>
 					<script filename="resources/scripts/CameraBehaviour.py"/>
 				</scripts>
+				<audiolistener/>
 			</node>
 	<!-- 	</children>
 	</node> -->

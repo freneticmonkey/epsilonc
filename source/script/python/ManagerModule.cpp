@@ -10,6 +10,7 @@
 #include "script/ScriptManager.h"
 #include "script/Script.h"
 #include "ui/UIManager.h"
+#include "audio/AudioManager.h"
 
 void initManagers()
 {
@@ -303,6 +304,24 @@ void initManagers()
 	// Injecting Gizmo manager into the namespace
 	smGI = resourceManager.attr("get_instance");
 	package.attr("ResourceManager") = smGI();
+    
+    // Injecting ShaderManager into the namespace
+	smGI = shaderManager.attr("get_instance");
+	package.attr("ShaderManager") = smGI();
+    
+    
+    object audioManager = class_<AudioManager, boost::noncopyable>("AudioManager", no_init)
+        .def("get_instance", &AudioManager::GetInstance, return_value_policy<reference_existing_object>())
+        .staticmethod("get_instance")
+    
+        .def("get_listener", &AudioManager::GetListener)
+        .def("create_audiosource", (AudioSource::Ptr(AudioManager::*)(std::string)) &AudioManager::CreateAudioSource, (python::arg("path") = (std::string)("")))
+         
+    ;
+    
+	// Injecting Gizmo manager into the namespace
+	smGI = audioManager.attr("get_instance");
+	package.attr("AudioManager") = smGI();
     
     
 }

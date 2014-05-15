@@ -9,6 +9,9 @@
 #include "script/Script.h"
 #include "physics/RigidBody.h"
 
+#include "audio/AudioSource.h"
+#include "audio/AudioListener.h"
+
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(
 	TranslateVector, Transform::Translate, 1, 2
 )
@@ -109,6 +112,9 @@ void initScene()
 								 (python::arg("mass") = (float)(0.f)), 
 								 (python::arg("inertia") = (Vector3)(Vector3::ZERO)),
 								 (python::arg("kinematic") = (bool)(false)) )
+    
+        .def("create_audiosource", (AudioSource::Ptr(SceneNode::*)(std::string)) &SceneNode::CreateAudioSource, (python::arg("path") = (std::string)("")))
+        .def("set_audiolistener", (AudioListener::Ptr(SceneNode::*)())&SceneNode::ScriptSetAudioListener)
 
 		.add_property("transform", &SceneNode::GetTransform)
 		.add_property("camera", &SceneNode::GetCamera)
@@ -119,6 +125,10 @@ void initScene()
 		.def("get_script_by_name", &SceneNode::GetScriptByClassname)
 		.def("get_scripts_by_name", &SceneNode::GetScriptsByClassname)
 
+        .add_property("audiosources", &SceneNode::GetAudioSources)
+    
+        .def("get_audiosource_by_name", &SceneNode::GetAudioSourceByName)
+    
         .def(self == other<SceneNode::Ptr>())
         .def(self == long())
         .def(self == std::string())
@@ -131,7 +141,6 @@ void initScene()
 	;
 	
 
-	Transform::Ptr (*TransformCreateStandard)() = &Transform::Create;
 	void (Transform::*LookAtTarget)(Vector3) = &Transform::LookAt;
 	void (Transform::*LookAtFromTo)(Vector3, Vector3) = &Transform::LookAt;
 	void (Transform::*LookAtFromToComp)(float, float, float, float, float, float) = &Transform::LookAt;

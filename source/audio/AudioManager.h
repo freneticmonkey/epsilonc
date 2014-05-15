@@ -37,7 +37,7 @@ namespace epsilon
 
 		// Create Managed Items
 		AudioListener::Ptr	GetListener() { return listener; }
-		AudioSource::Ptr	CreateAudioSource();
+		AudioSource::Ptr	CreateAudioSource(std::string path = "");
 		//Music::Ptr			CreateMusic(std::string name);
 
 	private:
