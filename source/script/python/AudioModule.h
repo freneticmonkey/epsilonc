@@ -1,3 +1,5 @@
+#pragma once
+
 //
 //  AudioModule.h
 //  Epsilon
@@ -6,9 +8,6 @@
 //  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 
-#ifndef Epsilon_AudioModule_h
-#define Epsilon_AudioModule_h
+#include "script/ScriptCommon.h"
 
-
-
-#endif
+void initAudio();
