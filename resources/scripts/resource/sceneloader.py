@@ -43,6 +43,7 @@ class SceneLoader(ResourceOwner):
 
 	def _config_parsers(self):
 		for parser in [SceneScene,
+					   #SceneSceneNode,
 					   SceneNode,
 					   SceneTransform,
 					   SceneCamera,

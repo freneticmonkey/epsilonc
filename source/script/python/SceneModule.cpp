@@ -176,6 +176,8 @@ void initScene()
 		.add_property("meshbounds", make_function(&Transform::GetMeshBounds, return_value_policy<reference_existing_object>()))
 
 		.add_property("parent_transform", &Transform::GetParentTransform, &Transform::SetParentTransform)
+    
+        .add_property("children", &Transform::GetChildren)
 
 		.def("add_child", &Transform::AddChild)
 		.def("remove_child", &Transform::RemoveChild)
@@ -236,6 +238,11 @@ void initScene()
 		.def("fps", &Transform::FPS)
 	;
 	implicitly_convertible<Transform::Ptr, NodeComponent::Ptr>();
+    
+    class_<TransformList>("Transforms")
+        .def("__iter__", python::iterator<TransformList>())
+        .def("__len__", &TransformList::size)
+    ;
 
 	void (Scene::*SetActiveCameraPtr)(Camera::Ptr) = &Scene::SetActiveCamera;
 	void (Scene::*SetActiveCameraName)(std::string) = &Scene::SetActiveCamera;

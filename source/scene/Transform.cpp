@@ -24,8 +24,6 @@ namespace epsilon
 								NodeComponent("Transform")
 	{
 		cachedTransform = Matrix4();
-		children = std::make_shared<TransformList>();
-		childrenToUpdate = std::make_shared<TransformList>();
 	}
 
 
@@ -41,7 +39,7 @@ namespace epsilon
 		// Empty the Transforms children
 		RemoveAllChildren();
 
-		childrenToUpdate->clear();
+		childrenToUpdate.clear();
 
 		parent = nullptr;
 	}
@@ -49,7 +47,7 @@ namespace epsilon
     void Transform::OnEnable()
     {
         // Enable each of the children of this transform
-        std::for_each(children->begin(), children->end(), [](Transform::Ptr child){
+        std::for_each(children.begin(), children.end(), [](Transform::Ptr child){
             child->componentParent->Enable();
         });
     }
@@ -57,7 +55,7 @@ namespace epsilon
     void Transform::OnDisable()
     {
         // Disable each of the children of this transform
-        std::for_each(children->begin(), children->end(), [](Transform::Ptr child){
+        std::for_each(children.begin(), children.end(), [](Transform::Ptr child){
             child->componentParent->Disable();
         });
     }
@@ -74,7 +72,7 @@ namespace epsilon
 		return parent; 
 	}
 	
-	TransformListPtr Transform::GetChildren() 
+	TransformList Transform::GetChildren() 
 	{ 
 		return children; 
 	}
@@ -82,10 +80,10 @@ namespace epsilon
 	Transform::Ptr Transform::AddChild(Transform::Ptr childNode)
 	{
 		// Check if the node is already a child
-		TransformList::iterator foundChild = find(children->begin(), children->end(), childNode);
+		TransformList::iterator foundChild = find(children.begin(), children.end(), childNode);
 		
 		// If it's not already a child
-		if ( foundChild == children->end() )
+		if ( foundChild == children.end() )
 		{
 			// if this node isn't the parent
 			if ( (childNode->parent != nullptr) && (childNode->parent != ThisPtr() ) )
@@ -96,7 +94,7 @@ namespace epsilon
 
 			// Set this node as the parent and add it to the children
 			childNode->SetParentTransform(ThisPtr());
-			children->push_back(childNode);
+			children.push_back(childNode);
 		}
 		needUpdate();
 		return ThisPtr();
@@ -105,12 +103,12 @@ namespace epsilon
 	Transform::Ptr Transform::RemoveChild(Transform::Ptr childNode)
 	{
 		// Check if the node is already a child
-		TransformList::iterator foundChild = find(children->begin(), children->end(), childNode);
+		TransformList::iterator foundChild = find(children.begin(), children.end(), childNode);
 
 		// If the node is a child
-		if ( foundChild != children->end() )
+		if ( foundChild != children.end() )
 		{
-			children->remove(childNode);
+			children.remove(childNode);
 			childNode->parent = nullptr;
 		}
 		needUpdate();
@@ -120,11 +118,11 @@ namespace epsilon
 	Transform::Ptr Transform::RemoveAllChildren()
 	{
 		// Remove all children setting their parent pointers to null
-		for ( TransformList::iterator childNode = children->begin(); childNode != children->end(); childNode++)
+		for ( TransformList::iterator childNode = children.begin(); childNode != children.end(); childNode++)
 		{
 			(*childNode)->parent = nullptr;
 		}
-		children->clear();
+		children.clear();
 		needUpdate();
 		return ThisPtr();
 	}
@@ -134,11 +132,11 @@ namespace epsilon
 		TransformList::iterator foundChildIt;
 		Transform::Ptr foundChild;
 
-		foundChildIt = find_if(children->begin(), children->end(), [name](Transform::Ptr trans){ 
+		foundChildIt = find_if(children.begin(), children.end(), [name](Transform::Ptr trans){ 
 			return trans->GetParent()->GetName() == name; 
 		});
 		
-		if ( foundChildIt != children->end() )
+		if ( foundChildIt != children.end() )
 		{
 			foundChild = (*foundChildIt);
 		}
@@ -149,7 +147,7 @@ namespace epsilon
 	{
 		Transform::Ptr foundChild;
 
-		for (TransformList::iterator child = children->begin(); child != children->end(); child++)
+		for (TransformList::iterator child = children.begin(); child != children.end(); child++)
 		{
 			if ( (*child)->GetParent()->GetName() == name )
 			{
@@ -169,11 +167,11 @@ namespace epsilon
 		TransformList::iterator foundChildIt;
 		Transform::Ptr foundChild;
 
-		foundChildIt = find_if(children->begin(), children->end(), [id](Transform::Ptr trans){ 
+		foundChildIt = find_if(children.begin(), children.end(), [id](Transform::Ptr trans){ 
 			return trans->GetParent()->GetId() == id; 
 		});
 		
-		if ( foundChildIt != children->end() )
+		if ( foundChildIt != children.end() )
 		{
 			foundChild = (*foundChildIt);
 		}
@@ -184,7 +182,7 @@ namespace epsilon
 	{
 		Transform::Ptr foundChild;
 
-		for (TransformList::iterator child = children->begin(); child != children->end(); child++)
+		for (TransformList::iterator child = children.begin(); child != children.end(); child++)
 		{
 			if ( (*child)->GetParent()->GetId() == id )
 			{
@@ -696,7 +694,7 @@ namespace epsilon
         }
 
         // all children will be updated
-		childrenToUpdate->clear();
+		childrenToUpdate.clear();
     }
     //-----------------------------------------------------------------------
     void Transform::requestUpdate(Transform::Ptr child, bool forceParentUpdate)
@@ -707,7 +705,7 @@ namespace epsilon
             return;
         }
 
-		childrenToUpdate->push_back(child);
+		childrenToUpdate.push_back(child);
 
         // Request selective update of me, if we didn't do it before
         if (parent && (!parentNotified || forceParentUpdate))
@@ -728,10 +726,10 @@ namespace epsilon
     //-----------------------------------------------------------------------
     void Transform::cancelUpdate(Transform::Ptr child)
     {
-		childrenToUpdate->remove(child);
+		childrenToUpdate.remove(child);
 
         // Propogate this up if we're done
-		if (childrenToUpdate->empty() && parent && !needChildUpdate)
+		if (childrenToUpdate.empty() && parent && !needChildUpdate)
         {
             parent->cancelUpdate(ThisPtr());
 			parentNotified = false ;
@@ -752,12 +750,12 @@ namespace epsilon
                 _updateFromParent();
             }
             /*
-             if (childrenToUpdate->size() > 0)
+             if (childrenToUpdate.size() > 0)
              {
-             for_each(childrenToUpdate->begin(), childrenToUpdate->end(), [](Transform::Ptr child){
+             for_each(childrenToUpdate.begin(), childrenToUpdate.end(), [](Transform::Ptr child){
              child->_update(true, false);
              });
-             childrenToUpdate->clear();
+             childrenToUpdate.clear();
              }
              */
             
@@ -765,17 +763,17 @@ namespace epsilon
             //{
 			if (needChildUpdate || parentHasChanged)
 			{
-				for_each(children->begin(), children->end(), [](Transform::Ptr child){
+				for_each(children.begin(), children.end(), [](Transform::Ptr child){
 					child->_update(true, true);
 				});
 			}
 			else
 			{
-				for_each(childrenToUpdate->begin(), childrenToUpdate->end(), [](Transform::Ptr child){
+				for_each(childrenToUpdate.begin(), childrenToUpdate.end(), [](Transform::Ptr child){
 					child->_update(true, false);
 				});
 			}
-			childrenToUpdate->clear();
+			childrenToUpdate.clear();
 			needChildUpdate = false;
 
 			// Now that the children have been updated, update the this transforms bounds
@@ -873,12 +871,12 @@ namespace epsilon
 		childrenBounds.centre += derivedPosition;
 
 		// Expand to encompass each child's bounds.
-		std::for_each(children->begin(), children->end(), [&](Transform::Ptr child){
+		std::for_each(children.begin(), children.end(), [&](Transform::Ptr child){
 			childrenBounds += child->childrenBounds;
 		});
 
 		// if the Transform doesn't have any children
-		if (!children->size())
+		if (!children.size())
 		{
 			// Apply scale.
 			childrenBounds.Scale(derivedScale);

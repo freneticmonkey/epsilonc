@@ -1,5 +1,7 @@
 import re
 
+from xml.etree import ElementTree as ET
+
 from epsilon import util
 
 from epsilon import ScriptManager
@@ -42,6 +44,19 @@ class BaseXMLNode(object):
 		return cls.__name__.lower()[5:]
 
 	def process_node(self, parse_globals, scene_node, xml_tag):
+		pass
+
+	def write_node(self, node, xml_out, call_func):
+		print node.name
+		nodexml = ET.SubElement(xml_out, self.node_type())
+		print nodexml
+		self.process_properties(node, nodexml, call_func)
+		self.process_children(node, nodexml, call_func)
+
+	def process_properties(self, node, nodexml, call_func):
+		pass
+
+	def process_children(self, node, nodexml, call_func):
 		pass
 
 	# Parsing helper functions
@@ -180,6 +195,21 @@ class SceneNode(BaseXMLNode):
 
 		return node
 
+	def process_properties(self, node, nodexml, call_func):
+		# process node components
+
+		nodexml.attrib["name"] = node.name
+
+		# transform
+		call_func(node.transform, nodexml)
+
+		if node.camera:
+			call_func(node.camera, nodexml)
+
+		if node.light:
+			call_func(node.light, nodexml)
+
+
 class SceneTransform(BaseXMLNode):
 
 	def process_node(self, parse_globals, scene_node, xml_tag):
@@ -198,6 +228,19 @@ class SceneTransform(BaseXMLNode):
 
 		else:
 			self.raise_parse_issue("transform without node parent.")
+
+	def process_children(self, node, nodexml, call_func):
+
+		nodexml.set("position", "%d %d %d" % (node.position.x,node.position.y,node.position.z))
+		nodexml.set("orientation", "%d %d %d %d" % (node.local_orientation.x,node.local_orientation.y,node.local_orientation.z, node.local_orientation.w))
+
+		# process any children of the node
+		if len(node.children) > 0:
+			nodexml = ET.SubElement(nodexml, 'children')
+
+			for child in node.children:
+				# process the parent node
+				call_func(child.parent, nodexml)
 
 class SceneCamera(BaseXMLNode):
 

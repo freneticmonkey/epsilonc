@@ -45,11 +45,11 @@ namespace epsilon
 		// Children
 		Transform::Ptr SetParentTransform(Transform::Ptr newParent);
 		Transform::Ptr GetParentTransform();
-		TransformListPtr GetChildren();
+		TransformList  GetChildren();
 		Transform::Ptr AddChild(Transform::Ptr childNode);
 		Transform::Ptr RemoveChild(Transform::Ptr childNode);
 		Transform::Ptr RemoveAllChildren();
-		bool HasChildren() { return !children->empty(); }
+		bool HasChildren() { return !children.empty(); }
 
 		Transform::Ptr FindChildWithName(std::string name);
 		Transform::Ptr FindChildWithNameRecursive(std::string name);
@@ -223,7 +223,9 @@ namespace epsilon
 		void UpdateBounds(void);
 
 	private:
-		TransformListPtr children;
+		TransformList children;
+		TransformList childrenToUpdate;
+        
 		Transform::Ptr parent;
 		
 		bool inheritOrientation;
@@ -251,7 +253,6 @@ namespace epsilon
 		/// Flag indicating that parent has been notified about update request
 	    mutable bool parentNotified ;
         
-		TransformListPtr childrenToUpdate;
 
 		// Bounds
 		Bounds childrenBounds;

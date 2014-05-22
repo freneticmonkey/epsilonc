@@ -6,6 +6,8 @@ from core.configurationmanager import ConfigurationManager
 
 from resource.sceneloader import SceneLoader
 
+from resource.scenesaver import SceneSaver
+
 # This is an awkward name and can change, when I'm rested enough to think of something better
 class ScriptCore(object):
 	def __init__(self):
@@ -41,6 +43,13 @@ class ScriptCore(object):
 		if Input.key_down(Input.Key.Tilde):
 			self._console_window.visible = not self._console_window.visible
 			print "Visible: " + self._console_window._visible
+
+		if Input.key_down(Input.Key.Return):
+			path = os.path.join(os.getcwd(),'test.xml')
+			s = SceneSaver(path)
+			# Do the save
+			s.save()
+
 
 	def on_destroy(self):
 		# self._cm.save_configuration()

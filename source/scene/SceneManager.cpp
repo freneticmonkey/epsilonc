@@ -84,9 +84,9 @@ namespace epsilon
             Transform::Ptr nodeTrans = node->GetTransform();
             if ( nodeTrans->HasChildren() )
             {
-                TransformListPtr children = nodeTrans->GetChildren();
+                TransformList children = nodeTrans->GetChildren();
 
-				std::for_each(children->begin(), children->end(), [&](Transform::Ptr transform){
+				std::for_each(children.begin(), children.end(), [&](Transform::Ptr transform){
 					
 					SceneNode::Ptr childNode = std::dynamic_pointer_cast<epsilon::SceneNode>(transform->GetParent());
 

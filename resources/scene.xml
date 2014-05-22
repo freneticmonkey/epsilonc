@@ -5,7 +5,7 @@
 		<material name="default_RED" diffuse="1.0 0 0 1.0"/>
 	</materials>
 
-	<node>
+	<node name="first">
 		<transform position="0 0 0"/>
 		<scripts>
 			<script filename="resources/scripts/MyBehaviourClass.py"/>
@@ -37,7 +37,7 @@
 		</children>
 	</node>
 
-	<node name="main_node">
+	<node name="scenemain_node">
 		<transform position="2 1 0"/>
 		<mesh preset="SPHERE"/>
 		<material diffuse="1 0.5 0 1">
@@ -49,7 +49,7 @@
 		</scripts>
 		<children>
 			
-			<node name="child_node_cube_falling">
+			<node name="scenechild_node_cube_falling">
 				<transform position="-2 2 0"/>
 				<mesh preset="CUBE"/>
 				<material diffuse="1 0.5 0 1">
@@ -62,7 +62,7 @@
 				</scripts>
 			</node>
 
-			<node name="child_node_cube">
+			<node name="scenechild_node_cube">
 				<transform position="-1.5 -2 0"/>
 				<mesh preset="CUBE"/>
 				<material diffuse="1 0.5 0 1">
@@ -76,7 +76,7 @@
 				</scripts>
 			</node>
 
-			<node name="child_node">
+			<node name="scenechild_node">
 				<transform position="0 2 0"/>
 				<mesh preset="SPHERE"/>
 				<material diffuse="1 0.5 0 1">
@@ -84,7 +84,7 @@
 				</material>
 			</node>
 
-			<node name="child_plane_node">
+			<node name="scenechild_plane_node">
 				<transform position="0 -1 0" scale="3 3 3"/>
 				<mesh preset="PLANE"/>
 				<material diffuse="0 0 1 1">
@@ -115,7 +115,7 @@
 	
 	<!-- <node name="camera_pos">
 		<children> -->
-			<node name="camera_node">
+			<node name="scenecamera_node">
 				<transform position="0 -2 -16"/>
 				<camera name="scene_cam" active="True"/>
 				<scripts>
