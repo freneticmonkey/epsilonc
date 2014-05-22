@@ -33,9 +33,11 @@ class SceneSaver(object):
 					   SceneScripts,
 					   SceneScript,
 					   SceneTexture,
+					   SceneTextures,
 					   SceneRigidBody,
 					   SceneAudioListener,
-					   SceneAudioSource]:
+					   SceneAudioSource,
+					   SceneAudioSources]:
 			self._parsers[parser.node_type()] = parser(self._log)
 
 		self._scenexml = None
@@ -59,8 +61,13 @@ class SceneSaver(object):
 	def process_node(self, node, xml):
 
 		# pass node into each processor
+		nodename = ""
+		if hasattr(node, "classname"):
+			nodename = node.classname().lower()
+		else:
+			nodename = node.__class__.__name__.lower()
 
-		self._parsers[node.classname().lower()].write_node(node, xml, self.process_node)
+		self._parsers[nodename].write_node(node, xml, self.process_node)
 
 		# for parser in self._parsers.values():
 		# 	parser.write_node(node, xml, self.process_node)

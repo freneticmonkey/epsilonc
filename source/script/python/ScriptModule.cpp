@@ -29,6 +29,11 @@ void initScript()
 	;
 	implicitly_convertible<Script::Ptr, NodeComponent::Ptr>();
 
+	class_<ScriptBehaviourList>("Scripts")
+		.def("__iter__", python::iterator<ScriptBehaviourList>())
+		.def("__len__", &ScriptBehaviourList::size)
+		;
+
 	// Just declare this for now ... there isn't really a reason other than completeness
 	class_<ScriptBehaviour, bases<Script, NodeComponent>, ScriptBehaviour::Ptr, boost::noncopyable>("ScriptBehaviour", no_init); 
 	implicitly_convertible<ScriptBehaviour::Ptr, Script::Ptr>();

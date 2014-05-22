@@ -24,14 +24,14 @@ BOOST_PYTHON_MODULE(epsilon)
 
 	initLogging();
 	initManagers();
+	initResource();
 	initEvents();
 	initMath();
 	initScene();
 	initRender();
 	initScript();
-	initUtilities();
-	initResource();
 	initPhysics();
 	initUI();
     initAudio();
+	initUtilities();
 }

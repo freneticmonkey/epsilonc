@@ -23,6 +23,8 @@
 
 #include "render/gizmos/GizmoCube.h"
 
+#include "resource/Resource.h"
+
 // Colour Python Helper Functions
 void colour_setitem(Colour& v, int index, float value)
 {
@@ -91,13 +93,14 @@ void initRender()
 		.value("TRIANGLE_FAN", OpenGLDrawTypes::TRIANGLE_FAN)
 		;
 
-	class_<Mesh, bases<Object>, Mesh::Ptr, boost::noncopyable>("Mesh", no_init)
+	class_<Mesh, bases<Object, Resource>, Mesh::Ptr, boost::noncopyable>("Mesh", no_init)
 		//.def("create", &Mesh::Create, MeshCreate() )
 		.def("create", &Mesh::Create, (python::arg("type") = (GLenum)(GL_TRIANGLES) ))
 		.staticmethod("create")
 
 		.def("get_vertexdata", &Mesh::VertexData)
 	;
+	//implicitly_convertible<Mesh::Ptr, Resource::Ptr>();
 
 	Renderer::Ptr (*RendererCreateStandard)() = &Renderer::Create;
 	Renderer::Ptr (*RendererCreateMesh)(Mesh::Ptr) = &Renderer::Create;
@@ -289,15 +292,15 @@ void initRender()
 		.def_readwrite("type", &Light::type)
 		.def_readwrite("shadow_type", &Light::shadowType)
 	;
-
-	class_<Texture, Texture::Ptr, boost::noncopyable>("Texture", no_init)
+	
+	class_<Texture, bases<Resource>, Texture::Ptr, boost::noncopyable>("Texture", no_init)
 		.add_property("name", &Texture::GetName)
 		.add_property("width", &Texture::GetWidth)
 		.add_property("height", &Texture::GetHeight)
 		.add_property("size", &Texture::GetSize)
 		.add_property("on_gpu", &Texture::OnGPU)
-		;
-
+	;
+	
 	class_<Textures>("Textures")
 		.def("__iter__", python::iterator<Textures>())
 		.def("__len__", &Textures::size)

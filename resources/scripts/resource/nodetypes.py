@@ -47,16 +47,15 @@ class BaseXMLNode(object):
 		pass
 
 	def write_node(self, node, xml_out, call_func):
-		print node.name
 		nodexml = ET.SubElement(xml_out, self.node_type())
 		print nodexml
 		self.process_properties(node, nodexml, call_func)
-		self.process_children(node, nodexml, call_func)
+		self.process_children(node, xml_out, nodexml, call_func)
 
 	def process_properties(self, node, nodexml, call_func):
 		pass
 
-	def process_children(self, node, nodexml, call_func):
+	def process_children(self, node, parentxml, nodexml, call_func):
 		pass
 
 	# Parsing helper functions
@@ -143,6 +142,31 @@ class BaseXMLNode(object):
 		self._log(issue_msg)
 		raise InvalidSceneFormat(issue_msg)
 
+	def write_float(self, xml_tag, name, value):
+		xml_tag.set(name, "%g" % value)
+
+	def write_bool(self, xml_tag, name, value):
+		if value:
+			xml_tag.set(name, "True")
+		else:
+			xml_tag.set(name, "False")
+
+	def write_vector2(self, xml_tag, name, value):
+		xml_tag.set(name, "%g %g" % ( value.x, value.y))
+
+	def write_vector3(self, xml_tag, name, value):
+		xml_tag.set(name, "%g %g %g" % ( value.x, value.y, value.z))
+
+	def write_vector4(self, xml_tag, name, value):
+		xml_tag.set(name, "%g %g %g %g" % ( value.x, value.y, value.z, value.w))
+
+	def write_colour(self, xml_tag, name, value):
+		xml_tag.set(name, "%g %g %g %g" % ( value.r, value.g, value.b, value.a))
+
+	def write_path(self, xml_tag, name, full_path):
+		adj_path = full_path[full_path.find('resources'):]
+		xml_tag.set(name, adj_path)
+
 class SceneScene(BaseXMLNode):
 
 	def process_node(self, parse_globals, scene_node, xml_tag):
@@ -196,19 +220,29 @@ class SceneNode(BaseXMLNode):
 		return node
 
 	def process_properties(self, node, nodexml, call_func):
+		nodexml.set("name", node.name)
+
 		# process node components
-
-		nodexml.attrib["name"] = node.name
-
-		# transform
-		call_func(node.transform, nodexml)
-
 		if node.camera:
 			call_func(node.camera, nodexml)
 
 		if node.light:
 			call_func(node.light, nodexml)
 
+		if node.renderer and node.renderer.material:
+			call_func(node.renderer.material, nodexml)
+
+		if node.is_audiolistener():
+			ET.SubElement(nodexml, "audiolistener")
+
+		if len(node.scripts) > 0:
+			call_func(node.scripts, nodexml)
+
+		if len(node.audiosources) > 0:
+			call_func(node.audiosources, nodexml)			
+
+		# transform
+		call_func(node.transform, nodexml)
 
 class SceneTransform(BaseXMLNode):
 
@@ -229,14 +263,15 @@ class SceneTransform(BaseXMLNode):
 		else:
 			self.raise_parse_issue("transform without node parent.")
 
-	def process_children(self, node, nodexml, call_func):
+	def process_properties(self, node, nodexml, call_func):
+		self.write_vector3(nodexml, "position", node.position)
+		self.write_vector4(nodexml, "orientation", node.local_orientation)
 
-		nodexml.set("position", "%d %d %d" % (node.position.x,node.position.y,node.position.z))
-		nodexml.set("orientation", "%d %d %d %d" % (node.local_orientation.x,node.local_orientation.y,node.local_orientation.z, node.local_orientation.w))
+	def process_children(self, node, parentxml, nodexml, call_func):
 
 		# process any children of the node
 		if len(node.children) > 0:
-			nodexml = ET.SubElement(nodexml, 'children')
+			nodexml = ET.SubElement(parentxml, 'children')
 
 			for child in node.children:
 				# process the parent node
@@ -291,6 +326,11 @@ class SceneCamera(BaseXMLNode):
 			
 			return camera
 
+	def process_properties(self, node, nodexml, call_func):
+		# process properties
+		nodexml.set("name", node.name)
+
+
 class SceneLight(BaseXMLNode):
 
 	def process_node(self, parse_globals, scene_node, xml_tag):
@@ -342,6 +382,21 @@ class SceneLight(BaseXMLNode):
 					default_strength = 1.0
 					light.strength = self.extract_float_attribute(xml_tag, "strength", default_strength)
 
+	def process_properties(self, node, nodexml, call_func):
+		# process properties
+		nodexml.set("name", node.name)
+
+		self.write_colour(nodexml, "diffuse", node.diffuse)
+		self.write_vector3(nodexml, "attenuation", node.attenuation)
+
+		# print dir(LightShadowType)
+		# if node.type == LightShadowType.SPOT:
+		# 	nodexml.set("type","SPOT")
+		# elif node.type == LightShadowType.HARD:
+		# 	nodexml.set("type","HARD")
+		# elif node.type == LightShadowType.NONE:
+		# 	pass
+
 class SceneMaterials(BaseXMLNode):
 	
 	# Don't do anything here each material will process itself
@@ -390,7 +445,18 @@ class SceneMaterial(BaseXMLNode):
 				else:
 					self.raise_parse_issue("Material with unknown shader: " + xml_tag.attrib["shader"])
 		else:
-			print "%s : doesn't have a material?" % scene_node.name 
+			print "%s : doesn't have a material?" % scene_node.name
+
+	def process_properties(self, node, nodexml, call_func):
+		# process node components
+
+		self.write_colour(nodexml, "diffuse", node.diffuse)
+
+		if node.shader:
+			call_func(node.shader, nodexml)
+
+		if len(node.textures) > 0:
+			call_func(node.textures, nodexml)
 
 class SceneColour(BaseXMLNode):
 
@@ -504,6 +570,12 @@ class SceneScripts(BaseXMLNode):
 		if scene_node is None:
 			self.raise_parse_issue("scripts without node parent.")
 
+	def process_children(self, scripts, parentxml, nodexml, call_func):
+		# process any scripts
+		for script in scripts:
+			# process the parent node
+			call_func(script, nodexml)
+
 class SceneScript(BaseXMLNode):
 	def process_node(self, parse_globals, scene_node, xml_tag):
 
@@ -518,8 +590,9 @@ class SceneScript(BaseXMLNode):
 		if scene_node is None:
 			self.raise_parse_issue("Error: Cannot attach a script without node parent.")
 
-# NYI in engine
-# 
+	def process_properties(self, node, nodexml, call_func):
+		self.write_path(nodexml, "filename", node.filename)
+
 class SceneShader(BaseXMLNode):
 	def process_node(self, parse_globals, scene_node, xml_tag):
 		material = None
@@ -546,6 +619,21 @@ class SceneShader(BaseXMLNode):
 		else:
 			self.raise_parse_issue("Error: SceneNode: %s: doesn't have a material" % scene_node.name)
 
+	def process_properties(self, node, nodexml, call_func):
+		nodexml.set("name", node.name)
+
+class SceneTextures(BaseXMLNode):
+	def process_node(self, parse_globals, scene_node, xml_tag):
+		# If a scene node has been defined, or rather, the XML children tag is defined within a node tag
+		if scene_node is None:
+			self.raise_parse_issue("textures without node parent.")
+
+	def process_children(self, textures, parentxml, nodexml, call_func):
+		# process any textures
+		for texture in textures:
+			# process the parent node
+			call_func(texture, nodexml)
+
 class SceneTexture(BaseXMLNode):
 	def process_node(self, parse_globals, scene_node, xml_tag):
 		material = None
@@ -563,6 +651,9 @@ class SceneTexture(BaseXMLNode):
 
 			if "filename" in xml_tag.attrib:
 				material.add_texture(xml_tag.attrib["filename"])
+
+	def process_properties(self, node, nodexml, call_func):
+		self.write_path(nodexml, "filename", node.filepath.string())
 
 class SceneRigidBody(BaseXMLNode):
 	def process_node(self, parse_globals, scene_node, xml_tag):
@@ -584,11 +675,29 @@ class SceneRigidBody(BaseXMLNode):
 
 			scene_node.create_rigidbody(mass, inertia, kinematic)
 
+	def process_properties(self, node, nodexml, call_func):
+
+		self.write_float(nodexml, "mass", node.mass)
+		self.write_float(nodexml, "inertia", node.inertia)
+		node.set("kinematic", node.kinematic)
+
 class SceneAudioListener(BaseXMLNode):
 	def process_node(self, parse_globals, scene_node, xml_tag):
 		# set this node as the audio listener
 		if not scene_node is None:
 			scene_node.set_audiolistener()
+
+class SceneAudioSources(BaseXMLNode):
+	def process_node(self, parse_globals, scene_node, xml_tag):
+		# If a scene node has been defined, or rather, the XML children tag is defined within a node tag
+		if scene_node is None:
+			self.raise_parse_issue("audiosources without node parent.")
+
+	def process_children(self, sources, parentxml, nodexml, call_func):
+		# process any textures
+		for audio in sources:
+			# process the parent node
+			call_func(audio, nodexml)
 
 class SceneAudioSource(BaseXMLNode):
 
@@ -623,6 +732,8 @@ class SceneAudioSource(BaseXMLNode):
 				audiosource.min_distance = 8.0
 				audiosource.relative_to_listener = False
 
-
-
-
+	def process_properties(self, node, nodexml, call_func):
+		
+		self.write_path(nodexml, "filename", node.buffer.filepath.string())
+		self.write_float(nodexml, "volume", node.volume)
+		self.write_bool(nodexml, "loop", node.loop)

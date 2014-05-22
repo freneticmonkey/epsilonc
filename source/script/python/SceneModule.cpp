@@ -115,6 +115,7 @@ void initScene()
     
         .def("create_audiosource", (AudioSource::Ptr(SceneNode::*)(std::string)) &SceneNode::CreateAudioSource, (python::arg("path") = (std::string)("")))
         .def("set_audiolistener", (AudioListener::Ptr(SceneNode::*)())&SceneNode::ScriptSetAudioListener)
+		.def("is_audiolistener", &SceneNode::ScriptIsAudioListener)
 
 		.add_property("transform", &SceneNode::GetTransform)
 		.add_property("camera", &SceneNode::GetCamera)
@@ -139,7 +140,6 @@ void initScene()
     .value("TS_PARENT", Transform::TransformSpace::TS_PARENT)
     .value("TS_WORLD",  Transform::TransformSpace::TS_WORLD)
 	;
-	
 
 	void (Transform::*LookAtTarget)(Vector3) = &Transform::LookAt;
 	void (Transform::*LookAtFromTo)(Vector3, Vector3) = &Transform::LookAt;

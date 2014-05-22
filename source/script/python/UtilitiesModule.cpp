@@ -64,5 +64,6 @@ void initUtilities()
         
         .def("hash", &HashedString::Hash)
         .staticmethod("hash")
+
 	;
 }

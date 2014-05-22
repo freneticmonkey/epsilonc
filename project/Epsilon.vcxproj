@@ -62,6 +62,7 @@
     <ClCompile Include="..\source\scene\SceneManager.cpp" />
     <ClCompile Include="..\source\scene\SceneNode.cpp" />
     <ClCompile Include="..\source\scene\Transform.cpp" />
+    <ClCompile Include="..\source\script\python\AudioModule.cpp" />
     <ClCompile Include="..\source\script\python\EventsModule.cpp" />
     <ClCompile Include="..\source\script\python\LoggingModule.cpp" />
     <ClCompile Include="..\source\script\python\ManagerModule.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="..\source\scene\SceneNode.h" />
     <ClInclude Include="..\source\scene\Transform.h" />
     <ClInclude Include="..\source\script\PythonLogListener.h" />
+    <ClInclude Include="..\source\script\python\AudioModule.h" />
     <ClInclude Include="..\source\script\python\EventsModule.h" />
     <ClInclude Include="..\source\script\python\LoggingModule.h" />
     <ClInclude Include="..\source\script\python\MainModule.h" />

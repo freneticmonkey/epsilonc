@@ -11,6 +11,8 @@
 #include "audio/AudioSource.h"
 #include "audio/AudioListener.h"
 
+#include "resource/Resource.h"
+
 void initAudio()
 {
 	using namespace epsilon;
@@ -21,14 +23,25 @@ void initAudio()
     
 	scope audioScope = audioModule;
     
-    class_<AudioSource, AudioSource::Ptr, boost::noncopyable>("AudioSource", no_init)
+	enum_<sf::Sound::Status>("Status")
+		.value("STOPPED", sf::Sound::Status::Stopped)
+		.value("PAUSED", sf::Sound::Status::Paused)
+		.value("PLAYING", sf::Sound::Status::Playing)
+		;
+	
+	class_<AudioBuffer, bases<Resource>, AudioBuffer::Ptr, boost::noncopyable>("AudioBuffer", no_init)
+
+		;
+
+	class_<AudioSource, AudioSource::Ptr, boost::noncopyable>("AudioSource", no_init)
         .add_property("active", &AudioSource::IsActive, &AudioSource::SetActive )
         
         .def("play", &AudioSource::Play)
         .def("pause", &AudioSource::Pause)
         .def("stop", &AudioSource::Stop)
         
-        .def_readonly("status", &AudioSource::GetStatus)
+        //.def_readonly("status", &AudioSource::GetStatus)
+		.add_property("status", &AudioSource::GetStatus)
         
         .add_property("loop", &AudioSource::GetLoop, &AudioSource::SetLoop)
         .add_property("playing_offset", &AudioSource::GetPlayingOffset, &AudioSource::SetPlayingOffset)
@@ -40,6 +53,11 @@ void initAudio()
         
         .def_readonly("buffer", &AudioSource::GetBuffer)
      ;
+	
+	class_<AudioSources>("AudioSources")
+		.def("__iter__", python::iterator<AudioSources>())
+		.def("__len__", &AudioSources::size)
+		;
      
     class_<AudioListener, AudioListener::Ptr, boost::noncopyable>("AudioListener", no_init)
     
