@@ -16,7 +16,8 @@ namespace epsilon
 	Mesh::Mesh(const private_struct &, GLenum type) : Resource("", ResourceType::Type::MESH),
 										 Object("Mesh"), 
 										 drawOk(true), 
-										 needGPUCopy(true)
+										 needGPUCopy(true),
+                                         meshType("EMPTY")
 	{
 		vd = VertexData::Create(type);
 	}
@@ -24,7 +25,8 @@ namespace epsilon
 	Mesh::Mesh(const private_struct &, GLenum type, std::string filename) : Resource(filename, ResourceType::Type::MESH),
 															   Object("Mesh"), 
 															   drawOk(true), 
-															   needGPUCopy(true)
+															   needGPUCopy(true),
+                                                               meshType("FILE")
 	{
 		vd = VertexData::Create(type);
 

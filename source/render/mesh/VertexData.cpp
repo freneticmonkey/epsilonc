@@ -147,14 +147,19 @@ namespace epsilon
 		//	default:
 		//		break;
 		//}
+        
+        // If there are vertices defined. 
+        if (vertexIndex > -1)
+        {
+            // For each vertex
+            GLushort count = 0;
+            for (int i = 0; i < attributes[vertexIndex]->DataLength(); i++)
+            {
+                indicesData.push_back(count++);
+            }
+            SetIndices(indicesData);            
+        }
 
-		// For each vertex
-		GLushort count = 0;
-		for (int i = 0; i < attributes[vertexIndex]->DataLength(); i++)
-		{
-			indicesData.push_back(count++);
-		}
-		SetIndices(indicesData);
 	}
 
 	void VertexData::BuildBuffers()

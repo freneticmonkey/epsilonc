@@ -58,9 +58,11 @@ class SceneLoader(ResourceOwner):
 					   SceneScripts,
 					   SceneScript,
 					   SceneTexture,
+					   SceneTextures,
 					   SceneRigidBody,
 					   SceneAudioListener,
-					   SceneAudioSource]:
+					   SceneAudioSource,
+					   SceneAudioSources]:
 			self._parsers[parser.node_type()] = parser(self._log)
 
 	def set_scene(self, scene_file):

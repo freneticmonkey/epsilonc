@@ -48,7 +48,6 @@ class BaseXMLNode(object):
 
 	def write_node(self, node, xml_out, call_func):
 		nodexml = ET.SubElement(xml_out, self.node_type())
-		print nodexml
 		self.process_properties(node, nodexml, call_func)
 		self.process_children(node, xml_out, nodexml, call_func)
 
@@ -232,11 +231,14 @@ class SceneNode(BaseXMLNode):
 		if node.renderer and node.renderer.material:
 			call_func(node.renderer.material, nodexml)
 
-		if node.is_audiolistener():
-			ET.SubElement(nodexml, "audiolistener")
+		if node.renderer and node.renderer.mesh:
+			call_func(node.renderer.mesh, nodexml)
 
 		if len(node.scripts) > 0:
 			call_func(node.scripts, nodexml)
+
+		if node.is_audiolistener():
+			ET.SubElement(nodexml, "audiolistener")
 
 		if len(node.audiosources) > 0:
 			call_func(node.audiosources, nodexml)			
@@ -513,15 +515,15 @@ class SceneMesh(BaseXMLNode):
 					elif preset == "SPHERE":
 						default_stacks = 8
 						default_slices = 8
-						stacks = self.extract_float_attribute(xml_tag, "stacks", default_stacks)
-						slices = self.extract_float_attribute(xml_tag, "slices", default_slices)
+						stacks = self.extract_int_attribute(xml_tag, "stacks", default_stacks)
+						slices = self.extract_int_attribute(xml_tag, "slices", default_slices)
 						mesh = MeshFactory.generate_sphere(slices, stacks)
 
 					elif preset == "PLANE":
 						default_width_segs = 1
 						default_height_segs = 1
-						width_segs = self.extract_float_attribute(xml_tag, "width_segs", default_width_segs)
-						height_segs = self.extract_float_attribute(xml_tag, "height_segs", default_height_segs)
+						width_segs = self.extract_int_attribute(xml_tag, "width_segs", default_width_segs)
+						height_segs = self.extract_int_attribute(xml_tag, "height_segs", default_height_segs)
 						mesh = MeshFactory.generate_plane(width_segs, height_segs)
 
 					elif preset == "TRIANGLE":
@@ -549,6 +551,24 @@ class SceneMesh(BaseXMLNode):
 			# if scene_node.renderer is None and mesh is not None:
 			# 	scene_node.add_component(Renderer.create(mesh))
 
+	def process_properties(self, node, nodexml, call_func):
+		# process node components
+
+		if node.type != "EMPTY":
+			if node.type == "FILE":
+				self.write_path(nodexml, "filename", node.filepath.string())
+			else:
+				nodexml.set("preset", node.type)
+
+				if len(node.parameters) > 0:
+
+					# build parameters
+					# parameters are separated by pipes
+					params = node.parameters.split('|')
+					for param in params:
+						#parameter name values are separated by '='
+						ppieces = param.split('=')
+						nodexml.set(ppieces[0], ppieces[1])
 
 class SceneBehaviour(BaseXMLNode):
 

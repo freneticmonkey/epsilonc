@@ -94,11 +94,13 @@ void initRender()
 		;
 
 	class_<Mesh, bases<Object, Resource>, Mesh::Ptr, boost::noncopyable>("Mesh", no_init)
-		//.def("create", &Mesh::Create, MeshCreate() )
 		.def("create", &Mesh::Create, (python::arg("type") = (GLenum)(GL_TRIANGLES) ))
 		.staticmethod("create")
 
 		.def("get_vertexdata", &Mesh::VertexData)
+    
+        .add_property("type", &Mesh::GetMeshType)
+        .add_property("parameters", &Mesh::GetMeshParameters)
 	;
 	//implicitly_convertible<Mesh::Ptr, Resource::Ptr>();
 

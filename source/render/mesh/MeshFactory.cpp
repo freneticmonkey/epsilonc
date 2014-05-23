@@ -3,6 +3,8 @@
 
 #include <cmath>
 
+#include <boost/format.hpp>
+
 namespace epsilon
 {
 	ParametricData Parametric::Sphere(int slices, int stacks)
@@ -122,6 +124,9 @@ namespace epsilon
 	Mesh::Ptr MeshFactory::GenerateGrid(int size, int resolution)
 	{
 		Mesh::Ptr newGrid = Mesh::Create(GL_LINES);
+        
+        newGrid->SetMeshType("GRID");
+        newGrid->SetMeshParameters(str(format("size=%d|resolution=%d") % size % resolution));
 
 		VerticesAttrib::List verts;
 		//ColourAttrib::List
@@ -181,6 +186,8 @@ namespace epsilon
 	Mesh::Ptr MeshFactory::GenerateCube()
 	{
 		Mesh::Ptr newCube =  Mesh::Create();
+        
+        newCube->SetMeshType("CUBE");
 
 		VerticesAttrib::List verts;
 		NormalAttrib::List norms;
@@ -270,7 +277,7 @@ namespace epsilon
 	Mesh::Ptr MeshFactory::GenerateWireCube()
 	{
 		Mesh::Ptr newCube = Mesh::Create(GL_LINES);
-
+        
 		VerticesAttrib::List verts;
 
 		verts.push_back(Vector3(-0.5, -0.5, -0.5));
@@ -330,6 +337,9 @@ namespace epsilon
 		VecVec raverts;
 
 		Mesh::Ptr newSphere = Mesh::Create();
+        
+        newSphere->SetMeshType("SPHERE");
+        newSphere->SetMeshParameters(str(format("slices=%d|stacks=%d") % slices % stacks));
 		
 		int vi, next;
 		float x, y, z, u, v, theta, phi, a;

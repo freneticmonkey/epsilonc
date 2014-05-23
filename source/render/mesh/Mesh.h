@@ -29,6 +29,13 @@ namespace epsilon
 		~Mesh(void);
 
 		VertexData::Ptr VertexData() { return vd; }
+        
+        // Serialisation Hack until I implement a better way of separating meshes.
+        void SetMeshType(std::string type) { meshType = type; }
+        std::string GetMeshType() { return meshType; }
+        
+        void SetMeshParameters(std::string param) { meshParameters = param; }
+        std::string GetMeshParameters() { return meshParameters; }
 
 		bool Draw();
 		bool DrawOk() { return drawOk; }
@@ -51,6 +58,9 @@ namespace epsilon
 		VertexData::Ptr reloadVd;
 		bool			drawOk;
 		bool			needGPUCopy;
+        
+        std::string     meshType;
+        std::string     meshParameters;
 
 		MeshLoaderInterface::Ptr meshLoader;
 	};
