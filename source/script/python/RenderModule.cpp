@@ -221,8 +221,9 @@ void initRender()
 
 		// Texture Access
 		.def("add_texture", &Material::AddTexture)
-		.def("add_texture", &Material::AddTextureByName)
-		.add_property("textures", &Material::GetTextures)
+		.def("add_texture_by_name", &Material::AddTextureByName)
+		.def("add_texture_by_path", &Material::AddTextureByPath)
+		.def("get_textures", &Material::GetTextures)
 
 		// Shader Access
 		.add_property("shader", &Material::GetShader, &Material::SetShader)

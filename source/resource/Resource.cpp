@@ -27,6 +27,11 @@ namespace epsilon
 		filepath = HashedString(filesystem::path(updatedFilename).make_preferred().generic_string());
     }
 	
+	bool Resource::IsMatchingPath(std::string path)
+	{
+		return filepath.GetString() == path;
+	}
+
 	void Resource::AddOwner(long owner)
 	{
 		ownerIds.push_back(owner);

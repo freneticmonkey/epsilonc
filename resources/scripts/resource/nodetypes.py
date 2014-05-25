@@ -69,12 +69,12 @@ class BaseXMLNode(object):
 		l = len(a)
 		return [float(s) for s in a], l
 
-	def parse_vector4(self, xml_tag, name=""):
+	def parse_vector2(self, xml_tag, name=""):
 		coordf, length = self.string_to_float_array(xml_tag, name)
-		if length == 4:
-			return Vector4(*coordf)
+		if length == 2:
+			return Vector2(*coordf)
 		else:
-			self.raise_parse_issue("Invalid Vector3: %s [%s]" % (name, xml_tag.attrib[name]) )
+			self.raise_parse_issue("Invalid Vector2: %s [%s]" % (name, xml_tag.attrib[name]) )
 
 	def parse_vector3(self, xml_tag, name=""):
 		coordf, length = self.string_to_float_array(xml_tag, name)
@@ -83,12 +83,12 @@ class BaseXMLNode(object):
 		else:
 			self.raise_parse_issue("Invalid Vector3: %s [%s]" % (name, xml_tag.attrib[name]) )
 
-	def parse_vector2(self, xml_tag, name=""):
+	def parse_vector4(self, xml_tag, name=""):
 		coordf, length = self.string_to_float_array(xml_tag, name)
-		if length == 2:
-			return Vector2(*coordf)
+		if length == 4:
+			return Vector4(*coordf)
 		else:
-			self.raise_parse_issue("Invalid Vector2: %s [%s]" % (name, xml_tag.attrib[name]) )
+			self.raise_parse_issue("Invalid Vector3: %s [%s]" % (name, xml_tag.attrib[name]) )
 
 	def parse_rot_axis(self, xml_tag, name=""):
 		rotf, length = self.string_to_float_array(xml_tag, name)
@@ -158,6 +158,15 @@ class BaseXMLNode(object):
 
 	def write_vector4(self, xml_tag, name, value):
 		xml_tag.set(name, "%g %g %g %g" % ( value.x, value.y, value.z, value.w))
+
+	def write_rot_axis(self, xml_tag, name, value):
+		angle_axis = value.get_angle_axis()
+		axis = angle_axis.axis
+		val = angle_axis.angle
+
+		xml_tag.set(name, "%g %g %g %g" % ( axis.x, axis.y, axis.z, val))
+
+		#xml_tag.set(name, "%g %g %g %g" % ( value.x, value.y, value.z, value.w))
 
 	def write_colour(self, xml_tag, name, value):
 		xml_tag.set(name, "%g %g %g %g" % ( value.r, value.g, value.b, value.a))
@@ -241,7 +250,10 @@ class SceneNode(BaseXMLNode):
 			ET.SubElement(nodexml, "audiolistener")
 
 		if len(node.audiosources) > 0:
-			call_func(node.audiosources, nodexml)			
+			call_func(node.audiosources, nodexml)	
+
+		if node.rigidbody:
+			call_func(node.rigidbody, nodexml)		
 
 		# transform
 		call_func(node.transform, nodexml)
@@ -267,7 +279,8 @@ class SceneTransform(BaseXMLNode):
 
 	def process_properties(self, node, nodexml, call_func):
 		self.write_vector3(nodexml, "position", node.position)
-		self.write_vector4(nodexml, "orientation", node.local_orientation)
+		self.write_rot_axis(nodexml, "rotation", node.local_orientation)
+		self.write_vector3(nodexml, "scale", node.local_scale)
 
 	def process_children(self, node, parentxml, nodexml, call_func):
 
@@ -331,7 +344,9 @@ class SceneCamera(BaseXMLNode):
 	def process_properties(self, node, nodexml, call_func):
 		# process properties
 		nodexml.set("name", node.name)
+		self.write_bool(nodexml, "active", node.active)
 
+		#TODO: Figure out look at settings?
 
 class SceneLight(BaseXMLNode):
 
@@ -391,13 +406,14 @@ class SceneLight(BaseXMLNode):
 		self.write_colour(nodexml, "diffuse", node.diffuse)
 		self.write_vector3(nodexml, "attenuation", node.attenuation)
 
-		# print dir(LightShadowType)
-		# if node.type == LightShadowType.SPOT:
-		# 	nodexml.set("type","SPOT")
-		# elif node.type == LightShadowType.HARD:
-		# 	nodexml.set("type","HARD")
-		# elif node.type == LightShadowType.NONE:
-		# 	pass
+		if node.type == LightType.POINT:
+			nodexml.set("type","POINT")
+		elif node.type == LightType.SPOT:
+			nodexml.set("type","SPOT")
+		elif node.type == LightType.DIRECTIONAL:
+			nodexml.set("type","DIRECTIONAL")
+		elif node.type == LightType.SUN:
+			nodexml.set("type","SUN")
 
 class SceneMaterials(BaseXMLNode):
 	
@@ -457,8 +473,8 @@ class SceneMaterial(BaseXMLNode):
 		if node.shader:
 			call_func(node.shader, nodexml)
 
-		if len(node.textures) > 0:
-			call_func(node.textures, nodexml)
+		if len(node.get_textures()) > 0:
+			call_func(node.get_textures(), nodexml)
 
 class SceneColour(BaseXMLNode):
 
@@ -670,7 +686,7 @@ class SceneTexture(BaseXMLNode):
 		if not material is None:
 
 			if "filename" in xml_tag.attrib:
-				material.add_texture(xml_tag.attrib["filename"])
+				material.add_texture_by_path(xml_tag.attrib["filename"])
 
 	def process_properties(self, node, nodexml, call_func):
 		self.write_path(nodexml, "filename", node.filepath.string())
@@ -698,8 +714,8 @@ class SceneRigidBody(BaseXMLNode):
 	def process_properties(self, node, nodexml, call_func):
 
 		self.write_float(nodexml, "mass", node.mass)
-		self.write_float(nodexml, "inertia", node.inertia)
-		node.set("kinematic", node.kinematic)
+		self.write_vector3(nodexml, "inertia", node.inertia)
+		self.write_bool(nodexml, "kinematic", node.kinematic)
 
 class SceneAudioListener(BaseXMLNode):
 	def process_node(self, parse_globals, scene_node, xml_tag):
@@ -714,7 +730,7 @@ class SceneAudioSources(BaseXMLNode):
 			self.raise_parse_issue("audiosources without node parent.")
 
 	def process_children(self, sources, parentxml, nodexml, call_func):
-		# process any textures
+		# process any audio sources
 		for audio in sources:
 			# process the parent node
 			call_func(audio, nodexml)
@@ -757,3 +773,5 @@ class SceneAudioSource(BaseXMLNode):
 		self.write_path(nodexml, "filename", node.buffer.filepath.string())
 		self.write_float(nodexml, "volume", node.volume)
 		self.write_bool(nodexml, "loop", node.loop)
+
+		# TODO: Figure out play on start?  Save initial value on object?

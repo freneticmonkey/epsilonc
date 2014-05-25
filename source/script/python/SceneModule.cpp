@@ -122,6 +122,7 @@ void initScene()
 		.add_property("light", &SceneNode::GetLight)
 		.add_property("renderer", &SceneNode::GetRenderer)
 		.add_property("scripts", &SceneNode::GetScripts)
+		.add_property("rigidbody", &SceneNode::GetRigidBody)
 
 		.def("get_script_by_name", &SceneNode::GetScriptByClassname)
 		.def("get_scripts_by_name", &SceneNode::GetScriptsByClassname)

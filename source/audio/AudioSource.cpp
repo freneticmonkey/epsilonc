@@ -183,7 +183,7 @@ namespace epsilon
 
 	void AudioSource::SetBuffer(std::string bufferPath)
 	{
-		AudioBuffer::Ptr buffer = AudioManager::GetInstance().GetBuffer(bufferPath);
+		AudioBuffer::Ptr buffer = AudioManager::GetInstance().GetBufferByPath(bufferPath);
 
 		if (buffer)
 		{

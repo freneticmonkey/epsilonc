@@ -33,6 +33,7 @@ namespace epsilon
 		void		LoadMeshs();
 
 		Mesh::Ptr GetMeshByName(std::string name);
+		Mesh::Ptr GetMeshByPath(std::string path);
 		Mesh::Ptr GetDefault() { return defaultMesh; }
 
 		void RefreshResources(ResourceIdVector resources);

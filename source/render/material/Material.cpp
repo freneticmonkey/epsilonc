@@ -127,19 +127,29 @@ namespace epsilon
 				GLint textureLocation = 0;
 
 				std::for_each(textureUniforms.begin(), textureUniforms.end(), [&](ShaderUniform::Ptr textureUniform){
-					// If there is a current texture
-					if (texture != textures.end())
-					{
-						// Bind the texture to the location
-						(*texture)->SetBindLocation(textureLocation)
-							->Bind();
-						// Set the bind point in the shader
-						textureUniform->SetInt(textureLocation);
 
-						// Move to the next texture
-						textureLocation++;
-						texture++;
-					}
+					//// If the current uniform is not shadowMap uniform
+					//if (textureUniform->GetName() == "shadowMap")
+					//{
+					//	// Move to the next texture
+					//	textureLocation++;
+					//}
+					//else
+					//{
+						// If there is a current texture
+						if (texture != textures.end())
+						{
+							// Bind the texture to the location
+							(*texture)->SetBindLocation(textureLocation)->Bind();
+
+							// Set the bind point in the shader
+							textureUniform->SetInt(textureLocation);
+
+							// Move to the next texture
+							textureLocation++;
+							texture++;
+						}
+					//}
 				});
 			}
 
@@ -177,6 +187,15 @@ namespace epsilon
 	void Material::AddTextureByName(std::string textureName)
 	{
 		Texture::Ptr newTexture = TextureManager::GetInstance().GetTextureByName(textureName);
+		if (newTexture)
+		{
+			textures.push_back(newTexture);
+		}
+	}
+
+	void Material::AddTextureByPath(std::string texturePath)
+	{
+		Texture::Ptr newTexture = TextureManager::GetInstance().GetTextureByPath(texturePath);
 		if (newTexture)
 		{
 			textures.push_back(newTexture);

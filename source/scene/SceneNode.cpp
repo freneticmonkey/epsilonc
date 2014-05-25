@@ -115,9 +115,12 @@ namespace epsilon
 
 		RenderManager * rm = &RenderManager::GetInstance();
 		camera = rm->CreateCamera(name);
-
-		AddComponent(camera);
-		sceneOwner->AddCamera(camera);
+		
+		if (camera)
+		{
+			AddComponent(camera);
+			sceneOwner->AddCamera(camera);
+		}
 		return camera;
 	}
 
@@ -125,7 +128,10 @@ namespace epsilon
 	{
         RenderManager * rm = &RenderManager::GetInstance();
 		renderer = rm->CreateRenderer();
-		AddComponent(renderer);
+		if (renderer)
+		{
+			AddComponent(renderer);
+		}
 		return renderer;
 	}
 
@@ -133,33 +139,45 @@ namespace epsilon
 	{
 		ScriptBehaviour::Ptr newScript = ScriptBehaviour::CreateFromFile(filename);
 
-		// Register the new script with the ResourceManager
-		ScriptManager * sm = &ScriptManager::GetInstance();
-		sm->AddBehaviour(newScript);
-		AddComponent(newScript);
-		scripts.push_back(newScript);
+		if (newScript)
+		{
+			// Register the new script with the ResourceManager
+			ScriptManager * sm = &ScriptManager::GetInstance();
+			sm->AddBehaviour(newScript);
+			AddComponent(newScript);
+			scripts.push_back(newScript);
+		}
 		return newScript;
 	}
 
 	RigidBody::Ptr	SceneNode::CreateRigidBody(float mass, Vector3 inertia, bool kinematic)
 	{
 		rigidBody = PhysicsManager::GetInstance().CreateRigidBody(mass, inertia, kinematic);
-		AddComponent(rigidBody);
+		if (rigidBody)
+		{
+			AddComponent(rigidBody);
+		}
 		return rigidBody;
 	}
     
     AudioSource::Ptr SceneNode::CreateAudioSource(std::string path)
     {
-        AudioSource::Ptr audioSource = AudioManager::GetInstance().CreateAudioSource(path);
-        AddComponent(audioSource);
-        audioSources.push_back(audioSource);
+        AudioSource::Ptr audioSource = AudioManager::GetInstance().CreateAudioSourceByPath(path);
+		if (audioSource)
+		{
+			AddComponent(audioSource);
+			audioSources.push_back(audioSource);
+		}
         return audioSource;
     }
     
     AudioListener::Ptr SceneNode::SetAudioListener()
     {
-        AudioListener::Ptr audioListener = AudioManager::GetInstance().GetListener();
-        AddComponent(audioListener);
+        audioListener = AudioManager::GetInstance().GetListener();
+		if (audioListener)
+		{
+			AddComponent(audioListener);
+		}
         return audioListener;
     }
 
@@ -169,26 +187,30 @@ namespace epsilon
 
 	void SceneNode::HandleScriptOwner(NodeComponent::Ptr newComponent)
 	{
-		// Register Ownership with ResourceManager
-		ScriptManager * sm = &ScriptManager::GetInstance();
-
-		// If a script is currently running
-		if (sm->IsActive())
+		// If the new component isn't null.
+		if (newComponent)
 		{
-			long activeScriptId = sm->GetActiveResource();
+			// Register Ownership with ResourceManager
+			ScriptManager * sm = &ScriptManager::GetInstance();
 
-			// If the active script isn't the owner of this SceneNode.
-			if (activeScriptId != GetResourceOwner())
+			// If a script is currently running
+			if (sm->IsActive())
 			{
-				// the new component is owned by the new script
-				newComponent->SetResourceOwner(activeScriptId);
+				long activeScriptId = sm->GetActiveResource();
 
-				// If this node (the node the component is being attached to) is owned by a resource
-				if (GetResourceOwner() != 0)
+				// If the active script isn't the owner of this SceneNode.
+				if (activeScriptId != GetResourceOwner())
 				{
-					// Indicate to the Resource manager there is a relationship between the 
-					// resource that owns this SceneNode and the owner of the new component
-					ResourceManager::GetInstance().AddDependency(GetResourceOwner(), activeScriptId);
+					// the new component is owned by the new script
+					newComponent->SetResourceOwner(activeScriptId);
+
+					// If this node (the node the component is being attached to) is owned by a resource
+					if (GetResourceOwner() != 0)
+					{
+						// Indicate to the Resource manager there is a relationship between the 
+						// resource that owns this SceneNode and the owner of the new component
+						ResourceManager::GetInstance().AddDependency(GetResourceOwner(), activeScriptId);
+					}
 				}
 			}
 		}
@@ -297,13 +319,27 @@ namespace epsilon
     
     AudioSource::Ptr  SceneNode::ScriptCreateAudioSource(std::string path)
     {
-        return CreateAudioSource(path);
+		AudioSource::Ptr audio = CreateAudioSource(path);
+		HandleScriptOwner(audio);
+		return audio;
     }
     
     AudioListener::Ptr SceneNode::ScriptSetAudioListener()
     {
         return SetAudioListener();
     }
+
+	bool SceneNode::ScriptIsAudioListener()
+	{ 
+		if (audioListener != nullptr)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}		
+	}
     
     AudioSource::Ptr SceneNode::GetAudioSourceByName(std::string name)
     {

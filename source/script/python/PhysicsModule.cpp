@@ -15,9 +15,10 @@ void initPhysics()
 	scope physicsScope = physicsModule;
 	
 	class_<RigidBody, bases<NodeComponent>, RigidBody::Ptr, boost::noncopyable>("RigidBody", no_init)
-		/*.add_property("mass", &RigidBody::GetMass, &RigidBody::SetMass)
+		.add_property("mass", &RigidBody::GetMass, &RigidBody::SetMass)
 		.add_property("inertia", &RigidBody::GetInertia, &RigidBody::SetInertia)
-
+		.add_property("kinematic", &RigidBody::IsKinematic, &RigidBody::SetKinematic)
+/*
 		.add_property("linear_velocity", &RigidBody::GetLinearVelocity, &RigidBody::SetLinearVelocity)
 		.add_property("linear_damping", &RigidBody::GetLinearDamping, &RigidBody::SetLinearDamping)
 		.add_property("angular_velocity", &RigidBody::GetAngularVelocity, &RigidBody::SetAngularVelocity)

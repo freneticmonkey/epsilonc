@@ -127,6 +127,37 @@ namespace epsilon
         }
 	}
 
+	void RigidBody::SetMass(float newMass)
+	{
+		mass = newMass;
+		rigidBody->setMassProps(mass, btVector3(inertia.x, inertia.y, inertia.z));
+	}
+
+	void RigidBody::SetKinematic(bool isKinematic)
+	{
+		int collisionFlags = rigidBody->getCollisionFlags();
+
+		// if kinematic
+		if (isKinematic)
+		{
+			collisionFlags |= btCollisionObject::CF_KINEMATIC_OBJECT;
+			kinematic = isKinematic;
+		}
+		else
+		{
+			if (kinematic)
+			{
+				collisionFlags &= ~btCollisionObject::CF_KINEMATIC_OBJECT;
+			}
+		}
+	}
+
+	void RigidBody::SetInertia(Vector3 newInertia)
+	{
+		inertia = newInertia;
+		rigidBody->setMassProps(mass, btVector3(inertia.x, inertia.y, inertia.z));
+	}
+
 	Vector3	RigidBody::GetLinearVelocity()
 	{
 		return Vector3::ZERO;

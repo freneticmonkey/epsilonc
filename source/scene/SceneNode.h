@@ -104,7 +104,7 @@ namespace epsilon
         
             AudioSource::Ptr        ScriptCreateAudioSource(std::string path = "");
             AudioListener::Ptr      ScriptSetAudioListener();
-			bool					ScriptIsAudioListener() { return (audioListener != nullptr); }
+			bool					ScriptIsAudioListener();
 			
 			// Find an attached script by class name
 			ScriptBehaviour::Ptr	GetScriptByClassname(std::string classname);

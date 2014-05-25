@@ -1,3 +1,5 @@
+import os
+
 from xml.etree import ElementTree as ET
 from xml.dom import minidom
 from epsilon import SceneManager
@@ -10,7 +12,7 @@ from core.loginstance import LogInstance
 class SceneSaver(object):
 
 	def __init__(self, path):
-		self._xmlpath = path
+		self._xmlpath = path = os.path.join(os.getcwd(),path)
 
 		# Setup a custom Log for this class
 		self._log = LogInstance("SceneSaver")

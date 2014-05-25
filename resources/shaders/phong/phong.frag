@@ -71,7 +71,7 @@ vec4 spotLight(int lightID)
     vec4 lightColour = ambient + (visibility * diffuse) + ( visibility * specular);
     
     lightColour = mix(lightColour, texture(theTexture, vTexCoord), 0.5);
-
+    
     return lightColour;
 }
 
@@ -117,6 +117,7 @@ vec4 pointLight (int lightID)
  
     return ambient + diffuse + specular;
     // return diffuse;
+    // 
 }
 
 

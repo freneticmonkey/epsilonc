@@ -126,11 +126,11 @@ namespace epsilon
 		
 	}
 
-	AudioBuffer::Ptr AudioManager::GetBuffer(std::string path)
+	AudioBuffer::Ptr AudioManager::GetBufferByName(std::string name)
 	{
 		AudioBuffer::Ptr found;
 
-		Buffers::iterator foundBuffer = buffers.find(path);
+		Buffers::iterator foundBuffer = buffers.find(name);
 
 		if ( foundBuffer != buffers.end())
 		{
@@ -140,19 +140,55 @@ namespace epsilon
 		return found;
 	}
 
-	AudioSource::Ptr AudioManager::CreateAudioSource(std::string path)
+	AudioBuffer::Ptr AudioManager::GetBufferByPath(std::string path)
 	{
-		AudioSource::Ptr newAudioSource = AudioSource::Create();
-		
-        sources.push_back(newAudioSource);
-        
-        // Assign a buffer if a path is provided
-        AudioBuffer::Ptr buffer = GetBuffer(path);
-        if ( buffer )
-        {
-            newAudioSource->SetBuffer(buffer);
-        }
-        
+		AudioBuffer::Ptr foundBuffer;
+
+		std::string fullpath = ResourceManager::GetInstance().GetResourceFullPath(path);
+
+		for (Buffers::iterator it = buffers.begin(); it != buffers.end(); it++)
+		{
+			if (it->second->GetFilepath().GetString() == fullpath)
+			{
+				foundBuffer = it->second;
+				break;
+			}
+		}
+
+		return foundBuffer;
+	}
+
+	AudioSource::Ptr AudioManager::CreateAudioSourceByName(std::string name)
+	{
+		AudioSource::Ptr newAudioSource;
+
+		// Find the audio buffer
+		AudioBuffer::Ptr buffer = GetBufferByName(name);
+		if (buffer)
+		{
+			newAudioSource = AudioSource::Create();
+			newAudioSource->SetBuffer(buffer);
+			sources.push_back(newAudioSource);
+		}
+		// If the buffer isn't found no audiosource will be created
+
+		return newAudioSource;
+	}
+
+	AudioSource::Ptr AudioManager::CreateAudioSourceByPath(std::string path)
+	{
+		AudioSource::Ptr newAudioSource;
+
+		// Find the audio buffer
+		AudioBuffer::Ptr buffer = GetBufferByPath(path);
+		if (buffer)
+		{
+			newAudioSource = AudioSource::Create();
+			newAudioSource->SetBuffer(buffer);
+			sources.push_back(newAudioSource);
+		}
+		// If the buffer isn't found no audiosource will be created
+
 		return newAudioSource;
 	}
 }

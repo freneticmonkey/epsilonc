@@ -315,7 +315,8 @@ void initManagers()
         .staticmethod("get_instance")
     
         .def("get_listener", &AudioManager::GetListener)
-        .def("create_audiosource", (AudioSource::Ptr(AudioManager::*)(std::string)) &AudioManager::CreateAudioSource, (python::arg("path") = (std::string)("")))
+		.def("create_audiosource_name", (AudioSource::Ptr(AudioManager::*)(std::string)) &AudioManager::CreateAudioSourceByName, (python::arg("name") = (std::string)("")))
+		.def("create_audiosource_path", (AudioSource::Ptr(AudioManager::*)(std::string)) &AudioManager::CreateAudioSourceByPath, (python::arg("path") = (std::string)("")))
          
     ;
     

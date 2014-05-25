@@ -48,9 +48,12 @@ namespace epsilon
 
 		// Accessors
 		void	SetMass(float newMass);
-		const float&	GetMass() { return mass; }
+		float	GetMass() { return mass; }
 
-		void	SetInertia(float newInertia);
+		void	SetKinematic(bool isKinematic);
+		bool	IsKinematic() { return kinematic; }
+
+		void	SetInertia(Vector3 newInertia);
 		Vector3	GetInertia() { return inertia; }
 
 		Vector3	GetLinearVelocity();

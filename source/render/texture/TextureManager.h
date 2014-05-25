@@ -33,6 +33,7 @@ namespace epsilon
 		void		LoadTextures();
 
 		Texture::Ptr GetTextureByName(std::string name);
+		Texture::Ptr GetTextureByPath(std::string path);
 		Texture::Ptr GetDefault() { return defaultTexture; }
 
 		void RefreshResources(ResourceIdVector resources);

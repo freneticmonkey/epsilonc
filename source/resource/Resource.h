@@ -40,6 +40,9 @@ namespace epsilon
         
         // Ensure that type based comparison is implemented?
 //        virtual int operator=;
+
+		// Check if path is path to resource.  Path is an absolute path to the resource
+		bool IsMatchingPath(std::string path);
         
 		const OwnerIds & GetOwners() { return ownerIds; }
 		void AddOwner(long owner);

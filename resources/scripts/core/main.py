@@ -44,9 +44,8 @@ class ScriptCore(object):
 			self._console_window.visible = not self._console_window.visible
 			print "Visible: " + self._console_window._visible
 
-		if Input.key_down(Input.Key.Return):
-			path = os.path.join(os.getcwd(),'test.xml')
-			s = SceneSaver(path)
+		if Input.key_down(Input.Key.Return):			
+			s = SceneSaver('test.xml')
 			# Do the save
 			s.save()
 

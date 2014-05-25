@@ -29,7 +29,7 @@
 		<children>
 			<node name="audio_source">
 				<transform position="5 0 0"/>
-				<audiosource filename="blip.wav" loop="True" play="True"/>
+				<audiosource filename="resources/audio/blip.wav" loop="True" play="False"/>
 				<scripts>
 					<script filename="resources/scripts/PositionGizmo.py"/>
 				</scripts>
@@ -41,7 +41,7 @@
 		<transform position="2 1 0"/>
 		<mesh preset="SPHERE"/>
 		<material diffuse="1 0.5 0 1">
-					<texture filename="UVmapLarge.bmp"/>
+					<texture filename="resources/textures/UVmapLarge.bmp"/>
 			<shader name="phong.shader"/>
 		</material>
 		<scripts>
@@ -53,7 +53,7 @@
 				<transform position="-2 2 0"/>
 				<mesh preset="CUBE"/>
 				<material diffuse="1 0.5 0 1">
-					<texture filename="UVmapLarge.bmp"/>
+					<texture filename="resources/textures/UVmapLarge.bmp"/>
 					<shader name="phong.shader"/>
 				</material>
 				<rigidbody mass="1.0"/>
@@ -66,7 +66,7 @@
 				<transform position="-1.5 -2 0"/>
 				<mesh preset="CUBE"/>
 				<material diffuse="1 0.5 0 1">
-					<texture filename="UVmapLarge.bmp"/>
+					<texture filename="resources/textures/UVmapLarge.bmp"/>
 					<shader name="phong.shader"/>
 				</material>
 				<rigidbody mass="0.0" kinematic="true"/>
@@ -88,7 +88,7 @@
 				<transform position="0 -1 0" scale="3 3 3"/>
 				<mesh preset="PLANE"/>
 				<material diffuse="0 0 1 1">
-					<texture filename="UVmapLarge.bmp"/>
+					<texture filename="resources/textures/UVmapLarge.bmp"/>
 					<shader name="phong.shader"/>
 				</material>
 				<scripts>
@@ -179,14 +179,14 @@
 			<mesh preset="PLANE"/>
 			<material diffuse="1 1 1 1">
 				<shader name="tex.shader"/>
-				<texture filename="UVmapLarge.bmp"/>
+				<texture filename="resources/textures/UVmapLarge.bmp"/>
 			</material>
 		</node>
 		<node name="wall_4">
 			<transform position="0 5 0" rotation="1 0 0 3.14159" scale="10 10 10"/>
 			<mesh preset="PLANE"/>
 			<material diffuse="1 1 1 1">
-				<texture filename="UVmapLarge.bmp"/>
+				<texture filename="resources/textures/UVmapLarge.bmp"/>
 				<shader name="phong.shader"/>
 			</material>
 		</node>

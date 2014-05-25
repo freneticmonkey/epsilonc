@@ -314,6 +314,8 @@ void initMath()
 	
 	class_<AxisAngle>("AxisAngle", init<Vector3, float>())
 		.def("__str__", &AxisAngle::ToString)
+		.def_readwrite("axis", &AxisAngle::axis)
+		.def_readwrite("angle", &AxisAngle::angle)
 		;
 
 	class_<Euler>("Euler", init<float, float, float>());

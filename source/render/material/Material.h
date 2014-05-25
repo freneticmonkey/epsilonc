@@ -47,6 +47,7 @@ namespace epsilon
 
 		void AddTexture(Texture::Ptr newTexture);
 		void AddTextureByName(std::string textureName);
+		void AddTextureByPath(std::string texturePath);
 
 		Textures GetTextures() { return textures; }
 

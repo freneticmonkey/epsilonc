@@ -51,6 +51,7 @@ namespace epsilon
         float GetDuration() const;
 
 		bool IsActive() { return active; }
+
 		bool IsLoaded() { return loaded; }
 		
 		AudioBuffer::Ptr ThisPtr() { return shared_from_this(); }

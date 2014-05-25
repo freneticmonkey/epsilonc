@@ -470,6 +470,9 @@ namespace epsilon
 	{
 		Mesh::Ptr newPlane = Mesh::Create();
 		
+		newPlane->SetMeshType("PLANE");
+		newPlane->SetMeshParameters(str(format("width_segs=%d|height_segs=%d") % widthSegments % heightSegments));
+
 		ParametricData planeData = Parametric::Plane(heightSegments, widthSegments);
 
 		newPlane->VertexData()

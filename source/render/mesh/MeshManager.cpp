@@ -104,6 +104,23 @@ namespace epsilon
 		return foundMesh;
 	}
 
+	Mesh::Ptr MeshManager::GetMeshByPath(std::string path)
+	{
+		Mesh::Ptr foundMesh;
+		std::string fullpath = ResourceManager::GetInstance().GetResourceFullPath(path);
+
+		for (MeshMap::iterator it = meshs.begin(); it != meshs.end(); it++)
+		{
+			if (it->second->GetFilepath().GetString() == fullpath)
+			{
+				foundMesh = it->second;
+				break;
+			}
+		}
+
+		return foundMesh;
+	}
+
 	void MeshManager::RefreshResources(ResourceIdVector resources)
 	{
 		std::for_each(resources.begin(), resources.end(), [&](std::size_t resourceId){

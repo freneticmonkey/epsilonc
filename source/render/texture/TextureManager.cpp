@@ -102,6 +102,23 @@ namespace epsilon
 		return foundTexture;
 	}
 
+	Texture::Ptr TextureManager::GetTextureByPath(std::string path)
+	{
+		Texture::Ptr foundTexture;
+		std::string fullpath = ResourceManager::GetInstance().GetResourceFullPath(path);
+
+		for (TextureMap::iterator it = textures.begin(); it != textures.end(); it++)
+		{
+			if (it->second->GetFilepath().GetString() == fullpath)
+			{
+				foundTexture = it->second;
+				break;
+			}
+		}
+
+		return foundTexture;
+	}
+
 	void TextureManager::RefreshResources(ResourceIdVector resources)
 	{
 		// Reload any changed files from disk.  This will not push them to the GPU.
