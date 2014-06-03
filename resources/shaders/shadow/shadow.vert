@@ -1,7 +1,10 @@
 // Input vertex data, different for all executions of this shader.
 layout(location = 0) in vec3 position;
- 
+
+uniform mat4 modelMatrix;
+
 void main()
 {
-	gl_Position =  depthModelViewProjection * vec4(position,1);
+	mat4 DVP = projectionMatrix * viewMatrix * modelMatrix;
+	gl_Position =  DVP * vec4(position,1);
 }

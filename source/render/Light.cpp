@@ -79,8 +79,14 @@ namespace epsilon
 		shadowMatrixUnf = shadowMatrix->GetUniform("depthModelViewProjection");
 		shadowDepthBiasUnf = shadowMatrix->GetUniform("depthBias");
 
+		// Grab the Global Matrices Uniform so that we can build the depth matrix in the shader
+		// by overridding the view and proj matrices.
+		UniformBuffer::Ptr globalMatrix = ShaderManager::GetInstance().GetUniformBuffer("GlobalMatrices");
+		viewMatrixUnf = globalMatrix->GetUniform("viewMatrix");
+		projMatrixUnf = globalMatrix->GetUniform("projectionMatrix");
+
 		// Hacky as fuuuuccckkkk
-		Shader::Ptr phong = ShaderManager::GetInstance().GetShaderByName("phong");
+		Shader::Ptr phong = ShaderManager::GetInstance().GetShaderByName("phong.shader");
 		if (phong)
 		{
 			shadowDepthTexture = phong->GetUniform("shadowMap");
@@ -92,6 +98,12 @@ namespace epsilon
 		// Ensure that this is only called once.
 		if (!shadowsSetup && !shadowsFailed)
 		{
+			Shader::Ptr phong = ShaderManager::GetInstance().GetShaderByName("phong.shader");
+			if (phong)
+			{
+				shadowDepthTexture = phong->GetUniform("shadowMap");
+			}
+
 			materialManager = &MaterialManager::GetInstance();
 
 			// Get the shadow material
@@ -161,10 +173,18 @@ namespace epsilon
 				{
 					// Bind the shadow depth texture
 					glBindFramebuffer(GL_FRAMEBUFFER, FramebufferName);
+					glViewport(0, 0, 1024, 1024);
+
+					glEnable(GL_CULL_FACE);
+					glCullFace(GL_FRONT);
+					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+					glBindTexture(GL_TEXTURE_2D, depthTexture);
 
 					// Build Depth Matrix
 					Matrix4 projMatrix = Matrix4::CreateOrthographic(-10, 10, -10, 10, -10, 20);
-					Vector3 target = GetPosition() - GetDirection();
+					//Vector3 target = GetPosition() - GetDirection();
+					Vector3 target = Vector3(0,2,10) - GetDirection();
 					Matrix4 viewMatrix = Matrix4::CreateLookAt(GetPosition(), target, Vector3::UP);
 					Matrix4 model;
 					Matrix4 depthMatrix = projMatrix * viewMatrix * model;
@@ -176,6 +196,12 @@ namespace epsilon
 
 					Matrix4 result = depthBias * depthMatrix;
 
+					if (viewMatrixUnf)
+						viewMatrixUnf->SetMatrix4(viewMatrix);
+
+					if (projMatrixUnf)
+						projMatrixUnf->SetMatrix4(projMatrix);
+
 					if (shadowMatrixUnf)
 						shadowMatrixUnf->SetMatrix4(depthMatrix);
 					
@@ -185,14 +211,24 @@ namespace epsilon
 					// Flush the matrix to the GPU
 					ShaderManager::GetInstance().ProcessUniformBuffers();
 
+					//Configure the shadow material
+					//shadowMaterial->Enable(model);
+
 					// Draw each of visible items with the shadow material.
 					std::for_each(renderItems.begin(), renderItems.end(), [&](Renderer::Ptr renderer){
 						renderer->Draw(shadowMaterial);
 					});
+
+					//shadowMaterial->Disable();
 				}
 
 				// Unbind shadow framebuffer
 				glBindFramebuffer(GL_FRAMEBUFFER, 0);
+				glViewport(0, 0, 800, 600);
+
+				glEnable(GL_CULL_FACE);
+				glCullFace(GL_BACK);
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 				// Bind the Shadow Texture to Texture 0
 				glActiveTexture(GL_TEXTURE0);
@@ -200,7 +236,7 @@ namespace epsilon
 
 				// Totally hardcoding the shadow map to the first texture for all shaders. suck it.
 				if (shadowDepthTexture )
-					shadowDepthTexture->SetInt(0);
+					shadowDepthTexture->SetInt(2);
 			}
 		}
 

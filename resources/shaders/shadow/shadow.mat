@@ -3,3 +3,8 @@ layout (std140) uniform ShadowMatrices {
 	mat4 depthModelViewProjection;
 	mat4 depthBias;
 };
+
+layout (std140) uniform GlobalMatrices {
+	mat4 viewMatrix;
+	mat4 projectionMatrix;
+};

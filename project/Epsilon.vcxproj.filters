@@ -287,6 +287,15 @@
     <ClCompile Include="..\source\audio\AudioSource.cpp">
       <Filter>Source Files\audio</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\audio\AudioListener.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\audio\AudioBuffer.cpp">
+      <Filter>Source Files\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\AudioModule.cpp">
+      <Filter>Source Files\script\python</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\EpsilonCore.h">
@@ -579,6 +588,15 @@
     </ClInclude>
     <ClInclude Include="..\source\audio\AudioSource.h">
       <Filter>Source Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\audio\AudioListener.h">
+      <Filter>Source Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\audio\AudioBuffer.h">
+      <Filter>Source Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\python\AudioModule.h">
+      <Filter>Source Files\script\python</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

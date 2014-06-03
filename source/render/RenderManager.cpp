@@ -138,13 +138,13 @@ namespace epsilon
 		// Push any mesh changes to the GPU
 		// On the first frame this will take some time.
 		meshManager->ProcessMeshs();
-
-        //Sync Camera Data with the Uniform Buffer Objects
-		ProcessCameras();
-
+		
 		// Sync Light Data with the Uniform Buffer Objects and
 		// render shadow depth maps
 		SetupLights();
+
+		//Sync Camera Data with the Uniform Buffer Objects
+		ProcessCameras();
         
 		// Perform the Uniform Buffer Copy
         shaderManager->ProcessUniformBuffers();

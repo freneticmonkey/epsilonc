@@ -71,7 +71,7 @@ vec4 spotLight(int lightID)
     vec4 lightColour = ambient + (visibility * diffuse) + ( visibility * specular);
     
     lightColour = mix(lightColour, texture(theTexture, vTexCoord), 0.5);
-    
+        
     return lightColour;
 }
 
@@ -136,19 +136,20 @@ void main()
              final_color += spotLight(i);
         }
 
-		// final_color += spotLight(i);
-		// vec3 lightDir = vec3(lights[0].position - worldPosition.xyz);
-		
-		// vec3 N = normalize(vNormal);
-		// vec3 L = normalize(lightDir);
-		// float lambertTerm = dot(N,L);
-		// lambertTerm = clamp(lambertTerm, 0.0, 1.0);
+        // final_color += spotLight(i);
+        // vec3 lightDir = vec3(lights[0].position - worldPosition.xyz);
+        
+        // vec3 N = normalize(vNormal);
+        // vec3 L = normalize(lightDir);
+        // float lambertTerm = dot(N,L);
+        // lambertTerm = clamp(lambertTerm, 0.0, 1.0);
 
-		// if (lambertTerm > 0.0)
-	 //    {
-	 //        final_color += lights[i].diffuse * material.diffuse * lambertTerm * 1.0;
-	 //    }
-	}
+        // if (lambertTerm > 0.0)
+     //    {
+     //        final_color += lights[i].diffuse * material.diffuse * lambertTerm * 1.0;
+     //    }
+    }
+    // final_color = mix(final_color, texture(shadowMap, vTexCoord), 0.5); 
 
     fragColor = final_color;
     // fragColor = material.diffuse;

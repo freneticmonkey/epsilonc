@@ -136,7 +136,8 @@
 				<light name="a_light" 
 					   diffuse="1.0 0.0 0.0 1.0" 
 					   attenuation="0.5 0.22 0.002"  
-					   type="SPOT" 
+					   type="SPOT"
+					   shadow_type="HARD" 
 				/>
 				<!-- shadow_type="HARD" -->
 				<transform position="3 2 0"/>

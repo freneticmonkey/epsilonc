@@ -109,6 +109,10 @@ namespace epsilon
 		// Shadow members
 		ShaderUniform::Ptr	shadowMatrixUnf;
 		ShaderUniform::Ptr	shadowDepthBiasUnf;
+			
+		// Global Matrices
+		ShaderUniform::Ptr	viewMatrixUnf;
+		ShaderUniform::Ptr	projMatrixUnf;
 
 		ShaderUniform::Ptr  shadowDepthTexture;
 
