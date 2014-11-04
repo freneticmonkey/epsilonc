@@ -14,13 +14,13 @@ import math
 class CameraBehaviour(object):
 	
 	def __init__(self):
-		self._orig_pos = self.node.transform.position
-
 		self._was_down = False
 		self._middle = Vector2(WIDTH/2,HEIGHT/2)
 
+	def on_start(self):
+		self._orig_pos = self.node.transform.position
 		self._reset()
-
+		
 	def _reset(self):
 		self._speed = 10
 		self._angle_speed = 1#100.0
@@ -29,10 +29,10 @@ class CameraBehaviour(object):
 
 		self.node.transform.orientation = Quaternion()
 		self.node.transform.position = self._orig_pos
+		
 		self._v = 0
 		self._h = math.pi		
-
-	def on_start(self):
+		
 		# Convert to radians
 		self._angle_speed *= (math.pi / 180.0)
 
