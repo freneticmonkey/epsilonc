@@ -100,7 +100,8 @@ class SceneLoader(ResourceOwner):
 			xml_dom = ET.parse(self._scene_file)
 			parse_ok = True
 		except ET.ParseError, e:
-			self._log("Invalid Scene Format Detected.  Unable to load scene file: %s" % filename)
+			self._log("Invalid Scene Format Detected.  Unable to load scene file: %s" % self._scene_file)
+			self._log("Error: %s" % e.msg)
 
 
 		if parse_ok:
@@ -136,7 +137,7 @@ class SceneLoader(ResourceOwner):
 					print "Scene Refreshed."
 
 			except InvalidSceneFormat, e:
-				self._log("Invalid Scene Format Detected.  Unable to load scene file: %s" % filename)
+				self._log("Invalid Scene Format Detected.  Unable to load scene file: %s" % self._scene_file)
 
 
 	def parse_node(self, parse_globals, node, parent=None):
