@@ -1,6 +1,10 @@
 #include "scene/Transform.h"
 #include "logging/Logging.h"
 
+#include <glm/glm.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 namespace epsilon
 {
 	Transform::Ptr Transform::Create()
@@ -232,7 +236,7 @@ namespace epsilon
     {
 		if (parent)
 		{
-			orientation = (parent->_getDerivedOrientation() * q) *q.Inverse();
+			orientation = (parent->_getDerivedOrientation() * q);
 		}
 		else
 		{
@@ -435,7 +439,10 @@ namespace epsilon
             position += d;
             break;
         }
-        needUpdate(true);
+		// Ensure that updates only occur when translation has occurred.
+		if (d.LengthSquared() > 0)
+			needUpdate(true);
+
 		return ThisPtr();
 
     }
@@ -562,7 +569,6 @@ namespace epsilon
 
 		SetPosition(cachedTransform.GetTranslation());
 		SetLocalOrientation(cachedTransform.GetRotation());
-		*/
 
 		Quaternion currentRot = derivedOrientation;
 
@@ -575,9 +581,41 @@ namespace epsilon
 
 		finalRot = finalRot * currentRot;
 		finalRot.Normalise();
+		*/
+
+		// Calculate using glm
+
+		glm::vec3 gPos(pos.x, pos.y, pos.z);
+		glm::vec3 dir(
+			cos(pitch) * sin(yaw),
+			sin(pitch),
+			cos(pitch) * cos(yaw)
+			);
+
+		//glm::vec3 up(up.x, up.y, up.z);
+		glm::vec3 right(
+			sin(yaw - 3.14159f/2.0f),
+			0,
+			cos(yaw - 3.14159/2.0f)
+			);
+		glm::vec3 up = glm::cross(right, dir);
+
+		glm::mat4 vMat = glm::lookAt(gPos, gPos + dir, up);
+
+		Matrix4 gViewMat;
+
+		int i = 0;
+		for (int r = 0; r < 4; r++)
+		{
+			glm::vec4 row = vMat[r];
+			for (int c = 0; c < 4; c++)
+			{
+				gViewMat[i++] = row[c];
+			}
+		}
 
 		SetPosition(pos);
-		SetLocalOrientation(finalRot);
+		SetLocalOrientation(gViewMat);
 
 		//derivedOrientation = finalRot;
 
@@ -839,6 +877,9 @@ namespace epsilon
 			derivedScale = scale;
 		}
 
+		// Ensure that the cached transform is updated here too..
+		_getFullTransform();
+
 		// Update transform directional vectors
 		forward = derivedOrientation * Vector3::FORWARD;
 		forward.Normalise();
@@ -849,8 +890,10 @@ namespace epsilon
 		right = derivedOrientation * Vector3::RIGHT;
 		right.Normalise();
 
-		cachedTransformOutOfDate = true;
+		cachedTransformOutOfDate = false;
 		needParentUpdate = false;
+
+		//Log("Updated Transform: " + ThisPtr()->componentParent->GetName());
 
 	}
 

@@ -14,7 +14,8 @@ smooth out vec2 vTexCoord;
 
 void main()
 {
-	vPosition = transpose(modelMatrix) * vec4(position,1.0);
+	// vPosition = transpose(modelMatrix) * vec4(position,1.0);
+	vPosition = modelMatrix * vec4(position,1.0);
 	
 	// for (int i = 0; i < numLights; i++ )
 	// {
@@ -26,7 +27,8 @@ void main()
 
 	vTexCoord = texCoord;
 	
-	gl_Position = projectionMatrix * transpose(viewMatrix) * transpose(modelMatrix) * vec4(position, 1.0);
+	// gl_Position = projectionMatrix * transpose(viewMatrix) * transpose(modelMatrix) * vec4(position, 1.0);
+	gl_Position = projectionMatrix * viewMatrix * transpose(modelMatrix) * vec4(position, 1.0);
 
 	
 	vShadowCoord = depthBias * vec4(position,1.0);

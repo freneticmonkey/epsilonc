@@ -117,7 +117,7 @@ namespace epsilon
 				reflectanceUniform->SetFloat(reflectance);
             
             // Set Transform
-            if (modelUniform)
+			if (modelUniform)
 				modelUniform->SetMatrix4(modelMatrix);
 
 			// Bind the textures to the shader sampler uniforms

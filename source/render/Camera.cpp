@@ -5,6 +5,10 @@
 
 #include "render/material/ShaderManager.h"
 
+#include <glm/glm.hpp>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+
 namespace epsilon
 {
 	Camera::Ptr Camera::Create()
@@ -74,6 +78,7 @@ namespace epsilon
 	{ 
 		if (transform)
 		{
+			// Calculate glm view matrix
 			return transform->_getFullTransform();
 		}
 		else
@@ -114,7 +119,7 @@ namespace epsilon
 		projMatrix[3 * 4 + 2] = (2.0f * farP * nearP) / (nearP - farP);
 		projMatrix[2 * 4 + 3] = -1.0f;
 		projMatrix[3 * 4 + 3] = 0.0f;
-
+		
 		// Inverting the Y-axis cause OpenGL :/
 		/*
 		Matrix4 invertY;
@@ -126,15 +131,49 @@ namespace epsilon
 
 	void Camera::Update()
 	{
+		Matrix4 mat;
+		glm::mat4 gProjMatrix;
+		glm::mat4 gViewMatrix;
+
 		// Push matrices to the Uniform buffer
 		if (viewMatrixUnf)
 		{
-			viewMatrixUnf->SetMatrix4(GetViewMatrix());
+			mat = transform->_getFullTransform();
+
+			glm::vec3 pos(mat.GetTranslation().x, mat.GetTranslation().y, mat.GetTranslation().z);
+			glm::vec3 dir(transform->Forward().x, transform->Forward().y, transform->Forward().z);
+			glm::vec3 up(0.0, 1.0, 0.0);
+
+			gViewMatrix = glm::lookAt(pos, pos + dir, up);
+			int i = 0;
+			for (int r = 0; r < 4; r++)
+			{
+				glm::vec4 row = gViewMatrix[r];
+				for (int c = 0; c < 4; c++)
+				{
+					mat[i++] = row[c];
+				}
+			}
+			viewMatrixUnf->SetMatrix4(mat);
+			//viewMatrixUnf->SetMatrix4(GetViewMatrix());
 		}
 
 		if (projMatrixUnf)
 		{
-			projMatrixUnf->SetMatrix4(projMatrix);
+			gProjMatrix = glm::perspective(fov, ratio, nearDist, farDist);
+			
+			int i = 0;
+			for (int r = 0; r < 4; r++)
+			{
+				glm::vec4 row = gProjMatrix[r];
+				for (int c = 0; c < 4; c++)
+				{
+					mat[i++] = row[c];
+				}
+			}
+
+			projMatrixUnf->SetMatrix4(mat);
+			//projMatrixUnf->SetMatrix4(projMatrix);
 		}
 	}
 

@@ -27,7 +27,8 @@ class ScriptCore(object):
 
 		# Hide the console window by default
 		self._console_window = UIManager.get_window("console")
-		
+
+		print self._console_window		
 
 		if not self._console_window is None:
 			self._console_window.visible = False
@@ -42,7 +43,7 @@ class ScriptCore(object):
 		# If Tilde is pressed toggle the console window
 		if Input.key_down(Input.Key.Tilde):
 			self._console_window.visible = not self._console_window.visible
-			print "Visible: " + self._console_window._visible
+			print "Visible: %d" % self._console_window.visible
 
 		if Input.key_down(Input.Key.Return):			
 			s = SceneSaver('test.xml')
@@ -56,7 +57,7 @@ class ScriptCore(object):
 		
 	def _init_resources(self):
 		self._sm = SceneLoader()
-		self._sm.set_scene("model.xml")
+		self._sm.set_scene("scene.xml")
 
 # For Epsilon Access
 _instance = ScriptCore()
