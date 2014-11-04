@@ -47,7 +47,7 @@ namespace epsilon
 		LogList initLog = Logger::getInstance().FlushInitLog();
 		
 		// resize init log to console maxLines
-		while (initLog.size() > maxLines)
+		while (initLog.size() > (unsigned int)maxLines)
 		{
 			initLog.pop_front();
 		}
