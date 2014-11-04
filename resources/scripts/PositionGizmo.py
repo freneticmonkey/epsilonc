@@ -14,9 +14,9 @@ class PositionGizmo(object):
 		Gizmos.colour(Colour.YELLOW)
 		Gizmos.draw_sphere(self.node.transform.position, 0.25)
 
-		self.node.transform.lookat(Vector3.ZERO);
+		# self.node.transform.lookat(Vector3.ZERO);
 
-		Gizmos.draw_line(self.node.transform.position, Vector3.ZERO)
+		# Gizmos.draw_line(self.node.transform.position, Vector3.ZERO)
 
 	def on_destroy(self):
 		pass
