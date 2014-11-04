@@ -69,7 +69,40 @@ Quaternion::Quaternion(float heading, float attitude, float bank)
 // From Matrix4
 Quaternion::Quaternion(Matrix4 rotation)
 {
-    
+	float tr = rotation[0] + rotation[5] + rotation[10];
+
+	if (tr > 0)
+	{
+		float S = sqrt(tr + 1.0) * 2; // S=4*qw 
+		w = 0.25 * S;
+		x = (rotation[9] - rotation[6]) / S;
+		y = (rotation[2] - rotation[8]) / S;
+		z = (rotation[4] - rotation[1]) / S;
+	}
+	else if ((rotation[0] > rotation[5])&(rotation[0] > rotation[10]))
+	{
+		float S = sqrt(1.0 + rotation[0] - rotation[5] - rotation[10]) * 2; // S=4*qx 
+		w = (rotation[9] - rotation[6]) / S;
+		x = 0.25 * S;
+		y = (rotation[1] + rotation[4]) / S;
+		z = (rotation[2] + rotation[8]) / S;
+	}
+	else if (rotation[5] > rotation[10])
+	{
+		float S = sqrt(1.0 + rotation[5] - rotation[0] - rotation[10]) * 2; // S=4*qy
+		w = (rotation[2] - rotation[8]) / S;
+		x = (rotation[1] + rotation[4]) / S;
+		y = 0.25 * S;
+		z = (rotation[6] + rotation[9]) / S;
+	}
+	else
+	{
+		float S = sqrt(1.0 + rotation[10] - rotation[0] - rotation[5]) * 2; // S=4*qz
+		w = (rotation[4] - rotation[1]) / S;
+		x = (rotation[2] + rotation[8]) / S;
+		y = (rotation[6] + rotation[9]) / S;
+		z = 0.25 * S;
+	}
 }
 
 
