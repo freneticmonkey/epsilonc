@@ -112,7 +112,7 @@
 		<mesh filename="plane.obj"/>
 		<script filename="resources/scripts/CircleRotation.py"/>
 	</node>
-	
+
 	<!-- <node name="camera_pos">
 		<children> -->
 			<node name="scenecamera_node">

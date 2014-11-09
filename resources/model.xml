@@ -6,16 +6,40 @@
 		<mesh preset="GRID" size="10" resolution="1"/>
 	</node> -->
 
+	<node name="scenechild_node_terrain">
+		<transform position="0 0 0"/>
+		<material diffuse="1 0.5 0 1">
+			<shader name="phong.shader"/>
+		</material>
+		<mesh filename="terrain.obj"/>
+		<!-- <mesh filename="shape.obj"/> -->
+	</node>
 
-	<node name="scenechild_plane_node">
-		<transform position="0 -1 0" scale="10 1 10"/>
+	<!-- <node name="scenechild_plane_node">
+		<transform position="0 2 0" scale="1 1 1"/>
 		<mesh preset="CUBE"/>
 		<material diffuse="0 0 1 1">
 			<texture filename="resources/textures/UVmapLarge.bmp"/>
-			<shader name="phong.shader"/>
+			<shader name="phong.shader" />
 		</material>
 	</node>
-	
+
+	<node name="floor">
+		<transform position="0 0 0" scale="2 1 2"/>
+		<mesh preset="CUBE"/>
+		<material diffuse="0 0 1 1">
+			<shader name="phong.shader" />
+		</material>
+	</node> -->
+
+	<node name="behind">
+		<transform position="0 5 20" scale="1 1 1"/>
+		<mesh preset="SPHERE"/>
+		<material diffuse="0 0 1 1">
+			<shader name="phong.shader" />
+		</material>
+	</node>
+<!-- 	
 	<node name="texture_display">
 		<transform position="0 3 -5" rotation="1 0 0 1.5707"  scale="10 1 10"/>
 		<mesh preset="PLANE"/>
@@ -23,25 +47,17 @@
 			<shader name="phong.shader"/>
 		</material>
 	</node>
-
-	<node name="from_file">
-		<transform position="2 0 0"/>
+ -->
+	<!-- <node name="from_file">
+		<transform position="1 0 0"/>
 		<material diffuse="1 1 1 1">
 			<shader name="phong.shader"/>
 		</material>
 		<mesh filename="shape.obj"/>
-	</node>
-
-	<node name="from_file">
-		<transform position="-2 0 0"/>
-		<material diffuse="1 1 1 1">
-			<shader name="phong.shader"/>
-		</material>
-		<mesh filename="shape.obj"/>
-	</node>
+	</node> -->
 	
 	<node name="camera_pos">
-		<transform position="0 -2 -14"/>
+		<transform position="0 1 -14"/>
 		<children>
 			<node name="camera_node">
 				<camera name="scene_cam" active="True"/>
@@ -57,7 +73,6 @@
 			   diffuse="1.0 0.0 0.0 1.0" 
 			   attenuation="0.5 0.22 0.002"  
 			   type="SPOT"
-			   shadow_type="HARD" 
 		/>
 		<!-- shadow_type="HARD" -->
 		<transform position="0 2 10"/>

@@ -5,6 +5,6 @@ uniform mat4 modelMatrix;
 
 void main()
 {
-	mat4 DVP = projectionMatrix * viewMatrix * modelMatrix;
+	mat4 DVP = projectionMatrix * viewMatrix * transpose(modelMatrix);
 	gl_Position =  DVP * vec4(position,1);
 }

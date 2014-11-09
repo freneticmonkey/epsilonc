@@ -24,8 +24,8 @@ class CameraBehaviour(object):
 	def _reset(self):
 		self._speed = 10
 		self._angle_speed = 1#100.0
-		self._mouse_speed_x = 1 #10
-		self._mouse_speed_y = 1 #10
+		self._mouse_speed_x = 5 #10
+		self._mouse_speed_y = 5 #10
 
 		self.node.transform.orientation = Quaternion()
 		self.node.transform.position = self._orig_pos
@@ -77,7 +77,7 @@ class CameraBehaviour(object):
 		mouse_pos = Input.mouse_position()
 
 		self._h += self._mouse_speed_x * angle * ( (WIDTH  / 2) - mouse_pos.x )
-		self._v += self._mouse_speed_y * angle * ( (HEIGHT / 2) - mouse_pos.y )
+		self._v += -self._mouse_speed_y * angle * ( (HEIGHT / 2) - mouse_pos.y )
 
 		self.node.transform.fps(self.node.transform.position, self._v, self._h)
 	

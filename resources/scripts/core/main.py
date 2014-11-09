@@ -57,7 +57,7 @@ class ScriptCore(object):
 		
 	def _init_resources(self):
 		self._sm = SceneLoader()
-		self._sm.set_scene("scene.xml")
+		self._sm.set_scene("model.xml")
 
 # For Epsilon Access
 _instance = ScriptCore()
