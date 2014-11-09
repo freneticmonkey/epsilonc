@@ -73,6 +73,7 @@
     <ClCompile Include="..\source\script\python\ResourceModule.cpp" />
     <ClCompile Include="..\source\script\python\SceneModule.cpp" />
     <ClCompile Include="..\source\script\python\ScriptModule.cpp" />
+    <ClCompile Include="..\source\script\python\ToolsModule.cpp" />
     <ClCompile Include="..\source\script\python\UIModule.cpp" />
     <ClCompile Include="..\source\script\python\UtilitiesModule.cpp" />
     <ClCompile Include="..\source\script\Script.cpp" />
@@ -80,10 +81,6 @@
     <ClCompile Include="..\source\script\ScriptEngineCore.cpp" />
     <ClCompile Include="..\source\script\ScriptManager.cpp" />
     <ClCompile Include="..\source\tests\pointerTests.cpp" />
-    <ClCompile Include="..\source\tools\procedural\SimplexNoise.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\source\ui\ConsoleWindow.cpp" />
     <ClCompile Include="..\source\ui\DebugStatsOverlay.cpp" />
     <ClCompile Include="..\source\ui\DebugWindow.cpp" />
@@ -173,6 +170,7 @@
     <ClInclude Include="..\source\script\python\ResourceModule.h" />
     <ClInclude Include="..\source\script\python\SceneModule.h" />
     <ClInclude Include="..\source\script\python\ScriptModule.h" />
+    <ClInclude Include="..\source\script\python\ToolsModule.h" />
     <ClInclude Include="..\source\script\python\UIModule.h" />
     <ClInclude Include="..\source\script\python\UtilitiesModule.h" />
     <ClInclude Include="..\source\script\Script.h" />
@@ -180,10 +178,8 @@
     <ClInclude Include="..\source\script\ScriptCommon.h" />
     <ClInclude Include="..\source\script\ScriptEngineCore.h" />
     <ClInclude Include="..\source\script\ScriptManager.h" />
-    <ClInclude Include="..\source\tools\procedural\SimplexNoise.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="..\source\tools\procedural\Perlin.h" />
+    <ClInclude Include="..\source\tools\procedural\stb_perlin.h" />
     <ClInclude Include="..\source\ui\ConsoleWindow.h" />
     <ClInclude Include="..\source\ui\DebugStatsOverlay.h" />
     <ClInclude Include="..\source\ui\DebugWindow.h" />
@@ -244,7 +240,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\source;C:\Dev\Resources\C++\glm-0.9.5.3\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -262,7 +258,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\source;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\source;C:\Dev\Resources\C++\glm-0.9.5.3\glm;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
