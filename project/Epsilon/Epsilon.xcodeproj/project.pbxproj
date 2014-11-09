@@ -18,6 +18,7 @@
 		10783FE4190C09DB00F0A88C /* PhysicsModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10783FE2190C09DB00F0A88C /* PhysicsModule.cpp */; };
 		10783FE9190C0A8100F0A88C /* GizmoAxis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10783FE5190C0A8100F0A88C /* GizmoAxis.cpp */; };
 		10783FEA190C0A8100F0A88C /* GizmoLine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10783FE7190C0A8100F0A88C /* GizmoLine.cpp */; };
+		10832D4F1932ADDF00C419A7 /* ToolsModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10832D4E1932ADDF00C419A7 /* ToolsModule.cpp */; };
 		10877F4A190C055F008F9076 /* libBulletCollision.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10877F46190C055F008F9076 /* libBulletCollision.a */; };
 		10877F4B190C055F008F9076 /* libBulletDynamics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10877F47190C055F008F9076 /* libBulletDynamics.a */; };
 		10877F4C190C0560008F9076 /* libBulletSoftBody.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 10877F48190C055F008F9076 /* libBulletSoftBody.a */; };
@@ -126,6 +127,10 @@
 		10783FE6190C0A8100F0A88C /* GizmoAxis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GizmoAxis.h; path = gizmos/GizmoAxis.h; sourceTree = "<group>"; };
 		10783FE7190C0A8100F0A88C /* GizmoLine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GizmoLine.cpp; path = gizmos/GizmoLine.cpp; sourceTree = "<group>"; };
 		10783FE8190C0A8100F0A88C /* GizmoLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GizmoLine.h; path = gizmos/GizmoLine.h; sourceTree = "<group>"; };
+		10832D4B1932AB2E00C419A7 /* stb_perlin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = stb_perlin.h; path = tools/procedural/stb_perlin.h; sourceTree = "<group>"; };
+		10832D4C1932ABAB00C419A7 /* Perlin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Perlin.h; path = tools/procedural/Perlin.h; sourceTree = "<group>"; };
+		10832D4D1932ADCE00C419A7 /* ToolsModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ToolsModule.h; sourceTree = "<group>"; };
+		10832D4E1932ADDF00C419A7 /* ToolsModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ToolsModule.cpp; sourceTree = "<group>"; };
 		10877F46190C055F008F9076 /* libBulletCollision.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBulletCollision.a; path = "../../../../../Resources/c_libs/C++/bullet-2.82-r2704/src/BulletCollision/Debug/libBulletCollision.a"; sourceTree = "<group>"; };
 		10877F47190C055F008F9076 /* libBulletDynamics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBulletDynamics.a; path = "../../../../../Resources/c_libs/C++/bullet-2.82-r2704/src/BulletDynamics/Debug/libBulletDynamics.a"; sourceTree = "<group>"; };
 		10877F48190C055F008F9076 /* libBulletSoftBody.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBulletSoftBody.a; path = "../../../../../Resources/c_libs/C++/bullet-2.82-r2704/src/BulletSoftBody/Debug/libBulletSoftBody.a"; sourceTree = "<group>"; };
@@ -396,6 +401,23 @@
 			name = Bulletlibs;
 			sourceTree = "<group>";
 		};
+		10832D461932A99200C419A7 /* tools */ = {
+			isa = PBXGroup;
+			children = (
+				10832D471932A99E00C419A7 /* procedural */,
+			);
+			name = tools;
+			sourceTree = "<group>";
+		};
+		10832D471932A99E00C419A7 /* procedural */ = {
+			isa = PBXGroup;
+			children = (
+				10832D4B1932AB2E00C419A7 /* stb_perlin.h */,
+				10832D4C1932ABAB00C419A7 /* Perlin.h */,
+			);
+			name = procedural;
+			sourceTree = "<group>";
+		};
 		10B94DA018DE5403002A53C9 /* gizmos */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,6 +479,7 @@
 		10EC444E1878422700B48152 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				10832D461932A99200C419A7 /* tools */,
 				105423881922D21100BD2D55 /* audio */,
 				10EC444F1878422700B48152 /* core */,
 				10EC44521878422700B48152 /* EpsilonCore.h */,
@@ -619,6 +642,8 @@
 				10EC44A01878422700B48152 /* UtilitiesModule.h */,
 				10BCF19319242B810062F421 /* AudioModule.h */,
 				10BCF19419242B900062F421 /* AudioModule.cpp */,
+				10832D4D1932ADCE00C419A7 /* ToolsModule.h */,
+				10832D4E1932ADDF00C419A7 /* ToolsModule.cpp */,
 			);
 			path = python;
 			sourceTree = "<group>";
@@ -781,6 +806,7 @@
 				10EC44D31878422700B48152 /* ManagerModule.cpp in Sources */,
 				10FBE90818E8CD6A00027082 /* Resource.cpp in Sources */,
 				10783FE9190C0A8100F0A88C /* GizmoAxis.cpp in Sources */,
+				10832D4F1932ADDF00C419A7 /* ToolsModule.cpp in Sources */,
 				10EC44D21878422700B48152 /* MainModule.cpp in Sources */,
 				10D3AFFE18B625790041DBC5 /* DebugStatsOverlay.cpp in Sources */,
 				10C2B8701909EA240032EDDA /* VertexAttrib.cpp in Sources */,

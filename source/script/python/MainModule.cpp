@@ -14,6 +14,7 @@
 #include "script/python/PhysicsModule.h"
 #include "script/python/UIModule.h"
 #include "script/python/AudioModule.h"
+#include "script/python/ToolsModule.h"
 
 using namespace boost::python;
 
@@ -34,4 +35,5 @@ BOOST_PYTHON_MODULE(epsilon)
 	initUI();
     initAudio();
 	initUtilities();
+    initTools();
 }
