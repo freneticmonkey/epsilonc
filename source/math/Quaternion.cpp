@@ -2,9 +2,6 @@
 //  Quaternion.cpp
 //  Epsilon
 //
-//  Created by Scott Porter on 30/12/12.
-//  Copyright (c) 2012 Scott Porter. All rights reserved.
-//
 
 #include <cmath>
 

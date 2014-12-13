@@ -5,7 +5,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 14/05/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 
 #include "EpsilonCore.h"

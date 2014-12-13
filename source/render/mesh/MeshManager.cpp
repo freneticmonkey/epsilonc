@@ -3,7 +3,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 24/04/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 
 #include "render/mesh/MeshManager.h"
