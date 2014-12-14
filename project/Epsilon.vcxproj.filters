@@ -30,9 +30,6 @@
     <Filter Include="Source Files\ui">
       <UniqueIdentifier>{e53e0504-5c34-4844-a612-0f3a8a3b545d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\tests">
-      <UniqueIdentifier>{1672800d-7a8f-43af-93d4-1068c4cd42c4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\script">
       <UniqueIdentifier>{41896f6e-d07f-4d63-bb89-4d7a357f6028}</UniqueIdentifier>
     </Filter>
@@ -118,12 +115,6 @@
     </ClCompile>
     <ClCompile Include="..\source\ui\UIManager.cpp">
       <Filter>Source Files\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\tests\pointerTests.cpp">
-      <Filter>Source Files\tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\main.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\source\script\ScriptManager.cpp">
       <Filter>Source Files\script</Filter>
@@ -278,9 +269,6 @@
     <ClCompile Include="..\source\physics\Collider.cpp">
       <Filter>Source Files\physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\tools\procedural\SimplexNoise.cpp">
-      <Filter>Source Files\tools\procedural</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\audio\AudioManager.cpp">
       <Filter>Source Files\audio</Filter>
     </ClCompile>
@@ -294,6 +282,9 @@
       <Filter>Source Files\audio</Filter>
     </ClCompile>
     <ClCompile Include="..\source\script\python\AudioModule.cpp">
+      <Filter>Source Files\script\python</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\script\python\ToolsModule.cpp">
       <Filter>Source Files\script\python</Filter>
     </ClCompile>
   </ItemGroup>
@@ -577,9 +568,6 @@
     <ClInclude Include="..\source\utilities\EmptyDeleter.h">
       <Filter>Source Files\utilities</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\tools\procedural\SimplexNoise.h">
-      <Filter>Source Files\tools\procedural</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\math\Bounds.h">
       <Filter>Source Files\math</Filter>
     </ClInclude>
@@ -597,6 +585,18 @@
     </ClInclude>
     <ClInclude Include="..\source\script\python\AudioModule.h">
       <Filter>Source Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\script\python\ToolsModule.h">
+      <Filter>Source Files\script\python</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tools\procedural\Perlin.h">
+      <Filter>Source Files\tools\procedural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tools\procedural\stb_perlin.h">
+      <Filter>Source Files\tools\procedural</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\utilities\BaseManager.h">
+      <Filter>Source Files\utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

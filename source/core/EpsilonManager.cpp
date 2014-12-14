@@ -78,9 +78,9 @@ namespace epsilon
         
 #ifndef __APPLE__
         // No graphs on OSX due to the UI being OpenGL 2 and everything being sad :'(
-		ConsoleWindow::Ptr consoleWindow = ConsoleWindow::Create();
-		consoleWindow->Setup();
-		uiManager->AddUIWindow(consoleWindow);
+		//ConsoleWindow::Ptr consoleWindow = ConsoleWindow::Create();
+		//consoleWindow->Setup();
+		//uiManager->AddUIWindow(consoleWindow);
 
 		DebugStatsOverlay::Ptr debugStatsOverlay = DebugStatsOverlay::Create();
 		debugStatsOverlay->Setup();

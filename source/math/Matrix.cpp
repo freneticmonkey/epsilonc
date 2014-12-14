@@ -92,7 +92,7 @@ float &Matrix3::operator[](int i)
 {
 	if ( i < 0 || i > 9 )
 	{
-		throw BoundaryException("Matrix3", i, 9);
+		throw epsilon::BoundaryException("Matrix3", i, 9);
 	}
 	
 	return data[i];
@@ -282,7 +282,7 @@ float &Matrix4::operator[](int i)
 {
     if ( i < 0 || i > 16 )
 	{
-		throw BoundaryException("Matrix4", i, 16);
+		throw epsilon::BoundaryException("Matrix4", i, 16);
 	}
 	
 	return data[i];

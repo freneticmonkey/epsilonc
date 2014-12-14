@@ -1,6 +1,5 @@
-#include "EpsilonCore.h"
-
-#include "core/EpsilonManager.h"
+#include <EpsilonCore.h>
+#include <core/EpsilonManager.h>
 #include <string>
 
 using namespace epsilon;

@@ -24,28 +24,33 @@ namespace epsilon
 		std::string audioRegex;
 		std::vector<std::string> exts;
         
-        exts.push_back("ogg");
-		exts.push_back("wav");
-		exts.push_back("flac");
+        exts.push_back(".ogg");
+		exts.push_back(".wav");
+		exts.push_back(".flac");
         
-		// Pre-allocate the regex assuming a maximum extension length of 5
-		audioRegex.reserve(exts.size() * 5);
-        
-		for (std::vector<std::string>::iterator e = exts.begin(); e != exts.end(); e++)
+		if (false)
 		{
-			audioRegex += (*e);
-            
-			// If not the last extension, insert a pipe
-			if (e < (exts.end() - 1))
+
+			// Pre-allocate the regex assuming a maximum extension length of 5
+			audioRegex.reserve(exts.size() * 5);
+
+			for (std::vector<std::string>::iterator e = exts.begin(); e != exts.end(); e++)
 			{
-				audioRegex += "|";
+				audioRegex += (*e);
+
+				// If not the last extension, insert a pipe
+				if (e < (exts.end() - 1))
+				{
+					audioRegex += "|";
+				}
 			}
+
+			audioRegex = str(format(".*(%s)$") % audioRegex);
+
+			// Search the ResourceManager for all files with supported audio extensions
+			ResourceList results = ResourceManager::GetInstance().FindResources(audioRegex);
 		}
-        
-		audioRegex = str(format(".*(%s)$") % audioRegex);
-        
-		// Search the ResourceManager for all files with supported audio extensions
-		ResourceList results = ResourceManager::GetInstance().FindResources(audioRegex);
+		ResourceList results = ResourceManager::GetInstance().FindResourcesByExtension(exts);
         
 		// For each of the results
 		std::for_each(results.begin(), results.end(), [&](Resource::Ptr resource){

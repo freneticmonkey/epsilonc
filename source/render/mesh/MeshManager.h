@@ -29,7 +29,7 @@ namespace epsilon
 		~MeshManager();
 
 		void        Setup();
-		void		LoadMeshs();
+		void		LoadMeshes();
 
 		Mesh::Ptr GetMeshByName(std::string name);
 		Mesh::Ptr GetMeshByPath(std::string path);

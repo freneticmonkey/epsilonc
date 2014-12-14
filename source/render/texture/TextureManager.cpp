@@ -40,24 +40,28 @@ namespace epsilon
 			exts.insert(exts.end(), ext.begin(), ext.end());
 		});
 
-		// Pre-allocate the regex assuming a maximum extension length of 5
-		textureRegex.reserve(exts.size() * 5);
-
-		for (std::vector<std::string>::iterator e = exts.begin(); e != exts.end(); e++)
+		if (false)
 		{
-			textureRegex += (*e);
+			// Pre-allocate the regex assuming a maximum extension length of 5
+			textureRegex.reserve(exts.size() * 5);
 
-			// If not the last extension, insert a pipe
-			if (e < (exts.end() - 1))
+			for (std::vector<std::string>::iterator e = exts.begin(); e != exts.end(); e++)
 			{
-				textureRegex += "|";
+				textureRegex += (*e);
+
+				// If not the last extension, insert a pipe
+				if (e < (exts.end() - 1))
+				{
+					textureRegex += "|";
+				}
 			}
+
+			textureRegex = str(format(".*(%s)$") % textureRegex);
+
+			// Search the ResourceManager for all files with supported texture extensions
+			ResourceList results = ResourceManager::GetInstance().FindResources(textureRegex);
 		}
-
-		textureRegex = str(format(".*(%s)$") % textureRegex);
-
-		// Search the ResourceManager for all files with supported texture extensions
-		ResourceList results = ResourceManager::GetInstance().FindResources(textureRegex);
+		ResourceList results = ResourceManager::GetInstance().FindResourcesByExtension(exts);
 
 		// For each of the results
 		std::for_each(results.begin(), results.end(), [&](Resource::Ptr resource){
