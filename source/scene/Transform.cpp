@@ -35,7 +35,7 @@ namespace epsilon
 	{
 	}
 
-	void Transform::Destroy()
+	void Transform::OnDestroy()
 	{
 		// Empty queued updates
 		//parent->cancelUpdate(ThisPtr());

@@ -31,7 +31,7 @@ namespace epsilon
 
 		// Draw Function with material override.
 		void Draw(Material::Ptr drawMaterial);
-        void Destroy();
+		void OnDestroy();
         
 		void SetMesh(Mesh::Ptr newMesh);
 		void SetMeshByName(std::string meshName);

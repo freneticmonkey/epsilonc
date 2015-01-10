@@ -36,9 +36,13 @@ namespace epsilon
 		void SetActiveCamera(std::string name);
 
 		bool AddCamera(Camera::Ptr newCamera);
+		bool RemoveCamera(Camera::Ptr newCamera);
+		bool RemoveCamera(std::string name);
 		Camera::Ptr GetCamera(std::string name);
 
 		bool AddLight(Light::Ptr newLight);
+		bool RemoveLight(Light::Ptr newLight);
+		bool RemoveLight(std::string name);
 		Light::Ptr GetLight(std::string name);
 
 		LightList GetLights() { return sceneLights; }

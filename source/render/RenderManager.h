@@ -55,8 +55,13 @@ namespace epsilon
 		sf::RenderWindow *	GetWindow() { return window;  }
         
 		// Create Managed Items
-        Renderer::Ptr		CreateRenderer();
+		Renderer::Ptr		CreateRenderer();
+		bool				DestroyRenderer(Renderer::Ptr renderer);
+		
 		Light::Ptr			CreateLight(std::string name);
+		bool				DestroyLight(Light::Ptr newLight);
+		bool				DestroyLight(std::string name);
+
 		Camera::Ptr			CreateCamera(std::string name);
         
 	private:

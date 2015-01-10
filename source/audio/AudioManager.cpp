@@ -180,6 +180,24 @@ namespace epsilon
 		return newAudioSource;
 	}
 
+	bool AudioManager::DestroyAudioSource(AudioSource::Ptr audioSource)
+	{
+		bool success = false;
+
+		Sources::iterator it = std::find_if(sources.begin(), sources.end(), [&](AudioSource::Ptr source){
+			return source == audioSource;
+		});
+
+		if (it != sources.end())
+		{
+			(*it)->OnDestroy();
+			sources.erase(it);
+			success = true;
+		}
+
+		return success;
+	}
+
 	AudioSource::Ptr AudioManager::CreateAudioSourceByPath(std::string path)
 	{
 		AudioSource::Ptr newAudioSource;

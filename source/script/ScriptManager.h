@@ -50,6 +50,8 @@ namespace epsilon
 		
 		void ReloadScript(Script::Ptr script);
 
+		bool DestroyScript(Script::Ptr script);
+
 		// Is a script currently being processed.
 		bool IsActive() { return activeResourceId != -1; }
 

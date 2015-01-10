@@ -99,40 +99,73 @@ namespace epsilon
 	bool Scene::AddCamera(Camera::Ptr newCamera)
 	{
 		// Find the camera
-		bool found = false;
+		bool added = false;
 
-		for ( CameraList::iterator cam = sceneCameras.begin(); cam != sceneCameras.end(); cam++ )
-		{
-			if ( newCamera->GetId() == (*cam)->GetId() )
-			{
-				found = true;
-				break;
-			}
-		}
+		CameraList::iterator it = std::find_if(sceneCameras.begin(), sceneCameras.end(), [&](Camera::Ptr cam){
+			return cam->GetId() == newCamera->GetId();
+		});
 
 		// if a new camera
-		if (!found)
+		if (it == sceneCameras.end())
 		{
 			// keep track of it
 			sceneCameras.push_back(newCamera);
+			added = true;
 		}
 
 		// Return the result of the add
-		return !found;
+		return added;
+	}
+
+	bool Scene::RemoveCamera(Camera::Ptr camera)
+	{
+		// Find the camera
+		bool found = false;
+
+		CameraList::iterator it = std::find_if(sceneCameras.begin(), sceneCameras.end(), [&](Camera::Ptr cam){
+			return cam == camera;
+		});
+
+		if (it != sceneCameras.end())
+		{
+			sceneCameras.erase(it);
+			found = true;
+		}
+
+		// Return the result
+		return found;
+	}
+
+	bool Scene::RemoveCamera(std::string name)
+	{
+		// Find the camera
+		bool found = false;
+
+		CameraList::iterator it = std::find_if(sceneCameras.begin(), sceneCameras.end(), [&](Camera::Ptr cam){
+			return cam->GetName() == name;
+		});
+
+		if (it != sceneCameras.end())
+		{
+			sceneCameras.erase(it);
+			found = true;
+		}
+
+		// Return the result
+		return found;
 	}
 
 	Camera::Ptr Scene::GetCamera(std::string name)
 	{
 		Camera::Ptr foundCam;
+		
+		CameraList::iterator it = std::find_if(sceneCameras.begin(), sceneCameras.end(), [&](Camera::Ptr cam){
+			return cam->GetName() == name;
+		});
 
-		for ( CameraList::iterator cam = sceneCameras.begin(); cam != sceneCameras.end(); cam++ )
+		if (it != sceneCameras.end())
 		{
-			if ( (*cam)->GetName() == name )
-			{
-				// Set it as the active camera
-				foundCam = (*cam);
-				break;
-			}
+			foundCam = (*it);
 		}
 
 		return foundCam;
@@ -149,6 +182,40 @@ namespace epsilon
 		if (it == sceneLights.end())
 		{
 			sceneLights.push_back(light);
+			success = true;
+		}
+
+		return success;
+	}
+
+	bool Scene::RemoveLight(Light::Ptr light)
+	{
+		bool success = false;
+
+		LightList::iterator it = std::find_if(sceneLights.begin(), sceneLights.end(), [&](Light::Ptr sLight){
+			return light == sLight;
+		});
+
+		if (it == sceneLights.end())
+		{
+			sceneLights.erase(it);
+			success = true;
+		}
+
+		return success;
+	}
+
+	bool Scene::RemoveLight(std::string name)
+	{
+		bool success = false;
+
+		LightList::iterator it = std::find_if(sceneLights.begin(), sceneLights.end(), [&](Light::Ptr light){
+			return light->GetName() == name;
+		});
+
+		if (it == sceneLights.end())
+		{
+			sceneLights.erase(it);
 			success = true;
 		}
 

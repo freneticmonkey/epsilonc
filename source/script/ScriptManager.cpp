@@ -154,6 +154,43 @@ namespace epsilon
 		// return success;
 	}
 
+	bool ScriptManager::DestroyScript(Script::Ptr script)
+	{
+		bool success = false;
+
+		BehaviourList::iterator behaviour = std::find_if(behaviourList.begin(), behaviourList.end(), [&](Script::Ptr scr){
+			return scr == script;
+		});
+
+		if (behaviour != behaviourList.end())
+		{
+			try
+			{
+				// Firstly call the OnDestroy function
+				if (!script->InError())
+				{
+					activeResourceId = script->GetResourceId();
+					script->OnDestroy();
+					activeResourceId = -1;
+				}
+
+				// Remove the script
+				behaviourList.erase(behaviour);
+			}
+			catch (const error_already_set&)
+			{
+				// If errors occur, do the standard error and postfix with destroy error.
+				if (PyErr_Occurred())
+				{
+					PrintPythonError();
+				}
+				Log("ScriptManager", boost::str(format("Error while destroying script: %s") % script->GetFilename()) );
+			}
+		}
+		
+		return success;
+	}
+
 	void ScriptManager::StartBehaviours()
 	{
 		// Run start for each behaviour

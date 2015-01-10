@@ -47,6 +47,11 @@ namespace epsilon
 		}
 	}
 
+	void AudioSource::OnDestroy()
+	{
+		sound.stop();
+	}
+
 	void AudioSource::Setup()
 	{
 		

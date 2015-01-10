@@ -75,6 +75,7 @@ namespace epsilon
 
 		// RigidBody Creation
 		RigidBody::Ptr CreateRigidBody(float mass = 0.f, Vector3 inertia = Vector3::ZERO, bool kinematic = false);
+		bool		   DestroyRigidBody(RigidBody::Ptr body);
 		RigidBody::Ptr GetRigidBody(long id);
 
 		// Track RigidBody state changes

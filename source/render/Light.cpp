@@ -142,6 +142,11 @@ namespace epsilon
     {
         transform = componentParent->GetComponent<Transform>();
     }
+
+	void Light::OnDestroy()
+	{
+
+	}
     
     Vector3 Light::GetPosition()
     {

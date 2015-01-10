@@ -36,7 +36,7 @@ namespace epsilon
 		Transform::Ptr ThisPtr() { return shared_from_this(); }
 
 		static Transform::Ptr Create();
-		void Destroy();
+		void OnDestroy();
         
         // Handle Transmitting enabled state through the scene graph.
         void OnEnable();

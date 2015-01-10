@@ -51,7 +51,7 @@ namespace epsilon
 	{
 	}
     
-    void Renderer::Destroy()
+    void Renderer::OnDestroy()
     {
         mesh->Destroy();
     }

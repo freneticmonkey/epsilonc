@@ -191,7 +191,7 @@ namespace epsilon
         
         // Pass on the destroy message to the Renderer objects
         std::for_each(renderers.begin(), renderers.end(), [](Renderer::Ptr renderer){
-            renderer->Destroy();
+            renderer->OnDestroy();
         });
     }
 
@@ -272,11 +272,64 @@ namespace epsilon
 		return newRenderer;
 	}
 
+	bool RenderManager::DestroyRenderer(Renderer::Ptr renderer)
+	{
+		bool success = false;
+
+		//Renderer::Ptr newRenderer = Renderer::Create();
+		Renderers::iterator it = std::find_if(renderers.begin(), renderers.end(), [&](Renderer::Ptr rend){
+			return rend == renderer;
+		});
+
+		if (it != renderers.end())
+		{
+			(*it)->OnDestroy();
+			renderers.erase(it);
+			success = true;
+		}
+
+		return success;
+	}
+
 	Light::Ptr RenderManager::CreateLight(std::string name)
 	{
 		Light::Ptr newLight = Light::Create(lights.size(), name);
 		lights.push_back(newLight);
 		return newLight;
+	}
+
+	bool RenderManager::DestroyLight(Light::Ptr light)
+	{
+		bool success = false;
+
+		LightList::iterator it = std::find_if(lights.begin(), lights.end(), [&](Light::Ptr sLight){
+			return light == sLight;
+		});
+
+		if (it == lights.end())
+		{
+			lights.erase(it);
+			success = true;
+		}
+
+		return success;
+	}
+
+	bool RenderManager::DestroyLight(std::string name)
+	{
+		bool success = false;
+
+		LightList::iterator it = std::find_if(lights.begin(), lights.end(), [&](Light::Ptr light){
+			return light->GetName() == name;
+		});
+
+		if (it == lights.end())
+		{
+			lights.erase(it);
+			success = true;
+		}
+
+		return success;
 	}
 
 	Camera::Ptr RenderManager::CreateCamera(std::string name)

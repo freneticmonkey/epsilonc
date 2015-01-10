@@ -240,6 +240,20 @@ namespace epsilon
 		return newRB;
 	}
 
+	bool PhysicsManager::DestroyRigidBody(RigidBody::Ptr body)
+	{
+		bool success = false;
+		RigidBodies::iterator it = rigidBodies.find(body->GetId());
+
+		if (it != rigidBodies.end())
+		{
+			body->OnDestroy();
+			rigidBodies.erase(it);
+			success = true;
+		}
+		return success;
+	}
+
 	RigidBody::Ptr PhysicsManager::GetRigidBody(long id)
 	{
 		RigidBody::Ptr result;

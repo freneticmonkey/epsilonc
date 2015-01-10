@@ -63,6 +63,9 @@ namespace epsilon
         // Listen to parent changes
         void OnSetParent();
 
+		// Handle Destruction by parent
+		void OnDestroy();
+
 		Vector3 GetPosition();
 		Vector3 GetDirection();
 

@@ -47,6 +47,9 @@ namespace epsilon
             explicit SceneNode(const private_struct &);
             SceneNode(const private_struct &, std::string name);
             ~SceneNode(void);
+
+			// Listen to NodeComponent OnDestroy events
+			void OnDestroy();
         
             // Get the Scene that this Node is a part of
 			SceneBase::Ptr GetScene() { return sceneOwner; }
@@ -111,6 +114,9 @@ namespace epsilon
         
             // Find an attached AudioSource by name
             AudioSource::Ptr        GetAudioSourceByName(std::string name); 
+
+		// Events
+			void OnParentRemove();
 
         protected:
             void SetScene(SceneBase::Ptr newScene) { sceneOwner = newScene; }
