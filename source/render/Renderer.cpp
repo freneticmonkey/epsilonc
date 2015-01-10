@@ -53,7 +53,8 @@ namespace epsilon
     
     void Renderer::OnDestroy()
     {
-        mesh->Destroy();
+		// Not sure that we actually want to destroy the mesh here.
+        //mesh->Destroy();
     }
 
 	void Renderer::Draw()

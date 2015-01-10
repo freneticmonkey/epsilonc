@@ -42,14 +42,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(ProjectDir)..\source;C:\Dev\Resources\C++\gtest-1.7.0\include;C:\Dev\Resources\C++\boost_1_55_0;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Dev\Resources\C++\gtest-1.7.0\msvc\gtest-md\$(Configuration);$(LibraryPath);$(SolutionDir)..\build\Win\$(Configuration)\</LibraryPath>
+    <LibraryPath>C:\Dev\Resources\C++\gtest-1.7.0\msvc\gtest-md\$(Configuration);$(LibraryPath);$(SolutionDir)..\build\Win\$(Configuration)\lib\</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\unit\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(ProjectDir)..\source;C:\Dev\Resources\C++\gtest-1.7.0\include;C:\Dev\Resources\C++\boost_1_55_0;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Dev\Resources\C++\gtest-1.7.0\msvc\gtest-md\$(Configuration);$(LibraryPath);$(SolutionDir)..\build\Win\$(Configuration)\</LibraryPath>
+    <LibraryPath>C:\Dev\Resources\C++\gtest-1.7.0\msvc\gtest-md\$(Configuration);$(LibraryPath);$(SolutionDir)..\build\Win\$(Configuration)\lib\</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\unit\$(Configuration)\</IntDir>
   </PropertyGroup>

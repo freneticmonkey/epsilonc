@@ -66,7 +66,18 @@ void initResource()
             
             if ( override f = this->get_override("refresh_resources"))
             {
-                f(changedResources);
+				try
+				{
+					f(changedResources);
+
+				}
+				catch (const error_already_set&)
+				{
+					if (PyErr_Occurred())
+					{
+						PrintPythonError();
+					}
+				}
             }
             else
             {

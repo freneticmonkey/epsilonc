@@ -102,6 +102,10 @@ namespace epsilon
 			// Then remove all audiosources attached to this node
 			audioSources.clear();
 		}
+
+		// Finally propagate event to children
+		RemoveComponent(transform);
+		transform->OnDestroy();
 	}
     
 	// Add / Move a child node from one parent to another

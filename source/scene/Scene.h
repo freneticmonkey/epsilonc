@@ -24,6 +24,8 @@ namespace epsilon
 		explicit Scene(const private_struct &, std::string sceneName);
 		~Scene(void);
 
+		void Destroy();
+
 		void Setup();
 	
 		std::string GetName() { return name; }

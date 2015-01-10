@@ -306,7 +306,7 @@ namespace epsilon
 			return light == sLight;
 		});
 
-		if (it == lights.end())
+		if (it != lights.end())
 		{
 			lights.erase(it);
 			success = true;
@@ -323,7 +323,7 @@ namespace epsilon
 			return light->GetName() == name;
 		});
 
-		if (it == lights.end())
+		if (it != lights.end())
 		{
 			lights.erase(it);
 			success = true;

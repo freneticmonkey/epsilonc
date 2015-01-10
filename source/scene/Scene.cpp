@@ -15,9 +15,15 @@ namespace epsilon
 
 	Scene::~Scene(void)
 	{
-		if ( rootNode != NULL )
+		Destroy();
+	}
+
+	void Scene::Destroy()
+	{
+		if (rootNode != nullptr)
 		{
 			rootNode->OnDestroy();
+			rootNode = nullptr;
 		}
 	}
 

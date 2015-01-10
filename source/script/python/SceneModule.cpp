@@ -251,7 +251,9 @@ void initScene()
 	class_<Scene, Scene::Ptr, boost::noncopyable>("Scene", no_init)
 		.def("create", &Scene::Create)
 		.staticmethod("create")
-	
+		
+		.def("destroy", &Scene::Destroy)
+
 		.def_readonly("name", &Scene::GetName)
 		.def_readonly("root", &Scene::Root)
 		.add_property("active_camera", &Scene::GetActiveCamera, SetActiveCameraPtr)
@@ -259,6 +261,7 @@ void initScene()
 
 		.def("add_camera", &Scene::AddCamera)
 		.def("get_camera", &Scene::GetCamera)
+
 
 		.def(self == other<Scene::Ptr>())
 		.def(self == std::string())

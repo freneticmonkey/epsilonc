@@ -9,17 +9,23 @@ Features
 * Cross Platform: Windows / MacOS
 * Python scripting
 * Bullet Physics
-* Hotloading - scripts, shaders, models, textures, scenes (experimental)
+* Hotloading Resources
 * Basic XML Scene format
 
-## Component Based Engine ##
+### Component Based Engine ###
 I developed the engine with the Unity 3D architecture in mind.  Each scene contains nodes, which can be assigned various components for audio, physics, script etc.
 
-## Scripting ##
+### Scripting ###
 Where possible I've tried to expose the engines classes to Python and most engine components are able to be modified from script.
 
-## Hotloading ##
-Currently all engine resources can be modified in place without restarting the enginem, with the exception of scenes.
+### Hotloading ###
+Currently all engine resources can be modified in place without restarting the engine.  This includes:
+- scripts
+- shaders
+- models
+- textures
+- audio
+- scenes
 
 Dependencies
 ============
@@ -33,8 +39,7 @@ Dependencies
 TODO
 ====
 
-## 10/1/2015 ##
-
+### 10/1/2015 ###
 * Convert math classes to glm
 * Shadow Rendering
 * Package Management
@@ -43,3 +48,4 @@ TODO
 * Fix currently disabled UI
 * Job tree threading implementation
 * Scene Editor
+* Switch to cross platform build system
