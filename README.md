@@ -12,6 +12,11 @@ Features
 * Hotloading Resources
 * Basic XML Scene format
 
+Platform Status
+===============
+* Windows - OK
+* MacOS - Unstable
+
 ### Component Based Engine ###
 I developed the engine with the Unity 3D architecture in mind.  Each scene contains nodes, which can be assigned various components for audio, physics, script etc.
 
@@ -30,7 +35,6 @@ Currently all engine resources can be modified in place without restarting the e
 Dependencies
 ============
 * SFML
-* SFGUI
 * Bullet Physics
 * Intel Thread Building Blocks
 * Boost ( Python, FileSystem, Format)
@@ -40,12 +44,12 @@ TODO
 ====
 
 ### 10/1/2015 ###
+* Fix currently disabled UI (Done) - Replaced with IMGUI https://github.com/ocornut/imgui Wrapped By: (https://github.com/Mischa-Alff/imgui-backends)
 * Convert math classes to glm
 * Shadow Rendering
 * Package Management
 * Documentation
 * Unit Testing
-* Fix currently disabled UI
 * Job tree threading implementation
 * Scene Editor
 * Switch to cross platform build system
