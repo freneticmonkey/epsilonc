@@ -325,7 +325,7 @@ namespace epsilon
 			CheckOpenGLError("DrawElements");
 		}
         
-        //Disable();
+        Disable();
         
 		return success;
 	}

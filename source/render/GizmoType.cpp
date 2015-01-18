@@ -23,6 +23,12 @@ namespace epsilon
 
 	void GizmoType::Update(float el)
 	{
+		// FIXME: To avoid the gizmo manager being initialised after the material manager
+		if (material == nullptr)
+		{
+			material = MaterialManager::GetInstance().GetMaterialByName("gizmo");
+		}
+
 		// Remove any expired gizmos
 		for (GizmoOperations::iterator it = operations[currentOperations].begin(); it != operations[currentOperations].end();)
 		{

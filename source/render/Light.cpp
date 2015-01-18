@@ -304,6 +304,7 @@ namespace epsilon
 		{
 			if (!shadowsFailed)
 			{
+				glActiveTexture(GL_TEXTURE0);
 				// Unbind shadow depth texture
 				glBindTexture(GL_TEXTURE_2D, 0);
 

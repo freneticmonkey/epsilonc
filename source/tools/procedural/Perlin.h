@@ -4,7 +4,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 26/05/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 
 // This is a wrapper function for the stb_perlin.h perlin functions

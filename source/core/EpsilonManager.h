@@ -12,14 +12,9 @@
 #include "render/material/MaterialManager.h"
 #include "render/mesh/MeshManager.h"
 #include "render/texture/TextureManager.h"
-#include "render/gizmos/GizmoManager.h"
 #include "scene/SceneManager.h"
 #include "script/ScriptManager.h"
 #include "physics/PhysicsManager.h"
-#include "ui/UIManager.h"
-#include "ui/ConsoleWindow.h"
-#include "ui/DebugStatsOverlay.h"
-#include "ui/Graph.h"
 
 #include "utilities/Utilities.h"
 
@@ -57,17 +52,10 @@ namespace epsilon
 		TextureManager * textureManager;
 		UIManager * uiManager;
 		SceneManager * sceneManager;
-		GizmoManager * gizmoManager;
 		PhysicsManager * physicsManager;
 		CycleValue cycle;
 		Transform::Ptr triangleTrans;
 		Camera::Ptr camera;
-
-		Graph::Ptr fpsGraph;
-		Graph::Ptr scriptGraph;
-		Graph::Ptr sceneGraph;
-		Graph::Ptr renderGraph;
-		Graph::Ptr eventsGraph;
 
 		sf::Clock  scriptClock;
 		sf::Clock  sceneClock;

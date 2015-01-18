@@ -13,6 +13,6 @@ void main()
 {
 	// Set the normals as the default colour
 	ex_Colour = material.diffuse;
-	gl_Position = projectionMatrix * transpose(viewMatrix) * transpose(modelMatrix) * vec4(position, 1.0);
+	gl_Position = projectionMatrix * viewMatrix * transpose(modelMatrix) * vec4(position, 1.0);
 	
 }

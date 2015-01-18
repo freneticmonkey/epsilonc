@@ -3,6 +3,8 @@
 #include "EpsilonCore.h"
 
 #include "ui/UIManager.h"
+#include "ui/RenderStatsWindow.h"
+
 #include "scene/SceneManager.h"
 #include "render/Renderer.h"
 #include "render/gizmos/GizmoManager.h"
@@ -31,6 +33,7 @@ namespace epsilon
 		~RenderManager(void);
 		
 		void	Setup(void);
+		void	OnUpdate(float el);
 		void	Draw(float el);        
         void	Destroy();
 
@@ -38,17 +41,17 @@ namespace epsilon
 		bool	WindowOpen(void);
 		void	CloseWindow(void);
 		bool	WindowInFocus(void);
-
+		
 		bool	PollEvent(sf::Event &event);
 
-		void	ProcessEvent(sf::Event &event);
+		bool	IsRunning() { return isRunning; }
 
 		// Scene
 		void	SetSceneManager(SceneManager * sm);
 
 		// UI
-		void	SetUIManager(UIManager *uim);
-
+		UIManager *	GetUIManager();
+		
 		// Utility
 		float	GetFPS(float el);
 		Vector2	GetResolution() { return resolution;  }
@@ -69,13 +72,14 @@ namespace epsilon
 		void	SetupLights();
 		void	TeardownLights();
 
+		bool				isRunning;
+
 		sf::RenderWindow *	window;
-		sf::Text *			fpsText;
-		sf::Font *			font;
 		Vector2				resolution;
 
 		bool				windowInFocus;
 
+		RenderStatsWindow::Ptr renderUI;
 		float				fps;
 		SceneManager *		sceneManager;
 		UIManager *			uiManager;
@@ -96,6 +100,10 @@ namespace epsilon
 		ShaderUniform::Ptr	numLights;
 		Lights				lights;
 		Cameras				cameras;
+		
+		// Current Event
+		sf::Event event;
+
 	};
 }
 

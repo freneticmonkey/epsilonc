@@ -1,6 +1,9 @@
+#include <boost/format.hpp>
+
 #include "render/RenderManager.h"
 #include "render/gizmos/GizmoCube.h"
-#include <boost/format.hpp>
+#include "ui/UIManager.h"
+
 
 using namespace boost;
 
@@ -8,7 +11,8 @@ namespace epsilon
 {
 	RenderManager::RenderManager(void) : currFPSSample(0),
 										 resolution(800,600),
-										 windowInFocus(true)
+										 windowInFocus(true),
+										 isRunning(true)
 	{
 		for ( int i = 0; i < NUM_FPS_SAMPLES; i++)
 		{
@@ -18,8 +22,6 @@ namespace epsilon
 
 	RenderManager::~RenderManager(void)
 	{
-		if ( fpsText ) { delete fpsText; }
-		if ( font ) { delete font; }
 		if ( window ) { delete window; }
 	}
 
@@ -29,41 +31,26 @@ namespace epsilon
 
 		Log("Initialising RenderManager");
         
-        ContextSettings openglSettings;
-        openglSettings.depthBits = 16;
+		ContextSettings openglSettings;
+		openglSettings.depthBits = 16;
         openglSettings.stencilBits = 8;
         openglSettings.antialiasingLevel = 0;
         openglSettings.majorVersion = 3;
         openglSettings.minorVersion = 2;
 		window = new RenderWindow(VideoMode(resolution.x, resolution.y),
-								   "Epsilon Engine",
-								   Style::Default,
-								   openglSettings);
-        
+											"Epsilon Engine" ,
+											Style::Default,
+											openglSettings);
+
         CheckOpenGLError("After creating window");
+
+		// Now that we have the window initialise the UIManager
+		uiManager = &UIManager::GetInstance();
+		uiManager->Setup(window);
 
 		// Set Framerate limit to 60fps
 		window->setFramerateLimit(60);
 
-		font = new Font();
-
-//FIXME: This is the *worst*.  UI only on Windows build for now.
-#ifndef __APPLE__
-        std::string fontPath = "resources/sansation.ttf";
-		
-        if (!font->loadFromFile(fontPath))
-		{
-			Log("Unable to find font: sansation.ttf");
-		}
-		else
-		{
-			// TODO: This needs to be moved into a UI Window with other debug info.
-			fpsText = new Text(std::string("FPS: 0.0"), *font);
-			fpsText->setColor(Color(255,255,255,170));
-			fpsText->setPosition(700.f, 0.f);
-			fpsText->setCharacterSize(16);
-		}
-#endif
 //		window->setVerticalSyncEnabled(true);
 
 		// Initialising OpenGL
@@ -95,11 +82,14 @@ namespace epsilon
         Log((const char *)glGetString(GL_SHADING_LANGUAGE_VERSION));
         
         CheckOpenGLError("Getting OpenGl Versions");
-        
+     
+		renderUI = RenderStatsWindow::Create();
+		uiManager->AddUIWindow(renderUI);
         fps = 0.0f;
 
-		// Get an instance of the GizmoManager for rendering
+		// Create an instance of the GizmoManager for rendering Gizmos
 		gizmoManager = &GizmoManager::GetInstance();
+		gizmoManager->Setup();
 		
         // Get an instance of the ShaderManager for rendering
         shaderManager = &ShaderManager::GetInstance();
@@ -111,11 +101,17 @@ namespace epsilon
 		meshManager = &MeshManager::GetInstance();
 	}
 
+	void RenderManager::OnUpdate(float el)
+	{
+		gizmoManager->OnUpdate(el);
+		uiManager->OnUpdate(el);
+	}
+
 	void RenderManager::Draw(float el)
 	{
         // Make this window active
 		window->setActive(true);
-        
+		
         // Clear errors before drawing gizmos to be sure we get real errors
         glGetError();
         
@@ -125,8 +121,8 @@ namespace epsilon
 		glEnable(GL_DEPTH_TEST);
 		glDepthMask(GL_TRUE);
 		glClearDepth(1.f);
-        
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         
 		// Obtain the list of items to be drawn
 		renderItems = sceneManager->GetRenderList();
@@ -157,26 +153,15 @@ namespace epsilon
 		// Perform post render light cleanup
 		TeardownLights();
 
-        std::string output = boost::str(format("Epsilon - FPS: %f") % GetFPS(el) );
-        window->setTitle(output);
-        
-        if ( fpsText )
-		{
-            window->pushGLStates();
-            window->resetGLStates();
-            window->draw(*fpsText);
-            window->popGLStates();
-		}
-        
+		// Pass the FPS Stats through to the render UI
+		renderUI->SetFPS(GetFPS(el));
+		        
         // Draw the Gizmos
 		gizmoManager->Draw();
-		
-        // Draw the GUI
-		if ( uiManager )
-		{
-		//	uiManager->Draw(window);
-		}
-        
+
+		// Draw the UI
+		uiManager->Draw();
+		        
 		// Display the frame
 		window->display();
 	}
@@ -188,6 +173,9 @@ namespace epsilon
         
         // destroy the gizmo manager first
         gizmoManager->Destroy();
+
+
+		uiManager->Destroy();
         
         // Pass on the destroy message to the Renderer objects
         std::for_each(renderers.begin(), renderers.end(), [](Renderer::Ptr renderer){
@@ -212,17 +200,18 @@ namespace epsilon
 	{
 		return windowInFocus;
 	}
-
+	
 	bool RenderManager::PollEvent(sf::Event &event)
 	{
-		return window->pollEvent(event);
-	}
+		// Grab an event off the queue
+		bool hasEvent = window->pollEvent(event);
 
-	void RenderManager::ProcessEvent(sf::Event &event)
-	{
-		// Ignore input events if the window is not selected.
-		switch (event.type)
+		if (hasEvent)
 		{
+			// Process the event internally via RenderManager and UIManager
+			// before returning
+			switch (event.type)
+			{
 			// Check for window focus
 			case sf::Event::GainedFocus:
 				windowInFocus = true;
@@ -230,24 +219,35 @@ namespace epsilon
 			case sf::Event::LostFocus:
 				windowInFocus = false;
 				break;
+			}
+
+			// If the window is in focus
+			if (windowInFocus)
+			{
+				// Process the UI events
+				uiManager->ProcessEvent(event);
+			}
+
+			// If a close event has been detected
+			if (event.type == sf::Event::Closed)
+			{
+				isRunning = false;
+
+				// Immediately Break the event pump? - This could result in unexpected behaviour
+				hasEvent = false;
+			}
 		}
+		return hasEvent;
 	}
 
 	void RenderManager::SetSceneManager(SceneManager * sm)
 	{
 		sceneManager = sm;
 	}
-    
-	void RenderManager::SetUIManager(UIManager * uim)
+
+	UIManager * RenderManager::GetUIManager()
 	{
-        
-#ifndef __APPLE__
-        // Disable setting the UIManager on OSX as the UI isn't working.
-		if ( uim )
-		{
-			uiManager = uim;
-		}
-#endif
+		return uiManager;
 	}
 
 	float RenderManager::GetFPS(float el)
