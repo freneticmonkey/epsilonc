@@ -143,7 +143,7 @@ namespace epsilon
 		});
 	}
 
-	void MeshManager::ProcessMeshs()
+	void MeshManager::ProcessMeshes()
 	{
 		// Push any changed Mesh data to the GPU.
 		std::for_each(meshs.begin(), meshs.end(), [](std::pair < std::string, Mesh::Ptr> mesh){

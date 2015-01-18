@@ -38,7 +38,7 @@ namespace epsilon
 		void RefreshResources(ResourceIdVector resources);
 
 		// This will be called from the RenderManager
-		void ProcessMeshs();
+		void ProcessMeshes();
 
 	private:
 		MeshMap		meshs;
