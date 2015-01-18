@@ -24,9 +24,9 @@ namespace epsilon
 		std::string audioRegex;
 		std::vector<std::string> exts;
         
-        exts.push_back("ogg");
-		exts.push_back("wav");
-		exts.push_back("flac");
+        exts.push_back(".ogg");
+		exts.push_back(".wav");
+		exts.push_back(".flac");
         
 		// Pre-allocate the regex assuming a maximum extension length of 5
 		audioRegex.reserve(exts.size() * 5);
@@ -50,6 +50,8 @@ namespace epsilon
 		// For each of the results
 		std::for_each(results.begin(), results.end(), [&](Resource::Ptr resource){
             
+            if ( resource != nullptr)
+            {
 			// Create a new audio buffer
 			AudioBuffer::Ptr newAudioBuffer = AudioBuffer::CreateFromFile(resource->GetFilepath().GetString());
 			// Add it to the managed buffers
@@ -57,6 +59,7 @@ namespace epsilon
 			
             // Register it for change events
 			RegisterResource(newAudioBuffer);
+            }
             
 		});
 
