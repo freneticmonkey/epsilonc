@@ -36,8 +36,9 @@ namespace epsilon
 		Transform::Ptr ThisPtr() { return shared_from_this(); }
 
 		static Transform::Ptr Create();
-		void Destroy();
-        
+		void OnDestroy();
+		void RemoveAndDestroyAllChildren();
+
         // Handle Transmitting enabled state through the scene graph.
         void OnEnable();
         void OnDisable();
@@ -49,6 +50,7 @@ namespace epsilon
 		Transform::Ptr AddChild(Transform::Ptr childNode);
 		Transform::Ptr RemoveChild(Transform::Ptr childNode);
 		Transform::Ptr RemoveAllChildren();
+
 		bool HasChildren() { return !children.empty(); }
 
 		Transform::Ptr FindChildWithName(std::string name);

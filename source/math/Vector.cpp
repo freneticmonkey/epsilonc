@@ -42,7 +42,7 @@ float &Vector2::operator[](int i)
 	}
     else
     {
-		throw BoundaryException("Vector2", i, 2);
+		throw epsilon::BoundaryException("Vector2", i, 2);
     }
 }
 
@@ -156,7 +156,7 @@ float &Vector3::operator[](int i)
 {
 	if ( i < 0 || i > 2 )
 	{
-		throw BoundaryException("Vector3", i, 3);
+		throw epsilon::BoundaryException("Vector3", i, 3);
 	}
 	else if ( i == 0 )
 	{
@@ -343,7 +343,7 @@ float &Vector4::operator[](int i)
 	}
     else
     {
-		throw BoundaryException("Vector4", i, 4);
+		throw epsilon::BoundaryException("Vector4", i, 4);
     }
 }
 

@@ -21,7 +21,16 @@ namespace epsilon
 
 	RigidBody::~RigidBody(void)
 	{
-		deletedCallback(GetId());
+		OnDestroy();
+	}
+
+	void RigidBody::OnDestroy()
+	{
+		if (hasSetup)
+		{
+			deletedCallback(GetId());
+			hasSetup = false;
+		}
 	}
 
 	void RigidBody::OnSetParent()

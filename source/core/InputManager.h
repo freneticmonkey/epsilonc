@@ -11,6 +11,8 @@
 
 namespace epsilon
 {
+	class RenderManger;
+
 	class InputManager
 	{
 	private:

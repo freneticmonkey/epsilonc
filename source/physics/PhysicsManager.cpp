@@ -3,7 +3,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 25/03/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 #include "physics/PhysicsManager.h"
 #include "utilities/EmptyDeleter.h"
@@ -239,6 +238,20 @@ namespace epsilon
 		newRB->Setup();
 
 		return newRB;
+	}
+
+	bool PhysicsManager::DestroyRigidBody(RigidBody::Ptr body)
+	{
+		bool success = false;
+		RigidBodies::iterator it = rigidBodies.find(body->GetId());
+
+		if (it != rigidBodies.end())
+		{
+			body->OnDestroy();
+			rigidBodies.erase(it);
+			success = true;
+		}
+		return success;
 	}
 
 	RigidBody::Ptr PhysicsManager::GetRigidBody(long id)

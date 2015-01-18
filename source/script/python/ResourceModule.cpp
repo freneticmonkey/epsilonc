@@ -3,7 +3,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 19/04/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 
 #include "script/python/ResourceModule.h"
@@ -67,7 +66,18 @@ void initResource()
             
             if ( override f = this->get_override("refresh_resources"))
             {
-                f(changedResources);
+				try
+				{
+					f(changedResources);
+
+				}
+				catch (const error_already_set&)
+				{
+					if (PyErr_Occurred())
+					{
+						PrintPythonError();
+					}
+				}
             }
             else
             {

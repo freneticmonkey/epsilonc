@@ -27,6 +27,8 @@ namespace boost
 //# include <boost/python/converter/from_python.hpp>
 
 using namespace boost::python; 
+
+using namespace epsilon;
  
 // Testing std::shared_ptr <-> type conversion handlers
 template<typename T>

@@ -4,7 +4,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 25/03/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 #include <map>
 #include <vector>
@@ -19,7 +18,6 @@
 #include <boost/filesystem.hpp>
 
 using namespace boost;
-
 
 namespace epsilon
 {
@@ -103,6 +101,8 @@ namespace epsilon
 
 		// Search known resources by regex
 		ResourceList FindResources(std::string searchExpression);
+
+		ResourceList FindResourcesByExtension(std::vector<std::string> extensions);
 
 		// Periodically checks the state of the files in the resource map
 		void Update(float dt);

@@ -3,7 +3,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 2/04/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 
 #include "render/Light.h"
@@ -143,6 +142,11 @@ namespace epsilon
     {
         transform = componentParent->GetComponent<Transform>();
     }
+
+	void Light::OnDestroy()
+	{
+
+	}
     
     Vector3 Light::GetPosition()
     {
@@ -300,6 +304,7 @@ namespace epsilon
 		{
 			if (!shadowsFailed)
 			{
+				glActiveTexture(GL_TEXTURE0);
 				// Unbind shadow depth texture
 				glBindTexture(GL_TEXTURE_2D, 0);
 

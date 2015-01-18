@@ -17,8 +17,8 @@
     <ClCompile Include="..\source\audio\AudioSource.cpp" />
     <ClCompile Include="..\source\core\EpsilonManager.cpp" />
     <ClCompile Include="..\source\events\EventManager.cpp" />
+    <ClCompile Include="..\source\external\imgui\imgui.cpp" />
     <ClCompile Include="..\source\logging\Logging.cpp" />
-    <ClCompile Include="..\source\main.cpp" />
     <ClCompile Include="..\source\math\Matrix.cpp" />
     <ClCompile Include="..\source\math\Quaternion.cpp" />
     <ClCompile Include="..\source\math\Vector.cpp" />
@@ -73,21 +73,30 @@
     <ClCompile Include="..\source\script\python\ResourceModule.cpp" />
     <ClCompile Include="..\source\script\python\SceneModule.cpp" />
     <ClCompile Include="..\source\script\python\ScriptModule.cpp" />
+    <ClCompile Include="..\source\script\python\ToolsModule.cpp" />
     <ClCompile Include="..\source\script\python\UIModule.cpp" />
     <ClCompile Include="..\source\script\python\UtilitiesModule.cpp" />
     <ClCompile Include="..\source\script\Script.cpp" />
     <ClCompile Include="..\source\script\ScriptBehaviour.cpp" />
     <ClCompile Include="..\source\script\ScriptEngineCore.cpp" />
     <ClCompile Include="..\source\script\ScriptManager.cpp" />
-    <ClCompile Include="..\source\tests\pointerTests.cpp" />
-    <ClCompile Include="..\source\tools\procedural\SimplexNoise.cpp">
+    <ClCompile Include="..\source\ui\ConsoleWindow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\source\ui\ConsoleWindow.cpp" />
-    <ClCompile Include="..\source\ui\DebugStatsOverlay.cpp" />
-    <ClCompile Include="..\source\ui\DebugWindow.cpp" />
-    <ClCompile Include="..\source\ui\Graph.cpp" />
+    <ClCompile Include="..\source\ui\DebugStatsOverlay.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\ui\DebugWindow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\ui\Graph.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\source\ui\RenderStatsWindow.cpp" />
     <ClCompile Include="..\source\ui\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +110,12 @@
     <ClInclude Include="..\source\events\Event.h" />
     <ClInclude Include="..\source\events\EventListener.h" />
     <ClInclude Include="..\source\events\EventManager.h" />
+    <ClInclude Include="..\source\external\imgui-backends\SFML\imconfig-SFML.h" />
+    <ClInclude Include="..\source\external\imgui-backends\SFML\imgui-SFML.h" />
+    <ClInclude Include="..\source\external\imgui-backends\SFML\stb_image.h" />
+    <ClInclude Include="..\source\external\imgui\imconfig.h" />
+    <ClInclude Include="..\source\external\imgui\imgui.h" />
+    <ClInclude Include="..\source\external\imgui\stb_textedit.h" />
     <ClInclude Include="..\source\logging\Logging.h" />
     <ClInclude Include="..\source\math\Bounds.h" />
     <ClInclude Include="..\source\math\Defines.h" />
@@ -158,6 +173,7 @@
     <ClInclude Include="..\source\scene\Object.h" />
     <ClInclude Include="..\source\scene\Scene.h" />
     <ClInclude Include="..\source\scene\SceneBase.h" />
+    <ClInclude Include="..\source\scene\SceneEvents.h" />
     <ClInclude Include="..\source\scene\SceneManager.h" />
     <ClInclude Include="..\source\scene\SceneNode.h" />
     <ClInclude Include="..\source\scene\Transform.h" />
@@ -173,6 +189,7 @@
     <ClInclude Include="..\source\script\python\ResourceModule.h" />
     <ClInclude Include="..\source\script\python\SceneModule.h" />
     <ClInclude Include="..\source\script\python\ScriptModule.h" />
+    <ClInclude Include="..\source\script\python\ToolsModule.h" />
     <ClInclude Include="..\source\script\python\UIModule.h" />
     <ClInclude Include="..\source\script\python\UtilitiesModule.h" />
     <ClInclude Include="..\source\script\Script.h" />
@@ -180,19 +197,31 @@
     <ClInclude Include="..\source\script\ScriptCommon.h" />
     <ClInclude Include="..\source\script\ScriptEngineCore.h" />
     <ClInclude Include="..\source\script\ScriptManager.h" />
-    <ClInclude Include="..\source\tools\procedural\SimplexNoise.h">
+    <ClInclude Include="..\source\tools\procedural\Perlin.h" />
+    <ClInclude Include="..\source\tools\procedural\stb_perlin.h" />
+    <ClInclude Include="..\source\ui\ConsoleWindow.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\source\ui\ConsoleWindow.h" />
-    <ClInclude Include="..\source\ui\DebugStatsOverlay.h" />
-    <ClInclude Include="..\source\ui\DebugWindow.h" />
-    <ClInclude Include="..\source\ui\Graph.h" />
+    <ClInclude Include="..\source\ui\DebugStatsOverlay.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\source\ui\DebugWindow.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\source\ui\Graph.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\source\ui\RenderStatsWindow.h" />
     <ClInclude Include="..\source\ui\UIManager.h" />
     <ClInclude Include="..\source\ui\UIOverlay.h" />
     <ClInclude Include="..\source\ui\UIWindow.h" />
     <ClInclude Include="..\source\utilities\EmptyDeleter.h" />
     <ClInclude Include="..\source\utilities\HashedString.h" />
+    <ClInclude Include="..\source\utilities\BaseManager.h" />
     <ClInclude Include="..\source\utilities\Utilities.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -202,13 +231,13 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -226,17 +255,17 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Program Files (x86)\SFML\include;C:\Program Files (x86)\SFGUI\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include;C:\Dev\Resources\C++\bullet-2.82-r2704\src;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files (x86)\SFGUI\lib;C:\Program Files (x86)\SFML\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\bullet-2.82-r2704\lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\build\Win\int\$(Configuration)\</IntDir>
+    <IncludePath>C:\Dev\Resources\C++\SFML-2.2\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include;C:\Dev\Resources\C++\bullet-2.82-r2704\src;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Dev\Resources\C++\SFML-2.2\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\bullet-2.82-r2704\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\lib\</OutDir>
+    <IntDir>$(SolutionDir)..\build\Win\int\epsilon\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Program Files (x86)\SFML\include;C:\Program Files (x86)\SFGUI\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include;C:\Dev\Resources\C++\bullet-2.82-r2704\src;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Program Files (x86)\SFGUI\lib;C:\Program Files (x86)\SFML\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\bullet-2.82-r2704\lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)..\build\Win\int\$(Configuration)\</IntDir>
+    <IncludePath>C:\Dev\Resources\C++\SFML-2.2\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include;C:\Dev\Resources\C++\bullet-2.82-r2704\src;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Dev\Resources\C++\SFML-2.2\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\bullet-2.82-r2704\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\lib\</OutDir>
+    <IntDir>$(SolutionDir)..\build\Win\int\epsilon\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -244,14 +273,22 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\source;C:\Dev\Resources\C++\glm-0.9.5.3\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>sfml-main-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfgui-d.lib;glew32.lib;opengl32.lib;glu32.lib;boost_python-vc120-mt-gd-1_55.lib;tbb_debug.lib;BulletCollision_vs2010_debug.lib;BulletDynamics_vs2010_debug.lib;LinearMath_vs2010_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)..\build\Win\$(Configuration)\UnitTest.exe</Command>
+    </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>sfml-main-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;glew32.lib;opengl32.lib;glu32.lib;boost_python-vc120-mt-gd-1_55.lib;tbb_debug.lib;BulletCollision_vs2010_debug.lib;BulletDynamics_vs2010_debug.lib;LinearMath_vs2010_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -262,7 +299,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\source;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\source;C:\Dev\Resources\C++\glm-0.9.5.3\glm;</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -271,6 +309,12 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>sfml-main.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfml-audio.lib;sfgui.lib;glew32.lib;opengl32.lib;glu32.lib;tbb.lib;BulletCollision_vs2010.lib;BulletDynamics_vs2010.lib;LinearMath_vs2010.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)..\build\Win\$(Configuration)\UnitTest.exe</Command>
+    </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>sfml-main.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfml-audio.lib;glew32.lib;opengl32.lib;glu32.lib;tbb.lib;BulletCollision_vs2010.lib;BulletDynamics_vs2010.lib;LinearMath_vs2010.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

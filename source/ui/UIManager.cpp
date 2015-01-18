@@ -2,6 +2,10 @@
 #include "render/RenderUtilities.h"
 #include <algorithm>
 
+// Include IMGUI and SFML IMGUI Wrapper
+#include "external/imgui/imgui.h"
+#include "external/imgui-backends/SFML/imgui-SFML.h"
+
 namespace epsilon
 {
 	UIManager::UIManager()
@@ -11,53 +15,38 @@ namespace epsilon
 
 	UIManager::~UIManager()
 	{
-		if (desktop) { delete desktop; }
-		if ( sfgui ) { delete sfgui; }
-
+		
 	}
 
-	void UIManager::Setup(void)
+	void UIManager::Setup(sf::RenderWindow * window)
 	{
 		Log("Initialising UIManager");
 
-		sfgui = new sfg::SFGUI();
-		desktop = new sfg::Desktop();
+		ImGui::SFML::SetWindow(*window);
+		ImGui::SFML::InitImGui();
 	}
-    
-    void UIManager::Destroy()
-    {
-        std::for_each(windowList.begin(), windowList.end(), [](UIWindow::Ptr window){
-            window->Destroy();
-        });
-    }
 
-	//void UIManager::OnUpdate( sf::Time el )
-	void UIManager::OnUpdate( float el )
+	void UIManager::Destroy()
 	{
-		//desktop->Update(el.asSeconds());
-		desktop->Update(el);
+		std::for_each(windowList.begin(), windowList.end(), [](UIWindow::Ptr window){
+			window->Destroy();
+		});
+	}
 
-		for (WindowListIterator i = windowList.begin(); i != windowList.end(); i++ )
+	void UIManager::OnUpdate(float el)
+	{
+		ImGui::SFML::UpdateImGui();
+
+		for (WindowListIterator i = windowList.begin(); i != windowList.end(); i++)
 		{
-			//(*i)->OnUpdate(el.asSeconds());
 			(*i)->OnUpdate(el);
 		}
 	}
 
-	void UIManager::Draw(sf::RenderWindow * window)
+	void UIManager::Draw()
 	{
-		// Setup the window to display the GUI
-
-		window->resetGLStates();
-        
-		// Draw the windows first
-		sfgui->Display( *window );
-        
-		// Then the overlays
-		for (OverlayList::iterator i = overlayList.begin(); i != overlayList.end(); i++)
-		{
-			(*i)->Draw(window);
-		}
+		// Render IMGUI
+		ImGui::Render();
 	}
 
 	void UIManager::AddUIOverlay(UIOverlay::Ptr newOverlay)
@@ -86,21 +75,18 @@ namespace epsilon
 
 	void UIManager::AddUIWindow(UIWindow::Ptr newWindow)
 	{
-		if ( newWindow )
+		if (newWindow)
 		{
-			desktop->Add(newWindow->GetWindow());
 			windowList.push_back(newWindow);
 		}
 	}
-
-	
 
 	UIWindow::Ptr UIManager::GetWindowByName(const std::string & name)
 	{
 		UIWindow::Ptr window;
 
 		WindowList::iterator foundChildIt = std::find_if(windowList.begin(), windowList.end(), [name](UIWindow::Ptr window){
-			return window->GetName() == name;
+			return window->GetTitle() == name;
 		});
 
 		if (foundChildIt != windowList.end())
@@ -113,6 +99,6 @@ namespace epsilon
 
 	void UIManager::ProcessEvent(sf::Event &event)
 	{
-		desktop->HandleEvent(event);
+		ImGui::SFML::ProcessEvent(event);
 	}
 }

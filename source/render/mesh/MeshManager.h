@@ -4,7 +4,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 24/04/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 
 #include "render/mesh/Mesh.h"
@@ -30,7 +29,7 @@ namespace epsilon
 		~MeshManager();
 
 		void        Setup();
-		void		LoadMeshs();
+		void		LoadMeshes();
 
 		Mesh::Ptr GetMeshByName(std::string name);
 		Mesh::Ptr GetMeshByPath(std::string path);
@@ -39,7 +38,7 @@ namespace epsilon
 		void RefreshResources(ResourceIdVector resources);
 
 		// This will be called from the RenderManager
-		void ProcessMeshs();
+		void ProcessMeshes();
 
 	private:
 		MeshMap		meshs;

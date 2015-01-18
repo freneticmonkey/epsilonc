@@ -3,7 +3,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 24/04/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 
 #include "render/mesh/MeshManager.h"
@@ -41,24 +40,30 @@ namespace epsilon
 			exts.insert(exts.end(), ext.begin(), ext.end());
 		});
 
-		// Pre-allocate the regex assuming a maximum extension length of 5
-		meshRegex.reserve(exts.size() * 5);
-
-		for (std::vector<std::string>::iterator e = exts.begin(); e != exts.end(); e++)
+		if (false)
 		{
-			meshRegex += (*e);
+			// Pre-allocate the regex assuming a maximum extension length of 5
+			meshRegex.reserve(exts.size() * 5);
 
-			// If not the last extension, insert a pipe
-			if (e < (exts.end() - 1))
+			for (std::vector<std::string>::iterator e = exts.begin(); e != exts.end(); e++)
 			{
-				meshRegex += "|";
+				meshRegex += (*e);
+
+				// If not the last extension, insert a pipe
+				if (e < (exts.end() - 1))
+				{
+					meshRegex += "|";
+				}
 			}
+
+			meshRegex = str(format(".*(%s)$") % meshRegex);
+
+			// Search the ResourceManager for all files with supported Mesh extensions
+			ResourceList results = ResourceManager::GetInstance().FindResources(meshRegex);
+
 		}
 
-		meshRegex = str(format(".*(%s)$") % meshRegex);
-
-		// Search the ResourceManager for all files with supported Mesh extensions
-		ResourceList results = ResourceManager::GetInstance().FindResources(meshRegex);
+		ResourceList results = ResourceManager::GetInstance().FindResourcesByExtension(exts);
 
 		// For each of the results
 		std::for_each(results.begin(), results.end(), [&](Resource::Ptr resource){
@@ -81,12 +86,12 @@ namespace epsilon
 
 		Log("MeshManager", boost::str(format("Registered %d meshes.") % results.size()));
 
-		// For now we'll just immediately load Meshs
-		// TODO: Add update function which loads necessary Meshs
-		LoadMeshs();
+		// For now we'll just immediately load Meshes
+		// TODO: Add update function which loads necessary Meshes
+		LoadMeshes();
 	}
 
-	void MeshManager::LoadMeshs()
+	void MeshManager::LoadMeshes()
 	{
 		// Breaking this out into a separate function as it might be a little heavy.
 		std::for_each(meshs.begin(), meshs.end(), [](std::pair < std::string, Mesh::Ptr> mesh){
@@ -138,7 +143,7 @@ namespace epsilon
 		});
 	}
 
-	void MeshManager::ProcessMeshs()
+	void MeshManager::ProcessMeshes()
 	{
 		// Push any changed Mesh data to the GPU.
 		std::for_each(meshs.begin(), meshs.end(), [](std::pair < std::string, Mesh::Ptr> mesh){

@@ -3,7 +3,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 2/04/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 
 #include "scene/SceneNode.h"
@@ -45,6 +44,68 @@ namespace epsilon
 
 	SceneNode::~SceneNode(void)
 	{
+	}
+
+	void SceneNode::OnDestroy()
+	{
+		// Remove the components when the node is destroyed and notify their managers
+		if (light)
+		{
+			sceneOwner->RemoveLight(light);
+			RemoveComponent(light);
+			(&RenderManager::GetInstance())->DestroyLight(light);
+		}
+
+		if (camera)
+		{
+			sceneOwner->RemoveCamera(camera);
+			RemoveComponent(camera);
+		}
+
+		// renderer
+		if (renderer)
+		{
+			RemoveComponent(renderer);
+			(&RenderManager::GetInstance())->DestroyRenderer(renderer);
+		}
+
+		// script
+		if (scripts.size() > 0)
+		{
+			// Destroy each script via the ScriptManager
+			for (Script::Ptr script : scripts)
+			{
+				RemoveComponent(script);
+				(&ScriptManager::GetInstance())->DestroyScript(script);
+			};
+
+			// Then remove all scripts attached to this node
+			scripts.clear();
+		}
+
+		// rigidbody
+		if (rigidBody)
+		{
+			RemoveComponent(rigidBody);
+			PhysicsManager::GetInstance().DestroyRigidBody(rigidBody);
+		}
+
+		// audiosource
+		if (audioSources.size() > 0 )
+		{
+			for (AudioSource::Ptr audioSource : audioSources)
+			{
+				RemoveComponent(audioSource);
+				AudioManager::GetInstance().DestroyAudioSource(audioSource);
+			}
+
+			// Then remove all audiosources attached to this node
+			audioSources.clear();
+		}
+
+		// Finally propagate event to children
+		RemoveComponent(transform);
+		transform->OnDestroy();
 	}
     
 	// Add / Move a child node from one parent to another

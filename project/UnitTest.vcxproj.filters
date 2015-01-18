@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\audio">
+      <UniqueIdentifier>{c819e824-abbd-46b4-9801-84f876af15b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{f21a4a57-4573-4ffd-a546-802af0feba82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\events">
+      <UniqueIdentifier>{98ba99bf-00f6-48df-8715-a4bd5f9b2f9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\logging">
+      <UniqueIdentifier>{a30f52de-f23d-422d-881d-53516b146228}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\math">
+      <UniqueIdentifier>{4d75d194-9de3-477d-a0f5-ffa7b7823258}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\physics">
+      <UniqueIdentifier>{9058c180-0ccf-4751-b002-b697eb424852}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\render">
+      <UniqueIdentifier>{9a884169-3b8e-474b-97da-0feec5f24f3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resource">
+      <UniqueIdentifier>{52fe5c33-f3f6-4ec3-9328-d934b00d12f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene">
+      <UniqueIdentifier>{fc5a23bb-430d-453b-bf25-6d5c79433978}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\script">
+      <UniqueIdentifier>{00034668-1ce4-4463-b143-847b049885e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\tools">
+      <UniqueIdentifier>{d175147a-97cc-46c4-b6bf-6fbab979b33b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ui">
+      <UniqueIdentifier>{3a8a37a8-0c45-4baf-8df4-35d81bb1c4ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utilities">
+      <UniqueIdentifier>{3cdd45d8-53e3-4364-931b-89836b7d9eca}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\tests\stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\tests\UnitTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\tests\stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tests\targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tests\audio\audio.h">
+      <Filter>Source Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tests\core\core.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tests\events\events.h">
+      <Filter>Source Files\events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tests\logging\logging.h">
+      <Filter>Source Files\logging</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tests\physics\physics.h">
+      <Filter>Source Files\physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tests\math\math.h">
+      <Filter>Source Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tests\render\render.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tests\resource\resource.h">
+      <Filter>Source Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tests\scene\scene.h">
+      <Filter>Source Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tests\script\script.h">
+      <Filter>Source Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tests\tools\tools.h">
+      <Filter>Source Files\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tests\ui\ui.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\tests\utilities\utilities.h">
+      <Filter>Source Files\utilities</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\source\tests\ReadMe.txt" />
+  </ItemGroup>
+</Project>

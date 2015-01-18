@@ -4,7 +4,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 25/03/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 
 #include "resource/ResourceOwnerInterface.h"

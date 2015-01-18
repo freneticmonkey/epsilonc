@@ -1,7 +1,5 @@
 #include "script/python/UIModule.h"
 #include "ui/UIWindow.h"
-#include "ui/DebugWindow.h"
-#include "ui/ConsoleWindow.h"
 
 void initUI()
 {
@@ -13,8 +11,8 @@ void initUI()
 
 	// Expose the UIWindow Class
 	class_<UIWindow, UIWindow::Ptr, boost::noncopyable>("UIWindow", no_init)
-		.def("name", &UIWindow::GetName)
+		.def("title", &UIWindow::GetTitle)
 		.add_property("position", &UIWindow::GetPosition, &UIWindow::SetPosition)
-		.add_property("visible", &UIWindow::IsVisible, &UIWindow::ShowWindow)
+		.add_property("open", &UIWindow::IsOpen, &UIWindow::OpenWindow)
 	;
 }

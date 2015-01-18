@@ -19,6 +19,7 @@ class CameraBehaviour(object):
 
 	def on_start(self):
 		self._orig_pos = self.node.transform.position
+		self.node.transform.position.z = -10
 		self._reset()
 		
 	def _reset(self):
@@ -54,6 +55,8 @@ class CameraBehaviour(object):
 		# if the right mouse button is down, active cam controls
 		if Input.mouse_button(Input.Button.Right) or Input.key(Input.Key.Space):
 			Input.mouse_visible(False)
+			if not self._was_down:
+				print "Controls active"
 			self._was_down = True
 
 			if Input.mouse_button_down(Input.Button.Right):
@@ -65,6 +68,7 @@ class CameraBehaviour(object):
 			Input.set_mouse_position(self._middle)
 		else:
 			if self._was_down:
+				print "Controls NOT active"
 				Input.mouse_visible(True)
 				self._was_down = False
 

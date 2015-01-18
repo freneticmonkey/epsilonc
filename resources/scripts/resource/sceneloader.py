@@ -87,7 +87,14 @@ class SceneLoader(ResourceOwner):
 				break
 
 	def refresh_resources(self, change_list):
+		# Kill the scene
+		self._scene.destroy()
+		self._scene = None
+
+		# reload from disk
 		self.process_resource()
+
+		# mark as up to date for the Resource Manager
 		self._scene_resource.set_reloaded()
 
 	def process_resource(self):
@@ -131,6 +138,8 @@ class SceneLoader(ResourceOwner):
 					# Mark the scene as ready to be watched by the resource manager
 					if not self._scene_resource is None:
 						self._scene_resource.set_reloaded()
+
+					self._scene = parse_globals.current_scene
 
 					print "Scene Loaded."
 				else:

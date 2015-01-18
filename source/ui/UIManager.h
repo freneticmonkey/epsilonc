@@ -1,18 +1,17 @@
 #pragma once
 
-#include "EpsilonCore.h"
+#include <SFML/Graphics.hpp>
 
+#include "EpsilonCore.h"
 #include "logging/Logging.h"
 #include "ui/UIWindow.h"
 #include "ui/UIOverlay.h"
-#include "ui/Graph.h"
 
 namespace epsilon
 {
 	typedef std::list<UIWindow::Ptr> WindowList;
 	typedef WindowList::iterator WindowListIterator;
 
-	typedef std::list<Graph::Ptr> GraphList;
 	typedef std::list<UIOverlay::Ptr> OverlayList;
 
 	class UIManager
@@ -31,10 +30,9 @@ namespace epsilon
 
 		~UIManager();
 
-		void Setup(void);
-		//void OnUpdate(sf::Time el);
+		void Setup(sf::RenderWindow * window);
 		void OnUpdate(float el);
-		void Draw(sf::RenderWindow * window);
+		void Draw();
         void Destroy();
 
 		void AddUIOverlay(UIOverlay::Ptr newOverlay);
@@ -45,8 +43,6 @@ namespace epsilon
 		void ProcessEvent(sf::Event &event);
 
 	private:
-		sfg::SFGUI * sfgui;
-		sfg::Desktop * desktop;
 		WindowList windowList;
 		OverlayList overlayList;
 	};

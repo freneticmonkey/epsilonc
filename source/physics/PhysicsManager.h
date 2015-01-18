@@ -4,7 +4,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 26/04/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 #include <map>
 #include <vector>
@@ -76,6 +75,7 @@ namespace epsilon
 
 		// RigidBody Creation
 		RigidBody::Ptr CreateRigidBody(float mass = 0.f, Vector3 inertia = Vector3::ZERO, bool kinematic = false);
+		bool		   DestroyRigidBody(RigidBody::Ptr body);
 		RigidBody::Ptr GetRigidBody(long id);
 
 		// Track RigidBody state changes

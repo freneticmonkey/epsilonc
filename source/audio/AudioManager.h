@@ -41,6 +41,7 @@ namespace epsilon
 		AudioListener::Ptr	GetListener() { return listener; }
 
 		AudioSource::Ptr	CreateAudioSourceByName(std::string name = "");
+		bool				DestroyAudioSource(AudioSource::Ptr audioSource);
 		AudioSource::Ptr	CreateAudioSourceByPath(std::string path = "");
 
 		//Music::Ptr			CreateMusic(std::string name);

@@ -40,15 +40,15 @@ namespace epsilon
             resourceManager->SetBasePath(basepath);
         }
 		resourceManager->BuildResourceInfo();
+		
+		renderManager = &RenderManager::GetInstance();
+		renderManager->Setup();
 
 		//eventManager = &EventManager::GetInstance();
 
 		scriptManager = &ScriptManager::GetInstance();
 		scriptManager->Setup();
 		
-		renderManager = &RenderManager::GetInstance();
-		renderManager->Setup();
-
 		shaderManager = &ShaderManager::GetInstance();
         shaderManager->Setup();
 
@@ -65,48 +65,16 @@ namespace epsilon
 
 		physicsManager = &PhysicsManager::GetInstance();
 		physicsManager->Setup();
-
-		uiManager = &UIManager::GetInstance();
-		uiManager->Setup();
-
-		// Create and Register Gizmos
-		gizmoManager = &GizmoManager::GetInstance();
-		gizmoManager->Setup();
-
+		
 		audioManager = &AudioManager::GetInstance();
 		audioManager->Setup();
         
-#ifndef __APPLE__
-        // No graphs on OSX due to the UI being OpenGL 2 and everything being sad :'(
-		ConsoleWindow::Ptr consoleWindow = ConsoleWindow::Create();
-		consoleWindow->Setup();
-		uiManager->AddUIWindow(consoleWindow);
-
-		DebugStatsOverlay::Ptr debugStatsOverlay = DebugStatsOverlay::Create();
-		debugStatsOverlay->Setup();
-		uiManager->AddUIOverlay(debugStatsOverlay);
-
-		fpsGraph = debugStatsOverlay->CreateGraph("FPS");
-
-		scriptGraph = debugStatsOverlay->CreateGraph("script");
-		scriptGraph->SetColour(Colour::BLUE);
-
-		sceneGraph = debugStatsOverlay->CreateGraph("scene");
-		sceneGraph->SetColour(Colour::CYAN);
-
-		renderGraph = debugStatsOverlay->CreateGraph("render");
-		renderGraph->SetColour(Colour::GREEN);
-
-		eventsGraph = debugStatsOverlay->CreateGraph("events");
-		eventsGraph->SetColour(Colour::ORANGE);
-#endif
 		sceneManager = &SceneManager::GetInstance();
 		sceneManager->Setup();
 
 		renderManager->SetSceneManager(sceneManager);
-		renderManager->SetUIManager(uiManager);
 
-// Initialise the Python Engine code after all of the c++ managers
+		// Initialise the Python Engine code after all of the c++ managers
 		// have initialised
 		scriptManager->StartEngineCore();
 
@@ -137,7 +105,7 @@ namespace epsilon
 			scriptClock.restart();
 			taskGroup.run([&]() {
 				scriptManager->Update(el);
-				scriptGraph->AddValue(scriptClock.getElapsedTime().asMilliseconds());
+				//scriptGraph->AddValue(scriptClock.getElapsedTime().asMilliseconds());
 			});
 
 			/*
@@ -149,10 +117,10 @@ namespace epsilon
 			});
 			*/
 			
-			taskGroup.run([&]() {
-				gizmoManager->Update(el);
-				sceneGraph->AddValue(sceneClock.getElapsedTime().asMilliseconds());
-			});
+			//taskGroup.run([&]() {
+			//	//gizmoManager->Update(el);
+			//	//sceneGraph->AddValue(sceneClock.getElapsedTime().asMilliseconds());
+			//});
 
 			taskGroup.run([&]() {
 
@@ -175,10 +143,10 @@ namespace epsilon
 		resourceManager->Update(el);
 
 		// Running the AudioManager after the ResourceManager until I can assess thread safety
+		renderManager->OnUpdate(el);
 		audioManager->Update(el);
 
 		// The following managers currently don't support running in parallel due to OpenGL or whatever.
-        gizmoManager->Update(el);
 
 		// Tick the physics sim
 		physicsManager->Update(el);
@@ -186,14 +154,8 @@ namespace epsilon
 		sceneManager->Update(el);
 		sceneManager->Cull();
 
-		// UI cannot be updated in parallel due to SFGUI not being threadsafe, gfx access etc
-		uiManager->OnUpdate(el);
 		renderClock.restart();
 		renderManager->Draw(el);
-        if ( renderGraph )
-        {
-            renderGraph->AddValue(renderClock.getElapsedTime().asMilliseconds());
-        }
 	}
     
     void EpsilonManager::OnClose(void)
@@ -205,7 +167,7 @@ namespace epsilon
         renderManager->Destroy();
         
         // Stop UI
-        uiManager->Destroy();
+        //uiManager->Destroy();
 
 		physicsManager->Destroy();
         
@@ -226,42 +188,21 @@ namespace epsilon
 			// Fire On Frame Start Events
 			OnFrameStart();
 
+			// Get a queued event
 			while (renderManager->PollEvent(event))
 			{
-				// Let the RenderManager process window event first.
-				renderManager->ProcessEvent(event);
-
-				// If the window is in focus
-				if (renderManager->WindowInFocus())
-				{
-					// Process the UI events
-					uiManager->ProcessEvent(event);
-
-					// Process the input events AFTER UI so that UI gets preference
-					inputManager->ProcessEvent(event);
-				}
-
-				if (event.type == sf::Event::Closed)
-				{
-                    // Break Main loop
-                    hasClosed = true;
-					break;
-				}
+				// Pass it through for input processing
+				inputManager->ProcessEvent(event);
 			}
-            
-            // If a close is triggered, exit the loop.
-            if (hasClosed)
-            {
-                break;
-            }
-			
+
+			// If a quit has been detected
+			if ( !renderManager->IsRunning() )
+			{
+				// Exit Game loop
+				break;
+			}
 			float el = clock.getElapsedTime().asMilliseconds();
 			
-            if ( fpsGraph )
-            {
-                fpsGraph->AddValue(el);
-            }
-
 			// Restart timing for next sequence
 			clock.restart();
 

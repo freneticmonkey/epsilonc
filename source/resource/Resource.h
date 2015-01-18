@@ -4,7 +4,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 25/03/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 #include "EpsilonCore.h"
 #include "resource/ResourceType.h"
@@ -36,7 +35,8 @@ namespace epsilon
 		explicit Resource(std::string theFilepath, ResourceType::Type iType = ResourceType::Type::TEXT);
 		~Resource();
         
-        int		GetType() { return type; }
+        int					GetType() { return type; }
+		const std::string & GetExtension() { return extension; }
         
         // Ensure that type based comparison is implemented?
 //        virtual int operator=;
@@ -102,6 +102,7 @@ namespace epsilon
         OwnerIds		ownerIds;
         
         int				type;
+		std::string		extension;
 
 		HashedString	filepath;
 		// The modified time on last resource load.

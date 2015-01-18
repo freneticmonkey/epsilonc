@@ -27,7 +27,7 @@ namespace epsilon
 
 		void Setup(void);
 		void Draw();
-		void Update(float el);
+		void OnUpdate(float el);
         void Destroy();
 		GizmoManager & AddGizmo(GizmoType * newGizmo);
 

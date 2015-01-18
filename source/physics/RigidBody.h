@@ -33,6 +33,8 @@ namespace epsilon
 		~RigidBody(void);
 
 		void OnSetParent();
+		
+		void OnDestroy();
 
 		// Create Physics objects
 		void Setup();

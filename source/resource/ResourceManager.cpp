@@ -3,7 +3,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 25/03/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 #include <regex>
 
@@ -129,7 +128,7 @@ namespace epsilon
 				newResource->SetFileSize(existingResource->GetFileSize());
 				// Replace existing resource with the new resource in the resource map
 				resources[newResource->GetResourceId()] = newResource;
-
+				
 				//Log("ResourceManager", "Registering Resource from Manager: " + newResource->GetFilepath().GetString());
 			}
 		}
@@ -173,6 +172,26 @@ namespace epsilon
 			if (std::regex_match(resourcePair.second->GetFilepath().GetString(), expression))
 			{
                 //Log("Found matching resource: " + resourcePair.second->GetFilepath().GetString() );
+				// Store it in the results
+				results.push_back(resourcePair.second);
+			}
+		});
+
+		return results;
+	}
+
+	ResourceList ResourceManager::FindResourcesByExtension(std::vector<std::string> extensions)
+	{
+		ResourceList results;
+
+		// Check the regular expression against each of the known resources
+		std::for_each(resources.begin(), resources.end(), [&](std::pair<std::size_t, Resource::Ptr> resourcePair){
+
+			std::vector<std::string>::iterator found = std::find(extensions.begin(), extensions.end(), resourcePair.second->GetExtension());
+
+			if (found != extensions.end())
+			{
+				//Log("Found matching resource: " + resourcePair.second->GetFilepath().GetString() );
 				// Store it in the results
 				results.push_back(resourcePair.second);
 			}

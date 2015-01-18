@@ -35,13 +35,13 @@ namespace epsilon
 	{
 	}
 
-	void Transform::Destroy()
+	void Transform::OnDestroy()
 	{
 		// Empty queued updates
 		//parent->cancelUpdate(ThisPtr());
 		
-		// Empty the Transforms children
-		RemoveAllChildren();
+		// Empty and Destroy the Transforms children
+		RemoveAndDestroyAllChildren();
 
 		childrenToUpdate.clear();
 
@@ -129,6 +129,17 @@ namespace epsilon
 		children.clear();
 		needUpdate();
 		return ThisPtr();
+	}
+
+	void Transform::RemoveAndDestroyAllChildren()
+	{
+		// Destroy children and set parents to null
+		for (Transform::Ptr child : children)
+		{
+			child->GetParent()->OnDestroy();
+			child->parent = nullptr;
+		}
+		children.clear();
 	}
 
 	Transform::Ptr Transform::FindChildWithName(std::string name)

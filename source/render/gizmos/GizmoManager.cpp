@@ -49,7 +49,7 @@ namespace epsilon
 		});
     }
 
-	void GizmoManager::Update(float el)
+	void GizmoManager::OnUpdate(float el)
 	{
 		std::for_each(gizmos.begin(), gizmos.end(), [&](GizmoType * gizmo){
 			gizmo->Update(el);

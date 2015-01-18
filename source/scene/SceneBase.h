@@ -15,6 +15,8 @@ namespace epsilon
 		// Default constructors.
 
 		virtual bool AddCamera(Camera::Ptr newCamera) = 0;
+		virtual bool RemoveCamera(Camera::Ptr newCamera) = 0;
 		virtual bool AddLight(Light::Ptr newLight) = 0;
+		virtual bool RemoveLight(Light::Ptr newLight) = 0;
 	};
 }

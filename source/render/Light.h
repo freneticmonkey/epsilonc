@@ -4,7 +4,6 @@
 //  Epsilon
 //
 //  Created by Scott Porter on 2/04/2014.
-//  Copyright (c) 2014 Scott Porter. All rights reserved.
 //
 
 #include "EpsilonCore.h"
@@ -63,6 +62,9 @@ namespace epsilon
         
         // Listen to parent changes
         void OnSetParent();
+
+		// Handle Destruction by parent
+		void OnDestroy();
 
 		Vector3 GetPosition();
 		Vector3 GetDirection();

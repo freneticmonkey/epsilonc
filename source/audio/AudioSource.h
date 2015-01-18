@@ -27,6 +27,7 @@ namespace epsilon
 		~AudioSource(void) {}
 
 		void OnSetParent();
+		void OnDestroy();
         
         bool IsActive() { return active; }
 		void SetActive(bool isActive) { active = isActive; }

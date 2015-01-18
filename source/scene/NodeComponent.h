@@ -30,13 +30,38 @@ namespace epsilon
         
 		void SetParent(NodeComponent::Ptr parent) 
 		{ 
-			this->componentParent = parent; 
-			OnSetParent();
+			// If the component is being removed
+			if (this->componentParent != nullptr)
+			{
+				OnRemoveParent();
+			}
+
+			// If the component is being moved to a new node
+			if (this->componentParent != parent)
+			{
+				OnChangeParent(this->componentParent, parent);
+			}
+
+			// Perform the parent action
+			this->componentParent = parent;
+			
+			// If the component is set to a valid node, fire the parent event
+			if (this->componentParent != nullptr)
+			{
+				OnSetParent();
+			}
+						
 		}
 		NodeComponent::Ptr GetParent() { return this->componentParent; }
 
 		// Listen to parent set Event
 		virtual void OnSetParent() {}
+
+		// Listen to parent remove Event
+		virtual void OnRemoveParent() {}
+
+		// Listen to parent change Event
+		virtual void OnChangeParent(NodeComponent::Ptr oldParent, NodeComponent::Ptr newParent) {}
         
         // Listen to Destroy
         virtual void OnDestroy() {}

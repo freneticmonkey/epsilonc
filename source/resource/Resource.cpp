@@ -12,9 +12,12 @@ namespace epsilon
 
 	Resource::Resource(std::string theFilepath, ResourceType::Type iType)
 	{
+		filesystem::path fullpath(theFilepath);
 		// Ensure that the path is in the native format so that resources will hash to the same id
-		filepath = HashedString(filesystem::path(theFilepath).make_preferred().generic_string());
+		filepath = HashedString(fullpath.make_preferred().generic_string());
 		type = iType;
+		extension = fullpath.extension().generic_string();
+		//Log("Resource: " + filepath.GetString() + " Ext: " + extension);
 	}
 
 	Resource::~Resource()
