@@ -35,11 +35,24 @@ namespace epsilon
 
 	void UIManager::OnUpdate(float el)
 	{
+		// FIXME: Avoiding Manager initialisation ordering issues
+		if (!scriptManager)
+		{
+			scriptManager = &ScriptManager::GetInstance();
+		}
+
 		ImGui::SFML::UpdateImGui();
 
+		// Process any windows
 		for (WindowListIterator i = windowList.begin(); i != windowList.end(); i++)
 		{
 			(*i)->OnUpdate(el);
+		}
+
+		// Process GUI calls from scripts
+		if (scriptManager)
+		{
+			scriptManager->BehaviourOnGUI();
 		}
 	}
 

@@ -7,6 +7,8 @@
 #include "ui/UIWindow.h"
 #include "ui/UIOverlay.h"
 
+#include "script/ScriptManager.h"
+
 namespace epsilon
 {
 	typedef std::list<UIWindow::Ptr> WindowList;
@@ -45,5 +47,7 @@ namespace epsilon
 	private:
 		WindowList windowList;
 		OverlayList overlayList;
+
+		ScriptManager * scriptManager;
 	};
 }

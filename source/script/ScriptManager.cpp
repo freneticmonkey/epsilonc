@@ -133,6 +133,58 @@ namespace epsilon
 		return success;
 	}
 
+	void ScriptManager::BehaviourOnDrawGizmos()
+	{
+		LockGIL();
+		
+		// Run OnDrawGizmos for each behaviour
+		for (ScriptBehaviour::Ptr behaviour : behaviourList)
+		{
+			try
+			{
+				if (!behaviour->InError())
+				{
+					behaviour->OnDrawGizmos();
+				}
+			}
+			catch (const error_already_set&)
+			{
+				if (PyErr_Occurred())
+				{
+					PrintPythonError();
+				}
+			}
+		}
+
+		ReleaseGIL();
+	}
+
+	void ScriptManager::BehaviourOnGUI()
+	{
+		LockGIL();
+
+		// Run OnGUI for each behaviour
+		for (ScriptBehaviour::Ptr behaviour : behaviourList)
+		{
+			try
+			{
+				if (!behaviour->InError())
+				{
+					behaviour->OnGUI();
+				}
+			}
+			catch (const error_already_set&)
+			{
+				if (PyErr_Occurred())
+				{
+					PrintPythonError();
+				}
+			}
+		}
+
+		ReleaseGIL();
+	}
+
 	void ScriptManager::ReloadScript(Script::Ptr script)
 	{
 		bool success = false;

@@ -44,6 +44,7 @@ namespace epsilon
 		updateFunction = FindPythonFunction("on_update");
 		destroyFunction = FindPythonFunction("on_destroy");
 		drawGizmosFunction = FindPythonFunction("on_draw_gizmos");
+		guiFunction = FindPythonFunction("on_gui");
 
 		// Check the script for known event functions and store them if found
 
@@ -114,6 +115,22 @@ namespace epsilon
 			try
 			{
 				result = drawGizmosFunction();
+			}
+			catch (const error_already_set&)
+			{
+				HandlePythonError();
+			}
+		}
+	}
+
+	void ScriptBehaviour::OnGUI()
+	{
+		object result;
+		if (!guiFunction.is_none())
+		{
+			try
+			{
+				result = guiFunction();
 			}
 			catch (const error_already_set&)
 			{

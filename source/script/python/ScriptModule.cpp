@@ -14,9 +14,9 @@ void initScript()
 	scope scriptScope = scriptModule;
 
 	enum_<ScriptSource>("ScriptSource")
-		.value("NONE",  ScriptSource::NONE)
-		.value("FILE", ScriptSource::FILE)
-		.value("TEXT",  ScriptSource::TEXT)
+		.value("NONE",  ScriptSource::SS_NONE)
+		.value("FILE", ScriptSource::SS_FILE)
+		.value("TEXT",  ScriptSource::SS_TEXT)
 	;
 
 	class_<Script, bases<NodeComponent>, Script::Ptr, boost::noncopyable>("Script", no_init)

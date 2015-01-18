@@ -15,9 +15,9 @@ namespace epsilon
 {
 	enum ScriptSource
 	{
-		NONE = 1,
-		FILE,
-		TEXT,
+		SS_NONE = 1,
+		SS_FILE,
+		SS_TEXT,
 	};
 
 	class Script :
