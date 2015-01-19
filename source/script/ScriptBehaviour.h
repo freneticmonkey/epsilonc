@@ -17,7 +17,7 @@ namespace epsilon
 		typedef std::map<std::size_t, object>	 EventFunctions;
 
 		static ScriptBehaviour::Ptr Create();
-		static ScriptBehaviour::Ptr Create(std::string scriptString, ScriptSource source = ScriptSource::TEXT);
+		static ScriptBehaviour::Ptr Create(std::string scriptString, ScriptSource source = ScriptSource::SS_TEXT);
 		static ScriptBehaviour::Ptr CreateFromFile(std::string scriptString);
 		
 		explicit ScriptBehaviour(const private_struct &);
@@ -31,6 +31,7 @@ namespace epsilon
 		void Update(float dt);
 		void OnDestroy();
 		void OnDrawGizmos();
+		void OnGUI();
 
 		void HandleEvent(EventDataBase::Ptr event);
 
@@ -42,6 +43,7 @@ namespace epsilon
 		object updateFunction;
 		object destroyFunction;
 		object drawGizmosFunction;
+		object guiFunction;
 
 		// Event Functions
 		EventFunctions eventFunctions;

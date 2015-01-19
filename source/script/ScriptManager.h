@@ -47,7 +47,10 @@ namespace epsilon
 		void Setup(void);
 		void Update(float el);
 		void Destroy(void);
-		
+
+		void BehaviourOnDrawGizmos();
+		void BehaviourOnGUI();
+
 		void ReloadScript(Script::Ptr script);
 
 		bool DestroyScript(Script::Ptr script);

@@ -18,18 +18,18 @@ namespace epsilon
 
 	Script::Ptr Script::CreateFromFile(std::string filename)
 	{
-        return std::make_shared<Script>(private_struct(), filename, ScriptSource::FILE);
+        return std::make_shared<Script>(private_struct(), filename, ScriptSource::SS_FILE);
 	}
 
 	Script::Ptr Script::CreateFromText(std::string scriptString)
 	{
-		return std::make_shared<Script>(private_struct(), scriptString, ScriptSource::TEXT);
+		return std::make_shared<Script>(private_struct(), scriptString, ScriptSource::SS_TEXT);
 	}
 
 	Script::Script(const private_struct &) : NodeComponent("Script"),
 											 filename(""),
 											 text(""),
-											 scriptSource(ScriptSource::NONE),
+											 scriptSource(ScriptSource::SS_NONE),
 											 initialised(false),
 											 compileError(false),
 											 Resource("", ResourceType::Type::SCRIPT)
@@ -41,7 +41,7 @@ namespace epsilon
 	}
 
 	Script::Script(const private_struct &, std::string filepath) : NodeComponent("Script"),
-																	scriptSource(ScriptSource::FILE),
+																	scriptSource(ScriptSource::SS_FILE),
 																	filename(filepath),
 																	initialised(false),
 																	text(""),
@@ -70,13 +70,13 @@ namespace epsilon
 	{
         switch(scriptSource)
 		{
-			case ScriptSource::FILE:
+			case ScriptSource::SS_FILE:
             {
                 filename = scriptString;
 				text = "";
 				break;
             }
-			case ScriptSource::TEXT:
+			case ScriptSource::SS_TEXT:
             {
 				filename = "";
 				text = scriptString;
@@ -90,7 +90,7 @@ namespace epsilon
 		// Name the script
 
 		// If a file
-		if ( scriptSource ==  ScriptSource::FILE )
+		if (scriptSource == ScriptSource::SS_FILE)
 		{
 			// strip the path and just use the filename
 			unsigned spos = scriptString.rfind("/");
@@ -141,10 +141,10 @@ namespace epsilon
 			// Load the python source into the local namespace.
 			switch( scriptSource )
 			{
-				case ScriptSource::FILE:
+				case ScriptSource::SS_FILE:
 					exec_file(filename.c_str(), scriptLocalNamespace);
 					break;
-				case ScriptSource::TEXT:
+				case ScriptSource::SS_TEXT:
 					exec(text.c_str(), scriptLocalNamespace);
 					break;
 				default:
@@ -242,10 +242,10 @@ namespace epsilon
 			std::string scriptName;
 			switch( scriptSource )
 			{
-				case ScriptSource::FILE:
+				case ScriptSource::SS_FILE:
 					scriptName = filename;
 					break;
-				case ScriptSource::TEXT:
+				case ScriptSource::SS_TEXT:
 					scriptName = ( text.size() > 10 ) ? text.substr(0, 10) : text;
 					break;
 				default:
@@ -289,14 +289,14 @@ namespace epsilon
         
 		// Clear text in preparation for next init
 		text = "";
-		scriptSource = ScriptSource::FILE;
+		scriptSource = ScriptSource::SS_FILE;
 		return ThisPtr();
 	}
 */
 	Script::Ptr Script::SetScriptText(std::string scriptText)
 	{
 		text = scriptText;
-		scriptSource = ScriptSource::TEXT;
+		scriptSource = ScriptSource::SS_TEXT;
 		return ThisPtr();
 	}
 

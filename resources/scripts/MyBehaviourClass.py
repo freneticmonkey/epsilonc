@@ -4,8 +4,10 @@ import random
 from epsilon.scene import TransformSpace
 
 from epsilon.render import Colour
-from epsilon.math import Vector3
+from epsilon.math import Vector3, Vector2
 from CycleValue import CycleValue
+
+from epsilon.ui import IMGUI, WindowOptions
 
 class MyBehaviour(object):
 	
@@ -16,6 +18,14 @@ class MyBehaviour(object):
 		self._pos = Vector3(0)
 		self._cycle = CycleValue()
 		self._init_pos = 0
+
+		self._options = WindowOptions()
+		self._options.is_open = True
+		self._options.position = Vector2(10,10)
+
+		self._value = 0.5
+
+		self._colour = Colour.RED
 
 	def on_start(self):
 		self._init_pos = self.node.transform.position.x
@@ -47,6 +57,29 @@ class MyBehaviour(object):
 
 	def on_destroy(self):
 		pass
+
+	def on_gui(self):
+		if IMGUI.begin("Behaviour: " + self.node.name, self._options):
+			IMGUI.text("Hello World! (From Python) which can change.")
+
+			if IMGUI.small_button("Click Me"):
+				IMGUI.text("Button Clicked!")
+
+			IMGUI.spacing()
+
+			self._value = IMGUI.slider_float("Value", self._value, 0.0, 1.0)
+
+			self._value = IMGUI.input_float("Value Input", self._value, 0.1, 0.3, 3)
+
+			IMGUI.text_wrapped("This is some very long text that will hopefully wrap on the window")
+
+			IMGUI.spacing()
+			self.node.transform.position.y = self._value
+			self.node.transform.position = IMGUI.input_float3("Pos:", self.node.transform.position)
+
+			self._colour = IMGUI.colour_edit4("Colour: ", self._colour)
+		IMGUI.end()
+
 
 # It is necessary to instantiate the class as "_instance"
 # in Python so that epsilon can hook into it.
