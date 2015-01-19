@@ -30,8 +30,9 @@ struct AxisAngle
 	}
 };
 
-struct Euler
+class Euler
 {
+public:
     float heading;
     float attitude;
     float bank;
@@ -41,6 +42,16 @@ struct Euler
         attitude = iattitude;
         bank = ibank;
     }
+	Euler(const Vector3& v)
+	{
+		heading = v.x;
+		attitude = v.y;
+		bank = v.z;
+	}
+	Vector3 ToVector3()
+	{
+		return Vector3(heading, attitude, bank);
+	}
 };
 
 #endif

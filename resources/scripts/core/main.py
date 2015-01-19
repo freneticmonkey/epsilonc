@@ -45,10 +45,10 @@ class ScriptCore(object):
 			self._console_window.visible = not self._console_window.visible
 			print "Visible: %d" % self._console_window.visible
 
-		if Input.key_down(Input.Key.Return):			
-			s = SceneSaver('test.xml')
-			# Do the save
-			s.save()
+		# if Input.key_down(Input.Key.Return):			
+		# 	s = SceneSaver('test.xml')
+		# 	# Do the save
+		# 	s.save()
 
 
 	def on_destroy(self):

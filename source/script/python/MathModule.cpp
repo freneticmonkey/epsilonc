@@ -318,7 +318,14 @@ void initMath()
 		.def_readwrite("angle", &AxisAngle::angle)
 		;
 
-	class_<Euler>("Euler", init<float, float, float>());
+	class_<Euler>("Euler", init<float, float, float>())
+		.def(init<Vector3>())
+		.def_readwrite("heading", &Euler::heading)
+		.def_readwrite("attitude", &Euler::attitude)
+		.def_readwrite("bank", &Euler::bank)
+
+		.def("to_vector3", &Euler::ToVector3)
+		;
 
 	class_<Matrix3>("Matrix3")
 		.def(init<Matrix3>())
