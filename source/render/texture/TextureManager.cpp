@@ -9,6 +9,7 @@
 #include "render/texture/TextureLoaderBMP.h"
 
 #include "resource/ResourceManager.h"
+#include "resource/ResourcePath.h"
 
 #include <boost/format.hpp>
 
@@ -108,7 +109,7 @@ namespace epsilon
 	Texture::Ptr TextureManager::GetTextureByPath(std::string path)
 	{
 		Texture::Ptr foundTexture;
-		std::string fullpath = ResourceManager::GetInstance().GetResourceFullPath(path);
+		std::string fullpath = ResourcePath::GetInstance().GetResourceFullPath(path);
 
 		for (TextureMap::iterator it = textures.begin(); it != textures.end(); it++)
 		{

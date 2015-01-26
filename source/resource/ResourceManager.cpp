@@ -36,64 +36,6 @@ namespace epsilon
 	{
 		return resourcePath->GetBasePath();
 	}
-    
-    std::string ResourceManager::GetResourceFullPath(std::string resourceRelativePath)
-    {
-        std::string fullpath;
-        
-		filesystem::path bp(basepath);
-		filesystem::path rPath(resourceRelativePath);
-
-        try
-		{
-			// If the path is relative and includes the resources folder, 
-			// remove the resources folder from the path.
-			if ((*rPath.begin()).generic_string() == "resources")
-			{
-				filesystem::path temp;
-
-				for (filesystem::path::iterator it = (++rPath.begin()); it != rPath.end(); it++)
-				{
-					temp /= *it;
-				}
-				rPath = temp;
-			}
-
-			// Check if the path is already absolute
-			if (rPath.has_root_directory())
-			{
-				// incase there is some relative wackiness going on.
-				fullpath = filesystem::canonical(rPath).generic_string();
-			}
-			else
-			{
-
-				// Check if the path is a sub path under the resource folder.
-				filesystem::path rFolder = bp / (*rPath.begin());
-				if (filesystem::exists(rFolder))
-				{
-					// build the final path
-					fullpath = filesystem::complete(bp / rPath).generic_string();
-					//Log("ResourceManager", "Resolved Resource Path: " + fullpath );
-				}
-				else
-				{
-
-					rPath = filesystem::complete(bp / rPath);
-					Log("ResourceManager", "Error Resolving Resource Path. Path doesn't exist: " + rPath.generic_string());
-					fullpath = "error";
-				}
-			}
-		}
-		catch (boost::filesystem::filesystem_error e)
-		{
-			Log("ResourceManager", "Error Resolving Resource Path. Path doesn't exist: " + rPath.generic_string());
-			fullpath = "error";
-		}
-        
-        return fullpath;
-        
-    }
 
 	void ResourceManager::BuildResourceInfo()
 	{

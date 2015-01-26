@@ -54,9 +54,6 @@ namespace epsilon
 			objectName = filepath.substr(spos + 1, std::string::npos);
 		}
 		objectName = filepath;
-
-		// Ensure that the Resource base class is notified of the filename
-		SetFilename(filepath);
 	}
 
 	Script::Script(const private_struct &, std::string scriptString, ScriptSource source) : NodeComponent("Script"),

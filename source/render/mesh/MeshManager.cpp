@@ -9,6 +9,7 @@
 #include "render/mesh/MeshLoaderOBJ.h"
 
 #include "resource/ResourceManager.h"
+#include "resource/ResourcePath.h"
 
 #include <boost/format.hpp>
 
@@ -112,7 +113,7 @@ namespace epsilon
 	Mesh::Ptr MeshManager::GetMeshByPath(std::string path)
 	{
 		Mesh::Ptr foundMesh;
-		std::string fullpath = ResourceManager::GetInstance().GetResourceFullPath(path);
+		std::string fullpath = ResourcePath::GetInstance().GetResourceFullPath(path);
 
 		for (MeshMap::iterator it = meshs.begin(); it != meshs.end(); it++)
 		{

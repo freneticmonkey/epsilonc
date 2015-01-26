@@ -1,6 +1,7 @@
 #include "audio/AudioManager.h"
 
 #include "resource/ResourceManager.h"
+#include "resource/ResourcePath.h"
 
 #include <boost/format.hpp>
 
@@ -152,7 +153,7 @@ namespace epsilon
 	{
 		AudioBuffer::Ptr foundBuffer;
 
-		std::string fullpath = ResourceManager::GetInstance().GetResourceFullPath(path);
+		std::string fullpath = ResourcePath::GetInstance().GetResourceFullPath(path);
 
 		for (Buffers::iterator it = buffers.begin(); it != buffers.end(); it++)
 		{
