@@ -42,6 +42,9 @@ namespace epsilon
 		// turn the ResourceManager
 		void AddBehaviour(ScriptBehaviour::Ptr newBehaviour);
 
+		void SetScriptsFolderPath(std::string scriptPath);
+		void SetCoreScript(std::string coreScript);
+
 		bool StartEngineCore();
 
 		void Setup(void);
@@ -113,6 +116,7 @@ namespace epsilon
 		object epsilonModule;
 
 		std::string scriptsFolderPath;
+		std::string coreScriptFilepath;
 
 		PythonLogListener stdErrListener;
 		PythonLogListener stdOutListener;

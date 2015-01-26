@@ -4,13 +4,14 @@
 namespace epsilon
 {
 
-	ScriptEngineCore::Ptr ScriptEngineCore::Create()
+	ScriptEngineCore::Ptr ScriptEngineCore::Create(std::string coreScript)
 	{
-		return std::make_shared<ScriptEngineCore>(private_struct());
+		return std::make_shared<ScriptEngineCore>(private_struct(), coreScript);
 	}
 
-	ScriptEngineCore::ScriptEngineCore(const private_struct &) : Script(Script::private_struct(), 
-																		std::string("resources/scripts/core/main.py"))
+	ScriptEngineCore::ScriptEngineCore(const private_struct &, std::string coreScript) : 
+		Script(Script::private_struct(),
+		coreScript)
 	{
 	}
 

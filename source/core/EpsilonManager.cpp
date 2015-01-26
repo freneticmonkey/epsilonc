@@ -47,6 +47,8 @@ namespace epsilon
 		//eventManager = &EventManager::GetInstance();
 
 		scriptManager = &ScriptManager::GetInstance();
+		scriptManager->SetScriptsFolderPath("scripts/");
+		scriptManager->SetCoreScript("core/main.py");
 		scriptManager->Setup();
 		
 		shaderManager = &ShaderManager::GetInstance();

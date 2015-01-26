@@ -8,14 +8,16 @@ using namespace boost;
 
 namespace epsilon
 {
-	ScriptManager::ScriptManager() : scriptsFolderPath("/scripts/"),
+	ScriptManager::ScriptManager(void) : 
+									 scriptsFolderPath(""),
+									 coreScriptFilepath(""),
 									 stdErrListener("error"), 
 									 stdOutListener(""),
-									 engineCoreScript(ScriptEngineCore::Create()),
 									 gilLockCount(0),
 									 currentChangedQueue(0),
 									 activeResourceId(-1)
 	{
+		
 	}
 
 	ScriptManager::~ScriptManager()
@@ -62,6 +64,16 @@ namespace epsilon
 		startingBehaviours.push_back(newBehaviour);
 	}
 
+	void ScriptManager::SetScriptsFolderPath(std::string scriptPath)
+	{
+		scriptsFolderPath = scriptPath;
+	}
+
+	void ScriptManager::SetCoreScript(std::string coreScript)
+	{
+		coreScriptFilepath = coreScript;
+	}
+
 	void ScriptManager::Setup()
 	{
 		try
@@ -103,6 +115,7 @@ namespace epsilon
 		}
 		catch (const error_already_set&)
 		{
+			Log("ScriptManager", "Setup() error");
 			if (PyErr_Occurred()) 
 			{
 				PrintPythonError();
@@ -114,6 +127,8 @@ namespace epsilon
 	{
 		bool success = false;
 		LockGIL();
+
+		engineCoreScript = ScriptEngineCore::Create(scriptsFolderPath + coreScriptFilepath);
 
 		// Register the Script Engine Core with the ResourceManager for hotloading
 		RegisterResource(engineCoreScript);

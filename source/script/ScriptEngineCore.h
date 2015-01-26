@@ -17,9 +17,9 @@ namespace epsilon
 	public:
 		typedef std::shared_ptr<ScriptEngineCore> Ptr;
 
-		static ScriptEngineCore::Ptr Create();
+		static ScriptEngineCore::Ptr Create(std::string coreScript);
 		
-		explicit ScriptEngineCore(const private_struct &);
+		explicit ScriptEngineCore(const private_struct &, std::string coreScript);
 		~ScriptEngineCore(void);
 
 		ScriptEngineCore::Ptr ThisPtr() { return std::static_pointer_cast<ScriptEngineCore,Script>(shared_from_this()); }
