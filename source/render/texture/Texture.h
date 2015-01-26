@@ -1,5 +1,5 @@
 #pragma once
-#include "EpsilonCore.h"
+#include "render/RenderUtilities.h"
 
 #include "resource/Resource.h"
 #include "render/texture/TextureData.h"

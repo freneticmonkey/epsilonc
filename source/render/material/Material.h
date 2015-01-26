@@ -2,6 +2,7 @@
 #pragma once
 
 #include "EpsilonCore.h"
+#include "render/RenderUtilities.h"
 
 #include "render/Colour.h"
 #include "render/material/Shader.h"

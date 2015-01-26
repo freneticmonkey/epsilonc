@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EpsilonCore.h"
+#include "render/RenderUtilities.h"
 
 namespace epsilon
 {

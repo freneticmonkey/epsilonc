@@ -1,5 +1,5 @@
 #pragma once
-#include "EpsilonCore.h"
+#include "render/RenderUtilities.h"
 
 #include "math/Vector.h"
 #include "math/Matrix.h"

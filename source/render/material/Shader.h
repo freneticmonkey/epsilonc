@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EpsilonCore.h"
+#include "render/RenderUtilities.h"
 
 #include "logging/Logging.h"
 #include "scene/Transform.h"
