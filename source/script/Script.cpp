@@ -27,7 +27,6 @@ namespace epsilon
 	}
 
 	Script::Script(const private_struct &) : NodeComponent("Script"),
-											 filename(""),
 											 text(""),
 											 scriptSource(ScriptSource::SS_NONE),
 											 initialised(false),
@@ -42,7 +41,6 @@ namespace epsilon
 
 	Script::Script(const private_struct &, std::string filepath) : NodeComponent("Script"),
 																	scriptSource(ScriptSource::SS_FILE),
-																	filename(filepath),
 																	initialised(false),
 																	text(""),
 																	compileError(false),
@@ -50,16 +48,15 @@ namespace epsilon
 	{
 		// Name the script
 		// strip the path and just use the filename
-		unsigned spos = filename.rfind("/");
+		unsigned spos = filepath.rfind("/");
 		if (spos != std::string::npos)
 		{
-			objectName = filename.substr(spos + 1, std::string::npos);
+			objectName = filepath.substr(spos + 1, std::string::npos);
 		}
-		objectName = filename;
-        
-        filename = ResourceManager::GetInstance().GetResourceFullPath(filename);
-        UpdateResourceFilename(filename);
-        
+		objectName = filepath;
+
+		// Ensure that the Resource base class is notified of the filename
+		SetFilename(filepath);
 	}
 
 	Script::Script(const private_struct &, std::string scriptString, ScriptSource source) : NodeComponent("Script"),
@@ -72,44 +69,31 @@ namespace epsilon
 		{
 			case ScriptSource::SS_FILE:
             {
-                filename = scriptString;
+				// strip the path and just use the filename
+				unsigned spos = scriptString.rfind("/");
+				if (spos != std::string::npos)
+				{
+					objectName = scriptString.substr(spos + 1, std::string::npos);
+				}
+				objectName = scriptString;
+
+				// Ensure that the Resource base class is notified of the filename
+				SetFilename(scriptString);
+
 				text = "";
 				break;
             }
 			case ScriptSource::SS_TEXT:
             {
-				filename = "";
+				// Name the script using its Object ID
+				std::stringstream ss;
+				ss << id;
+				objectName = std::string("Script_") + ss.str();
 				text = scriptString;
-				
 				break;
             }
             default:
                 break;
-		}
-
-		// Name the script
-
-		// If a file
-		if (scriptSource == ScriptSource::SS_FILE)
-		{
-			// strip the path and just use the filename
-			unsigned spos = scriptString.rfind("/");
-			if ( spos != std::string::npos )
-			{
-				objectName = scriptString.substr(spos+1, std::string::npos);
-			}
-			objectName = scriptString;
-            
-            // Ensure that the Resource base class has an absolute filename
-            filename = ResourceManager::GetInstance().GetResourceFullPath(filename);
-            UpdateResourceFilename(filename);
-		}
-		else
-		{
-			// Name the script using its Object ID
-			std::stringstream ss;
-			ss << id;
-			objectName = std::string("Script_") + ss.str();
 		}
 	}
 	
@@ -130,53 +114,59 @@ namespace epsilon
 
 	bool Script::InitScript()
 	{
-		try
+		// If the Script is a text buffer
+		// or if the script is a valid file
+		// initialise it
+		if (scriptSource == ScriptSource::SS_TEXT || (scriptSource == ScriptSource::SS_FILE && IsValidFile()) )
 		{
-			// Build a local namespace for this script, 
-			// so scripts don't stomp over each others global namespace
-			scriptLocalNamespace["__builtins__"] = import("__builtin__");
-			scriptLocalNamespace["epsilon"] = import("epsilon");
-
-			// TODO: Add better exception handling here
-			// Load the python source into the local namespace.
-			switch( scriptSource )
+			try
 			{
+				// Build a local namespace for this script, 
+				// so scripts don't stomp over each others global namespace
+				scriptLocalNamespace["__builtins__"] = import("__builtin__");
+				scriptLocalNamespace["epsilon"] = import("epsilon");
+
+				// TODO: Add better exception handling here
+				// Load the python source into the local namespace.
+				switch (scriptSource)
+				{
 				case ScriptSource::SS_FILE:
-					exec_file(filename.c_str(), scriptLocalNamespace);
+					exec_file(GetFilepath().GetString().c_str(), scriptLocalNamespace);
 					break;
 				case ScriptSource::SS_TEXT:
 					exec(text.c_str(), scriptLocalNamespace);
 					break;
 				default:
 					break;
+				}
+
+				// Register the variable '_instance' in the local namespace as the modules
+				// 'class'.  If the python module contains a class definition, creating an
+				// instance of it named '_instance' will allow the script to link to functions
+				// within the class
+				RegisterPythonClass();
+
+				// Register any functions that need to be exposed by this script.
+				RegisterScriptFunctions();
+
+				// Register Hotloading callbacks
+				beforeReloadFunction = FindPythonFunction("before_reload");
+				afterReloadFunction = FindPythonFunction("after_reload");
+
+				// For Hotloading.
+				if (this->componentParent)
+				{
+					OnSetParent();
+				}
+
+				// Set the scripts state to a good state now that it has initialised
+				initialised = true;
+				compileError = false;
 			}
-
-			// Register the variable '_instance' in the local namespace as the modules
-			// 'class'.  If the python module contains a class definition, creating an
-			// instance of it named '_instance' will allow the script to link to functions
-			// within the class
-			RegisterPythonClass();
-			
-			// Register any functions that need to be exposed by this script.
-			RegisterScriptFunctions();
-
-			// Register Hotloading callbacks
-			beforeReloadFunction = FindPythonFunction("before_reload");
-			afterReloadFunction = FindPythonFunction("after_reload");
-
-			// For Hotloading.
-			if (this->componentParent)
+			catch (const error_already_set&)
 			{
-				OnSetParent();
+				HandlePythonError();
 			}
-
-			// Set the scripts state to a good state now that it has initialised
-			initialised = true;
-			compileError = false;
-		}
-		catch (const error_already_set&)
-		{
-			HandlePythonError();
 		}
 
 		// Indicate that the Script Resource has been refreshed
@@ -243,7 +233,7 @@ namespace epsilon
 			switch( scriptSource )
 			{
 				case ScriptSource::SS_FILE:
-					scriptName = filename;
+					scriptName = GetFilepath().GetString();
 					break;
 				case ScriptSource::SS_TEXT:
 					scriptName = ( text.size() > 10 ) ? text.substr(0, 10) : text;

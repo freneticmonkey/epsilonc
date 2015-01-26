@@ -44,9 +44,6 @@ namespace epsilon
 		{
 			name = filename.substr(spos + 1, std::string::npos);
 		}
-		
-		filename = ResourceManager::GetInstance().GetResourceFullPath(filename);
-		UpdateResourceFilename(filename);
 	}
 
 	Texture::~Texture(void)

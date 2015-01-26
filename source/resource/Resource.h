@@ -41,6 +41,8 @@ namespace epsilon
         // Ensure that type based comparison is implemented?
 //        virtual int operator=;
 
+		bool IsValidFile() { return validFile; }
+
 		// Check if path is path to resource.  Path is an absolute path to the resource
 		bool IsMatchingPath(std::string path);
         
@@ -94,13 +96,15 @@ namespace epsilon
         
 		// TODO!: Add file reading writing functionality in here. :)
     protected:
-        // This is used solely by inherited classes to override filenames in constructors
-        // if some manipulation (e.g. make path absolute) needs to occur.
-        void UpdateResourceFilename(std::string updatedFilename);
+        // This is called from the ResourceManager.  Inheriting classes must call
+		// ResourceManager::Update
+        void SetFilename(std::string updatedFilename);
 
     private:
         OwnerIds		ownerIds;
         
+		bool			validFile;
+
         int				type;
 		std::string		extension;
 

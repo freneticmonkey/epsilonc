@@ -39,9 +39,6 @@ namespace epsilon
 		{
 			objectName = filename.substr(spos + 1, std::string::npos);
 		}
-
-		filename = ResourceManager::GetInstance().GetResourceFullPath(filename);
-		UpdateResourceFilename(filename);
 	}
 
 	Mesh::~Mesh(void)

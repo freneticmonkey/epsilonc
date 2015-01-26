@@ -14,6 +14,7 @@
 #include "resource/ResourceOwnerInterface.h"
 #include "resource/Resource.h"
 #include "resource/ResourceType.h"
+#include "resource/ResourcePath.h"
 
 #include <boost/filesystem.hpp>
 
@@ -67,7 +68,7 @@ namespace epsilon
         ~ResourceManager(void);
 
 		void        SetBasePath(std::string basepath);
-        std::string GetBasePath() { return basepath; }
+		std::string GetBasePath();
         std::string GetResourceFullPath(std::string resourceRelativePath);
 
 		/*
@@ -98,7 +99,7 @@ namespace epsilon
 		void RemoveDependency(Resource::Ptr parentResource, Resource::Ptr childResource);
         
 		void SetCheckFrequency(float checkFreq) { checkFrequency = checkFreq; }
-
+		
 		// Search known resources by regex
 		ResourceList FindResources(std::string searchExpression);
 
@@ -135,6 +136,8 @@ namespace epsilon
 
 		// The Resources basepath?
 		std::string			basepath;
+
+		ResourcePath *		resourcePath;
         
     };
 }

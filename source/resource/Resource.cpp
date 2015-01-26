@@ -1,6 +1,8 @@
 #include "resource/Resource.h"
 #include <boost/filesystem.hpp>
 
+#include "resource/ResourcePath.h"
+
 using namespace boost;
 
 namespace epsilon
@@ -12,12 +14,8 @@ namespace epsilon
 
 	Resource::Resource(std::string theFilepath, ResourceType::Type iType)
 	{
-		filesystem::path fullpath(theFilepath);
-		// Ensure that the path is in the native format so that resources will hash to the same id
-		filepath = HashedString(fullpath.make_preferred().generic_string());
 		type = iType;
-		extension = fullpath.extension().generic_string();
-		//Log("Resource: " + filepath.GetString() + " Ext: " + extension);
+		SetFilename(theFilepath);
 	}
 
 	Resource::~Resource()
@@ -25,9 +23,31 @@ namespace epsilon
 
 	}
     
-    void Resource::UpdateResourceFilename(std::string updatedFilename)
+	void Resource::SetFilename(std::string updatedFilename)
     {
-		filepath = HashedString(filesystem::path(updatedFilename).make_preferred().generic_string());
+		validFile = false;
+		try
+		{
+			// If the path is valid
+			if (updatedFilename.size() > 0)
+			{
+				// Process the path into an absolute path
+				updatedFilename = ResourcePath::GetInstance().GetResourceFullPath(updatedFilename);
+				validFile = true;
+			}
+		}
+		catch (ResourcePathException &rpe)
+		{
+			// Ignore invalid path exceptions.  
+			// The resource file will be marked as invalid by default
+		}
+		
+		filesystem::path fullpath(updatedFilename);
+
+		// Ensure that the path is in the native format so that resources will hash to the same id
+		filepath = HashedString(fullpath.make_preferred().generic_string());
+		extension = fullpath.extension().generic_string();
+		//Log("Resource: " + filepath.GetString() + " Ext: " + extension);
     }
 	
 	bool Resource::IsMatchingPath(std::string path)

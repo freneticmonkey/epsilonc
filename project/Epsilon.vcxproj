@@ -56,6 +56,7 @@
     <ClCompile Include="..\source\render\texture\TextureManager.cpp" />
     <ClCompile Include="..\source\resource\Resource.cpp" />
     <ClCompile Include="..\source\resource\ResourceManager.cpp" />
+    <ClCompile Include="..\source\resource\ResourcePath.cpp" />
     <ClCompile Include="..\source\resource\ResourceType.cpp" />
     <ClCompile Include="..\source\scene\Node.cpp" />
     <ClCompile Include="..\source\scene\Scene.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="..\source\render\texture\TextureLoaderBMP.h" />
     <ClInclude Include="..\source\render\texture\TextureLoaderInterface.h" />
     <ClInclude Include="..\source\render\texture\TextureManager.h" />
+    <ClInclude Include="..\source\resource\ResourcePath.h" />
     <ClInclude Include="..\source\resource\Resource.h" />
     <ClInclude Include="..\source\resource\ResourceDependency.h" />
     <ClInclude Include="..\source\resource\ResourceManager.h" />
