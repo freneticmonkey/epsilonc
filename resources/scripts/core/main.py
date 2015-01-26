@@ -37,13 +37,13 @@ class ScriptCore(object):
 		
 		# If escape is pressed, close the window
 		if Input.key_down(Input.Key.Escape):
-			RenderManager.close_window()
+			RenderManager.stop_running()
 			print 'Closing'
 
 		# If Tilde is pressed toggle the console window
-		if Input.key_down(Input.Key.Tilde):
-			self._console_window.visible = not self._console_window.visible
-			print "Visible: %d" % self._console_window.visible
+		# if Input.key_down(Input.Key.Tilde):
+		# 	self._console_window.visible = not self._console_window.visible
+		# 	print "Visible: %d" % self._console_window.visible
 
 		# if Input.key_down(Input.Key.Return):			
 		# 	s = SceneSaver('test.xml')

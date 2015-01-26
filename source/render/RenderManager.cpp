@@ -181,6 +181,11 @@ namespace epsilon
         std::for_each(renderers.begin(), renderers.end(), [](Renderer::Ptr renderer){
             renderer->OnDestroy();
         });
+
+		if (window)
+		{
+			window->close();
+		}
     }
 
 	bool RenderManager::WindowOpen(void)
@@ -188,12 +193,9 @@ namespace epsilon
 		return ( window ) ? window->isOpen() : false;
 	}
 
-	void RenderManager::CloseWindow(void)
+	void RenderManager::StopRunning(void)
 	{
-		if (window)
-		{
-			window->close();
-		}
+		isRunning = false;
 	}
 
 	bool RenderManager::WindowInFocus(void)

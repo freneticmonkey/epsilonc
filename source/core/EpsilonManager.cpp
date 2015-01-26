@@ -165,15 +165,11 @@ namespace epsilon
         // Stop Scripts
 		scriptManager->Destroy();
         
-        // Clean up OpenGL
+        // Clean up OpenGL and UI
         renderManager->Destroy();
         
-        // Stop UI
-        //uiManager->Destroy();
-
+		// Clean up Physics
 		physicsManager->Destroy();
-        
-        renderManager->CloseWindow();
     }
 
 	void EpsilonManager::Run(void)

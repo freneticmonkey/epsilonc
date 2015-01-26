@@ -62,7 +62,7 @@ void initManagers()
 		.def("get_instance", &RenderManager::GetInstance, return_value_policy<reference_existing_object>())
 		.staticmethod("get_instance")
 
-		.def("close_window", &RenderManager::CloseWindow)
+		.def("stop_running", &RenderManager::StopRunning)
 	;
 	// Injecting the get instance result into the namespace
 	smGI = renderManager.attr("get_instance");

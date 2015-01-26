@@ -39,12 +39,12 @@ namespace epsilon
 
 		// Exposed Window Methods
 		bool	WindowOpen(void);
-		void	CloseWindow(void);
 		bool	WindowInFocus(void);
 		
 		bool	PollEvent(sf::Event &event);
 
 		bool	IsRunning() { return isRunning; }
+		void	StopRunning(void);
 
 		// Scene
 		void	SetSceneManager(SceneManager * sm);
