@@ -1,7 +1,7 @@
 #pragma once
-
-#include "EpsilonCore.h"
 #include "math/Vector.h"
+
+#include "render/RenderUtilities.h"
 #include "render/RenderUtilities.h"
 
 namespace epsilon

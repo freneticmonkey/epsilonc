@@ -1,5 +1,13 @@
 #pragma once
-#include "EpsilonCore.h"
+
+// OpenGL / GLEW
+#include <GL/glew.h>
+
+#ifdef __APPLE__
+#include <OpenGL/gl3.h>
+#endif
+#include "logging/Logging.h"
+
 
 namespace epsilon
 {
