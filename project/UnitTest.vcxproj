@@ -66,6 +66,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>gtestd.lib;%(AdditionalDependencies);Epsilon.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)..\build\Win\$(Configuration)\UnitTest.exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -84,6 +87,9 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>gtest.lib;%(AdditionalDependencies);Epsilon.lib</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)..\build\Win\$(Configuration)\UnitTest.exe</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\source\tests\stdafx.cpp" />
