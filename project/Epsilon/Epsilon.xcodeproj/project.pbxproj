@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		101A40A7191692B40087A1DB /* Collider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 101A40A3191692B40087A1DB /* Collider.cpp */; };
+		102760701A6B5B2800639FBC /* RenderStatsWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1027606E1A6B5B2800639FBC /* RenderStatsWindow.cpp */; };
+		1027607F1A6B5B8300639FBC /* imgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 102760751A6B5B8300639FBC /* imgui.cpp */; };
 		104CC9AE18E0E84500E85F16 /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 104CC9AD18E0E84500E85F16 /* ResourceManager.cpp */; };
 		1054238F1922D22100BD2D55 /* AudioListener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 105423891922D22100BD2D55 /* AudioListener.cpp */; };
 		105423901922D22100BD2D55 /* AudioManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1054238B1922D22100BD2D55 /* AudioManager.cpp */; };
@@ -33,6 +35,7 @@
 		10B94DAD18DE5421002A53C9 /* GizmoSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10B94DA618DE5421002A53C9 /* GizmoSphere.cpp */; };
 		10B94DAE18DE5421002A53C9 /* GizmoType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10B94DA918DE5421002A53C9 /* GizmoType.cpp */; };
 		10BCF19519242B900062F421 /* AudioModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10BCF19419242B900062F421 /* AudioModule.cpp */; };
+		10BF7F6F1A77AD4C00C0E8EC /* ResourcePath.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10BF7F6D1A77AD4C00C0E8EC /* ResourcePath.cpp */; };
 		10C1EA4E1902790A002EF7F4 /* ResourceModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C1EA4D1902790A002EF7F4 /* ResourceModule.cpp */; };
 		10C2B86C1909EA240032EDDA /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C2B85D1909EA240032EDDA /* Mesh.cpp */; };
 		10C2B86D1909EA240032EDDA /* MeshFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C2B85F1909EA240032EDDA /* MeshFactory.cpp */; };
@@ -45,8 +48,6 @@
 		10C35F3919092BD800BC19B2 /* TextureData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C35F3119092BD800BC19B2 /* TextureData.cpp */; };
 		10C35F3A19092BD800BC19B2 /* TextureLoaderBMP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C35F3319092BD800BC19B2 /* TextureLoaderBMP.cpp */; };
 		10C35F3B19092BD800BC19B2 /* TextureManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10C35F3619092BD800BC19B2 /* TextureManager.cpp */; };
-		10D3AFFE18B625790041DBC5 /* DebugStatsOverlay.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10D3AFF918B625790041DBC5 /* DebugStatsOverlay.cpp */; };
-		10D3AFFF18B625790041DBC5 /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10D3AFFB18B625790041DBC5 /* Graph.cpp */; };
 		10D3B00218B625900041DBC5 /* UIModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10D3B00018B625900041DBC5 /* UIModule.cpp */; };
 		10E0274218EB71FF002FEA14 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10E0274118EB71FF002FEA14 /* Light.cpp */; };
 		10EA6EAB1908A696001BFF5F /* ShaderUniform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EA6EAA1908A696001BFF5F /* ShaderUniform.cpp */; };
@@ -79,8 +80,6 @@
 		10EC44DB1878422700B48152 /* ScriptEngineCore.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44A71878422700B48152 /* ScriptEngineCore.cpp */; };
 		10EC44DC1878422700B48152 /* ScriptManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44A91878422700B48152 /* ScriptManager.cpp */; };
 		10EC44DD1878422700B48152 /* pointerTests.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44AC1878422700B48152 /* pointerTests.cpp */; };
-		10EC44DE1878422700B48152 /* ConsoleWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44AE1878422700B48152 /* ConsoleWindow.cpp */; };
-		10EC44DF1878422700B48152 /* DebugWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44B01878422700B48152 /* DebugWindow.cpp */; };
 		10EC44E01878422700B48152 /* UIManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10EC44B21878422700B48152 /* UIManager.cpp */; };
 		10F5B1A118EBF1D900A2A9B9 /* SceneNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10F5B1A018EBF1D900A2A9B9 /* SceneNode.cpp */; };
 		10FBE90018E8CD5400027082 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 10FBE8F918E8CD5400027082 /* Material.cpp */; };
@@ -97,6 +96,17 @@
 		101A40A5191692B40087A1DB /* PhysicsEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhysicsEvents.h; path = physics/PhysicsEvents.h; sourceTree = "<group>"; };
 		101A40A6191692B40087A1DB /* PhysicsParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhysicsParameter.h; path = physics/PhysicsParameter.h; sourceTree = "<group>"; };
 		101B1B6E1829E5990094A53D /* Epsilon */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Epsilon; sourceTree = BUILT_PRODUCTS_DIR; };
+		1027606E1A6B5B2800639FBC /* RenderStatsWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RenderStatsWindow.cpp; sourceTree = "<group>"; };
+		1027606F1A6B5B2800639FBC /* RenderStatsWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderStatsWindow.h; sourceTree = "<group>"; };
+		102760741A6B5B8300639FBC /* imconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imconfig.h; sourceTree = "<group>"; };
+		102760751A6B5B8300639FBC /* imgui.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = imgui.cpp; sourceTree = "<group>"; };
+		102760761A6B5B8300639FBC /* imgui.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = imgui.h; sourceTree = "<group>"; };
+		102760771A6B5B8300639FBC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		102760781A6B5B8300639FBC /* stb_textedit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_textedit.h; sourceTree = "<group>"; };
+		1027607A1A6B5B8300639FBC /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		1027607C1A6B5B8300639FBC /* imconfig-SFML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "imconfig-SFML.h"; sourceTree = "<group>"; };
+		1027607D1A6B5B8300639FBC /* imgui-SFML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "imgui-SFML.h"; sourceTree = "<group>"; };
+		1027607E1A6B5B8300639FBC /* stb_image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		104CC9AC18E0E7B000E85F16 /* ResourceManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ResourceManager.h; path = resource/ResourceManager.h; sourceTree = "<group>"; };
 		104CC9AD18E0E84500E85F16 /* ResourceManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ResourceManager.cpp; path = resource/ResourceManager.cpp; sourceTree = "<group>"; };
 		104CC9AF18E0E8B100E85F16 /* Resource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Resource.h; path = resource/Resource.h; sourceTree = "<group>"; };
@@ -155,6 +165,8 @@
 		10B94DAA18DE5421002A53C9 /* RenderUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RenderUtilities.h; sourceTree = "<group>"; };
 		10BCF19319242B810062F421 /* AudioModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AudioModule.h; sourceTree = "<group>"; };
 		10BCF19419242B900062F421 /* AudioModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AudioModule.cpp; sourceTree = "<group>"; };
+		10BF7F6D1A77AD4C00C0E8EC /* ResourcePath.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ResourcePath.cpp; path = resource/ResourcePath.cpp; sourceTree = "<group>"; };
+		10BF7F6E1A77AD4C00C0E8EC /* ResourcePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourcePath.h; path = resource/ResourcePath.h; sourceTree = "<group>"; };
 		10C1EA4C190278F7002EF7F4 /* ResourceModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResourceModule.h; sourceTree = "<group>"; };
 		10C1EA4D1902790A002EF7F4 /* ResourceModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ResourceModule.cpp; sourceTree = "<group>"; };
 		10C2B85D1909EA240032EDDA /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mesh.cpp; path = mesh/Mesh.cpp; sourceTree = "<group>"; };
@@ -181,10 +193,6 @@
 		10C35F3519092BD800BC19B2 /* TextureLoaderInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureLoaderInterface.h; path = texture/TextureLoaderInterface.h; sourceTree = "<group>"; };
 		10C35F3619092BD800BC19B2 /* TextureManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = TextureManager.cpp; path = texture/TextureManager.cpp; sourceTree = "<group>"; };
 		10C35F3719092BD800BC19B2 /* TextureManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextureManager.h; path = texture/TextureManager.h; sourceTree = "<group>"; };
-		10D3AFF918B625790041DBC5 /* DebugStatsOverlay.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DebugStatsOverlay.cpp; sourceTree = "<group>"; };
-		10D3AFFA18B625790041DBC5 /* DebugStatsOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugStatsOverlay.h; sourceTree = "<group>"; };
-		10D3AFFB18B625790041DBC5 /* Graph.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Graph.cpp; sourceTree = "<group>"; };
-		10D3AFFC18B625790041DBC5 /* Graph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graph.h; sourceTree = "<group>"; };
 		10D3AFFD18B625790041DBC5 /* UIOverlay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIOverlay.h; sourceTree = "<group>"; };
 		10D3B00018B625900041DBC5 /* UIModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIModule.cpp; sourceTree = "<group>"; };
 		10D3B00118B625900041DBC5 /* UIModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIModule.h; sourceTree = "<group>"; };
@@ -258,10 +266,6 @@
 		10EC44A91878422700B48152 /* ScriptManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScriptManager.cpp; sourceTree = "<group>"; };
 		10EC44AA1878422700B48152 /* ScriptManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScriptManager.h; sourceTree = "<group>"; };
 		10EC44AC1878422700B48152 /* pointerTests.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pointerTests.cpp; sourceTree = "<group>"; };
-		10EC44AE1878422700B48152 /* ConsoleWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ConsoleWindow.cpp; sourceTree = "<group>"; };
-		10EC44AF1878422700B48152 /* ConsoleWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConsoleWindow.h; sourceTree = "<group>"; };
-		10EC44B01878422700B48152 /* DebugWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DebugWindow.cpp; sourceTree = "<group>"; };
-		10EC44B11878422700B48152 /* DebugWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugWindow.h; sourceTree = "<group>"; };
 		10EC44B21878422700B48152 /* UIManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = UIManager.cpp; sourceTree = "<group>"; };
 		10EC44B31878422700B48152 /* UIManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIManager.h; sourceTree = "<group>"; };
 		10EC44B41878422700B48152 /* UIWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWindow.h; sourceTree = "<group>"; };
@@ -326,9 +330,53 @@
 			path = Epsilon;
 			sourceTree = "<group>";
 		};
+		102760711A6B5B5F00639FBC /* external */ = {
+			isa = PBXGroup;
+			children = (
+				102760731A6B5B8300639FBC /* imgui */,
+				102760791A6B5B8300639FBC /* imgui-backends */,
+			);
+			name = external;
+			sourceTree = "<group>";
+		};
+		102760731A6B5B8300639FBC /* imgui */ = {
+			isa = PBXGroup;
+			children = (
+				102760741A6B5B8300639FBC /* imconfig.h */,
+				102760751A6B5B8300639FBC /* imgui.cpp */,
+				102760761A6B5B8300639FBC /* imgui.h */,
+				102760771A6B5B8300639FBC /* LICENSE */,
+				102760781A6B5B8300639FBC /* stb_textedit.h */,
+			);
+			name = imgui;
+			path = external/imgui;
+			sourceTree = "<group>";
+		};
+		102760791A6B5B8300639FBC /* imgui-backends */ = {
+			isa = PBXGroup;
+			children = (
+				1027607A1A6B5B8300639FBC /* LICENSE */,
+				1027607B1A6B5B8300639FBC /* SFML */,
+			);
+			name = "imgui-backends";
+			path = "external/imgui-backends";
+			sourceTree = "<group>";
+		};
+		1027607B1A6B5B8300639FBC /* SFML */ = {
+			isa = PBXGroup;
+			children = (
+				1027607C1A6B5B8300639FBC /* imconfig-SFML.h */,
+				1027607D1A6B5B8300639FBC /* imgui-SFML.h */,
+				1027607E1A6B5B8300639FBC /* stb_image.h */,
+			);
+			path = SFML;
+			sourceTree = "<group>";
+		};
 		104CC9AB18E0E73C00E85F16 /* resource */ = {
 			isa = PBXGroup;
 			children = (
+				10BF7F6D1A77AD4C00C0E8EC /* ResourcePath.cpp */,
+				10BF7F6E1A77AD4C00C0E8EC /* ResourcePath.h */,
 				10FBE90318E8CD6A00027082 /* Resource.cpp */,
 				10FBE90418E8CD6A00027082 /* ResourceDependency.h */,
 				10FBE90518E8CD6A00027082 /* ResourceOwnerInterface.h */,
@@ -479,6 +527,7 @@
 		10EC444E1878422700B48152 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				102760711A6B5B5F00639FBC /* external */,
 				10832D461932A99200C419A7 /* tools */,
 				105423881922D21100BD2D55 /* audio */,
 				10EC444F1878422700B48152 /* core */,
@@ -659,15 +708,9 @@
 		10EC44AD1878422700B48152 /* ui */ = {
 			isa = PBXGroup;
 			children = (
-				10D3AFF918B625790041DBC5 /* DebugStatsOverlay.cpp */,
-				10D3AFFA18B625790041DBC5 /* DebugStatsOverlay.h */,
-				10D3AFFB18B625790041DBC5 /* Graph.cpp */,
-				10D3AFFC18B625790041DBC5 /* Graph.h */,
+				1027606E1A6B5B2800639FBC /* RenderStatsWindow.cpp */,
+				1027606F1A6B5B2800639FBC /* RenderStatsWindow.h */,
 				10D3AFFD18B625790041DBC5 /* UIOverlay.h */,
-				10EC44AE1878422700B48152 /* ConsoleWindow.cpp */,
-				10EC44AF1878422700B48152 /* ConsoleWindow.h */,
-				10EC44B01878422700B48152 /* DebugWindow.cpp */,
-				10EC44B11878422700B48152 /* DebugWindow.h */,
 				10EC44B21878422700B48152 /* UIManager.cpp */,
 				10EC44B31878422700B48152 /* UIManager.h */,
 				10EC44B41878422700B48152 /* UIWindow.h */,
@@ -768,7 +811,7 @@
 				10A88B0E18EAF178000D61AE /* MaterialManager.cpp in Sources */,
 				10B94DAD18DE5421002A53C9 /* GizmoSphere.cpp in Sources */,
 				10783FE0190C09CD00F0A88C /* PhysicsManager.cpp in Sources */,
-				10EC44DF1878422700B48152 /* DebugWindow.cpp in Sources */,
+				1027607F1A6B5B8300639FBC /* imgui.cpp in Sources */,
 				10EC44DA1878422700B48152 /* ScriptBehaviour.cpp in Sources */,
 				10C1EA4E1902790A002EF7F4 /* ResourceModule.cpp in Sources */,
 				10EC44BD1878422700B48152 /* Matrix.cpp in Sources */,
@@ -777,7 +820,6 @@
 				10EC44D11878422700B48152 /* LoggingModule.cpp in Sources */,
 				105423911922D22100BD2D55 /* AudioSource.cpp in Sources */,
 				10EC44D81878422700B48152 /* UtilitiesModule.cpp in Sources */,
-				10EC44DE1878422700B48152 /* ConsoleWindow.cpp in Sources */,
 				10EC44C51878422700B48152 /* Renderer.cpp in Sources */,
 				10B94DAC18DE5421002A53C9 /* GizmoManager.cpp in Sources */,
 				10EC44D51878422700B48152 /* RenderModule.cpp in Sources */,
@@ -788,7 +830,6 @@
 				10B94DAE18DE5421002A53C9 /* GizmoType.cpp in Sources */,
 				10BCF19519242B900062F421 /* AudioModule.cpp in Sources */,
 				10FBE90918E8CD6A00027082 /* ResourceType.cpp in Sources */,
-				10D3AFFF18B625790041DBC5 /* Graph.cpp in Sources */,
 				10783FE1190C09CD00F0A88C /* RigidBody.cpp in Sources */,
 				10EC44E01878422700B48152 /* UIManager.cpp in Sources */,
 				10EC44BC1878422700B48152 /* main.cpp in Sources */,
@@ -806,9 +847,9 @@
 				10EC44D31878422700B48152 /* ManagerModule.cpp in Sources */,
 				10FBE90818E8CD6A00027082 /* Resource.cpp in Sources */,
 				10783FE9190C0A8100F0A88C /* GizmoAxis.cpp in Sources */,
+				10BF7F6F1A77AD4C00C0E8EC /* ResourcePath.cpp in Sources */,
 				10832D4F1932ADDF00C419A7 /* ToolsModule.cpp in Sources */,
 				10EC44D21878422700B48152 /* MainModule.cpp in Sources */,
-				10D3AFFE18B625790041DBC5 /* DebugStatsOverlay.cpp in Sources */,
 				10C2B8701909EA240032EDDA /* VertexAttrib.cpp in Sources */,
 				105423941922D74700BD2D55 /* AudioBuffer.cpp in Sources */,
 				10C2B8721909EA240032EDDA /* VertexData.cpp in Sources */,
@@ -821,6 +862,7 @@
 				10EC44BF1878422700B48152 /* Vector.cpp in Sources */,
 				10FBE90218E8CD5400027082 /* ShaderStage.cpp in Sources */,
 				10EC44CB1878422700B48152 /* Node.cpp in Sources */,
+				102760701A6B5B2800639FBC /* RenderStatsWindow.cpp in Sources */,
 				1054238F1922D22100BD2D55 /* AudioListener.cpp in Sources */,
 				109E109F1904E31600537262 /* ShaderManager.cpp in Sources */,
 				10EC44CF1878422700B48152 /* Transform.cpp in Sources */,
@@ -840,7 +882,7 @@
 		101B1B781829E5990094A53D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -862,19 +904,19 @@
 					"/usr/local/include/**",
 					"$(inherited)",
 					"$(SRCROOT)/../../source/",
-					"/Users/scottporter/Development/Resources/c_libs/C++/boost_1_55_0",
+					"/Users/scottporter/Development/Resources/c++/boost_1_57_0",
 					/Library/Frameworks/Python.framework/Headers,
-					"/Users/scottporter/Development/Resources/c_libs/C++/SFGUI-0.1.1-source/include/",
 					"/Users/scottporter/Development/Resources/c_libs/C++/tbb/include",
 					"/Users/scottporter/Development/Resources/c_libs/C++/glew-1.10.0/include",
 					"/Users/scottporter/Development/Resources/c_libs/C++/bullet-2.82-r2704/src",
+					"/Users/scottporter/Development/Resources/c_libs/C++/glm",
+					"/Users/scottporter/Development/Resources/c_libs/C++/SFML-2.2-osx-clang-universal/include",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/scottporter/Development/Resources/c_libs/C++/tbb/lib",
-					"/Users/scottporter/Development/Resources/c_libs/C++/SFGUI-0.1.1-source/build/lib/Debug",
-					"/Users/scottporter/Development/Resources/c_libs/C++/SFML-master/build/lib/Debug",
 					"/Users/scottporter/Development/Resources/c_libs/C++/glew-1.10.0/lib",
-					"/Users/scottporter/Development/Resources/c_libs/C++/boost_1_55_0/stage/lib",
+					"/Users/scottporter/Development/Resources/c++/boost_1_57_0/stage/lib",
+					"/Users/scottporter/Development/Resources/c_libs/C++/SFML-2.2-osx-clang-universal/lib",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -888,12 +930,11 @@
 					"$(SFML_GRAPHICS)",
 					"$(SFML_AUDIO)",
 					"$(SFML_NETWORK)",
-					"-lsfgui-d",
-					"-ltbb_debug",
 					"-lGLEW",
 					"-lboost_python",
 					"-lboost_filesystem",
 					"-lboost_system",
+					"-ltbb_debug",
 				);
 				SDKROOT = macosx;
 				SFML_AUDIO = "$(SFML_LINK_PREFIX)sfml-audio$(SFML_LINK_SUFFIX)";
@@ -909,14 +950,14 @@
 				SFML_SYSTEM = "$(SFML_LINK_PREFIX)sfml-system$(SFML_LINK_SUFFIX)";
 				SFML_WINDOW = "$(SFML_LINK_PREFIX)sfml-window$(SFML_LINK_SUFFIX)";
 				SUPPORTED_PLATFORMS = macosx;
-				VALID_ARCHS = i386;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
 		};
 		101B1B791829E5990094A53D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -934,19 +975,19 @@
 					"/usr/local/include/**",
 					"$(inherited)",
 					"$(SRCROOT)/../../source/",
+					"/Users/scottporter/Development/Resources/c_libs/C++/glm",
 					"/Users/scottporter/Development/Resources/c_libs/C++/boost_1_55_0",
 					/Library/Frameworks/Python.framework/Headers,
-					"/Users/scottporter/Development/Resources/c_libs/C++/SFGUI-0.1.1-source/include/",
 					"/Users/scottporter/Development/Resources/c_libs/C++/tbb/include",
 					"/Users/scottporter/Development/Resources/c_libs/C++/glew-1.10.0/include",
 					"/Users/scottporter/Development/Resources/c_libs/C++/bullet-2.82-r2704/src",
+					"/Users/scottporter/Development/Resources/c_libs/C++/SFML-2.2-osx-clang-universal/include",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/scottporter/Development/Resources/c_libs/C++/tbb/lib",
-					"/Users/scottporter/Development/Resources/c_libs/C++/SFGUI-0.1.1-source/build/lib/Debug",
-					"/Users/scottporter/Development/Resources/c_libs/C++/SFML-master/build/lib/Release",
 					"/Users/scottporter/Development/Resources/c_libs/C++/glew-1.10.0/lib",
-					"/Users/scottporter/Development/Resources/c_libs/C++/boost_1_55_0/stage/lib",
+					"/Users/scottporter/Development/Resources/c++/boost_1_57_0/stage/lib",
+					"/Users/scottporter/Development/Resources/c_libs/C++/SFML-2.2-osx-clang-universal/lib",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CPLUSPLUSFLAGS = (
@@ -960,7 +1001,6 @@
 					"$(SFML_GRAPHICS)",
 					"$(SFML_AUDIO)",
 					"$(SFML_NETWORK)",
-					"-lsfgui",
 					"-ltbb",
 					"-lGLEW",
 					"-lboost_python",
@@ -981,7 +1021,7 @@
 				SFML_SYSTEM = "$(SFML_LINK_PREFIX)sfml-system$(SFML_LINK_SUFFIX)";
 				SFML_WINDOW = "$(SFML_LINK_PREFIX)sfml-window$(SFML_LINK_SUFFIX)";
 				SUPPORTED_PLATFORMS = macosx;
-				VALID_ARCHS = i386;
+				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Release;
 		};
