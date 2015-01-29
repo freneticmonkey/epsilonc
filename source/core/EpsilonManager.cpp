@@ -133,22 +133,25 @@ namespace epsilon
 			taskGroup.wait();
 
 			//taskGroup.run( [&]() { uiManager->OnUpdate(el); } );
-		}
+            resourceManager->Update(el);
+        }
 		else
 		{
 			//EventManager::ProcessEvents(0.f);
             resourceManager->Update(el);
-			scriptManager->Update(el);
+
 			sceneManager->Update(el);
 			sceneManager->Cull();
+            
+            scriptManager->Update(el);
 		}
-		resourceManager->Update(el);
-
+		
 		// Running the AudioManager after the ResourceManager until I can assess thread safety
-		renderManager->OnUpdate(el);
 		audioManager->Update(el);
 
 		// The following managers currently don't support running in parallel due to OpenGL or whatever.
+        
+        renderManager->OnUpdate(el);
 
 		// Tick the physics sim
 		physicsManager->Update(el);

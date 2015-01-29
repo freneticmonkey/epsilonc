@@ -60,18 +60,24 @@ namespace epsilon
 
 				// Check if the path is a sub path under the resource folder.
 				filesystem::path rFolder = bp / (*rPath.begin());
+                filesystem::path fPath = filesystem::complete(bp / rPath);
 				if (filesystem::exists(rFolder))
 				{
 					// build the final path
 					fullpath = filesystem::complete(bp / rPath).generic_string();
 					//Log("ResourceManager", "Resolved Resource Path: " + fullpath );
 				}
+                // Check if it's a file in the root resources folder
+                else if ( filesystem::exists(fPath) )
+                {
+                    fullpath = fPath.generic_string();
+                }
 				else
 				{
 
 					rPath = filesystem::complete(bp / rPath);
 					Log("ResourcePath", "Error Resolving Resource Path. Path doesn't exist: " + rPath.generic_string());
-					throw ResourcePathException(resourceRelativePath);
+					//throw ResourcePathException(resourceRelativePath);
 				}
 			}
 		}

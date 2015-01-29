@@ -337,7 +337,7 @@ class SceneCamera(BaseXMLNode):
 			# if necessary make it the active camera
 			if active:
 				parse_globals.current_scene.active_camera = camera
-				print "Made camera active: %s" % camera.name
+				#print "Made camera active: %s" % camera.name # NO NAME PROPERTY ANYMORE
 			
 			return camera
 
