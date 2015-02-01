@@ -107,7 +107,6 @@
 		<transform position="10 -4 0" scale="5 5 5"/>
 		<material diffuse="1 0.5 0 1">
 			<shader name="phong.shader"/>
-			<texture filename="shape_texture.bmp"/>
 		</material>
 		<mesh filename="terrain.obj"/>
 		<!-- <script filename="resources/scripts/CircleRotation.py"/> -->
