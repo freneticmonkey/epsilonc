@@ -156,6 +156,11 @@ namespace epsilon
 					OnSetParent();
 				}
 
+				// For Unit Testing
+				unitTestSetupFunction = FindPythonFunction("unitest_setup");
+				unitTestTeardownFunction = FindPythonFunction("unittest_teardown");
+				unitTestResultFunction = FindPythonFunction("unittest_result");
+
 				// Set the scripts state to a good state now that it has initialised
 				initialised = true;
 				compileError = false;
@@ -317,5 +322,55 @@ namespace epsilon
 				HandlePythonError();
 			}
 		}
+	}
+
+	// Unit Testing
+	void Script::SetupUnitTest()
+	{
+		if (!unitTestSetupFunction.is_none())
+		{
+			try
+			{
+				unitTestSetupFunction();
+			}
+			catch (const error_already_set&)
+			{
+				HandlePythonError();
+			}
+		}
+	}
+
+	void Script::TearDownUnitTest()
+	{
+		if (!unitTestTeardownFunction.is_none())
+		{
+			try
+			{
+				unitTestTeardownFunction();
+			}
+			catch (const error_already_set&)
+			{
+				HandlePythonError();
+			}
+		}
+	}
+
+	bool Script::GetUnitTestResult()
+	{
+		bool success = false;
+		object result;
+		if (!unitTestResultFunction.is_none())
+		{
+			try
+			{
+				result = unitTestResultFunction();
+				success = extract<bool>(result);
+			}
+			catch (const error_already_set&)
+			{
+				HandlePythonError();
+			}
+		}
+		return success;
 	}
 }

@@ -90,6 +90,11 @@ namespace epsilon
 		void BeforeReload();
 		void AfterReload();
 
+		// Unit Testing
+		void SetupUnitTest();
+		void TearDownUnitTest();
+		bool GetUnitTestResult();
+
 	protected:
 		// Find a function in the Python Namespace parameter
 		object FindPythonFunction(std::string funcName);
@@ -120,6 +125,11 @@ namespace epsilon
 
 		object beforeReloadFunction;
 		object afterReloadFunction;
+
+		// Unit Testing
+		object unitTestSetupFunction;
+		object unitTestTeardownFunction;
+		object unitTestResultFunction;
 	};
 
 }
