@@ -17,6 +17,7 @@
 #include <resource/ResourceManager.h>
 
 #include <script/Script.h>
+#include <script/ScriptBehaviour.h>
 #include <script/ScriptManager.h>
 
 using namespace epsilon;
@@ -24,9 +25,14 @@ using namespace epsilon;
 TEST(Script, ScriptManager)
 {
 	ResourceManager * rm = &ResourceManager::GetInstance();
-	ScriptManager * sm = &ScriptManager::GetInstance();
+	rm->SetBasePath("../resources_unittest");
 
+	ScriptManager * sm = &ScriptManager::GetInstance();
+	sm->SetScriptsFolderPath("scripts/");
+	sm->SetCoreScript("core/unittest_main.py");
 	sm->Setup();
+
+	ScriptBehaviour::Ptr behav = sm->CreateBehaviour("TestClass.py");
 
 
 }
