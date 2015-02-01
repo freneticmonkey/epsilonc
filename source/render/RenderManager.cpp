@@ -13,7 +13,8 @@ namespace epsilon
 	RenderManager::RenderManager(void) : currFPSSample(0),
 										 resolution(800,600),
 										 windowInFocus(true),
-										 isRunning(true)
+										 isRunning(true),
+                                         enableUI(true)
 	{
 		for ( int i = 0; i < NUM_FPS_SAMPLES; i++)
 		{
@@ -105,7 +106,10 @@ namespace epsilon
 	void RenderManager::OnUpdate(float el)
 	{
 		gizmoManager->OnUpdate(el);
-		uiManager->OnUpdate(el);
+        if ( enableUI )
+        {
+            uiManager->OnUpdate(el);
+        }
 	}
 
 	void RenderManager::Draw(float el)
@@ -159,9 +163,12 @@ namespace epsilon
 		        
         // Draw the Gizmos
 		gizmoManager->Draw();
-
-		// Draw the UI
-		uiManager->Draw();
+        
+        if ( enableUI )
+        {
+            // Draw the UI
+            uiManager->Draw();
+        }
 		        
 		// Display the frame
 		window->display();
@@ -203,6 +210,11 @@ namespace epsilon
 	{
 		return windowInFocus;
 	}
+    
+    void RenderManager::EnableUI(bool enabled)
+    {
+        enableUI = enabled;
+    }
 	
 	bool RenderManager::PollEvent(sf::Event &event)
 	{
@@ -227,8 +239,11 @@ namespace epsilon
 			// If the window is in focus
 			if (windowInFocus)
 			{
-				// Process the UI events
-				uiManager->ProcessEvent(event);
+                if ( enableUI )
+                {
+                    // Process the UI events
+                    uiManager->ProcessEvent(event);
+                }
 			}
 
 			// If a close event has been detected

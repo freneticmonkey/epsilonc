@@ -13,6 +13,7 @@ class ScriptCore(object):
 	def __init__(self):
 		self._cm = None
 		self._rm = None
+		self._ui = True
 
 	def on_start(self):
 		print "Starting Main. Initialising Python Managers"
@@ -39,6 +40,12 @@ class ScriptCore(object):
 		if Input.key_down(Input.Key.Escape):
 			RenderManager.stop_running()
 			print 'Closing'
+
+		# If U is pressed, toggle the UI
+		if Input.key_down(Input.Key.U):
+			self._ui = not self._ui
+			RenderManager.enable_ui(self._ui)
+			print 'UI: ' + ( "Enabled" if self._ui else "Disabled")
 
 		# If Tilde is pressed toggle the console window
 		# if Input.key_down(Input.Key.Tilde):

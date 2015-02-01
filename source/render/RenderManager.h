@@ -45,6 +45,8 @@ namespace epsilon
 
 		bool	IsRunning() { return isRunning; }
 		void	StopRunning(void);
+        
+        void    EnableUI(bool enabled = true);
 
 		// Scene
 		void	SetSceneManager(SceneManager * sm);
@@ -79,6 +81,7 @@ namespace epsilon
 
 		bool				windowInFocus;
 
+        bool                enableUI;
 		RenderStatsWindow::Ptr renderUI;
 		float				fps;
 		SceneManager *		sceneManager;

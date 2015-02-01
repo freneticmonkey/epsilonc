@@ -63,6 +63,8 @@ void initManagers()
 		.staticmethod("get_instance")
 
 		.def("stop_running", &RenderManager::StopRunning)
+    
+        .def("enable_ui", &RenderManager::EnableUI)
 	;
 	// Injecting the get instance result into the namespace
 	smGI = renderManager.attr("get_instance");
