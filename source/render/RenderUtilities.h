@@ -18,7 +18,8 @@ namespace epsilon
 		if (errorCheckValue != GL_NO_ERROR)
 		{
 			Log("Error " + operationName + ": " + std::to_string(errorCheckValue));
-			Log((const char *)gluErrorString(errorCheckValue));
+//			Log((const char *)gluErrorString(errorCheckValue));
+            Log((const char *)glewGetErrorString(errorCheckValue));
 			success = false;
 		}
 
