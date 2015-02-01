@@ -22,17 +22,70 @@
 
 using namespace epsilon;
 
-TEST(Script, ScriptManager)
+static bool initialised = false;
+
+ScriptManager * SetupSM()
 {
 	ResourceManager * rm = &ResourceManager::GetInstance();
-	rm->SetBasePath("../resources_unittest");
+	if (!initialised)
+	{
+		rm->SetBasePath("resources_unittest");
+		rm->BuildResourceInfo();
+	}
 
 	ScriptManager * sm = &ScriptManager::GetInstance();
-	sm->SetScriptsFolderPath("scripts/");
-	sm->SetCoreScript("core/unittest_main.py");
-	sm->Setup();
+	if (!initialised)
+	{
+		sm->SetScriptsFolderPath("scripts/");
+		sm->SetCoreScript("core/unittest_main.py");
+		sm->Setup();
+	}
+
+	initialised = true;
+
+	return sm;
+}
+
+TEST(Script, ScriptManagerInit)
+{
+	ScriptManager * sm = SetupSM();
+	EXPECT_TRUE(sm != nullptr);
+}
+
+TEST(Script, ScriptLoad)
+{
+	ScriptManager * sm = &ScriptManager::GetInstance();
 
 	ScriptBehaviour::Ptr behav = sm->CreateBehaviour("TestClass.py");
+	EXPECT_TRUE(behav != nullptr);
+}
+
+TEST(Script, ScriptStartCalled)
+{
+	ScriptManager * sm = &ScriptManager::GetInstance();
+	ScriptBehaviour::Ptr behav = sm->CreateBehaviour("TestStart.py");
+	EXPECT_TRUE(behav != nullptr);
+
+	// Tick the start function to trigger the initial start
+	sm->Update(0.1f);
+
+	// Check that start was called on the first update
+	EXPECT_EQ(true, behav->GetUnitTestResult());
+}
 
 
+TEST(Script, ScriptUpdateCalled)
+{
+	ScriptManager * sm = &ScriptManager::GetInstance();
+	ScriptBehaviour::Ptr behav = sm->CreateBehaviour("TestUpdate.py");
+	EXPECT_TRUE(behav != nullptr);
+
+	// Tick the start function to trigger the initial start
+	sm->Update(0.1f);
+
+	// And again to fire a call to update 
+	sm->Update(0.1f);
+
+	// Check that start was called on the first update
+	EXPECT_EQ(true, behav->GetUnitTestResult());
 }
