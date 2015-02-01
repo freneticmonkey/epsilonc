@@ -16,29 +16,30 @@ namespace epsilon
 	{
 		// Use immediate mode to draw lines for now.
 		// I wonder if this will work on OSX?
-		glBegin(GL_LINES);
 
-		std::for_each(operations[currentOperations].begin(), operations[currentOperations].end(), [&](GizmoOperation::Ptr op){
-			// Configure material
+		//glBegin(GL_LINES);
 
-			// Set Colour
-			
-			// X-axis
-			glColor3f(1.f, 0.f, 0.f);
-			glVertex3fv(&op->vector[0].x);
+		//std::for_each(operations[currentOperations].begin(), operations[currentOperations].end(), [&](GizmoOperation::Ptr op){
+		//	// Configure material
 
-			// Y-axis
-			glColor3f(0.f, 1.f, 0.f);
-			glVertex3fv(&op->vector[1].x);
+		//	// Set Colour
+		//	
+		//	// X-axis
+		//	glColor3f(1.f, 0.f, 0.f);
+		//	glVertex3fv(&op->vector[0].x);
 
-			// Z-axis
-			glColor3f(0.f, 0.f, 1.f);
-			glVertex3fv(&op->vector[2].x);
+		//	// Y-axis
+		//	glColor3f(0.f, 1.f, 0.f);
+		//	glVertex3fv(&op->vector[1].x);
 
-			op->MarkRendered();
+		//	// Z-axis
+		//	glColor3f(0.f, 0.f, 1.f);
+		//	glVertex3fv(&op->vector[2].x);
 
-		});
+		//	op->MarkRendered();
 
-		glEnd();
+		//});
+
+		//glEnd();
 	}
 }

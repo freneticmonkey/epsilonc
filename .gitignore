@@ -13,3 +13,8 @@ build/OSX/Debug/Epsilon.build/*
 build/OSX/Release/Epsilon.build/*
 build/int/*
 project/Debug/*.obj
+*.filters
+*.opensdf
+*.filters
+*.filters
+resources/imgui.ini
