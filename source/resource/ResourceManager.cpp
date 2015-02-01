@@ -40,6 +40,7 @@ namespace epsilon
 	void ResourceManager::BuildResourceInfo()
 	{
 		ParseDirectory(filesystem::path(resourcePath->GetBasePath()));
+		Log("ResourceManager", boost::str(format("Resource Map Built: Found: %d Resources") % resources.size()));
 	}
 
 	void ResourceManager::AddResourceOwner(ResourceOwnerInterface * owner)
