@@ -45,6 +45,7 @@
     <LibraryPath>C:\Dev\Resources\C++\gtest-1.7.0\msvc\gtest-md\$(Configuration);$(LibraryPath);$(SolutionDir)..\build\Win\$(Configuration)\lib\;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Python27\libs;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\unit\$(Configuration)\</IntDir>
+    <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -67,7 +68,8 @@
       <AdditionalDependencies>gtestd.lib;%(AdditionalDependencies);Epsilon.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>$(SolutionDir)..\build\Win\$(Configuration)\UnitTest.exe</Command>
+      <Command>run_unittests_$(Configuration).bat
+</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
