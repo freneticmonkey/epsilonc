@@ -297,21 +297,24 @@ namespace epsilon
 
 	void VertexData::Disable()
 	{
-        // Disable the OpenGL Buffers
-		for ( VertexBufferList::iterator buffer = buffers.begin(); buffer != buffers.end(); buffer++ )
-		{
-			(*buffer)->Disable();
-		}
+        if( bound )
+        {
+            // Disable the OpenGL Buffers
+            for ( VertexBufferList::iterator buffer = buffers.begin(); buffer != buffers.end(); buffer++ )
+            {
+                (*buffer)->Disable();
+            }
 
-		// Disable the Vertex Attributes
-		for ( VertexAttribList::iterator attrib = attributes.begin(); attrib != attributes.end(); attrib++ )
-		{
-			(*attrib)->Disable();
-		}
-        
-        // Disabling the VAO
-        glBindVertexArray(0);
-        CheckOpenGLError("Disabling VAO");
+            // Disable the Vertex Attributes
+            for ( VertexAttribList::iterator attrib = attributes.begin(); attrib != attributes.end(); attrib++ )
+            {
+                (*attrib)->Disable();
+            }
+            
+            // Disabling the VAO
+            glBindVertexArray(0);
+            CheckOpenGLError("Disabling VAO");
+        }
         
         bound = false;
 	}
