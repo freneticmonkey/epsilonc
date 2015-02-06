@@ -66,6 +66,7 @@ TEST(Script, ScriptStartCalled)
 	ScriptBehaviour::Ptr behav = sm->CreateBehaviour("TestStart.py");
 	EXPECT_TRUE(behav != nullptr);
 
+	sm->StartEngineCore();
 	// Tick the start function to trigger the initial start
 	sm->Update(0.1f);
 
@@ -79,6 +80,8 @@ TEST(Script, ScriptUpdateCalled)
 	ScriptManager * sm = &ScriptManager::GetInstance();
 	ScriptBehaviour::Ptr behav = sm->CreateBehaviour("TestUpdate.py");
 	EXPECT_TRUE(behav != nullptr);
+
+	sm->StartEngineCore();
 
 	// Tick the start function to trigger the initial start
 	sm->Update(0.1f);
