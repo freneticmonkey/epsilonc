@@ -1,9 +1,12 @@
 
 # Testing that the start function is called
 class TestStart(object):
+	def __init__(self):
+		self._start = False
 	
 	def on_start(self):
 		self._start = True
+		print "Start: " + str(self._start)
 		
 	def unittest_setup(self):
 		self._start = False
