@@ -7,7 +7,7 @@
 
 #include <vector>
 #include "math/Vector.h"
-#include "render/RenderManager.h"
+#include "render/BGFXRenderManager.h"
 
 namespace epsilon
 {
@@ -24,7 +24,7 @@ namespace epsilon
 			sf::Vector2i mp = sf::Mouse::getPosition();
 			mousePosLast = Vector2(mp.x, mp.y);
 
-			rm = &RenderManager::GetInstance();
+			rm = &BGFXRenderManager::GetInstance();
 		};
 		InputManager(InputManager const&);
 		void operator=(InputManager const&);
@@ -172,7 +172,7 @@ namespace epsilon
 		Vector2 mousePosLast;
 		Vector2 mousePosRelative;
 
-		RenderManager * rm;
+		BGFXRenderManager * rm;
 	};
 }
 

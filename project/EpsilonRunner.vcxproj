@@ -47,7 +47,7 @@
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\runner\$(Configuration)\</IntDir>
     <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\source;C:\Program Files (x86)\SFML\include;C:\Python27\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Dev\Resources\C++\tbb42_20131003oss\include;C:\Dev\Resources\C++\bullet-2.82-r2704\src;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)..\build\Win\$(Configuration)\lib\;C:\Python27\libs;C:\Program Files (x86)\SFML\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\bullet-2.82-r2704\lib;</LibraryPath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)..\build\Win\$(Configuration)\lib\;C:\Python27\libs;C:\Program Files (x86)\SFML\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\bullet-2.82-r2704\lib;$(DXSDK_DIR)\lib\x86</LibraryPath>
     <TargetName>$(SolutionName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -65,13 +65,17 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Epsilon.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;glew32.lib;opengl32.lib;glu32.lib;boost_python-vc120-mt-gd-1_55.lib;tbb_debug.lib;BulletCollision_vs2010_debug.lib;BulletDynamics_vs2010_debug.lib;LinearMath_vs2010_debug.lib;bgfxDebug.lib;Epsilon.lib;user32.lib;gdi32.lib;psapi.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)$(SolutionName)$(TargetExt)</OutputFile>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

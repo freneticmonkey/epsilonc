@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E187D581-A140-4929-ADCC-6822C8CD76F8}</ProjectGuid>
+    <RootNamespace>bgfx</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>bgfxDebug</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\lib\</OutDir>
+    <IntDir>$(SolutionDir)..\build\Win\int\bgfx\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>
+      </SDLCheck>
+      <AdditionalIncludeDirectories>..\source\external\bx\include\compat\msvc;..\source\external\bx\include;..\source\external\bgfx\3rdparty;..\source\external\bgfx\3rdparty\khronos;..\source\external\bgfx\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;BX_CONFIG_ENABLE_MSVC_LEVEL4_WARNINGS=1;__STDC_LIMIT_MACROS;__STDC_FORMAT_MACROS;__STDC_CONSTANT_MACROS;_WIN32;_HAS_EXCEPTIONS=0;_HAS_ITERATOR_DEBUGGING=1;_ITERATOR_DEBUG_LEVEL=2;_SCL_SECURE=0;_SECURE_SCL=1;_SCL_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;BGFX_CONFIG_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\source\external\bgfx\include\bgfx.c99.h" />
+    <ClInclude Include="..\source\external\bgfx\include\bgfx.h" />
+    <ClInclude Include="..\source\external\bgfx\include\bgfxdefines.h" />
+    <ClInclude Include="..\source\external\bgfx\include\bgfxplatform.c99.h" />
+    <ClInclude Include="..\source\external\bgfx\include\bgfxplatform.h" />
+    <ClInclude Include="..\source\external\bgfx\src\bgfx_p.h" />
+    <ClInclude Include="..\source\external\bgfx\src\charset.h" />
+    <ClInclude Include="..\source\external\bgfx\src\config.h" />
+    <ClInclude Include="..\source\external\bgfx\src\fs_clear0.bin.h" />
+    <ClInclude Include="..\source\external\bgfx\src\fs_clear1.bin.h" />
+    <ClInclude Include="..\source\external\bgfx\src\fs_clear2.bin.h" />
+    <ClInclude Include="..\source\external\bgfx\src\fs_clear3.bin.h" />
+    <ClInclude Include="..\source\external\bgfx\src\fs_clear4.bin.h" />
+    <ClInclude Include="..\source\external\bgfx\src\fs_clear5.bin.h" />
+    <ClInclude Include="..\source\external\bgfx\src\fs_clear6.bin.h" />
+    <ClInclude Include="..\source\external\bgfx\src\fs_clear7.bin.h" />
+    <ClInclude Include="..\source\external\bgfx\src\fs_debugfont.bin.h" />
+    <ClInclude Include="..\source\external\bgfx\src\glcontext_eagl.h" />
+    <ClInclude Include="..\source\external\bgfx\src\glcontext_egl.h" />
+    <ClInclude Include="..\source\external\bgfx\src\glcontext_glx.h" />
+    <ClInclude Include="..\source\external\bgfx\src\glcontext_nsgl.h" />
+    <ClInclude Include="..\source\external\bgfx\src\glcontext_ppapi.h" />
+    <ClInclude Include="..\source\external\bgfx\src\glcontext_wgl.h" />
+    <ClInclude Include="..\source\external\bgfx\src\glimports.h" />
+    <ClInclude Include="..\source\external\bgfx\src\image.h" />
+    <ClInclude Include="..\source\external\bgfx\src\ovr.h" />
+    <ClInclude Include="..\source\external\bgfx\src\renderdoc.h" />
+    <ClInclude Include="..\source\external\bgfx\src\renderer.h" />
+    <ClInclude Include="..\source\external\bgfx\src\renderer_d3d.h" />
+    <ClInclude Include="..\source\external\bgfx\src\renderer_d3d11.h" />
+    <ClInclude Include="..\source\external\bgfx\src\renderer_d3d9.h" />
+    <ClInclude Include="..\source\external\bgfx\src\renderer_gl.h" />
+    <ClInclude Include="..\source\external\bgfx\src\vertexdecl.h" />
+    <ClInclude Include="..\source\external\bgfx\src\vs_clear.bin.h" />
+    <ClInclude Include="..\source\external\bgfx\src\vs_debugfont.bin.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\source\external\bgfx\src\bgfx.cpp" />
+    <ClCompile Include="..\source\external\bgfx\src\glcontext_egl.cpp" />
+    <ClCompile Include="..\source\external\bgfx\src\glcontext_glx.cpp" />
+    <ClCompile Include="..\source\external\bgfx\src\glcontext_ppapi.cpp" />
+    <ClCompile Include="..\source\external\bgfx\src\glcontext_wgl.cpp" />
+    <ClCompile Include="..\source\external\bgfx\src\image.cpp" />
+    <ClCompile Include="..\source\external\bgfx\src\ovr.cpp" />
+    <ClCompile Include="..\source\external\bgfx\src\renderdoc.cpp" />
+    <ClCompile Include="..\source\external\bgfx\src\renderer_d3d11.cpp" />
+    <ClCompile Include="..\source\external\bgfx\src\renderer_d3d12.cpp" />
+    <ClCompile Include="..\source\external\bgfx\src\renderer_d3d9.cpp" />
+    <ClCompile Include="..\source\external\bgfx\src\renderer_gl.cpp" />
+    <ClCompile Include="..\source\external\bgfx\src\renderer_null.cpp" />
+    <ClCompile Include="..\source\external\bgfx\src\vertexdecl.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

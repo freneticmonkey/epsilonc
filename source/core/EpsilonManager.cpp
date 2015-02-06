@@ -41,7 +41,7 @@ namespace epsilon
         }
 		resourceManager->BuildResourceInfo();
 		
-		renderManager = &RenderManager::GetInstance();
+		renderManager = &BGFXRenderManager::GetInstance();
 		renderManager->Setup();
 
 		//eventManager = &EventManager::GetInstance();
@@ -51,6 +51,7 @@ namespace epsilon
 		scriptManager->SetCoreScript("core/main.py");
 		scriptManager->Setup();
 		
+		/*
 		shaderManager = &ShaderManager::GetInstance();
         shaderManager->Setup();
 
@@ -62,6 +63,7 @@ namespace epsilon
 
 		meshManager = &MeshManager::GetInstance();
 		meshManager->Setup();
+		*/
 
 		inputManager = &InputManager::GetInstance();
 
@@ -86,7 +88,7 @@ namespace epsilon
 	void EpsilonManager::OnFrameStart()
 	{
 		inputManager->OnFrameStart();
-		materialManager->OnFrameStart();
+		//materialManager->OnFrameStart();
 	}
 
 	void EpsilonManager::OnUpdate(float el)

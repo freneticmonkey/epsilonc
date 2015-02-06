@@ -1,5 +1,7 @@
 #include <boost/format.hpp>
 
+// bgfx
+#include <external/bgfx/include/bgfx.h>
 
 #include "render/RenderManager.h"
 #include "render/gizmos/GizmoCube.h"

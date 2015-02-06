@@ -7,7 +7,7 @@
 #include "audio/AudioManager.h"
 #include "core/InputManager.h"
 #include "events/EventManager.h"
-#include "render/RenderManager.h"
+#include "render/BGFXRenderManager.h"
 #include "render/material/ShaderManager.h"
 #include "render/material/MaterialManager.h"
 #include "render/mesh/MeshManager.h"
@@ -45,7 +45,7 @@ namespace epsilon
 		InputManager * inputManager;
 		AudioManager * audioManager;
 		ScriptManager * scriptManager;
-		RenderManager * renderManager;
+		BGFXRenderManager * renderManager;
         ShaderManager * shaderManager;
 		MaterialManager * materialManager;
 		MeshManager * meshManager;

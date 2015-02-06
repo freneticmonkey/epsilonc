@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(ProjectDir)..\source;C:\Dev\Resources\C++\gtest-1.7.0\include;C:\Dev\Resources\C++\boost_1_55_0;C:\Dev\Resources\C++\tbb42_20131003oss\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Python27\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Dev\Resources\C++\gtest-1.7.0\msvc\gtest-md\$(Configuration);$(LibraryPath);$(SolutionDir)..\build\Win\$(Configuration)\lib\;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Python27\libs;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0</LibraryPath>
+    <LibraryPath>C:\Dev\Resources\C++\gtest-1.7.0\msvc\gtest-md\$(Configuration);$(LibraryPath);$(SolutionDir)..\build\Win\$(Configuration)\lib\;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Python27\libs;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Program Files (x86)\SFML\lib;C:\Dev\Resources\C++\bullet-2.82-r2704\lib</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\unit\$(Configuration)\</IntDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
@@ -65,7 +65,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>gtestd.lib;%(AdditionalDependencies);Epsilon.lib</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main-d.lib;sfml-graphics-d.lib;sfml-system-d.lib;sfml-window-d.lib;sfml-audio-d.lib;glew32.lib;opengl32.lib;glu32.lib;boost_python-vc120-mt-gd-1_55.lib;tbb_debug.lib;BulletCollision_vs2010_debug.lib;BulletDynamics_vs2010_debug.lib;LinearMath_vs2010_debug.lib;bgfxDebug.lib;gtestd.lib;Epsilon.lib;user32.lib;gdi32.lib;psapi.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>run_unittests_$(Configuration).bat
