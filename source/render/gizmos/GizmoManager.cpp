@@ -58,12 +58,14 @@ namespace epsilon
 
 	void GizmoManager::SetColour(Colour newColour)
 	{
-		GizmoManager::GetInstance().gizmoColour = newColour;
+		// Disabled because GizmoManager is currently disabled
+		//GizmoManager::GetInstance().gizmoColour = newColour;
 	}
 
 	void GizmoManager::SetLife(float newLife)
 	{
-		GizmoManager::GetInstance().gizmoLife = newLife;
+		// Disabled because GizmoManager is currently disabled
+		//GizmoManager::GetInstance().gizmoLife = newLife;
 	}
 
 	void GizmoManager::DrawCube(Vector3 position, Vector3 size)
@@ -75,7 +77,8 @@ namespace epsilon
 		newCube->vector[0] = position;
 		newCube->vector[1] = size;
 
-		GizmoManager::GetInstance().gizmoCube->QueueOperation(newCube);
+		// Disabled because GizmoManager is currently disabled
+		//GizmoManager::GetInstance().gizmoCube->QueueOperation(newCube);
 	}
 
 	void GizmoManager::DrawSphere(Vector3 position, float radius)
@@ -87,7 +90,8 @@ namespace epsilon
 		newSphere->vector[0] = position;
 		newSphere->value[0] = radius;
 
-		GizmoManager::GetInstance().gizmoSphere->QueueOperation(newSphere);
+		// Disabled because GizmoManager is currently disabled
+		//GizmoManager::GetInstance().gizmoSphere->QueueOperation(newSphere);
 	}
 
 	void GizmoManager::DrawLine(Vector3 from, Vector3 to)
@@ -99,7 +103,8 @@ namespace epsilon
 		newLine->vector[0] = from;
 		newLine->vector[1] = to;
 
-		GizmoManager::GetInstance().gizmoLine->QueueOperation(newLine);
+		// Disabled because GizmoManager is currently disabled
+		//GizmoManager::GetInstance().gizmoLine->QueueOperation(newLine);
 	}
 
 	void GizmoManager::DrawAxisMatrix(Matrix4 mat)
@@ -113,7 +118,8 @@ namespace epsilon
 		newAxis->vector[2] = mat.GetRotation() * Vector3::UP;
 		newAxis->vector[3] = mat.GetRotation() * Vector3::FORWARD;
 
-		GizmoManager::GetInstance().gizmoAxis->QueueOperation(newAxis);
+		// Disabled because GizmoManager is currently disabled
+		//GizmoManager::GetInstance().gizmoAxis->QueueOperation(newAxis);
 	}
 
 	void GizmoManager::DrawAxisVectors(Vector3 pos, Vector3 right, Vector3 up, Vector3 forward)
@@ -126,7 +132,8 @@ namespace epsilon
 		newAxis->vector[2] = up;
 		newAxis->vector[3] = forward;
 
-		GizmoManager::GetInstance().gizmoAxis->QueueOperation(newAxis);
+		// Disabled because GizmoManager is currently disabled
+		//GizmoManager::GetInstance().gizmoAxis->QueueOperation(newAxis);
 	}
 
 }
