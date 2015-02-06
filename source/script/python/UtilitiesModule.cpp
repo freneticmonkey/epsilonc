@@ -20,6 +20,10 @@ void TriggerDebugBreak()
 		__debugbreak();
 	}
 #endif
+#ifdef __APPLE__
+	// trigger an XCode breakpoint
+	__asm__("int $3");
+#endif
 
 #endif
 }
