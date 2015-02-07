@@ -58,13 +58,13 @@ void initManagers()
 	smGI = scriptManager.attr("get_instance");
 	package.attr("ScriptManager") = smGI();
 
-	object renderManager = class_<RenderManager, boost::noncopyable>("RenderManager", no_init)
-		.def("get_instance", &RenderManager::GetInstance, return_value_policy<reference_existing_object>())
+	object renderManager = class_<BGFXRenderManager, boost::noncopyable>("RenderManager", no_init)
+		.def("get_instance", &BGFXRenderManager::GetInstance, return_value_policy<reference_existing_object>())
 		.staticmethod("get_instance")
 
-		.def("stop_running", &RenderManager::StopRunning)
+		.def("stop_running", &BGFXRenderManager::StopRunning)
     
-        .def("enable_ui", &RenderManager::EnableUI)
+		.def("enable_ui", &BGFXRenderManager::EnableUI)
 	;
 	// Injecting the get instance result into the namespace
 	smGI = renderManager.attr("get_instance");

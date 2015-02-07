@@ -2,6 +2,7 @@
 
 // bgfx
 #include <external/bgfx/include/bgfx.h>
+#include <external/bgfx/include/bgfxplatform.h>
 #include <external/bx/include/bx/uint32_t.h>
 
 #include "render/BGFXRenderManager.h"
@@ -47,8 +48,14 @@ namespace epsilon
 			, Style::Default
 			//, openglSettings
 			);
+#if BX_PLATFORM_WINDOWS
+		bgfx::winSetHwnd(window->getSystemHandle());
+#endif
 
-		bgfx::init();
+#if BX_PLATFORM_OSX
+		bgfx::osxSetNSWindow(window->getSystemHandle());
+#endif
+		bgfx::init(bgfx::RendererType::OpenGL);
 		bgfx::reset(resolution.x, resolution.y, BGFX_RESET_VSYNC);
 
 		bgfx::setDebug(BGFX_DEBUG_TEXT);
@@ -210,7 +217,7 @@ namespace epsilon
 		bgfx::frame();
 
 		// Display the frame
-		window->display();
+		//window->display();
 	}
 
 	void BGFXRenderManager::Destroy()

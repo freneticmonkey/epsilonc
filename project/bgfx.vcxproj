@@ -43,6 +43,7 @@
     <TargetExt>.lib</TargetExt>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\lib\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\bgfx\$(Configuration)\</IntDir>
+    <IncludePath>C:\Dev\Projects\C++\epsilonc\branches\bgfx-renderer\source\external\bx\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
