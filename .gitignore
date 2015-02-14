@@ -8,6 +8,7 @@
 *.lib
 *.exp
 doc/*
+lib/*
 build/Win/int/*
 build/OSX/Debug/Epsilon.build/*
 build/OSX/Release/Epsilon.build/*

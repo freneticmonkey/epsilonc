@@ -50,7 +50,12 @@
     <ClCompile Include="..\source\render\mesh\VertexBuffer.cpp" />
     <ClCompile Include="..\source\render\mesh\VertexData.cpp" />
     <ClCompile Include="..\source\render\Renderer.cpp" />
-    <ClCompile Include="..\source\render\RenderManager.cpp" />
+    <ClCompile Include="..\source\render\RenderManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\source\render\texture\Texture.cpp" />
     <ClCompile Include="..\source\render\texture\TextureData.cpp" />
     <ClCompile Include="..\source\render\texture\TextureLoaderBMP.cpp" />
@@ -142,7 +147,12 @@
     <ClInclude Include="..\source\render\mesh\VertexBuffer.h" />
     <ClInclude Include="..\source\render\mesh\VertexData.h" />
     <ClInclude Include="..\source\render\Renderer.h" />
-    <ClInclude Include="..\source\render\RenderManager.h" />
+    <ClInclude Include="..\source\render\RenderManager.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\source\render\RenderUtilities.h" />
     <ClInclude Include="..\source\render\texture\Texture.h" />
     <ClInclude Include="..\source\render\texture\TextureData.h" />
@@ -227,15 +237,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Dev\Resources\C++\SFML-2.2\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include;C:\Dev\Resources\C++\bullet-2.82-r2704\src;C:\Dev\Projects\C++\epsilonc\branches\bgfx-renderer\source\external\bx\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Dev\Resources\C++\SFML-2.2\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\bullet-2.82-r2704\lib;..\build\Win\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\lib\SFML\include;$(SolutionDir)..\lib\glew\include\;$(SolutionDir)..\lib\boost\;$(SolutionDir)..\lib\tbb\include;$(SolutionDir)..\lib\bullet\src;C:\Dev\Projects\C++\epsilonc\branches\bgfx-renderer\source\external\bx\include;$(IncludePath);C:\Python27\include</IncludePath>
+    <LibraryPath>$(SolutionDir)..\lib\SFML\lib;$(SolutionDir)..\lib\glew\lib\;$(SolutionDir)..\lib\boost\lib32-msvc-12.0;$(SolutionDir)..\lib\tbb\lib\ia32\vc11;$(SolutionDir)..\lib\bullet\lib;C:\Python27\libs;..\build\Win\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\lib\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\epsilon\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>C:\Dev\Resources\C++\SFML-2.2\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Python27\include;C:\Dev\Resources\C++\tbb42_20131003oss\include;C:\Dev\Resources\C++\bullet-2.82-r2704\src;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Dev\Resources\C++\SFML-2.2\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Python27\libs;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\bullet-2.82-r2704\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\lib\SFML\include;$(SolutionDir)..\lib\glew\include\;$(SolutionDir)..\lib\boost\;$(SolutionDir)..\lib\tbb\include;$(SolutionDir)..\lib\bullet\src;$(IncludePath);C:\Python27\include</IncludePath>
+    <LibraryPath>$(SolutionDir)..\lib\SFML\lib;$(SolutionDir)..\lib\glew\lib\;$(SolutionDir)..\lib\boost\lib32-msvc-12.0;$(SolutionDir)..\lib\tbb\lib\ia32\vc11;$(SolutionDir)..\lib\bullet\lib;C:\Python27\libs;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\lib\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\epsilon\$(Configuration)\</IntDir>
   </PropertyGroup>

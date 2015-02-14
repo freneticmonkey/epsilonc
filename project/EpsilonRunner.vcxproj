@@ -46,16 +46,16 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\runner\$(Configuration)\</IntDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\source;C:\Program Files (x86)\SFML\include;C:\Python27\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Dev\Resources\C++\tbb42_20131003oss\include;C:\Dev\Resources\C++\bullet-2.82-r2704\src;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)..\build\Win\$(Configuration)\lib\;C:\Python27\libs;C:\Program Files (x86)\SFML\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\bullet-2.82-r2704\lib;$(DXSDK_DIR)\lib\x86</LibraryPath>
+    <IncludePath>$(SolutionDir)..\source;$(SolutionDir)..\lib\SFML\include;$(SolutionDir)..\lib\glew\include\;$(SolutionDir)..\lib\boost_1_55_0;$(SolutionDir)..\lib\tbb\include;$(SolutionDir)..\lib\bullet\src;$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Python27\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\build\Win\$(Configuration)\lib\;$(SolutionDir)..\lib\SFML\lib;$(SolutionDir)..\lib\glew\lib\;$(SolutionDir)..\lib\boost\lib32-msvc-12.0;$(SolutionDir)..\lib\tbb\lib\ia32\vc11;$(SolutionDir)..\lib\bullet\lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)\lib\x86;C:\Python27\libs</LibraryPath>
     <TargetName>$(SolutionName)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\runner\$(Configuration)\</IntDir>
-    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)..\source;C:\Program Files (x86)\SFML\include;C:\Python27\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Dev\Resources\C++\boost_1_55_0;C:\Dev\Resources\C++\tbb42_20131003oss\include;C:\Dev\Resources\C++\bullet-2.82-r2704\src;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(SolutionDir)..\build\Win\$(Configuration)\lib\;C:\Python27\libs;C:\Program Files (x86)\SFML\lib;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\bullet-2.82-r2704\lib;</LibraryPath>
+    <IncludePath>$(SolutionDir)..\source;$(SolutionDir)..\lib\SFML\include;$(SolutionDir)..\lib\glew\include\;$(SolutionDir)..\lib\boost_1_55_0;$(SolutionDir)..\lib\tbb\include;$(SolutionDir)..\lib\bullet\src;$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Python27\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\build\Win\$(Configuration)\lib\;$(SolutionDir)..\lib\SFML\lib;$(SolutionDir)..\lib\glew\lib\;$(SolutionDir)..\lib\boost\lib32-msvc-12.0;$(SolutionDir)..\lib\tbb\lib\ia32\vc11;$(SolutionDir)..\lib\bullet\lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)\lib\x86;C:\Python27\libs</LibraryPath>
     <TargetName>$(SolutionName)</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

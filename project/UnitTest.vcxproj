@@ -41,16 +41,16 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\source;C:\Dev\Resources\C++\gtest-1.7.0\include;C:\Dev\Resources\C++\boost_1_55_0;C:\Dev\Resources\C++\tbb42_20131003oss\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Python27\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Dev\Resources\C++\gtest-1.7.0\msvc\gtest-md\$(Configuration);$(LibraryPath);$(SolutionDir)..\build\Win\$(Configuration)\lib\;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Python27\libs;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0;C:\Program Files (x86)\SFML\lib;C:\Dev\Resources\C++\bullet-2.82-r2704\lib</LibraryPath>
+    <IncludePath>$(SolutionDir)..\source;$(SolutionDir)..\lib\gtest-1.7.0\include;$(SolutionDir)..\lib\boost;$(SolutionDir)..\lib\tbb\include;$(SolutionDir)..\lib\glew\include\;C:\Python27\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\build\Win\$(Configuration)\lib\;$(SolutionDir)..\lib\gtest-1.7.0\msvc\gtest-md\$(Configuration);$(SolutionDir)..\lib\tbb\lib\ia32\vc11;$(SolutionDir)..\lib\glew\lib\;$(SolutionDir)..\lib\boost\lib32-msvc-12.0;$(SolutionDir)..\lib\SFML\lib;$(SolutionDir)..\lib\bullet\lib;$(LibraryPath);C:\Python27\libs</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\unit\$(Configuration)\</IntDir>
     <PostBuildEventUseInBuild>true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)..\source;C:\Dev\Resources\C++\gtest-1.7.0\include;C:\Dev\Resources\C++\boost_1_55_0;C:\Dev\Resources\C++\tbb42_20131003oss\include;C:\Dev\Resources\C++\glew-1.9.0\include\;C:\Python27\include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Dev\Resources\C++\gtest-1.7.0\msvc\gtest-md\$(Configuration);$(LibraryPath);$(SolutionDir)..\build\Win\$(Configuration)\lib\;C:\Dev\Resources\C++\tbb42_20131003oss\lib\ia32\vc11;C:\Dev\Resources\C++\glew-1.9.0\lib\;C:\Python27\libs;C:\Dev\Resources\C++\boost_1_55_0\lib32-msvc-12.0</LibraryPath>
+    <IncludePath>$(SolutionDir)..\source;$(SolutionDir)..\lib\gtest-1.7.0\include;$(SolutionDir)..\lib\boost;$(SolutionDir)..\lib\tbb\include;$(SolutionDir)..\lib\glew\include\;C:\Python27\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)..\build\Win\$(Configuration)\lib\;$(SolutionDir)..\lib\gtest-1.7.0\msvc\gtest-md\$(Configuration);$(SolutionDir)..\lib\tbb\lib\ia32\vc11;$(SolutionDir)..\lib\glew\lib\;$(SolutionDir)..\lib\boost\lib32-msvc-12.0;$(SolutionDir)..\lib\SFML\lib;$(SolutionDir)..\lib\bullet\lib;$(LibraryPath);C:\Python27\libs</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\unit\$(Configuration)\</IntDir>
   </PropertyGroup>
