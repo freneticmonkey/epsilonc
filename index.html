@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Epsilon by freneticmonkey</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Epsilon</h1>
+        <p>A basic C++ sandbox / prototyping engine</p>
+
+        <p class="view"><a href="https://github.com/freneticmonkey/epsilonc">View the Project on GitHub <small>freneticmonkey/epsilonc</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/freneticmonkey/epsilonc/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/freneticmonkey/epsilonc/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/freneticmonkey/epsilonc">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="epsilon" class="anchor" href="#epsilon" aria-hidden="true"><span class="octicon octicon-link"></span></a>epsilon</h1>
+
+<p>A basic C++ sandbox / prototyping engine.  The engine is developed in my spare time and as such updates are currently quite sporadic.  Development started when I began to run into performance limitations of the previous Python implementation of the engine.  I'm using this engine for proof of concept implementations for rapid game development features.</p>
+
+<h1>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h1>
+
+<ul>
+<li>OpenGL Renderer</li>
+<li>Cross Platform: Windows / MacOS</li>
+<li>Python scripting</li>
+<li>Bullet Physics</li>
+<li>Hotloading Resources</li>
+<li>Basic XML Scene format</li>
+</ul>
+
+<h1>
+<a id="platform-status" class="anchor" href="#platform-status" aria-hidden="true"><span class="octicon octicon-link"></span></a>Platform Status</h1>
+
+<ul>
+<li>Windows - OK</li>
+<li>MacOS - Unstable</li>
+</ul>
+
+<h3>
+<a id="component-based-engine" class="anchor" href="#component-based-engine" aria-hidden="true"><span class="octicon octicon-link"></span></a>Component Based Engine</h3>
+
+<p>I developed the engine with the Unity 3D architecture in mind.  Each scene contains nodes, which can be assigned various components for audio, physics, script etc.</p>
+
+<h3>
+<a id="scripting" class="anchor" href="#scripting" aria-hidden="true"><span class="octicon octicon-link"></span></a>Scripting</h3>
+
+<p>Where possible I've tried to expose the engines classes to Python and most engine components are able to be modified from script.</p>
+
+<h3>
+<a id="hotloading" class="anchor" href="#hotloading" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hotloading</h3>
+
+<p>Currently all engine resources can be modified in place without restarting the engine.  This includes:</p>
+
+<ul>
+<li>scripts</li>
+<li>shaders</li>
+<li>models</li>
+<li>textures</li>
+<li>audio</li>
+<li>scenes</li>
+</ul>
+
+<h1>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies</h1>
+
+<ul>
+<li>SFML</li>
+<li>Bullet Physics</li>
+<li>Intel Thread Building Blocks</li>
+<li>Boost ( Python, FileSystem, Format)</li>
+<li>Glew</li>
+</ul>
+
+<h1>
+<a id="todo" class="anchor" href="#todo" aria-hidden="true"><span class="octicon octicon-link"></span></a>TODO</h1>
+
+<h3>
+<a id="1012015" class="anchor" href="#1012015" aria-hidden="true"><span class="octicon octicon-link"></span></a>10/1/2015</h3>
+
+<ul>
+<li>Fix currently disabled UI (Done) - Replaced with IMGUI <a href="https://github.com/ocornut/imgui">https://github.com/ocornut/imgui</a> Wrapped By: (<a href="https://github.com/Mischa-Alff/imgui-backends">https://github.com/Mischa-Alff/imgui-backends</a>)</li>
+<li>Convert math classes to glm</li>
+<li>Shadow Rendering</li>
+<li>Package Management</li>
+<li>Documentation</li>
+<li>Unit Testing</li>
+<li>Job tree threading implementation</li>
+<li>Scene Editor</li>
+<li>Switch to cross platform build system</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/freneticmonkey">freneticmonkey</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
