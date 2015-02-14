@@ -46,7 +46,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\runner\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)..\source;$(SolutionDir)..\lib\SFML\include;$(SolutionDir)..\lib\glew\include\;$(SolutionDir)..\lib\boost_1_55_0;$(SolutionDir)..\lib\tbb\include;$(SolutionDir)..\lib\bullet\src;$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Python27\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\source;$(SolutionDir)..\lib\SFML\include;$(SolutionDir)..\lib\glew\include\;$(SolutionDir)..\lib\boost;$(SolutionDir)..\lib\tbb\include;$(SolutionDir)..\lib\bullet\src;$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Python27\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\build\Win\$(Configuration)\lib\;$(SolutionDir)..\lib\SFML\lib;$(SolutionDir)..\lib\glew\lib\;$(SolutionDir)..\lib\boost\lib32-msvc-12.0;$(SolutionDir)..\lib\tbb\lib\ia32\vc11;$(SolutionDir)..\lib\bullet\lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)\lib\x86;C:\Python27\libs</LibraryPath>
     <TargetName>$(SolutionName)</TargetName>
   </PropertyGroup>
@@ -54,7 +54,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\runner\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)..\source;$(SolutionDir)..\lib\SFML\include;$(SolutionDir)..\lib\glew\include\;$(SolutionDir)..\lib\boost_1_55_0;$(SolutionDir)..\lib\tbb\include;$(SolutionDir)..\lib\bullet\src;$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Python27\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\source;$(SolutionDir)..\lib\SFML\include;$(SolutionDir)..\lib\glew\include\;$(SolutionDir)..\lib\boost;$(SolutionDir)..\lib\tbb\include;$(SolutionDir)..\lib\bullet\src;$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\Python27\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)..\build\Win\$(Configuration)\lib\;$(SolutionDir)..\lib\SFML\lib;$(SolutionDir)..\lib\glew\lib\;$(SolutionDir)..\lib\boost\lib32-msvc-12.0;$(SolutionDir)..\lib\tbb\lib\ia32\vc11;$(SolutionDir)..\lib\bullet\lib;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)\lib\x86;C:\Python27\libs</LibraryPath>
     <TargetName>$(SolutionName)</TargetName>
   </PropertyGroup>

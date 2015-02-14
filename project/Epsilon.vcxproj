@@ -237,7 +237,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\lib\SFML\include;$(SolutionDir)..\lib\glew\include\;$(SolutionDir)..\lib\boost\;$(SolutionDir)..\lib\tbb\include;$(SolutionDir)..\lib\bullet\src;C:\Dev\Projects\C++\epsilonc\branches\bgfx-renderer\source\external\bx\include;$(IncludePath);C:\Python27\include</IncludePath>
+    <IncludePath>$(SolutionDir)..\lib\SFML\include;$(SolutionDir)..\lib\glew\include\;$(SolutionDir)..\lib\boost\;$(SolutionDir)..\lib\tbb\include;$(SolutionDir)..\lib\bullet\src;$(SolutionDir)..\lib\glm;$(SolutionDir)..\source\external\bx\include;$(IncludePath);C:\Python27\include</IncludePath>
     <LibraryPath>$(SolutionDir)..\lib\SFML\lib;$(SolutionDir)..\lib\glew\lib\;$(SolutionDir)..\lib\boost\lib32-msvc-12.0;$(SolutionDir)..\lib\tbb\lib\ia32\vc11;$(SolutionDir)..\lib\bullet\lib;C:\Python27\libs;..\build\Win\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\lib\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\epsilon\$(Configuration)\</IntDir>

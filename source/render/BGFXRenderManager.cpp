@@ -28,7 +28,7 @@ namespace epsilon
 
 	BGFXRenderManager::~BGFXRenderManager(void)
 	{
-		if (window) { delete window; }
+		// if (window != nullptr) {	delete window; }
 	}
 
 	void BGFXRenderManager::Setup(void)
@@ -55,7 +55,8 @@ namespace epsilon
 #if BX_PLATFORM_OSX
 		bgfx::osxSetNSWindow(window->getSystemHandle());
 #endif
-		bgfx::init(bgfx::RendererType::OpenGL);
+		//bgfx::init(bgfx::RendererType::OpenGL);
+		bgfx::init(bgfx::RendererType::Direct3D9);
 		bgfx::reset(resolution.x, resolution.y, BGFX_RESET_VSYNC);
 
 		bgfx::setDebug(BGFX_DEBUG_TEXT);
