@@ -41,8 +41,9 @@ Dependencies
 * Glew
 
 ### Installing Dependencies ###
-A bundle of headers and libraries can be downloaded here: https://www.dropbox.com/s/cdwqs653x7kbh00/lib.7z?dl=0
-A bundle of built DLL's can be downloaded here: https://www.dropbox.com/s/8oseryfpo8clk7i/build.7z?dl=0
+A bundle of headers and libraries can be downloaded from [here](https://www.dropbox.com/s/cdwqs653x7kbh00/lib.7z?dl=0). 
+
+A bundle of built DLL's can be downloaded from [here](https://www.dropbox.com/s/8oseryfpo8clk7i/build.7z?dl=0).
 
 To install extract both of these into epsilonc root.
 
