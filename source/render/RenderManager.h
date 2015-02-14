@@ -15,6 +15,8 @@
 #include "render/Light.h"
 #include "render/Camera.h"
 
+#define NUM_FPS_SAMPLES 64
+
 namespace epsilon
 {
 	class RenderManager
@@ -92,7 +94,6 @@ namespace epsilon
 
 		GizmoManager *		gizmoManager;
 
-		static const int	NUM_FPS_SAMPLES = 64;
 		float				fpsSamples[NUM_FPS_SAMPLES];
 		int					currFPSSample;
         

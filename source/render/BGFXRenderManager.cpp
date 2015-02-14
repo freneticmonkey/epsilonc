@@ -20,9 +20,9 @@ namespace epsilon
 		isRunning(true),
 		enableUI(true)
 	{
-		for (int i = 0; i < NUM_FPS_SAMPLES; i++)
+		for (float& i : fpsSamples)
 		{
-			fpsSamples[i] = 0.0f;
+			i = 0.f;
 		}
 	}
 
@@ -213,6 +213,7 @@ namespace epsilon
 			*/
 		bgfx::dbgTextPrintf(0, 1, 0x4f, "Epsilon running bgfx");
 		bgfx::dbgTextPrintf(0, 2, 0x6f, "Description: Initialization and debug text.");
+		bgfx::dbgTextPrintf(0, 3, 0x6f, "FPS: %f", GetFPS(el));
 
 		bgfx::frame();
 
