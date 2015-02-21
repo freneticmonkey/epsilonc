@@ -1,7 +1,7 @@
 #include "script/python/ManagerModule.h"
 #include "events/EventManager.h"
 #include "core/InputManager.h"
-#include "render/RenderManager.h"
+#include "render/BGFXRenderManager.h"
 #include "render/material/ShaderManager.h"
 #include "render/material/MaterialManager.h"
 #include "render/gizmos/GizmoManager.h"
@@ -58,13 +58,13 @@ void initManagers()
 	smGI = scriptManager.attr("get_instance");
 	package.attr("ScriptManager") = smGI();
 
-	object renderManager = class_<BGFXRenderManager, boost::noncopyable>("RenderManager", no_init)
-		.def("get_instance", &BGFXRenderManager::GetInstance, return_value_policy<reference_existing_object>())
+	object renderManager = class_<RenderManager, boost::noncopyable>("RenderManager", no_init)
+		.def("get_instance", &RenderManager::GetInstance, return_value_policy<reference_existing_object>())
 		.staticmethod("get_instance")
 
-		.def("stop_running", &BGFXRenderManager::StopRunning)
+		.def("stop_running", &RenderManager::StopRunning)
     
-		.def("enable_ui", &BGFXRenderManager::EnableUI)
+		.def("enable_ui", &RenderManager::EnableUI)
 	;
 	// Injecting the get instance result into the namespace
 	smGI = renderManager.attr("get_instance");

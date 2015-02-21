@@ -41,7 +41,7 @@ namespace epsilon
         }
 		resourceManager->BuildResourceInfo();
 		
-		renderManager = &BGFXRenderManager::GetInstance();
+		renderManager = &RenderManager::GetInstance();
 		renderManager->Setup();
 
 		//eventManager = &EventManager::GetInstance();

@@ -15,4 +15,6 @@
 #include "logging/Logging.h"
 
 // For Visual Studio 2013 / Python issues
-#define HAVE_ROUND
+#ifndef HAVE_ROUND
+	#define HAVE_ROUND
+#endif

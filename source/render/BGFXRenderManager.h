@@ -19,20 +19,20 @@
 
 namespace epsilon
 {
-	class BGFXRenderManager
+	class RenderManager
 	{
-		BGFXRenderManager(void);
+		RenderManager(void);
 	public:
 		typedef std::vector<Renderer::Ptr>	Renderers;
 		typedef std::vector<Light::Ptr>		Lights;
 		typedef std::vector<Camera::Ptr>		Cameras;
 
-		static BGFXRenderManager & GetInstance()
+		static RenderManager & GetInstance()
 		{
-			static BGFXRenderManager instance;
+			static RenderManager instance;
 			return instance;
 		}
-		~BGFXRenderManager(void);
+		~RenderManager(void);
 
 		void	Setup(void);
 		void	OnUpdate(float el);

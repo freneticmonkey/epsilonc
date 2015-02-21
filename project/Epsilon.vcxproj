@@ -51,8 +51,7 @@
     <ClCompile Include="..\source\render\mesh\VertexData.cpp" />
     <ClCompile Include="..\source\render\Renderer.cpp" />
     <ClCompile Include="..\source\render\RenderManager.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </ExcludedFromBuild>
     </ClCompile>
@@ -148,8 +147,7 @@
     <ClInclude Include="..\source\render\mesh\VertexData.h" />
     <ClInclude Include="..\source\render\Renderer.h" />
     <ClInclude Include="..\source\render\RenderManager.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </ExcludedFromBuild>
     </ClInclude>

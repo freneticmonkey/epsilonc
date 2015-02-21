@@ -45,7 +45,7 @@ namespace epsilon
 		InputManager * inputManager;
 		AudioManager * audioManager;
 		ScriptManager * scriptManager;
-		BGFXRenderManager * renderManager;
+		RenderManager * renderManager;
         ShaderManager * shaderManager;
 		MaterialManager * materialManager;
 		MeshManager * meshManager;

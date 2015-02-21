@@ -14,7 +14,7 @@ using namespace boost;
 
 namespace epsilon
 {
-	BGFXRenderManager::BGFXRenderManager(void) : currFPSSample(0),
+	RenderManager::RenderManager(void) : currFPSSample(0),
 		resolution(800, 600),
 		windowInFocus(true),
 		isRunning(true),
@@ -26,16 +26,16 @@ namespace epsilon
 		}
 	}
 
-	BGFXRenderManager::~BGFXRenderManager(void)
+	RenderManager::~RenderManager(void)
 	{
 		// if (window != nullptr) {	delete window; }
 	}
 
-	void BGFXRenderManager::Setup(void)
+	void RenderManager::Setup(void)
 	{
 		using namespace sf;
 
-		Log("Initialising BGFXRenderManager");
+		Log("Initialising RenderManager");
 
 		/*ContextSettings openglSettings;
 		openglSettings.depthBits = 16;
@@ -127,7 +127,7 @@ namespace epsilon
 		//meshManager = &MeshManager::GetInstance();
 	}
 
-	void BGFXRenderManager::OnUpdate(float el)
+	void RenderManager::OnUpdate(float el)
 	{
 		/*gizmoManager->OnUpdate(el);
 		if (enableUI)
@@ -136,7 +136,7 @@ namespace epsilon
 		}*/
 	}
 
-	void BGFXRenderManager::Draw(float el)
+	void RenderManager::Draw(float el)
 	{
 		// Make this window active
 		window->setActive(true);
@@ -222,7 +222,7 @@ namespace epsilon
 		//window->display();
 	}
 
-	void BGFXRenderManager::Destroy()
+	void RenderManager::Destroy()
 	{
 		//// Clear errors before drawing gizmos to be sure we get real errors
 		//glGetError();
@@ -247,34 +247,34 @@ namespace epsilon
 		}
 	}
 
-	bool BGFXRenderManager::WindowOpen(void)
+	bool RenderManager::WindowOpen(void)
 	{
 		return (window) ? window->isOpen() : false;
 	}
 
-	void BGFXRenderManager::StopRunning(void)
+	void RenderManager::StopRunning(void)
 	{
 		isRunning = false;
 	}
 
-	bool BGFXRenderManager::WindowInFocus(void)
+	bool RenderManager::WindowInFocus(void)
 	{
 		return windowInFocus;
 	}
 
-	void BGFXRenderManager::EnableUI(bool enabled)
+	void RenderManager::EnableUI(bool enabled)
 	{
 		enableUI = enabled;
 	}
 
-	bool BGFXRenderManager::PollEvent(sf::Event &event)
+	bool RenderManager::PollEvent(sf::Event &event)
 	{
 		// Grab an event off the queue
 		bool hasEvent = window->pollEvent(event);
 
 		if (hasEvent)
 		{
-			// Process the event internally via BGFXRenderManager and UIManager
+			// Process the event internally via RenderManager and UIManager
 			// before returning
 			switch (event.type)
 			{
@@ -309,17 +309,17 @@ namespace epsilon
 		return hasEvent;
 	}
 
-	void BGFXRenderManager::SetSceneManager(SceneManager * sm)
+	void RenderManager::SetSceneManager(SceneManager * sm)
 	{
 		sceneManager = sm;
 	}
 
-	UIManager * BGFXRenderManager::GetUIManager()
+	UIManager * RenderManager::GetUIManager()
 	{
 		return uiManager;
 	}
 
-	float BGFXRenderManager::GetFPS(float el)
+	float RenderManager::GetFPS(float el)
 	{
 		fpsSamples[currFPSSample % NUM_FPS_SAMPLES] = 1.0f / el;
 		currFPSSample++;
@@ -334,14 +334,14 @@ namespace epsilon
 		return fps;
 	}
 
-	Renderer::Ptr BGFXRenderManager::CreateRenderer()
+	Renderer::Ptr RenderManager::CreateRenderer()
 	{
 		Renderer::Ptr newRenderer = Renderer::Create();
 		renderers.push_back(newRenderer);
 		return newRenderer;
 	}
 
-	bool BGFXRenderManager::DestroyRenderer(Renderer::Ptr renderer)
+	bool RenderManager::DestroyRenderer(Renderer::Ptr renderer)
 	{
 		bool success = false;
 
@@ -360,14 +360,14 @@ namespace epsilon
 		return success;
 	}
 
-	Light::Ptr BGFXRenderManager::CreateLight(std::string name)
+	Light::Ptr RenderManager::CreateLight(std::string name)
 	{
 		Light::Ptr newLight = Light::Create(lights.size(), name);
 		lights.push_back(newLight);
 		return newLight;
 	}
 
-	bool BGFXRenderManager::DestroyLight(Light::Ptr light)
+	bool RenderManager::DestroyLight(Light::Ptr light)
 	{
 		bool success = false;
 
@@ -384,7 +384,7 @@ namespace epsilon
 		return success;
 	}
 
-	bool BGFXRenderManager::DestroyLight(std::string name)
+	bool RenderManager::DestroyLight(std::string name)
 	{
 		bool success = false;
 
@@ -401,14 +401,14 @@ namespace epsilon
 		return success;
 	}
 
-	Camera::Ptr BGFXRenderManager::CreateCamera(std::string name)
+	Camera::Ptr RenderManager::CreateCamera(std::string name)
 	{
 		Camera::Ptr newCamera = Camera::Create(name);
 		cameras.push_back(newCamera);
 		return newCamera;
 	}
 
-	void BGFXRenderManager::ProcessCameras()
+	void RenderManager::ProcessCameras()
 	{
 		std::for_each(cameras.begin(), cameras.end(), [](Camera::Ptr camera){
 			if (camera->IsActive())
@@ -418,7 +418,7 @@ namespace epsilon
 		});
 	}
 
-	void BGFXRenderManager::SetupLights()
+	void RenderManager::SetupLights()
 	{
 		// For each light, push info into the uniform buffer.
 		if (numLights)
@@ -440,7 +440,7 @@ namespace epsilon
 		}
 	}
 
-	void BGFXRenderManager::TeardownLights()
+	void RenderManager::TeardownLights()
 	{
 		std::for_each(lights.begin(), lights.end(), [](Light::Ptr light){
 			light->PostRender();

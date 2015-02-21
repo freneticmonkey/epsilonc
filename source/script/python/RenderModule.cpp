@@ -7,7 +7,7 @@
 #include "math/Vector.h"
 #include "scene/NodeComponent.h"
 
-#include "render/RenderManager.h"
+#include "render/BGFXRenderManager.h"
 
 #include "render/Camera.h"
 #include "render/Colour.h"

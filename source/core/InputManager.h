@@ -24,7 +24,7 @@ namespace epsilon
 			sf::Vector2i mp = sf::Mouse::getPosition();
 			mousePosLast = Vector2(mp.x, mp.y);
 
-			rm = &BGFXRenderManager::GetInstance();
+			rm = &RenderManager::GetInstance();
 		};
 		InputManager(InputManager const&);
 		void operator=(InputManager const&);
@@ -172,7 +172,7 @@ namespace epsilon
 		Vector2 mousePosLast;
 		Vector2 mousePosRelative;
 
-		BGFXRenderManager * rm;
+		RenderManager * rm;
 	};
 }
 

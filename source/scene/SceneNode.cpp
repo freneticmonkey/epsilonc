@@ -8,7 +8,7 @@
 #include "scene/SceneNode.h"
 #include "resource/ResourceManager.h"
 #include "script/ScriptManager.h"
-#include "render/RenderManager.h"
+#include "render/BGFXRenderManager.h"
 #include "physics/PhysicsManager.h"
 #include "audio/AudioManager.h"
 

@@ -107,12 +107,6 @@
     <ClCompile Include="..\source\scene\Transform.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\ui\ConsoleWindow.cpp">
-      <Filter>Source Files\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\ui\DebugWindow.cpp">
-      <Filter>Source Files\ui</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\ui\UIManager.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
@@ -160,12 +154,6 @@
     </ClCompile>
     <ClCompile Include="..\source\script\python\UIModule.cpp">
       <Filter>Source Files\script\python</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\ui\Graph.cpp">
-      <Filter>Source Files\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="..\source\ui\DebugStatsOverlay.cpp">
-      <Filter>Source Files\ui</Filter>
     </ClCompile>
     <ClCompile Include="..\source\render\gizmos\GizmoManager.cpp">
       <Filter>Source Files\render\gizmos</Filter>
@@ -287,6 +275,18 @@
     <ClCompile Include="..\source\script\python\ToolsModule.cpp">
       <Filter>Source Files\script\python</Filter>
     </ClCompile>
+    <ClCompile Include="..\source\external\imgui\imgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\render\BGFXRenderManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\resource\ResourcePath.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\ui\RenderStatsWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\source\EpsilonCore.h">
@@ -397,12 +397,6 @@
     <ClInclude Include="..\source\script\python\UtilitiesModule.h">
       <Filter>Source Files\script\python</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\ui\ConsoleWindow.h">
-      <Filter>Source Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\ui\DebugWindow.h">
-      <Filter>Source Files\ui</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\ui\UIManager.h">
       <Filter>Source Files\ui</Filter>
     </ClInclude>
@@ -421,13 +415,7 @@
     <ClInclude Include="..\source\script\python\UIModule.h">
       <Filter>Source Files\script\python</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\ui\Graph.h">
-      <Filter>Source Files\ui</Filter>
-    </ClInclude>
     <ClInclude Include="..\source\ui\UIOverlay.h">
-      <Filter>Source Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\source\ui\DebugStatsOverlay.h">
       <Filter>Source Files\ui</Filter>
     </ClInclude>
     <ClInclude Include="..\source\render\gizmos\GizmoManager.h">
@@ -598,5 +586,15 @@
     <ClInclude Include="..\source\utilities\BaseManager.h">
       <Filter>Source Files\utilities</Filter>
     </ClInclude>
+    <ClInclude Include="..\source\external\imgui-backends\SFML\imconfig-SFML.h" />
+    <ClInclude Include="..\source\external\imgui-backends\SFML\imgui-SFML.h" />
+    <ClInclude Include="..\source\external\imgui-backends\SFML\stb_image.h" />
+    <ClInclude Include="..\source\external\imgui\imconfig.h" />
+    <ClInclude Include="..\source\external\imgui\imgui.h" />
+    <ClInclude Include="..\source\external\imgui\stb_textedit.h" />
+    <ClInclude Include="..\source\render\BGFXRenderManager.h" />
+    <ClInclude Include="..\source\resource\ResourcePath.h" />
+    <ClInclude Include="..\source\scene\SceneEvents.h" />
+    <ClInclude Include="..\source\ui\RenderStatsWindow.h" />
   </ItemGroup>
 </Project>
