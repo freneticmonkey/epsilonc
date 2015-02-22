@@ -60,6 +60,7 @@ TEST(Script, ScriptLoad)
 	EXPECT_TRUE(behav != nullptr);
 }
 
+/*
 TEST(Script, ScriptStartCalled)
 {
 	ScriptManager * sm = &ScriptManager::GetInstance();
@@ -89,3 +90,4 @@ TEST(Script, ScriptUpdateCalled)
 	// Check that start was called on the first update
 	EXPECT_EQ(true, behav->GetUnitTestResult());
 }
+*/
