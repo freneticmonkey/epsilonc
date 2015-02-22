@@ -52,8 +52,7 @@
     <ClCompile Include="..\source\render\Renderer.cpp" />
     <ClCompile Include="..\source\render\RenderManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\source\render\texture\Texture.cpp" />
     <ClCompile Include="..\source\render\texture\TextureData.cpp" />
@@ -148,8 +147,7 @@
     <ClInclude Include="..\source\render\Renderer.h" />
     <ClInclude Include="..\source\render\RenderManager.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\source\render\RenderUtilities.h" />
     <ClInclude Include="..\source\render\texture\Texture.h" />
@@ -242,8 +240,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)..\lib\SFML\include;$(SolutionDir)..\lib\glew\include\;$(SolutionDir)..\lib\boost\;$(SolutionDir)..\lib\tbb\include;$(SolutionDir)..\lib\bullet\src;$(IncludePath);C:\Python27\include</IncludePath>
-    <LibraryPath>$(SolutionDir)..\lib\SFML\lib;$(SolutionDir)..\lib\glew\lib\;$(SolutionDir)..\lib\boost\lib32-msvc-12.0;$(SolutionDir)..\lib\tbb\lib\ia32\vc11;$(SolutionDir)..\lib\bullet\lib;C:\Python27\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)..\lib\SFML\include;$(SolutionDir)..\lib\glew\include\;$(SolutionDir)..\lib\boost\;$(SolutionDir)..\lib\tbb\include;$(SolutionDir)..\lib\bullet\src;$(SolutionDir)..\lib\glm;$(SolutionDir)..\source\external\bx\include;$(IncludePath);C:\Python27\include</IncludePath>
+    <LibraryPath>$(SolutionDir)..\lib\SFML\lib;$(SolutionDir)..\lib\glew\lib\;$(SolutionDir)..\lib\boost\lib32-msvc-12.0;$(SolutionDir)..\lib\tbb\lib\ia32\vc11;$(SolutionDir)..\lib\bullet\lib;C:\Python27\libs;;..\build\Win\$(Configuration)\lib;$(LibraryPath)</LibraryPath>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\lib\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\epsilon\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -253,7 +251,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\source;C:\Dev\Resources\C++\glm-0.9.5.3\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\source;$(SolutionDir)..\lib\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
@@ -280,7 +278,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions);NOMINMAX</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\source;C:\Dev\Resources\C++\glm-0.9.5.3\glm;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\source;$(SolutionDir)..\lib\glm;</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -288,7 +286,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-main.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfml-audio.lib;sfgui.lib;glew32.lib;opengl32.lib;glu32.lib;tbb.lib;BulletCollision_vs2010.lib;BulletDynamics_vs2010.lib;LinearMath_vs2010.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfml-audio.lib;glew32.lib;opengl32.lib;glu32.lib;tbb.lib;BulletCollision_vs2010.lib;BulletDynamics_vs2010.lib;LinearMath_vs2010.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>

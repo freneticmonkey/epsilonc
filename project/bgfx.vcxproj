@@ -22,7 +22,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -43,7 +43,12 @@
     <TargetExt>.lib</TargetExt>
     <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\lib\</OutDir>
     <IntDir>$(SolutionDir)..\build\Win\int\bgfx\$(Configuration)\</IntDir>
-    <IncludePath>C:\Dev\Projects\C++\epsilonc\branches\bgfx-renderer\source\external\bx\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)..\source\external\bgfx\include;$(SolutionDir)..\source\external\bx\include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(SolutionDir)..\source\external\bgfx\include;$(SolutionDir)..\source\external\bx\include;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)..\build\Win\$(Configuration)\lib\</OutDir>
+    <IntDir>$(SolutionDir)..\build\Win\int\bgfx\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -67,6 +72,8 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\source\external\bx\include\compat\msvc;..\source\external\bx\include;..\source\external\bgfx\3rdparty;..\source\external\bgfx\3rdparty\khronos;..\source\external\bgfx\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

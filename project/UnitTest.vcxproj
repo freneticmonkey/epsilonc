@@ -87,10 +87,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>gtest.lib;%(AdditionalDependencies);Epsilon.lib</AdditionalDependencies>
+      <AdditionalDependencies>sfml-main.lib;sfml-graphics.lib;sfml-system.lib;sfml-window.lib;sfml-audio.lib;glew32.lib;opengl32.lib;glu32.lib;boost_python-vc120-mt-1_55.lib;tbb_debug.lib;BulletCollision_vs2010.lib;BulletDynamics_vs2010.lib;LinearMath_vs2010.lib;bgfx.lib;gtest.lib;Epsilon.lib;user32.lib;gdi32.lib;psapi.lib</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>$(SolutionDir)..\build\Win\$(Configuration)\UnitTest.exe</Command>
+      <Command>run_unittests_$(Configuration).bat</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

@@ -66,6 +66,24 @@
     <Filter Include="Source Files\audio">
       <UniqueIdentifier>{592d7fe5-a63f-4774-b960-116e3e6f2935}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\external">
+      <UniqueIdentifier>{b3642a48-ec00-4b78-b852-21c4169ec2a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\external\bgfx">
+      <UniqueIdentifier>{f5b8ce49-e8ac-424a-95c5-c5c432a628e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\external\imgui">
+      <UniqueIdentifier>{601c23c9-c127-444a-9fdd-99a21abc2e6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\external\imgui-backends">
+      <UniqueIdentifier>{a6db718d-242b-4714-9e5a-4cd51158d551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\external\imgui-backends\SFML">
+      <UniqueIdentifier>{78855941-6298-433b-b647-6e4269ca9db6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\external\bx">
+      <UniqueIdentifier>{cf6c0ab3-afa6-4b02-b571-2c32c04df0cc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\source\core\EpsilonManager.cpp">
@@ -275,17 +293,17 @@
     <ClCompile Include="..\source\script\python\ToolsModule.cpp">
       <Filter>Source Files\script\python</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\external\imgui\imgui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\source\render\BGFXRenderManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\render</Filter>
     </ClCompile>
-    <ClCompile Include="..\source\resource\ResourcePath.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\source\external\imgui\imgui.cpp">
+      <Filter>Source Files\external\imgui</Filter>
     </ClCompile>
     <ClCompile Include="..\source\ui\RenderStatsWindow.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\resource\ResourcePath.cpp">
+      <Filter>Source Files\resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -586,15 +604,35 @@
     <ClInclude Include="..\source\utilities\BaseManager.h">
       <Filter>Source Files\utilities</Filter>
     </ClInclude>
-    <ClInclude Include="..\source\external\imgui-backends\SFML\imconfig-SFML.h" />
-    <ClInclude Include="..\source\external\imgui-backends\SFML\imgui-SFML.h" />
-    <ClInclude Include="..\source\external\imgui-backends\SFML\stb_image.h" />
-    <ClInclude Include="..\source\external\imgui\imconfig.h" />
-    <ClInclude Include="..\source\external\imgui\imgui.h" />
-    <ClInclude Include="..\source\external\imgui\stb_textedit.h" />
-    <ClInclude Include="..\source\render\BGFXRenderManager.h" />
-    <ClInclude Include="..\source\resource\ResourcePath.h" />
-    <ClInclude Include="..\source\scene\SceneEvents.h" />
-    <ClInclude Include="..\source\ui\RenderStatsWindow.h" />
+    <ClInclude Include="..\source\render\BGFXRenderManager.h">
+      <Filter>Source Files\render</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\external\imgui\imgui.h">
+      <Filter>Source Files\external\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\external\imgui\imconfig.h">
+      <Filter>Source Files\external\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\resource\ResourcePath.h">
+      <Filter>Source Files\resource</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\ui\RenderStatsWindow.h">
+      <Filter>Source Files\ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\scene\SceneEvents.h">
+      <Filter>Source Files\script</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\external\imgui-backends\SFML\imconfig-SFML.h">
+      <Filter>Source Files\external\imgui-backends\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\external\imgui-backends\SFML\imgui-SFML.h">
+      <Filter>Source Files\external\imgui-backends\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\external\imgui-backends\SFML\stb_image.h">
+      <Filter>Source Files\external\imgui-backends\SFML</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\external\imgui\stb_textedit.h">
+      <Filter>Source Files\external\imgui</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
